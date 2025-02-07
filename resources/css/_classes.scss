@@ -1,0 +1,27 @@
+@import 'mixins';
+
+h1{
+    @include h1;
+}
+
+h2{
+    @include h2;
+}
+
+h3{
+    @include h3;
+}
+
+span,.text{
+    @include span;
+}
+
+p{
+    @include p;
+
+}
+
+input, .input-text{
+    @include input;
+
+}

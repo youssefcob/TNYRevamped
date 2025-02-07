@@ -1,8 +1,10 @@
-// @tailwind base;
-// @tailwind components;
-// @tailwind utilities;
+@import 'classes';
 
 
-h1{
-    color:red;
+
+*{
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }

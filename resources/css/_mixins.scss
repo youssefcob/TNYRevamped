@@ -1,0 +1,114 @@
+@import 'variables';
+
+@mixin media-min($breakpoint) {
+    $size: map-get($breakpoints, $breakpoint);
+
+    @if $size {
+        @media (min-width: $size) {
+            @content;
+        }
+    }
+
+    @else {
+        @warn "No value found for breakpoint: #{$breakpoint}";
+    }
+}
+
+@mixin media-max($breakpoint) {
+    $size: map-get($breakpoints, $breakpoint);
+
+    @if $size {
+        @media (max-width: #{ $size - 1 }) {
+            @content;
+        }
+    }
+
+    @else {
+        @warn "No value found for breakpoint: #{$breakpoint}";
+    }
+}
+
+
+
+
+// to calulate the font size based on the viewport width
+// 1920 / desktop-size = 100 / vw
+// 1920vw = 100 * desktop-size
+// vw = (100 * desktop)/1920
+
+@function vw($size) {
+    @return ((100*$size)/1440) * 1vw;
+}
+
+// to calculate the max font size
+// size/1920 = max-size/3840
+// max-size = (size * 3840)/1920
+// max-size = 2 * size
+@function max-size($size) {
+    @return (size * 3840)/1440;
+}
+
+//to calculate the min font size
+// size/375 = min-size/320
+// min-size = (size * 320)/375
+@function min-size($size) {
+    @return (size * 320)/375;
+}
+
+
+@mixin font($size-desktop, $size-mobile) {
+    font-size:clamp(#{min-size($size-mobile)}px, #{vw($size-desktop)}, #{max-size($size-desktop)}px);
+}
+
+@mixin h1 {
+    @include font(40, 24);
+    font-weight: $semiBold;
+}
+
+@mixin h2 {
+    @include font(36, 22);
+    font-weight: $semiBold;
+}
+
+@mixin h3 {
+    @include font(30, 18);
+    font-weight: $medium;
+}
+
+@mixin span {
+    @include font(24, 16);
+    font-weight: $medium;
+}
+
+@mixin p {
+    @include font(22, 14);
+    font-weight: $regular;
+
+}
+
+@mixin input {
+    @include font(14, 10);
+    font-weight: $regular;
+
+}
+
+//padding on 1440px is 80px
+// 1440/80 = 100/x
+// 1440x = 8000
+// x = 8000/1440
+// x = 5.5vw
+
+
+@mixin pagePadding{
+    padding: clamp(#{min-size($paddingMobile-tb)}px, #{vw($paddingDesktop-tb)}, #{max-size($paddingDesktop-tb)}px) clamp(#{min-size($paddingMobile-lr)}px, #{vw($paddingDesktop-lr)}, #{max-size($paddingDesktop-lr)}px)
+}
+
+@mixin pagePaddingTB{
+    padding-top: clamp(#{min-size($paddingMobile-tb)}px, #{vw($paddingDesktop-tb)}, #{max-size($paddingDesktop-tb)}px);
+    padding-bottom: clamp(#{min-size($paddingMobile-tb)}px, #{vw($paddingDesktop-tb)}, #{max-size($paddingDesktop-tb)}px);
+}
+
+@mixin pagePaddingLR{
+    padding-left: clamp(#{min-size($paddingMobile-lr)}px, #{vw($paddingDesktop-lr)}, #{max-size($paddingDesktop-lr)}px);
+    padding-right: clamp(#{min-size($paddingMobile-lr)}px, #{vw($paddingDesktop-lr)}, #{max-size($paddingDesktop-lr)}px);
+}
