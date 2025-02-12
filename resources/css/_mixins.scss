@@ -45,14 +45,14 @@
 // max-size = (size * 3840)/1920
 // max-size = 2 * size
 @function max-size($size) {
-    @return (size * 3840)/1440;
+    @return ($size * 3840)/1440;
 }
 
 //to calculate the min font size
 // size/375 = min-size/320
 // min-size = (size * 320)/375
 @function min-size($size) {
-    @return (size * 320)/375;
+    @return ($size * 320)/375;
 }
 
 
