@@ -38,7 +38,7 @@ class AuthService
             return [
                 'success' => true,
                 'token' => $token,
-                'user' => $admin,
+                'data' => $admin,
             ];
         } catch (\Illuminate\Validation\ValidationException $e) {
             return [
