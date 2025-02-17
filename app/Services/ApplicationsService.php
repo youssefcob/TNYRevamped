@@ -8,9 +8,10 @@ class ApplicationsService
 {
     // Your service logic goes here
     /**
-     * Retrieves all applications from the database.
+     * Retrieves all applications from the database or a specific application.
      *
      * @param \Illuminate\Http\Request $request Contains 'page' and 'per_page' parameters.
+     * @param int $id The id of the application to retrieve.
      * @return array Applications data, pagination information, or error messages.
      * @throws \Exception
      */
@@ -26,7 +27,7 @@ class ApplicationsService
         } catch (\Exception $e) {
             return [
                 'success' => false,
-                'error' => $e->getMessage()
+                'message' => $e->getMessage()
             ];
         }
     }
@@ -67,7 +68,7 @@ class ApplicationsService
         } catch (\Exception $e) {
             return [
                 'success' => false,
-                'error' => $e->getMessage()
+                'message' => $e->getMessage()
             ];
         }
     }
@@ -104,7 +105,7 @@ class ApplicationsService
         } catch (\Exception $e) {
             return [
                 'success' => false,
-                'error' => $e->getMessage()
+                'message' => $e->getMessage()
             ];
         }
     }
