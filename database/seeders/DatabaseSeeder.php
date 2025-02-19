@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\Application;
+use App\Models\Message;
 use App\Models\Position;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
@@ -18,6 +19,7 @@ class DatabaseSeeder extends Seeder
 
         Position::factory(10)->create();
         Application::factory(10)->create();
+        Message::factory(10)->create();
         $this->call(AdminsTableSeeder::class);
         // User::factory(10)->create();
         // User::factory()->create([
