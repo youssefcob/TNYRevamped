@@ -1,12 +1,11 @@
 <?php
 
+use App\Http\Controllers\Views\HomeController;
 use Illuminate\Support\Facades\Route;
 
 use Inertia\Inertia;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome');
-});
+Route::get('/', [HomeController::class, 'view']);
 
 Route::get('/about', function () {
     return Inertia::render('About');
