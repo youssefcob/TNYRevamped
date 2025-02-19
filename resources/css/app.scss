@@ -1,4 +1,5 @@
 @import 'classes';
+@import 'variables';
 
 
 
@@ -12,3 +13,9 @@
 html{
     font-size: clamp(12px, 1vw, 20px);
 }
+
+@mixin blue{
+    background-color: $blue;
+}
+
+

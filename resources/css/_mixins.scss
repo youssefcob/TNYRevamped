@@ -1,5 +1,22 @@
 @import 'variables';
 
+
+$breakpoints: (phone: 640px, 
+               tablet: 769px, 
+               desktop: 1024px) !default;
+
+
+//font-weights
+$regular: 400;
+$medium: 500;
+$semiBold:600;
+
+//padding
+$paddingDesktop-tb:80px;
+$paddingDesktop-lr:80px;
+$paddingMobile-tb:40px;
+$paddingMobile-lr:24px;
+
 @mixin media-min($breakpoint) {
     $size: map-get($breakpoints, $breakpoint);
 
