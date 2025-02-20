@@ -1,9 +1,11 @@
 import './bootstrap';
-import '../css/app.scss';
+// import '../css/app.scss';
  
 import { createApp, h, DefineComponent } from 'vue';  
 import { createInertiaApp } from '@inertiajs/vue3';  
-import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';  
+import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
+
+import router from './router'
 
 // import { ZiggyVue } from 'ziggy';  
 // const ZiggyVue = require("ziggy"); //works
@@ -13,12 +15,11 @@ const appName = window.document.getElementsByTagName('title')[0]?.innerText || '
   
 createInertiaApp({  
     title: (title) => `${title} - ${appName}`,  
-// @ts-expect-error
     resolve: (name) => resolvePageComponent(`./Pages/${name}.vue`, import.meta.glob<DefineComponent>('./Pages/**/*.vue')),  
     setup({ el, App, props, plugin }) {  
         createApp({ render: () => h(App, props) })  
             .use(plugin)  
-            // .use(ZiggyVue, Ziggy)  
+            .use(router)  
             .mount(el);  
     },    progress: {  
         color: '#4B5563',  

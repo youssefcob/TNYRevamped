@@ -1,5 +1,6 @@
 <template>
     <div>
+        <Navbar/>
         <h1>Welcome to Laravel 11 with Inertia.js and Vue.js</h1>
 
         {{message}}
@@ -10,6 +11,7 @@
 
 <script setup>
 import { Link } from '@inertiajs/vue3';
+import Navbar from '@/Components/NavBar/Navbar.vue';
 
 const props = defineProps({
     message: {

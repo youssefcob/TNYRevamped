@@ -25,3 +25,17 @@ input, .input-text{
     @include input;
 
 }
+.btn{
+    @extend .input-text;
+    font-weight: $regular;
+    padding: 1.1rem 2rem;
+    border-radius: 15px;
+    background-color: $blue;
+    color: $white;
+    border: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    &:hover{
+        background-color: $navy;
+    }
+}
