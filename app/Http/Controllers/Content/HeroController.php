@@ -20,4 +20,12 @@ class HeroController extends Controller
             return $this->sendError($response);
         return $this->sendResponse($response);
     }
+
+    public function delete($id)
+    {
+        $response = $this->hero->delete($id);
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
 }
