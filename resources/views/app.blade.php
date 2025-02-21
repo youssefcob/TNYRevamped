@@ -12,7 +12,7 @@
 
 </head>
 
-<body class="antialiased">
+<body class="antialiased" style="margin:0;padding:0;">
     @inertia
 </body>
 

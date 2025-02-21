@@ -23,6 +23,10 @@ import NavListResponsive from './NavListResponsive.vue';
 nav {
     width: 100%;
     // gap:3rem;
+    position: fixed;
+    background-color: white;
+    border-bottom: 2px solid $blue;
+    z-index: 4;
     display: flex;
     align-items: center;
     justify-content: space-between;

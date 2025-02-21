@@ -9,7 +9,7 @@ let carouselItemsNo = ref(0);
 
 
 const props = defineProps({
-    NoIndicator: Boolean,
+    indicator: Boolean,
     NoButtons: Boolean,
     behavior: String,
     numberOfItems: {
@@ -97,8 +97,9 @@ onMounted(() => {
     if (wheel.value) {
         wheel.value.addEventListener('scroll', updateCurrentIndexBasedOnScroll);
     }
-    carouselItemsNo.value = wheel.value?.childElementCount || 0;
     nextTick(() => {
+    carouselItemsNo.value = wheel.value?.childElementCount || 0;
+
         defineStyle();
     });
 });
@@ -111,7 +112,7 @@ onMounted(() => {
                 <slot></slot>
             </div>
         </div>
-        <div class="indicator-container" v-if="!NoIndicator">
+        <div class="indicator-container" v-if="indicator">
             <div class="indicator" v-for="i in carouselItemsNo" :key="i" :class="{ active: i - 1 === currentIndex }">
             </div>
 
@@ -126,24 +127,31 @@ onMounted(() => {
 .carousel-wrapper {
     display: flex;
     flex-direction: column;
+    position: relative;
 
     .indicator-container {
+        // width:10rem;
+        // height:5rem;
+        // background-color: yellow;
+        position: absolute;
+        bottom: 7%;
         align-self: center;
         display: flex;
         justify-content: center;
         gap: 0.5rem;
         margin-top: 1rem;
+        
 
         .indicator {
-            width: 0.5rem;
-            height: 0.5rem;
+            width: 0.6rem;
+            height: 0.6rem;
             margin-top: 0.5rem;
             border-radius: 50%;
-            background-color: $darkgrey;
+            border:1px solid $navy;
             transition: background-color 0.3s ease-in-out;
 
             &.active {
-                background-color: $blue;
+                background-color: $navy;
             }
         }
     }
@@ -162,14 +170,14 @@ onMounted(() => {
             overflow-x: auto;
             justify-content: flex-start;
 
-            @include scrollBar;
+            // @include scrollBar;
 
-            gap: 1rem;
+            // gap: 1rem;
 
             &::-webkit-scrollbar {
-                @media screen and (min-width: 800px) {
+                // @media screen and (min-width: 800px) {
                     display: none;
-                }
+                // }
             }
 
             // >* {

@@ -12,11 +12,11 @@ declare global {
     // var Ziggy: ZiggyConfig;
 }
 
-declare module 'vue' {
-    interface ComponentCustomProperties {
-        // route: typeof ziggyRoute;
-    }
-}
+declare module '*.vue' {
+    import { DefineComponent } from 'vue';
+    const component: DefineComponent<{}, {}, any>;
+    export default component;
+  }
 
 declare module '@inertiajs/core' {
     interface PageProps extends InertiaPageProps {}
