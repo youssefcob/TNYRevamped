@@ -3,6 +3,7 @@
 // use App\Http\Controllers\AdminAtuhController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ApplicationsController;
+use App\Http\Controllers\MailListController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PositionController;
 use Illuminate\Http\Request;
@@ -30,5 +31,11 @@ Route::middleware('auth:api')->group(function () {
     
     //Messages routes 
     Route::get('/messages', [MessageController::class , 'getMessages'])->name('get.messages');
+
+    //Mail list routes
+    Route::get('/mailList', [MailListController::class , 'getMailList'])->name('get.mailList');
+    Route::put('/mailList', [MailListController::class , 'updateMailList'])->name('update.mailList');
+    Route::delete('/mailList', [MailListController::class , 'deleteMailList'])->name('delete.mailList');
+    Route::post('/mailList', [MailListController::class , 'createMailList'])->name('create.mailList');
 
 });
