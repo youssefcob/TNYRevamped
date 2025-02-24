@@ -22,6 +22,11 @@ class PositionService
     {
         try {
             $id = $request->input('id');
+            if ($id) {
+                $request->validate([
+                    'id' => 'required|integer|exists:positions,id',
+                ]);
+            }
             $data = $id ? Position::find($id) : Position::paginate(10);
             return [
                 'success' => true,
@@ -30,7 +35,7 @@ class PositionService
         } catch (\Exception $e) {
             return [
                 'success' => false,
-                'error' => $e->getMessage()
+                'message' => $e->getMessage()
             ];
         }
     }

@@ -6,9 +6,9 @@ use App\GenericObserverTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model
+class MailList extends Model
 {
     //
-    use HasFactory, GenericObserverTrait;
-    protected $fillable = ['name', 'email', 'phone', 'subject', 'message'];
+    // use GenericObserverTrait;
+    protected $fillable = ['name', 'email', 'form', 'role'];
 }

@@ -17,12 +17,19 @@ class MessageService
      * @return array Message data, pagination information, or error messages.
      * @throws \Exception
      */
-    public function getMessages($request){
+    public function getMessages($request)
+    {
         try {
             //code...
             // dd('s');
             $id = $request->input('id');
-            $data = $id ? Message::find($id) : Message::paginate(10);
+            if ($id) {
+                $request->validate([
+                    'id' => 'required|integer|exists:messages,id',
+                ]);
+            }
+
+            $data = $id ? Message::find($id)->toArray() : Message::paginate(10);
             return [
                 'success' => true,
                 'data' => $data,
@@ -30,8 +37,8 @@ class MessageService
         } catch (Exception $e) {
             //throw $th;
             return [
-                'success' => false, 
-                'message'=>'Error getting messages',
+                'success' => false,
+                'message' => 'Error getting messages',
                 'error' => $e->getMessage()
             ];
         }
