@@ -17,10 +17,11 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        Position::factory(10)->create();
-        Application::factory(10)->create();
-        Message::factory(10)->create();
         $this->call(AdminsTableSeeder::class);
+        $this->call(MailListSeeder::class);
+        Position::factory(10)->create();
+        Application::factory(2)->create();
+        Message::factory(10)->create();
         // User::factory(10)->create();
         // User::factory()->create([
         //     'name' => 'Test User',
