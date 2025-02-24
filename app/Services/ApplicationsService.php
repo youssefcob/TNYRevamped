@@ -19,6 +19,11 @@ class ApplicationsService
     {
         try {
             $id = $request->input('id');
+            if ($id) {
+                $request->validate([
+                    'id' => 'required|integer|exists:applications,id',
+                ]);
+            }
             $data = $id ? Application::find($id) : Application::paginate(10);
             return [
                 'success' => true,
@@ -58,6 +63,7 @@ class ApplicationsService
             return [
                 'success' => true,
                 'data' => $application,
+                'message' => 'Application status updated successfully'
             ];
         } catch (\Illuminate\Validation\ValidationException $e) {
             return [
