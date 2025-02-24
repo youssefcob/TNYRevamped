@@ -57,7 +57,7 @@ trait GenericObserverTrait
                     )
                 );
 
-                Log::alert('Created Mail Sent:', [
+                Log::alert('Created Mail Queued :', [
                     'mail' => $mail->email,
                     'action' => 'Created record'
                 ]);
@@ -110,7 +110,7 @@ trait GenericObserverTrait
                     )
                 );
 
-                Log::alert('Updated Mail Sent:', [
+                Log::alert('Updated Mail Queued :', [
                     'mail' => $mail->email,
                     'action' => 'Updated record',
                     'changes' => $changes
@@ -148,7 +148,7 @@ trait GenericObserverTrait
                 )
             );
 
-            Log::alert('Deleted Mail Sent:', [
+            Log::alert('Deleted Mail Queued :', [
                 'mail' => $mail->email,
                 'action' => 'Deleted record',
                 'record' => $deletedRecord
