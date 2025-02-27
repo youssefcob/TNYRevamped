@@ -4,7 +4,8 @@ namespace App\Services;
 
 use App\Models\Hero;
 use Illuminate\Http\Request;
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class HeroService
 {
@@ -16,35 +17,98 @@ class HeroService
 
     public function post(Request $request)
     {
-        $request->validate([
-            'title' => ['required', 'string'],
-            'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            // 'order' => [ 'integer'],
-            'buttons' => ['array'],
-            'buttons.*.title' => ['required', 'string'],
-            'buttons.*.link' => ['required', 'string'],
-            'buttons.*.color' => ['required', 'in:primary,secondary'],
-        ]);
 
-        $cloudinary = new Cloudinary();
-        $imageId = $cloudinary->uploadImage($request->file('image'));
+        try {
 
-        $order = Hero::max('order') + 1;
+            $request->validate([
+                'title' => ['required', 'string'],
+                'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            ]);
 
-        $hero = Hero::create([
-            'title' => $request->title,
-            'image' => $imageId,
-            'order' => $order,
-        ]);
+            $buttonsData = json_decode($request->buttons, true);
 
-        $hero->buttons()->createMany($request->buttons);
+            // Create a validator manually for the decoded data
+            $validator = Validator::make(['buttons' => $buttonsData], [
+                'buttons' => ['array'],
+                'buttons.*.text' => ['required', 'string'],
+                'buttons.*.link' => ['required', 'string'],
+                'buttons.*.color' => ['required', 'in:primary,secondary'],
+            ]);
+            
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 422);
+            }
 
-        return $hero;
+            DB::beginTransaction();
+            
+            $cloudinary = new Cloudinary();
+            $imageId = $cloudinary->uploadImage($request->file('image'));
+
+
+            $order = Hero::max('order') + 1;
+
+            $hero = Hero::create([
+                'title' => $request->title,
+                'image' => $imageId,
+                'order' => $order,
+            ]);
+
+            $hero->buttons()->createMany($buttonsData);
+            DB::commit();
+            $hero->load('buttons');
+
+            // return $hero;
+            return [
+                'success' => true,
+                'data' => $hero,
+            ];
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            // Delete the uploaded image from Cloudinary
+            if (isset($imageId)) {
+                $cloudinary->deleteImage($imageId);
+            }
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
     }
 
-    private function reorderHeroes(){
-        $heroes = Hero::orderBy('order')->get();
-        
+
+    public function delete($heroId)
+    {
+        try {
+            DB::beginTransaction();
+
+            $hero = Hero::with('buttons')->findOrFail($heroId);
+            $imgId = $hero->image;
+
+            $hero->buttons()->delete();
+            $hero->delete();
+
+            $cloudinary = new Cloudinary();
+            $cloudinary->deleteImage($imgId);
+
+            DB::commit();
+
+            return [
+                'success' => true,
+                'message' => 'Hero and its buttons deleted successfully.'
+            ];
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
     }
-    
+
+    private function reorderHeroes()
+    {
+        // $heroes = Hero::orderBy('order')->get();
+    }
 }

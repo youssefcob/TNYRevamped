@@ -3,6 +3,7 @@
 // use App\Http\Controllers\AdminAtuhController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ApplicationsController;
+use App\Http\Controllers\Content\HeroController;
 use App\Http\Controllers\MailListController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PositionController;
@@ -38,4 +39,11 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/mailList', [MailListController::class , 'deleteMailList'])->name('delete.mailList');
     Route::post('/mailList', [MailListController::class , 'createMailList'])->name('create.mailList');
 
+});
+
+Route::group(['prefix'=>'hero'], function(){
+    // Route::get('/', [HeroController::class, 'get']);
+    Route::post('/', [HeroController::class, 'submit']);
+    // Route::put('/', [HeroController::class, 'put']);
+    Route::delete('/{id}', [HeroController::class, 'delete']);
 });
