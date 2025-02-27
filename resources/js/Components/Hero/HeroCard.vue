@@ -53,6 +53,10 @@ const props = defineProps({
         color:$navy;
         font-size: 4rem;
         text-align: center;
+        @media screen and (min-width: 768px){
+            margin-top:4rem;
+            
+        }
     }
     .buttons-wrapper{
         display:flex;
