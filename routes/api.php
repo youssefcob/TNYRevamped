@@ -6,14 +6,64 @@ use App\Http\Controllers\ApplicationsController;
 use App\Http\Controllers\MailListController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PositionController;
+use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\ServiceRequestController;
+use App\Http\Controllers\SystemServiceController;
+use App\Services\GoogleDrive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Validator;
 
 Route::get('/user', function (Request $request) {
     return Auth::user();
 })->middleware('auth:api');
 
+
+
+// Route::post('/new-google-drive-file', function (Request $request) {
+//     try {
+//         // Initialize GoogleDrive
+//         $client = new GoogleDrive();
+        
+//         // Check if file exists in the request
+//         if (!$request->hasFile('file')) {
+//             return response()->json([
+//                 'success' => false,
+//                 'message' => 'No file provided',
+//             ], 400);
+//         }
+        
+//         // Get the file
+//         $file = $request->file('file');
+        
+//         // Ensure the file is valid
+//         if (!$file->isValid()) {
+//             return response()->json([
+//                 'success' => false,
+//                 'message' => 'Invalid file upload',
+//                 'error' => $file->getErrorMessage()
+//             ], 400);
+//         }
+        
+//         // Upload the file
+//         // dd('s');
+//         $fileUrl = $client->upload($file);
+
+//         return response()->json([
+//             'success' => true,
+//             'message' => 'File uploaded successfully',
+//             'url' => $fileUrl
+//         ]);
+//     } catch (\Exception $e) {
+//         return response()->json([
+//             'success' => false,
+//             'message' => 'Upload failed',
+//             'error' => $e->getMessage(),
+//             'file' => $request->hasFile('file') ? $request->file('file')->getClientOriginalName() : 'No file'
+//         ], 500);
+//     }
+// });
 
 Route::post('/login', [AdminAuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
@@ -37,5 +87,19 @@ Route::middleware('auth:api')->group(function () {
     Route::put('/mailList', [MailListController::class , 'updateMailList'])->name('update.mailList');
     Route::delete('/mailList', [MailListController::class , 'deleteMailList'])->name('delete.mailList');
     Route::post('/mailList', [MailListController::class , 'createMailList'])->name('create.mailList');
+
+    // System services routes
+    // Route::get('/')
+    Route::get('/system-services', [ServiceController::class, 'getSystemServices'])->name('get.systemServices');;
+    Route::post('/system-services', [ServiceController::class, 'createSystemService'])->name('create.systemServices');
+    Route::post('/update-system-services', [ServiceController::class, 'updateSystemService'])->name('update.systemServices');
+    Route::delete('/system-services', [ServiceController::class, 'deleteSystemService'])->name('delete.systemServices');
+
+    // Service requests routes
+    Route::get('/service-requests', [ServiceRequestController::class , 'getServiceRequests'])->name('get.serviceRequests');
+    Route::put('/service-requests-status', [ServiceRequestController::class , 'updateServiceRequestStatus'])->name('update.serviceRequests.status');
+    Route::delete('/service-requests', [ServiceRequestController::class , 'deleteServiceRequest'])->name('delete.service_requests');
+    // Route::post('/service-requests', [ServiceRequestController::class , 'createServiceRequest'])->name('create.service_requests');
+    
 
 });
