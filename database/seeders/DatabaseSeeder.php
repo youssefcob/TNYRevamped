@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\Application;
 use App\Models\Message;
 use App\Models\Position;
+use App\Models\Service;
+use App\Models\ServiceRequest;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -22,6 +24,8 @@ class DatabaseSeeder extends Seeder
         Position::factory(10)->create();
         Application::factory(2)->create();
         Message::factory(10)->create();
+        Service::factory(10)->create();
+        ServiceRequest::factory(3)->create();
         // User::factory(10)->create();
         // User::factory()->create([
         //     'name' => 'Test User',
