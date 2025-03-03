@@ -2,13 +2,12 @@
 
 namespace App\Models;
 
-use App\GenericObserverTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Message extends Model
+class Service extends Model
 {
     //
     use HasFactory;
-    protected $fillable = ['name', 'email', 'phone', 'subject', 'message'];
+    protected $fillable = ['title', 'description', 'image','imageDriveId', 'available', 'onMainPage'];
 }

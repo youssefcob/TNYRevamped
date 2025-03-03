@@ -77,6 +77,55 @@ class GoogleDrive
         // return 'https://drive.google.com/uc?export=view&id=' . $image->id;
 
     }
+    /**
+     * Uploads an image file to Google Drive.
+     *
+     * @param $image The image file to upload.
+     * @return array The URL of the uploaded image, id of the file.
+     */
+    public function uploadWithId($file)
+    {
+        // Create metadata for the file file
+        $fileMetadata = new Drive\DriveFile([
+            'name' => $file->getClientOriginalName()
+        ]);
+
+        // Read the content of the file file
+        $content = file_get_contents($file->getRealPath());
+
+        $mimeType = $file->getClientMimeType();
+        // var_dump($mimeType);
+
+        // Upload the file file to Google Drive
+        $file = $this->service->files->create($fileMetadata, [
+            'data' => $content,
+            'mimeType' => $mimeType,
+            'uploadType' => 'multipart',
+            'fields' => 'id, webViewLink'
+        ]);
+
+        // Set permissions for the uploaded file file
+        $permission = new Drive\Permission([
+            'type' => 'anyone',
+            'role' => 'reader'
+        ]);
+        // $permission->setRole('reader');
+        // $permission->setType('anyone');
+        $this->service->permissions->create($file->id, $permission);
+
+        // Return the URL of the uploaded file
+        // return $file->id;
+        return [
+            'file' => $file->webViewLink,
+            'id' => $file->id
+        ];
+
+        // $file = $this->service->files->get($fileId, ['fields' => 'webContentLink']);
+        // $webContentLink = $file->webContentLink;
+        // echo "Web Content Link: {$webContentLink}";
+        // return 'https://drive.google.com/uc?export=view&id=' . $image->id;
+
+    }
 
 
 
@@ -137,12 +186,36 @@ class GoogleDrive
             throw $e;
         }
     }
+    public function updateFileWithResponse($fileId, $file)
+    {
+        try {
+            $fileMetadata = new Drive\DriveFile([
+                'name' => $file->getClientOriginalName()
+            ]);
+
+            $content = file_get_contents($file->getRealPath());
+            $mimeType = $file->getClientMimeType();
+            $file = $this->service->files->update($fileId, $fileMetadata, [
+                'data' => $content,
+                'mimeType' => $mimeType,
+                'uploadType' => 'multipart',
+                'fields' => 'id, webViewLink'
+            ]);
+            return [
+                'file' => $file->webViewLink,
+                'id' => $file->id
+            ];
+        } catch (GoogleException $e) {
+            throw $e;
+        }
+    }
 
 
     public function exists($fileId)
     {
         try {
             $this->service->files->get($fileId);
+            // $this->service->list
             return true; // File exists
         } catch (GoogleException $e) {
             // Handle exceptions, potentially log them
@@ -153,6 +226,32 @@ class GoogleDrive
                 // Other exceptions
                 throw $e;
             }
+        }
+    }
+    public function listImages()
+    {
+        try {
+            $query = "mimeType contains 'image/'";
+            $optParams = [
+                'q' => $query,
+                'fields' => 'files(id, name, webViewLink, mimeType)',
+            ];
+
+            $results = $this->service->files->listFiles($optParams);
+
+            $images = [];
+            foreach ($results->getFiles() as $file) {
+                $images[] = [
+                    'id' => $file->getId(),
+                    'name' => $file->getName(),
+                    'url' => $file->getWebViewLink(),
+                    'mimeType' => $file->getMimeType(),
+                ];
+            }
+
+            return $images;
+        } catch (GoogleException $e) {
+            throw $e;
         }
     }
 }
