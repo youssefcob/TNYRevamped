@@ -103,6 +103,7 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/service-requests', [ServiceRequestController::class , 'deleteServiceRequest'])->name('delete.service_requests');
     // Route::post('/service-requests', [ServiceRequestController::class , 'createServiceRequest'])->name('create.service_requests');
     
+});
 
 
 
