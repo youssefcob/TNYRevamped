@@ -9,6 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class Message extends Model
 {
     //
-    use HasFactory, GenericObserverTrait;
+    use HasFactory;
     protected $fillable = ['name', 'email', 'phone', 'subject', 'message'];
 }
