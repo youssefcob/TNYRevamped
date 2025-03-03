@@ -29,6 +29,13 @@ class MailListSeeder extends Seeder
             'form' => 'messages',
             'role' => 'Messages Reviewer'
         ],
+        [
+            'name' => 'Moaaz Ibrahim',
+            'email' => 'moaazibrahim721@gmail.com',
+            'form' => 'service_requests',
+            'role' => 'Requests Reviewer'
+        ],
+        
     ];
     public function run(): void
     {
