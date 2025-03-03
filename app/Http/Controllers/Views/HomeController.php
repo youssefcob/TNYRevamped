@@ -14,7 +14,7 @@ class HomeController extends Controller
         $data = [];
 
         $data['hero'] = HeroService::get();
-        return Inertia::render('Welcome', $data);
+        return Inertia::render('Home', $data);
     }
  
 }

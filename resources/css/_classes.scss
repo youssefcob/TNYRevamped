@@ -27,15 +27,30 @@ input, .input-text{
 }
 .btn{
     @extend .input-text;
-    font-weight: $regular;
+    font-weight: $medium;
     padding: 1.1rem 2rem;
     border-radius: 15px;
     background-color: $blue;
     color: $white;
     border: none;
     cursor: pointer;
+    display:block;
+    text-align: center;
+    text-decoration: none;
     transition: all 0.3s;
     &:hover{
         background-color: $navy;
+    }
+    &.secondary{
+        background-color: $white;
+        color: $blue;
+        border: 1px solid $blue;
+        &:hover{
+            background-color: $blue;
+            color: $white;
+        }
+    }
+    @include media-max(phone){
+        padding: 1rem 1.7rem;
     }
 }

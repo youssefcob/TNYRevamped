@@ -1,23 +1,44 @@
 <template>
     <div>
-        <Navbar/>
-        <h1>Welcome to Laravel 11 with Inertia.js and Vue.js</h1>
+        <Navbar />
+        <section>
+            <Hero/>
+        </section>
+        <section>
+            <Numbers/>
+        </section>
+        <!-- <h1>Welcome to Laravel 11 with Inertia.js and Vue.js</h1> -->
 
-        {{message}}
-        <Link href="/about" method="get">Click here to go to the about page</Link>
+        <!-- <Link href="/about" method="get">Click here to go to the about page</Link> -->
 
+        <!-- {{ hero }} -->
     </div>
 </template>
 
-<script setup>
+<script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import Navbar from '@/Components/NavBar/Navbar.vue';
+import Navbar from '@/Components/NavBar/NavBar.vue';
+
+import type { Hero as typeHero } from '@/interface/Types.ts';
+
+import { assignHero } from '@/state/state';
+import { onMounted } from 'vue';
+import Hero from '@/Components/Hero/Hero.vue';
+import Numbers from '@/Components/Numbers/Numbers.vue';
 
 const props = defineProps({
-    message: {
-        type: String
+    hero: {
+        type: Object as () => typeHero[]
     },
 });
+
+onMounted(() => {
+    if (props.hero) {
+        assignHero(props.hero);
+    }
+});
+console.log(typeof props.hero);
+
 
 
 </script>

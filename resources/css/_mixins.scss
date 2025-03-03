@@ -18,30 +18,38 @@ $paddingMobile-tb:40px;
 $paddingMobile-lr:24px;
 
 @mixin media-min($breakpoint) {
-    $size: map-get($breakpoints, $breakpoint);
-
-    @if $size {
-        @media (min-width: $size) {
+    @if type-of($breakpoint) == 'number' {
+        @media (min-width: #{$breakpoint}px) {
             @content;
         }
-    }
+    } @else {
+        $size: map-get($breakpoints, $breakpoint);
 
-    @else {
-        @warn "No value found for breakpoint: #{$breakpoint}";
+        @if $size {
+            @media (min-width: $size) {
+                @content;
+            }
+        } @else {
+            @warn "No value found for breakpoint: #{$breakpoint}";
+        }
     }
 }
 
 @mixin media-max($breakpoint) {
-    $size: map-get($breakpoints, $breakpoint);
-
-    @if $size {
-        @media (max-width: #{ $size - 1 }) {
+    @if type-of($breakpoint) == 'number' {
+        @media (min-width: #{$breakpoint}px) {
             @content;
         }
-    }
+    } @else {
+        $size: map-get($breakpoints, $breakpoint);
 
-    @else {
-        @warn "No value found for breakpoint: #{$breakpoint}";
+        @if $size {
+            @media (max-width: $size) {
+                @content;
+            }
+        } @else {
+            @warn "No value found for breakpoint: #{$breakpoint}";
+        }
     }
 }
 
@@ -54,7 +62,7 @@ $paddingMobile-lr:24px;
 // vw = (100 * desktop)/1920
 
 @function vw($size) {
-    @return ((100*$size)/1440) * 1vw;
+    @return calc(((100*$size)/1440) * 1vw);
 }
 
 // to calculate the max font size
@@ -62,14 +70,14 @@ $paddingMobile-lr:24px;
 // max-size = (size * 3840)/1920
 // max-size = 2 * size
 @function max-size($size) {
-    @return ($size * 3840)/1440;
+    @return calc(($size * 3840)/1440);
 }
 
 //to calculate the min font size
 // size/375 = min-size/320
 // min-size = (size * 320)/375
 @function min-size($size) {
-    @return ($size * 320)/375;
+    @return calc(($size * 320)/375);
 }
 
 
@@ -104,7 +112,7 @@ $paddingMobile-lr:24px;
 }
 
 @mixin input {
-    @include font(14, 10);
+    @include font(17, 15);
     font-weight: $regular;
 
 }

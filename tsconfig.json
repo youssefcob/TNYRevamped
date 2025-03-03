@@ -11,7 +11,11 @@
         "forceConsistentCasingInFileNames":true,  
         "noEmit":true,  
         "isolatedModules":true,  
-        "types": ["vite/client"]  
+        "types": ["vite/client"],
+        "paths": {
+            "@/*": ["resources/js/*"]
+          },
+          "baseUrl": "."
     },    
     "include":[  
         "resources/js/**/*.ts",  
