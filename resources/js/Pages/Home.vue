@@ -7,6 +7,12 @@
         <section>
             <Numbers/>
         </section>
+        <section>
+            <Services/>
+        </section>
+        <section>
+            <WhatSetsUs/>
+        </section>
         <!-- <h1>Welcome to Laravel 11 with Inertia.js and Vue.js</h1> -->
 
         <!-- <Link href="/about" method="get">Click here to go to the about page</Link> -->
@@ -25,6 +31,8 @@ import { assignHero } from '@/state/state';
 import { onMounted } from 'vue';
 import Hero from '@/Components/Hero/Hero.vue';
 import Numbers from '@/Components/Numbers/Numbers.vue';
+import Services from '@/Components/Services/Services.vue';
+import WhatSetsUs from '@/Components/WhatSetsUs/WhatSetsUs.vue';
 
 const props = defineProps({
     hero: {
