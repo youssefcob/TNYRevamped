@@ -25,9 +25,9 @@
 import { Link } from '@inertiajs/vue3';
 import Navbar from '@/Components/NavBar/NavBar.vue';
 
-import type { Hero as typeHero } from '@/interface/Types.ts';
+import type { Service, Hero as typeHero } from '@/interface/Types.ts';
 
-import { assignHero } from '@/state/state';
+import { assignHero, assignService } from '@/state/state';
 import { onMounted } from 'vue';
 import Hero from '@/Components/Hero/Hero.vue';
 import Numbers from '@/Components/Numbers/Numbers.vue';
@@ -38,11 +38,17 @@ const props = defineProps({
     hero: {
         type: Object as () => typeHero[]
     },
+    services: {
+        type: Object as () => Service[]
+    }
 });
 
 onMounted(() => {
     if (props.hero) {
         assignHero(props.hero);
+    }
+    if (props.services) {
+        assignService(props.services);
     }
 });
 console.log(typeof props.hero);

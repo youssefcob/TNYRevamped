@@ -9,5 +9,5 @@ class Service extends Model
 {
     //
     use HasFactory;
-    protected $fillable = ['title', 'description', 'image','imageDriveId', 'available', 'onMainPage'];
+    protected $fillable = ['title', 'description', 'image', 'available', 'onMainPage'];
 }

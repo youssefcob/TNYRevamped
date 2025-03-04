@@ -8,7 +8,6 @@ const numbers = ref([
         number: 56974,
         img: "images/numbers/candidates.png"
     },
-
     {
         title: 'Candidates',
         number: 56974,
