@@ -8,6 +8,7 @@ use App\Http\Controllers\MailListController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ServiceController;
+use App\Http\Controllers\Content\ServiceController as ContentServiceController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\SystemServiceController;
 use App\Services\GoogleDrive;
@@ -113,4 +114,9 @@ Route::group(['prefix'=>'hero'], function(){
     // Route::put('/', [HeroController::class, 'put']);
     Route::delete('/{id}', [HeroController::class, 'delete']);
 
+});
+
+
+Route::group(['prefix'=>'service'],function(){
+Route::post('/', [ContentServiceController::class, 'submit']);
 });

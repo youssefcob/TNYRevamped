@@ -13,3 +13,12 @@ export type Hero = {
     image: string;
     buttons: Button[];
 }
+
+export type Service = {
+    id: number;
+    title: string;
+    description: string;
+    image: string;
+    available: boolean;
+    onMainPage: boolean;
+}
