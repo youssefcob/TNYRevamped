@@ -12,10 +12,12 @@ class SystemService
 {
 
     private $googleDrive;
+    private $cloudinary;
 
     public function __construct()
     {
         $this->googleDrive = new GoogleDrive();
+        $this->cloudinary = new Cloudinary();
     }
 
 
@@ -34,7 +36,9 @@ class SystemService
     private function uploadImageToDrive(UploadedFile $image): array
     {
         try {
-            $imageUrl = $this->googleDrive->uploadWithId($image);
+            // $imageUrl = $this->googleDrive->uploadWithId($image);
+            $imageUrl = $this->cloudinary->uploadImageWithId($image);
+            // dd($imageUrl);
 
             return [
                 'success' => true,
@@ -54,10 +58,11 @@ class SystemService
         }
     }
 
-    private function updateImageOnDrive(string $fileId, UploadedFile $image): array
+    private function updateImageOnCloud(string $fileId, UploadedFile $image): array
     {
         try {
-            $updateResponse = $this->googleDrive->updateFileWithResponse($fileId, $image);
+            // $updateResponse = $this->googleDrive->updateFileWithResponse($fileId, $image);
+            $updateResponse = $this->cloudinary->updateImageWithId($fileId, $image);
 
             return [
                 'success' => true,
@@ -129,7 +134,7 @@ class SystemService
 
             // Upload image if provided
             $imageUrl = null;
-            $imageDriveId = null;
+            $imageCloudId = null;
             if ($request->hasFile('image')) {
                 $uploadResponse = $this->uploadImageToDrive($request->file('image'));
                 // dd($uploadResponse);
@@ -142,12 +147,12 @@ class SystemService
                 // dd($uploadResponse);
 
                 $imageUrl = $uploadResponse['data']['image']['file'] ?? null;
-                $imageDriveId = $uploadResponse['data']['image']['id'] ?? null;
+                $imageCloudId = $uploadResponse['data']['image']['id'] ?? null;
             }
 
             // Add image URL to validated data
             $validated['image'] = $imageUrl;
-            $validated['imageDriveId'] = $imageDriveId;
+            $validated['imageCloudId'] = $imageCloudId;
 
             // Create the service
             $service = Service::create($validated);
@@ -204,7 +209,7 @@ class SystemService
             // Handle image upload if a new image is provided
             // dd('s');
             if ($request->hasFile('image')) {
-                $uploadResponse = $this->updateImageOnDrive($service->imageDriveId, $request->file('image'));
+                $uploadResponse = $this->updateImageOnCloud($service->imageCloudId, $request->file('image'));
                 // dd($uploadResponse);
                 if (!$uploadResponse['success']) {
                     return [
@@ -215,7 +220,7 @@ class SystemService
                 // dd($uploadResponse);
 
                 $validated['image'] = $uploadResponse['data']['image']['file'] ?? null;
-                $validated['imageDriveId'] = $uploadResponse['data']['image']['id'] ?? null;
+                $validated['imageCloudId'] = $uploadResponse['data']['image']['id'] ?? null;
             }
             // dd($validated);
             // Update the service
@@ -261,7 +266,8 @@ class SystemService
             ]);
 
             $service = Service::find($id);
-            $this->googleDrive->deleteFile($service->imageDriveId);
+            $deletedImage = $this->cloudinary->deleteImage($service->imageCloudId);
+            // dd($deletedImage);
             $service->delete();
 
             DB::commit();
