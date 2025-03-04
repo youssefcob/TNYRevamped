@@ -30,3 +30,10 @@ export type Employer = {
     image: string;
     onMainPage: boolean;
 }
+
+export type Job = {
+    id: number;
+    title: string;
+    description: string;
+    available: boolean;
+}
