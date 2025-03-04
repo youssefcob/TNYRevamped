@@ -12,10 +12,10 @@ $medium: 500;
 $semiBold:600;
 
 //padding
-$paddingDesktop-tb:80px;
-$paddingDesktop-lr:80px;
-$paddingMobile-tb:40px;
-$paddingMobile-lr:24px;
+$paddingDesktop-tb:80;
+$paddingDesktop-lr:80;
+$paddingMobile-tb:40;
+$paddingMobile-lr:24;
 
 @mixin media-min($breakpoint) {
     @if type-of($breakpoint) == 'number' {

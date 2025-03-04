@@ -1,4 +1,4 @@
-import { Hero } from "@/interface/Types";
+import { Hero, Service } from "@/interface/Types";
 import { reactive, Ref, ref } from "vue";
 
 let heroState:Ref<Hero[]> = ref([]);
@@ -8,3 +8,12 @@ const assignHero = (hero:Hero[]) => {
 }
 
 export { heroState, assignHero };
+
+
+let serviceState:Ref<Service[]> = ref([]);
+
+const assignService = (service:Service[]) => {
+  serviceState.value = service;
+}
+
+export { serviceState, assignService };

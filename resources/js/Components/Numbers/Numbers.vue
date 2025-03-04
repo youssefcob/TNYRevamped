@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { reactive, ref } from 'vue';
+import {  ref } from 'vue';
 
 
 const numbers = ref([
@@ -8,7 +8,6 @@ const numbers = ref([
         number: 56974,
         img: "images/numbers/candidates.png"
     },
-
     {
         title: 'Candidates',
         number: 56974,
