@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('image');
-            $table->string('imageDriveId');
+            $table->string('imageCloudId');
             $table->boolean('available')->default(true);
             $table->boolean('onMainPage')->default(true);
             $table->timestamps();

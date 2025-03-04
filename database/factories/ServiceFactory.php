@@ -17,7 +17,7 @@ class ServiceFactory extends Factory
             'title' => $this->faker->sentence(3), // Generates a random title
             'description' => $this->faker->paragraph(), // Generates a random description
             'image' => $this->faker->imageUrl(640, 480, 'business', true), // Generates a random image URL
-            'imageDriveId' => $this->faker->regexify('[A-Za-z0-9_-]{20,30}'), // Simulates a random Google Drive ID
+            'imageCloudId' => $this->faker->regexify('[A-Za-z0-9_-]{20,30}'), // Simulates a random Google Drive ID
             'available' => $this->faker->boolean(), // Random true/false
             'onMainPage' => $this->faker->boolean(), // Random true/false
         ];
