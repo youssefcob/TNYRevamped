@@ -3,6 +3,7 @@
 // use App\Http\Controllers\AdminAtuhController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ApplicationsController;
+use App\Http\Controllers\Content\EmployerController;
 use App\Http\Controllers\Content\HeroController;
 use App\Http\Controllers\MailListController;
 use App\Http\Controllers\MessageController;
@@ -27,7 +28,7 @@ Route::get('/user', function (Request $request) {
 //     try {
 //         // Initialize GoogleDrive
 //         $client = new GoogleDrive();
-        
+
 //         // Check if file exists in the request
 //         if (!$request->hasFile('file')) {
 //             return response()->json([
@@ -35,10 +36,10 @@ Route::get('/user', function (Request $request) {
 //                 'message' => 'No file provided',
 //             ], 400);
 //         }
-        
+
 //         // Get the file
 //         $file = $request->file('file');
-        
+
 //         // Ensure the file is valid
 //         if (!$file->isValid()) {
 //             return response()->json([
@@ -47,7 +48,7 @@ Route::get('/user', function (Request $request) {
 //                 'error' => $file->getErrorMessage()
 //             ], 400);
 //         }
-        
+
 //         // Upload the file
 //         // dd('s');
 //         $fileUrl = $client->upload($file);
@@ -70,25 +71,25 @@ Route::get('/user', function (Request $request) {
 Route::post('/login', [AdminAuthController::class, 'login']);
 Route::middleware('auth:api')->group(function () {
     //Applications routes
-    Route::get('/applications',[ApplicationsController::class , 'getApplications'])->name('get.applications');
+    Route::get('/applications', [ApplicationsController::class, 'getApplications'])->name('get.applications');
     //TODO: When delete application make sure to delete the application's files from Cloudinary.
-    Route::put('/applicationStatus', [ApplicationsController::class , 'updateApplicationStatus'])->name('update.application.status');
-    Route::delete('/application', [ApplicationsController::class , 'deleteApplication'])->name('delete.application');
+    Route::put('/applicationStatus', [ApplicationsController::class, 'updateApplicationStatus'])->name('update.application.status');
+    Route::delete('/application', [ApplicationsController::class, 'deleteApplication'])->name('delete.application');
 
     //Positions routes
-    Route::get('/positions', [PositionController::class , 'getPositions'])->name('get.positions');    
-    Route::put('/positions', [PositionController::class , 'updatePosition'])->name('update.positions');
-    Route::delete('/positions', [PositionController::class , 'deletePosition'])->name('delete.positions');
-    Route::post('/positions', [PositionController::class , 'createPosition'])->name('create.positions');
-    
+    Route::get('/positions', [PositionController::class, 'getPositions'])->name('get.positions');
+    Route::put('/positions', [PositionController::class, 'updatePosition'])->name('update.positions');
+    Route::delete('/positions', [PositionController::class, 'deletePosition'])->name('delete.positions');
+    Route::post('/positions', [PositionController::class, 'createPosition'])->name('create.positions');
+
     //Messages routes 
-    Route::get('/messages', [MessageController::class , 'getMessages'])->name('get.messages');
+    Route::get('/messages', [MessageController::class, 'getMessages'])->name('get.messages');
 
     //Mail list routes
-    Route::get('/mailList', [MailListController::class , 'getMailList'])->name('get.mailList');
-    Route::put('/mailList', [MailListController::class , 'updateMailList'])->name('update.mailList');
-    Route::delete('/mailList', [MailListController::class , 'deleteMailList'])->name('delete.mailList');
-    Route::post('/mailList', [MailListController::class , 'createMailList'])->name('create.mailList');
+    Route::get('/mailList', [MailListController::class, 'getMailList'])->name('get.mailList');
+    Route::put('/mailList', [MailListController::class, 'updateMailList'])->name('update.mailList');
+    Route::delete('/mailList', [MailListController::class, 'deleteMailList'])->name('delete.mailList');
+    Route::post('/mailList', [MailListController::class, 'createMailList'])->name('create.mailList');
 
 
     // System services routes
@@ -99,24 +100,28 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/system-services', [ServiceController::class, 'deleteSystemService'])->name('delete.systemServices');
 
     // Service requests routes
-    Route::get('/service-requests', [ServiceRequestController::class , 'getServiceRequests'])->name('get.serviceRequests');
-    Route::put('/service-requests-status', [ServiceRequestController::class , 'updateServiceRequestStatus'])->name('update.serviceRequests.status');
-    Route::delete('/service-requests', [ServiceRequestController::class , 'deleteServiceRequest'])->name('delete.service_requests');
+    Route::get('/service-requests', [ServiceRequestController::class, 'getServiceRequests'])->name('get.serviceRequests');
+    Route::put('/service-requests-status', [ServiceRequestController::class, 'updateServiceRequestStatus'])->name('update.serviceRequests.status');
+    Route::delete('/service-requests', [ServiceRequestController::class, 'deleteServiceRequest'])->name('delete.service_requests');
     // Route::post('/service-requests', [ServiceRequestController::class , 'createServiceRequest'])->name('create.service_requests');
-    
+
 });
 
 
 
-Route::group(['prefix'=>'hero'], function(){
+Route::group(['prefix' => 'hero'], function () {
     // Route::get('/', [HeroController::class, 'get']);
     Route::post('/', [HeroController::class, 'submit']);
     // Route::put('/', [HeroController::class, 'put']);
     Route::delete('/{id}', [HeroController::class, 'delete']);
-
 });
 
 
-Route::group(['prefix'=>'service'],function(){
-Route::post('/', [ContentServiceController::class, 'submit']);
+Route::group(['prefix' => 'service'], function () {
+    Route::post('/', [ContentServiceController::class, 'submit']);
+});
+
+Route::group(['prefix'=>'employer'], function(){
+    Route::post('/', [EmployerController::class, 'submit']);
+    Route::delete('/{id}', [EmployerController::class, 'delete']);
 });

@@ -22,3 +22,11 @@ export type Service = {
     available: boolean;
     onMainPage: boolean;
 }
+
+export type Employer = {
+    id: number;
+    title: string;
+    description: string;
+    image: string;
+    onMainPage: boolean;
+}
