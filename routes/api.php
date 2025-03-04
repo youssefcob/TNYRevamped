@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ApplicationsController;
 use App\Http\Controllers\Content\EmployerController;
 use App\Http\Controllers\Content\HeroController;
+use App\Http\Controllers\Content\JobsController;
 use App\Http\Controllers\MailListController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PositionController;
@@ -124,4 +125,9 @@ Route::group(['prefix' => 'service'], function () {
 Route::group(['prefix'=>'employer'], function(){
     Route::post('/', [EmployerController::class, 'submit']);
     Route::delete('/{id}', [EmployerController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'jobs'], function () {
+    Route::post('/', [JobsController::class, 'submit']);
+    Route::delete('/{id}', [JobsController::class, 'delete']);
 });

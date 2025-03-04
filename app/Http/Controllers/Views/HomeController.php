@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Views;
 
 use App\Http\Controllers\Controller;
 use App\Services\Content\EmployersService;
+use App\Services\Content\JobsService;
 use App\Services\Content\ServicesService;
 use App\Services\HeroService;
 use Inertia\Inertia;
@@ -18,6 +19,7 @@ class HomeController extends Controller
         $data['hero'] = HeroService::get();
         $data['services'] = ServicesService::get();
         $data['employers'] = EmployersService::get();
+        $data['jobs'] = JobsService::get();
         return Inertia::render('Home', $data);
     }
  

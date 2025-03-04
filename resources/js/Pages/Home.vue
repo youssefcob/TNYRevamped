@@ -25,9 +25,9 @@
 import { Link } from '@inertiajs/vue3';
 import Navbar from '@/Components/NavBar/NavBar.vue';
 
-import type { Employer, Service, Hero as typeHero } from '@/interface/Types.ts';
+import type { Employer, Job, Service, Hero as typeHero } from '@/interface/Types.ts';
 
-import { assignEmployer, assignHero, assignService } from '@/state/state';
+import { assignEmployer, assignHero, assignJob, assignService } from '@/state/state';
 import { onMounted } from 'vue';
 import Hero from '@/Components/Hero/Hero.vue';
 import Numbers from '@/Components/Numbers/Numbers.vue';
@@ -43,6 +43,9 @@ const props = defineProps({
     },
     employers: {
         type: Object as () => Employer[]
+    },
+    jobs: {
+        type: Object as () => Job[]
     }
 });
 
@@ -55,6 +58,9 @@ onMounted(() => {
     }
     if (props.employers) {
         assignEmployer(props.employers);
+    }
+    if (props.jobs) {
+        assignJob(props.jobs);
     }
 });
 
