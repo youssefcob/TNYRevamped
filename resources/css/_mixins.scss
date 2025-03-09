@@ -62,7 +62,7 @@ $paddingMobile-lr:24;
 // vw = (100 * desktop)/1920
 
 @function vw($size) {
-    @return calc(((100*$size)/1440) * 1vw);
+    @return calc(((100*$size)/1920) * 1vw);
 }
 
 // to calculate the max font size
@@ -82,7 +82,7 @@ $paddingMobile-lr:24;
 
 
 @mixin font($size-desktop, $size-mobile) {
-    font-size:clamp(#{min-size($size-mobile)}px, #{vw($size-desktop)}, #{max-size($size-desktop)}px);
+    font-size:clamp(#{min-size($size-mobile)}px, #{vw(calc($size-desktop * 0.75))}, #{max-size(calc($size-desktop * 0.75))}px);
 }
 
 @mixin h1 {

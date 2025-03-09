@@ -11,7 +11,7 @@
 }
 
 html{
-    font-size: clamp(12px, 1vw, 20px);
+    font-size: clamp(12px, 0.75vw, 20px);
 }
 
 @mixin blue{

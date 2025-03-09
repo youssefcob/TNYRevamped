@@ -37,7 +37,7 @@ nav {
     }
 
     img {
-        width: clamp(100px, 12vw, 300px);
+        width: clamp(100px, 7vw, 300px);
     }
 
     @include media-max(desktop) {
