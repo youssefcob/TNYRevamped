@@ -93,9 +93,9 @@ const numbers = ref([
                 justify-content: center;
                 border-radius: 100vh;
                 background-color: $off-white;
-                padding: 2rem;
-                width: 10rem;
-                height: 10rem;
+                padding: 1rem;
+                width: 7rem;
+                height: 7rem;
 
                 img {
                     width: 100%;

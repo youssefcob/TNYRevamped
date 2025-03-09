@@ -33,7 +33,7 @@ import { serviceState } from '@/state/state';
     text-align: center;
 
     >h1 {
-        margin-bottom: 2rem;
+        margin-bottom: 1rem;
         color: $navy;
     }
 

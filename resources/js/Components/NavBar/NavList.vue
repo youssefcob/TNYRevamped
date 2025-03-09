@@ -48,7 +48,7 @@ ul {
         a {
             text-decoration: none;
             color: black;
-            font-size: 1.2rem;
+            font-size: 1rem;
             position: relative;
             font-weight: $medium;
 
