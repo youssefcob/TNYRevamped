@@ -10,9 +10,9 @@ import { serviceState } from '@/state/state';
 
 <template>
     <div class="container">
-        <h1>Services</h1>
+        <h2 class="title">Services</h2>
         <br>
-        <h2>Therapy of New York</h2>
+        <h2 class="subtitle">Therapy of New York</h2>
         <p>Your Gateway to Top-tier Talent and Seamless Integration</p>
 
         <div class="services-wrapper">
@@ -42,10 +42,10 @@ import { serviceState } from '@/state/state';
         font-weight: 400;
     }
 
-    >h2,
-    >p {
-        color: $grey;
-    }
+    // >.subtitle,
+    // >p {
+    //     // color: $grey;
+    // }
 
     .services-wrapper {
         margin-top: 3rem;
@@ -54,11 +54,6 @@ import { serviceState } from '@/state/state';
         gap: 1.5rem;
     }
 
-    .more {
-        margin-top: 2rem;
-        color: $blue;
-        font-weight: 500;
-        align-self: flex-end;
-    }
+  
 }
 </style>

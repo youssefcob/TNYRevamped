@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('title');
             $table->text('description');
             $table->string('image');
-            $table->boolean('onMainPage')->default(false);
+            $table->boolean('onMainPage')->default(true);
             $table->timestamps();
         });
     }

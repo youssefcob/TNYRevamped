@@ -41,7 +41,6 @@
 
 <style lang="scss" scoped>
 $gap: 2rem;
-$border-radius:40px;
 
 .container {
     @include pagePadding();
@@ -140,20 +139,14 @@ $border-radius:40px;
 
 
 
-    h2.title {
-        @extend h1;
-        color: $navy;
-    }
+    
 
     h3.big {
         @extend h2;
         color: $navy;
     }
 
-    p.big {
-        @extend h3;
-        color: $black;
-    }
+   
 
     .btn-container{
         width:100%;
