@@ -29,6 +29,7 @@ class EmployersService
             'title' => $request->title,
             'description' => $request->description,
             'image' => $imageId,
+            
         ]);
 
         return $employer;

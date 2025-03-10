@@ -13,6 +13,9 @@
         <section>
             <WhatSetsUs/>
         </section>
+        <section>
+            <Employers/>
+        </section>
         <!-- <h1>Welcome to Laravel 11 with Inertia.js and Vue.js</h1> -->
 
         <!-- <Link href="/about" method="get">Click here to go to the about page</Link> -->
@@ -33,6 +36,7 @@ import Hero from '@/Components/Hero/Hero.vue';
 import Numbers from '@/Components/Numbers/Numbers.vue';
 import Services from '@/Components/Services/Services.vue';
 import WhatSetsUs from '@/Components/WhatSetsUs/WhatSetsUs.vue';
+import Employers from '@/Components/Employers/Employers.vue';
 
 const props = defineProps({
     hero: {
@@ -57,6 +61,7 @@ onMounted(() => {
         assignService(props.services);
     }
     if (props.employers) {
+        console.log(props.employers);
         assignEmployer(props.employers);
     }
     if (props.jobs) {

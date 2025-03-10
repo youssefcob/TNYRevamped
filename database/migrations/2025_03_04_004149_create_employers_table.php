@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('employers', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->string('description');
+            $table->text('description');
             $table->string('image');
-            $table->boolean('onMainPage')->default(false);
+            $table->boolean('onMainPage')->default(true);
             $table->timestamps();
         });
     }
