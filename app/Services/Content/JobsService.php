@@ -26,7 +26,10 @@ class JobsService
             'available' => $request->available || true,
         ]);
 
-        return $job;
+        return [
+            'success' => true,
+            'data' => $job,
+        ];
     }
 
     public function update(Request $request, $id)

@@ -38,6 +38,10 @@ const props = defineProps({
         aspect-ratio: 1/0.8;
     }
 
+    @include media-max(phone){
+        aspect-ratio: 1/1.5;
+    }
+
     .img {
         // width: 100%;
         height: 40%;

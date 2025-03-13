@@ -19,6 +19,7 @@ h3{
 
 span,.text{
     @include span;
+    line-height: 150%
 }
 
 p{
