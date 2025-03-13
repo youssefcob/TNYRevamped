@@ -11,6 +11,8 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Content\ServiceController as ContentServiceController;
+use App\Http\Controllers\InsightsController;
+// use App\Http\Controllers\InsightsController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\SystemServiceController;
 use App\Services\GoogleDrive;
@@ -106,6 +108,7 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/service-requests', [ServiceRequestController::class, 'deleteServiceRequest'])->name('delete.service_requests');
     // Route::post('/service-requests', [ServiceRequestController::class , 'createServiceRequest'])->name('create.service_requests');
 
+    Route::get('/insights/main-metrics',[InsightsController::class , 'getMainMetrics'] )->name('get.insights');
 });
 
 
@@ -122,7 +125,7 @@ Route::group(['prefix' => 'service'], function () {
     Route::post('/', [ContentServiceController::class, 'submit']);
 });
 
-Route::group(['prefix'=>'employer'], function(){
+Route::group(['prefix' => 'employer'], function () {
     Route::post('/', [EmployerController::class, 'submit']);
     Route::delete('/{id}', [EmployerController::class, 'delete']);
 });
