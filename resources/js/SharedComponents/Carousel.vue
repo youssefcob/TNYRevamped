@@ -9,7 +9,7 @@ let carouselItemsNo = ref(0);
 
 
 const props = defineProps({
-    indicator: Boolean,
+    NoIndicator: Boolean,
     NoButtons: Boolean,
     behavior: String,
     numberOfItems: {
@@ -72,34 +72,33 @@ defineExpose({
 })
 
 watch(() => props.numberOfItems, () => {
-        defineStyle();
+    defineStyle();
 });
 
 const defineStyle = () => {
     const carouselItems = wheel.value;
-        if (carouselItems) {
-            const children = Array.from(carouselItems.children);
-            
-            const percentage = props.numberOfItems === 1 
-                ? 100 
-                : 100 / props.numberOfItems;
-            const margin = props.numberOfItems === 1 ? 0 : 1;
+    if (carouselItems) {
+        const children = Array.from(carouselItems.children);
 
-            children.forEach((el) => {
-                const htmlEl = el as HTMLElement;
-                htmlEl.style.scrollSnapAlign = props.snap ? 'start' : 'none';
-                htmlEl.style.flex = `0 0 calc(${percentage}% - ${margin}rem)`;
-            });
-        }
+        const percentage = props.numberOfItems === 1
+            ? 100
+            : 100 / props.numberOfItems;
+        const margin = props.numberOfItems === 1 ? 0 : 1;
+
+        children.forEach((el) => {
+            const htmlEl = el as HTMLElement;
+            htmlEl.style.scrollSnapAlign = props.snap ? 'start' : 'none';
+            htmlEl.style.flex = `0 0 calc(${percentage}% - ${margin}rem)`;
+        });
+    }
 }
 
 onMounted(() => {
     if (wheel.value) {
         wheel.value.addEventListener('scroll', updateCurrentIndexBasedOnScroll);
     }
-    nextTick(() => {
     carouselItemsNo.value = wheel.value?.childElementCount || 0;
-
+    nextTick(() => {
         defineStyle();
     });
 });
@@ -112,7 +111,7 @@ onMounted(() => {
                 <slot></slot>
             </div>
         </div>
-        <div class="indicator-container" v-if="indicator">
+        <div class="indicator-container" v-if="!NoIndicator">
             <div class="indicator" v-for="i in carouselItemsNo" :key="i" :class="{ active: i - 1 === currentIndex }">
             </div>
 
@@ -127,37 +126,30 @@ onMounted(() => {
 .carousel-wrapper {
     display: flex;
     flex-direction: column;
-    position: relative;
 
     .indicator-container {
-        // width:10rem;
-        // height:5rem;
-        // background-color: yellow;
-        position: absolute;
-        bottom: 7%;
         align-self: center;
         display: flex;
         justify-content: center;
         gap: 0.5rem;
         margin-top: 1rem;
-        
 
-        .indicator {
-            width: 0.6rem;
-            height: 0.6rem;
-            margin-top: 0.5rem;
-            border-radius: 50%;
-            border:1px solid $navy;
-            transition: background-color 0.3s ease-in-out;
+        // .indicator {
+        //     width: 0.5rem;
+        //     height: 0.5rem;
+        //     margin-top: 0.5rem;
+        //     border-radius: 50%;
+        //     background-color: $darkgrey;
+        //     transition: background-color 0.3s ease-in-out;
 
-            &.active {
-                background-color: $navy;
-            }
-        }
+        //     &.active {
+        //         background-color: $blue;
+        //     }
+        // }
     }
 
     >.carousel {
-        height: 100%;
+        // height: 100%;
         display: flex;
         justify-content: space-between;
 
@@ -170,15 +162,29 @@ onMounted(() => {
             overflow-x: auto;
             justify-content: flex-start;
 
-            // @include scrollBar;
 
-            // gap: 1rem;
+            gap: 1rem;
+
+            
 
             &::-webkit-scrollbar {
-                // @media screen and (min-width: 800px) {
-                    display: none;
-                // }
+                width: 8px;
+                height: 8px;
+                display: none;
             }
+
+            &::-webkit-scrollbar-track {
+                -webkit-border-radius: 10px;
+                border-radius: 10px;
+            }
+
+
+            &::-webkit-scrollbar-thumb {
+                -webkit-border-radius: 10px;
+                border-radius: 10px;
+                background: #D9D9D9;
+            }
+
 
             // >* {
             // scroll-snap-align: start;

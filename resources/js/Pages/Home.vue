@@ -16,6 +16,9 @@
         <section>
             <Employers/>
         </section>
+        <section>
+            <Jobs/>
+        </section>
         <!-- <h1>Welcome to Laravel 11 with Inertia.js and Vue.js</h1> -->
 
         <!-- <Link href="/about" method="get">Click here to go to the about page</Link> -->
@@ -37,6 +40,7 @@ import Numbers from '@/Components/Numbers/Numbers.vue';
 import Services from '@/Components/Services/Services.vue';
 import WhatSetsUs from '@/Components/WhatSetsUs/WhatSetsUs.vue';
 import Employers from '@/Components/Employers/Employers.vue';
+import Jobs from '@/Components/Jobs/Jobs.vue';
 
 const props = defineProps({
     hero: {
