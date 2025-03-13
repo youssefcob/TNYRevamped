@@ -37,3 +37,10 @@ export type Job = {
     description: string;
     available: boolean;
 }
+
+export type News = {
+    id: number;
+    title: string;
+    image: string;
+    link: string;
+}

@@ -1,4 +1,4 @@
-import { Employer, Hero, Job, Service } from "@/interface/Types";
+import { Employer, Hero, Job, News, Service } from "@/interface/Types";
 import { reactive, Ref, ref } from "vue";
 
 let heroState:Ref<Hero[]> = ref([]);
@@ -33,3 +33,11 @@ const assignJob = (job:Job[]) => {
 }
 
 export { jobState, assignJob };
+
+let newsState:Ref<News[]> = ref([]);
+
+const assignNews = (news:News[]) => {
+  newsState.value = news;
+}
+
+export { newsState, assignNews };
