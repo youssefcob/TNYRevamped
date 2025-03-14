@@ -3,6 +3,7 @@
 // use App\Http\Controllers\AdminAtuhController;
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ApplicationsController;
+use App\Http\Controllers\Content\ClientsController;
 use App\Http\Controllers\Content\EmployerController;
 use App\Http\Controllers\Content\HeroController;
 use App\Http\Controllers\Content\JobsController;
@@ -139,4 +140,9 @@ Route::group(['prefix' => 'jobs'], function () {
 Route::group(['prefix' => 'news'], function () {
     Route::post('/', [NewsController::class, 'submit']);
     Route::delete('/{id}', [NewsController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'clients'], function () {
+    Route::post('/', [ClientsController::class, 'submit']);
+    Route::delete('/{id}', [ClientsController::class, 'delete']);
 });

@@ -22,7 +22,9 @@
         <section>
             <NewsAndEvents/>
         </section>
-        <!-- <h1>Welcome to Laravel 11 with Inertia.js and Vue.js</h1> -->
+        <section>
+            <Clients/>
+        </section>
 
         <!-- <Link href="/about" method="get">Click here to go to the about page</Link> -->
 
@@ -34,9 +36,9 @@
 import { Link } from '@inertiajs/vue3';
 import Navbar from '@/Components/NavBar/NavBar.vue';
 
-import type { Employer, Job, News, Service, Hero as typeHero } from '@/interface/Types.ts';
+import type { Client, Employer, Job, News, Service, Hero as typeHero } from '@/interface/Types.ts';
 
-import { assignEmployer, assignHero, assignJob, assignNews, assignService } from '@/state/state';
+import { assignClient, assignEmployer, assignHero, assignJob, assignNews, assignService } from '@/state/state';
 import { onMounted } from 'vue';
 import Hero from '@/Components/Hero/Hero.vue';
 import Numbers from '@/Components/Numbers/Numbers.vue';
@@ -45,6 +47,7 @@ import WhatSetsUs from '@/Components/WhatSetsUs/WhatSetsUs.vue';
 import Employers from '@/Components/Employers/Employers.vue';
 import Jobs from '@/Components/Jobs/Jobs.vue';
 import NewsAndEvents from '@/Components/News/NewsAndEvents.vue';
+import Clients from '@/Components/Clients/clients.vue';
 
 const props = defineProps({
     hero: {
@@ -61,6 +64,9 @@ const props = defineProps({
     },
     news: {
         type: Object as () => News[]
+    },
+    clients: {
+        type: Object as () => Client[]
     }
 });
 
@@ -80,6 +86,9 @@ onMounted(() => {
     }
     if (props.news) {
         assignNews(props.news);
+    }
+    if (props.clients) {
+        assignClient(props.clients);
     }
 });
 
