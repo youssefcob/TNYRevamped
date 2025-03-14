@@ -51,6 +51,11 @@ import Comma from './Comma.vue';
         top: 0;
         left: 0;
         z-index:0;
+        .comma{
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
     }
 
     >svg {
