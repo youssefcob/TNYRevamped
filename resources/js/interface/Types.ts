@@ -44,3 +44,8 @@ export type News = {
     image: string;
     link: string;
 }
+
+export type Client = {
+    id:number;
+    image:string;
+}
