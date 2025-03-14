@@ -29,6 +29,8 @@ import { clientState } from '@/state/state';
         width: 10rem;
         background-size: cover;
         background-position: center;
+        margin-right:2rem;
+        border-radius: $border-radius;
     }
 }
 </style>

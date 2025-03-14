@@ -8,6 +8,7 @@ use App\Services\Content\EmployersService;
 use App\Services\Content\JobsService;
 use App\Services\Content\NewsService;
 use App\Services\Content\ServicesService;
+use App\Services\Content\TestimonialsService;
 use App\Services\HeroService;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -24,6 +25,7 @@ class HomeController extends Controller
         $data['jobs'] = JobsService::get();
         $data['news'] = NewsService::get();
         $data['clients'] = ClientsService::get();
+        $data['testimonials'] = TestimonialsService::get();
         return Inertia::render('Home', $data);
     }
  

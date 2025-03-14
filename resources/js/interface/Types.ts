@@ -49,3 +49,11 @@ export type Client = {
     id:number;
     image:string;
 }
+
+export type Testimonial = {
+    id:number;
+    name:string;
+    position:string;
+    image:string;
+    review:string;
+}

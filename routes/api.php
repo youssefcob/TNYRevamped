@@ -13,6 +13,7 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ServiceController;
 use App\Http\Controllers\Content\ServiceController as ContentServiceController;
+use App\Http\Controllers\Content\TestimonialsController;
 use App\Http\Controllers\InsightsController;
 // use App\Http\Controllers\InsightsController;
 use App\Http\Controllers\ServiceRequestController;
@@ -145,4 +146,9 @@ Route::group(['prefix' => 'news'], function () {
 Route::group(['prefix' => 'clients'], function () {
     Route::post('/', [ClientsController::class, 'submit']);
     Route::delete('/{id}', [ClientsController::class, 'delete']);
+});
+
+Route::group(['prefix' => 'testimonials'], function () {
+    Route::post('/', [TestimonialsController::class, 'submit']);
+    Route::delete('/{id}', [TestimonialsController::class, 'delete']);
 });
