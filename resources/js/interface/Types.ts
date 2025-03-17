@@ -57,3 +57,10 @@ export type Testimonial = {
     image:string;
     review:string;
 }
+
+export type Team = {
+    id:number;
+    name:string;
+    position:string;
+    image:string;
+}
