@@ -3,6 +3,21 @@ import Carousel from '@/SharedComponents/Carousel.vue';
 import { testimonialState } from '@/state/state';
 import TestimonialCard from './TestimonialCard.vue';
 import Comma from './Comma.vue';
+import { ref, Ref } from 'vue';
+import { onMounted } from 'vue';
+
+
+
+const carousel: Ref<InstanceType<typeof Carousel> | null> = ref(null);
+
+
+onMounted(() => {
+    setInterval(() => {
+        if (carousel.value) {
+            carousel.value.scroll(1);
+        }
+    }, 3000);
+});
 </script>
 
 <template>
@@ -14,7 +29,7 @@ import Comma from './Comma.vue';
         <br>
         <br>
         <div class="carousel-container">
-            <Carousel :numberOfItems="1" snap indicator>
+            <Carousel ref="carousel" :numberOfItems="1" snap indicator>
                 <TestimonialCard v-for="testimonial in testimonialState" :key="testimonial.id"
                     :testimonial="testimonial" />
             </Carousel>
@@ -24,11 +39,7 @@ import Comma from './Comma.vue';
                 d="M465 0H241.851C241.851 0 125.485 56.1522 74.8321 93.587C24.1787 131.022 8.66649 145.174 0.449209 217.761C-7.76807 290.348 99.4743 341.022 99.4743 341.022L465 504V0Z"
                 fill="#A6DCF3" />
         </svg>
-        <div class="fst-comma-group">
-            <Comma class="comma" :rotation="-176.52"/>
-            <Comma class="comma" :rotation="-176.52"/>
 
-        </div>
 
 
     </div>
@@ -80,5 +91,9 @@ import Comma from './Comma.vue';
             width:80vw;
         }
     }
+
+
+
+    
 }
 </style>

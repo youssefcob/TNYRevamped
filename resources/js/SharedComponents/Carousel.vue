@@ -9,7 +9,7 @@ let carouselItemsNo = ref(0);
 
 
 const props = defineProps({
-    NoIndicator: Boolean,
+    // NoIndicator: Boolean,
     NoButtons: Boolean,
     behavior: String,
     numberOfItems: {
@@ -17,6 +17,7 @@ const props = defineProps({
         default: 1
     },
     snap: Boolean,
+    indicator: Boolean,
 });
 
 
@@ -97,8 +98,9 @@ onMounted(() => {
     if (wheel.value) {
         wheel.value.addEventListener('scroll', updateCurrentIndexBasedOnScroll);
     }
-    carouselItemsNo.value = wheel.value?.childElementCount || 0;
     nextTick(() => {
+    carouselItemsNo.value = wheel.value?.childElementCount || 0;
+
         defineStyle();
     });
 });
@@ -111,7 +113,7 @@ onMounted(() => {
                 <slot></slot>
             </div>
         </div>
-        <div class="indicator-container" v-if="!NoIndicator">
+        <div class="indicator-container" v-if="indicator">
             <div class="indicator" v-for="i in carouselItemsNo" :key="i" :class="{ active: i - 1 === currentIndex }">
             </div>
 
@@ -134,18 +136,36 @@ onMounted(() => {
         gap: 0.5rem;
         margin-top: 1rem;
 
-        // .indicator {
-        //     width: 0.5rem;
-        //     height: 0.5rem;
-        //     margin-top: 0.5rem;
-        //     border-radius: 50%;
-        //     background-color: $darkgrey;
-        //     transition: background-color 0.3s ease-in-out;
+        .indicator {
+            width: 0.5rem;
+            height: 0.5rem;
+            margin-top: 0.5rem;
+            border-radius: 50%;
+            // background-color: red;
+            border: 1px solid $navy;
+            padding: 1px;
 
-        //     &.active {
-        //         background-color: $blue;
-        //     }
-        // }
+            &::after {
+                content: '';
+                display: block;
+                width: 100%;
+                height: 100%;
+                border-radius: 50%;
+                background-color: $beige;
+                transition: background-color 0.3s ease-in-out;
+
+
+            }
+
+            &.active {
+                &::after {
+                    background-color: $navy;
+                    transition: background-color 0.3s ease-in-out;
+
+
+                }
+            }
+        }
     }
 
     >.carousel {
@@ -165,7 +185,7 @@ onMounted(() => {
 
             gap: 1rem;
 
-            
+
 
             &::-webkit-scrollbar {
                 width: 8px;

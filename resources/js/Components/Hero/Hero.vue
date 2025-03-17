@@ -8,7 +8,7 @@ console.log(heroState);
 </script>
 
 <template>
-    <Carousel snap indicator>
+    <Carousel snap>
         <template v-for="hero in heroState">
             <HeroCard :hero="hero" />
         </template>
