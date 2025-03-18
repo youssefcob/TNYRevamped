@@ -78,3 +78,13 @@ input, .input-text{
     align-self: flex-end;
 
 }
+
+.input-field {
+    border: 1px solid $navy;
+    border-radius: 0.75rem;
+    background: $light-grey;
+    outline: none;
+    padding: 1.25rem;
+  
+  
+  }
