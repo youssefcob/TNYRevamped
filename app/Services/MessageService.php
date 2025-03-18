@@ -43,4 +43,45 @@ class MessageService
             ];
         }
     }
+
+    /**
+     * Creates a new message in the database.
+     *
+     * @param \Illuminate\Http\Request $request Contains the message data.
+     * @return array The new message data or error messages.
+     * @throws \Exception
+     */
+    public function post($request)
+    {
+        try {
+            //code...
+            $request->validate([
+               'name' => ['required', 'string'],    
+               'email' => ['required', 'email'],
+               'phone' => ['required', 'regex:/^(\+1|1)?\d{10}$/'],
+               'subject' => ['required', 'string'],
+               'message' => ['required', 'string'],
+            ]);
+
+            $message = Message::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'subject' => $request->subject,
+                'message' => $request->message,
+            ]);
+
+            return [
+                'success' => true,
+                'data' => $message,
+            ];
+        } catch (Exception $e) {
+            //throw $th;
+            return [
+                'success' => false,
+                'message' => 'Error creating message',
+                'error' => $e->getMessage()
+            ];
+        }
+    }
 }
