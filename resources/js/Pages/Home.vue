@@ -31,12 +31,19 @@
         <section>
             <TeamComp/>
         </section>
+        <section>
+            <ContactUs/>
+        </section>
 
 
         <!-- <Link href="/about" method="get">Click here to go to the about page</Link> -->
 
         <!-- {{ hero }} -->
     </div>
+
+    <vue3-snackbar :iconPresets="{
+            path: ` M10 18L8 12L10 6L14 12L10 18Z`
+        }" :bottom="!checkMobile()" :top="checkMobile()" :duration="1500" :limit="1" />
 </template>
 
 <script setup lang="ts">
@@ -57,6 +64,10 @@ import NewsAndEvents from '@/Components/News/NewsAndEvents.vue';
 import Testimonials from '@/Components/Testimonials/Testimonials.vue';
 import TeamComp from '@/Components/Team/Team.vue';
 import Clients from '@/Components/Clients/Clients.vue';
+import ContactUs from '@/Components/ContactUs/ContactUs.vue';
+
+import { Vue3Snackbar } from "vue3-snackbar";
+
 
 
 const props = defineProps({
@@ -113,6 +124,13 @@ onMounted(() => {
     }
 });
 
+const checkMobile = () => {
+    let onMobile = false;
+    if (window.innerWidth < 600) {
+        onMobile = true;
+    }
+    return onMobile;
+}
 
 
 </script>

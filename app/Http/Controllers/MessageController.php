@@ -20,4 +20,12 @@ class MessageController extends Controller
             return $this->sendError($response);
         return $this->sendResponse($response);
     }
+
+    public function submit(Request $request)
+    {
+        $response = $this->service->post($request);
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
 }

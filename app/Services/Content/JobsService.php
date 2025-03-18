@@ -3,13 +3,13 @@
 namespace App\Services\Content;
 
 use Illuminate\Http\Request;
-use App\Models\JobPositions;
+use App\Models\Position;
 
 class JobsService
 {
     public static function get()
     {
-        return JobPositions::all();
+        return Position::all();
     }
 
     public function post($request)
@@ -20,7 +20,7 @@ class JobsService
             'available' => ['boolean'],
         ]);
 
-        $job = JobPositions::create([
+        $job = Position::create([
             'title' => $request->title,
             'description' => $request->description,
             'available' => $request->available || true,
@@ -40,7 +40,7 @@ class JobsService
             'available' => ['boolean'],
         ]);
 
-        $job = JobPositions::find($id);
+        $job = Position::find($id);
 
         if (!$job) {
             return response()->json(['message' => 'job not found'], 404);
@@ -55,7 +55,7 @@ class JobsService
 
     public function delete($id)
     {
-        $job = JobPositions::find($id);
+        $job = Position::find($id);
 
         if (!$job) {
             return response()->json(['message' => 'job not found'], 404);
