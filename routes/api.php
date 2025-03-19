@@ -108,6 +108,7 @@ Route::middleware('auth:api')->group(function () {
     // Route::post('/service-requests', [ServiceRequestController::class , 'createServiceRequest'])->name('create.service_requests');
 
     Route::get('/insights/main-metrics',[InsightsController::class , 'getMainMetrics'] )->name('get.insights');
+    Route::get('/insights/applications-by-postion',[InsightsController::class, 'getPositionsCount'])->name('get.positions.count');
 });
 
 

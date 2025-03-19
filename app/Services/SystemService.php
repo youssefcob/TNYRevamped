@@ -99,7 +99,7 @@ class SystemService
             }
 
             $data = $id ? Service::find($id) : Service::paginate(5);
-
+            // return['success'=>false, 'message'=>'sdsd'];
             return [
                 'success' => true,
                 'data' => $data,
@@ -269,7 +269,7 @@ class SystemService
             $deletedImage = $this->cloudinary->deleteImage($service->imageCloudId);
             // dd($deletedImage);
             $service->delete();
-
+            // return['success'=>false , 'message'=>'asdsad'];
             DB::commit();
             return [
                 'success' => true,

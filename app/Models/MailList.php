@@ -9,6 +9,6 @@ use Illuminate\Database\Eloquent\Model;
 class MailList extends Model
 {
     //
-    // use GenericObserverTrait;
+    use GenericObserverTrait;
     protected $fillable = ['name', 'email', 'form', 'role'];
 }

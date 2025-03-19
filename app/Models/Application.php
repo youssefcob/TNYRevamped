@@ -12,4 +12,7 @@ class Application extends Model
     use HasFactory, GenericObserverTrait;
     protected $fillable = ['name', 'email', 'address', 'phone', 'resume', 'position_id', 'status'];
 
+    public function position(){
+        return $this->belongsTo(Position::class);
+    }
 }

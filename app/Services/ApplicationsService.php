@@ -24,10 +24,20 @@ class ApplicationsService
                     'id' => 'required|integer|exists:applications,id',
                 ]);
             }
-            $data = $id ? Application::find($id) : Application::paginate(10);
+            
+            if ($id) {
+                $application = Application::with(['position' => function($query) {
+                    $query->select('id', 'title');
+                }])->find($id);
+            } else {
+                $application = Application::with(['position' => function($query) {
+                    $query->select('id', 'title');
+                }])->paginate(10);
+            }
+
             return [
                 'success' => true,
-                'data' => $data,
+                'data' => $application,
             ];
         } catch (\Exception $e) {
             return [

@@ -67,6 +67,7 @@ class PositionService
             return [
                 'success' => true,
                 'data' => $position,
+                'message'=>'Position updated successfully'
             ];
         } catch (ValidationException $e) {
             return [
@@ -136,7 +137,7 @@ class PositionService
             return [
                 'code' => 422,
                 'success' => false,
-                'message' => 'Validation error',
+                'message' => 'Validation error please fill in the required fields',
                 'errors' => $e->errors()
             ];
         } catch (\Throwable $th) {
