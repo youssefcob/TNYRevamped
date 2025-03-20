@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(AdminsTableSeeder::class);
         $this->call(MailListSeeder::class);
         Position::factory(10)->create();
-        Application::factory(2)->create();
+        Application::factory(40)->create();
         Message::factory(10)->create();
         Service::factory(10)->create();
         ServiceRequest::factory(3)->create();

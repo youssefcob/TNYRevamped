@@ -18,4 +18,11 @@ class InsightsController extends Controller
             return $this->sendError($response);
         return $this->sendResponse($response);
     }
+    public function getPositionsCount(Request $request){
+        $response = $this->service->getPositionsCount($request);
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
+    
 }

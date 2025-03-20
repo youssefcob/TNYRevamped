@@ -29,6 +29,7 @@ class MailListService
             return [
                 'success' => true,
                 'data' => $data,
+                
             ];
         } catch (\Exception $e) {
             return [

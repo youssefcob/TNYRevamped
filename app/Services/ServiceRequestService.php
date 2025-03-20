@@ -31,7 +31,7 @@ class ServiceRequestService
             ]);
             $serviceRequest = ServiceRequest::find($request->id);
             $serviceRequest->update($request->only(['status']));
-            return ['success' => true, 'data' => $serviceRequest];
+            return ['success' => true, 'data' => $serviceRequest, 'message'=>'Service requests updated'];
         } catch (ValidationException $e) {
             return ['code' => 422, 'success' => false, 'message' => 'Validation error', 'errors' => $e->errors()];
         } catch (\Exception $e) {
