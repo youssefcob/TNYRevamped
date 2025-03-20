@@ -61,8 +61,8 @@ import Testimonials from '@/Components/Testimonials/Testimonials.vue';
 import TeamComp from '@/Components/Team/Team.vue';
 import Clients from '@/Components/Clients/Clients.vue';
 import ContactUs from '@/Components/ContactUs/ContactUs.vue';
-// import Map from '@/Components/Map/Map.vue';
 import AboutUs from '@/Components/AboutUs/AboutUs.vue';
+import Map from '@/Components/Map/Map.vue';
 
 
 
