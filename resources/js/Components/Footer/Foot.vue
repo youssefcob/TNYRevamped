@@ -15,6 +15,7 @@
                     </ul>
                 </div>
                 <div class="contact-wrapper">
+                    <h3>Our Info</h3>
                     <div class="contact-info">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M34.6673 1.33301L16.334 19.6663" stroke="#21A8E0" stroke-width="2"
@@ -103,12 +104,20 @@
     flex-direction: column;
     padding-bottom: 1rem;
 
+    h3 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: white;
+        margin-bottom: 1rem;
+    }
+
 
     .up {
         display: flex;
         justify-content: space-around;
         padding-bottom: 2rem;
         border-bottom: 1px solid white;
+
 
 
         // align-items: center;
@@ -124,7 +133,14 @@
             display: flex;
             gap: 4vw;
 
+            @include media-max(phone) {
+                flex-direction: column;
+                // gap: 4rem;
+            }
+
             .links {
+               
+
                 h3 {
                     font-size: 1.5rem;
                     font-weight: 600;
@@ -138,7 +154,7 @@
                     li {
                         font-size: 1rem;
                         color: white;
-                        margin-bottom: 0.5rem;
+                        margin-bottom: 1rem;
                         text-decoration: underline;
                         cursor: pointer;
 
@@ -194,9 +210,19 @@
         justify-content: space-between;
         align-items: center;
 
+        @include media-max(phone) {
+            flex-direction: column;
+            gap: 4rem;
+        }
+
         span {
             font-weight: 400;
-            font-size: 1rem
+
+            font-size: 1rem;
+
+            @include media-max(phone) {
+                font-size: 0.8rem;
+            }
         }
     }
 }

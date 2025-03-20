@@ -25,6 +25,11 @@ const router = createRouter({
       path:'/employers',
       name:'Employers',
       component: Employers
+    },
+    {
+      path:'/apply',
+      name:'Apply',
+      component: () => import('@/Views/Apply.vue')
     }
 
 

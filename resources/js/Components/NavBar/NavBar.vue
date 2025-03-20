@@ -10,7 +10,7 @@ import NavListResponsive from './NavListResponsive.vue';
         <div class="navlist-desktop">
             <NavList />
         </div>
-        <div class="btn">Apply Now</div>
+        <router-link to="/apply" class="btn">Apply Now</router-link>
 
         <div class="navlist-mobile">
             <NavListResponsive />
