@@ -33,15 +33,16 @@ const props = defineProps({
     align-items: center;
     gap: 0.5rem;
 
+    // min-width: 100%;
     @include media-max(tablet) {
         flex-direction: column;
     }
 
     .img-wrapper {
-        padding: 2rem;
-        height: 9rem;
-        width: 9rem;
-        background-color: $light-blue;
+        padding: 1.5rem;
+        height: 8rem;
+        width: 8rem;
+        background-color: $service-blue;
         border-radius: 100vh;
 
         >img {
@@ -57,9 +58,11 @@ const props = defineProps({
         box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.1);
         padding: 1rem 2rem;
         border-radius: 1rem;
+        flex-grow: 1;
 
         >h2 {
             color: $blue;
+            text-align: center;
 
 
         }

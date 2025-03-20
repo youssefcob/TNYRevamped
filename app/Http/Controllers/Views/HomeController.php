@@ -28,7 +28,7 @@ class HomeController extends Controller
         $data['clients'] = ClientsService::get();
         $data['testimonials'] = TestimonialsService::get();
         $data['team'] = TeamService::get();
-        return Inertia::render('Home', $data);
+        return Inertia::render('App', $data);
     }
  
 }

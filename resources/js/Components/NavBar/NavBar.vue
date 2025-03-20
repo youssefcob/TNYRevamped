@@ -6,7 +6,7 @@ import NavListResponsive from './NavListResponsive.vue';
 
 <template>
     <nav>
-        <img src="@/Svg/logo.svg" alt="">
+        <router-link to="/#home"><img src="@/Svg/logo.svg" alt=""></router-link>
         <div class="navlist-desktop">
             <NavList />
         </div>

@@ -8,6 +8,9 @@ use Inertia\Inertia;
 Route::get('/', [HomeController::class, 'view']);
 
 
-Route::get('/about', function () {
-    return Inertia::render('About');
-});
+Route::get('{any}', [HomeController::class, 'view']);
+
+
+// Route::get('/about', function () {
+//     return Inertia::render('About');
+// });

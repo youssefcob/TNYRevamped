@@ -266,7 +266,7 @@ class SystemService
             ]);
 
             $service = Service::find($id);
-            $deletedImage = $this->cloudinary->deleteImage($service->imageCloudId);
+            $deletedImage = $this->cloudinary->deleteImage($service->image);
             // dd($deletedImage);
             $service->delete();
 

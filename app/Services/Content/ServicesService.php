@@ -15,6 +15,12 @@ class ServicesService
 
     public function post($request)
     {
+        $request->merge([
+            'onMainPage' => filter_var($request->onMainPage, FILTER_VALIDATE_BOOLEAN),
+            'available' => filter_var($request->available, FILTER_VALIDATE_BOOLEAN),
+        ]);
+
+
         $request->validate([
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
@@ -23,13 +29,17 @@ class ServicesService
             'available' => ['boolean'],
         ]);
 
+
         $cloudinary = new Cloudinary();
-        $imageId = $cloudinary->uploadImage($request->file('image'));
+        $imageId = $cloudinary->uploadImageWithId($request->file('image'));
 
         $service = Service::create([
             'title' => $request->title,
             'description' => $request->description,
-            'image' => $imageId,
+            'image' => $imageId['file'],
+            'imageCloudId' => $imageId['id'],
+            'onMainPage' => $request->onMainPage | false,
+            'available' => $request->available | true,
         ]);
 
         return $service;
@@ -68,6 +78,8 @@ class ServicesService
 
 
         $service = Service::find($id);
+        
+        
 
         if (!$service) {
             return response()->json(['message' => 'Service not found'], 404);
