@@ -17,7 +17,7 @@ const props = defineProps({
         <div class="info">
             <h2 class="title blue">{{ job?.title }}</h2>
             <p class="big">{{ job?.description }}</p>
-            <button class="btn">Apply Now</button>
+            <router-link :to="`/apply/${job?.title}`" class="btn">Apply Now</router-link>
         </div>
     </div>
     </div>

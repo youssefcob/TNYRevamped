@@ -20,7 +20,7 @@ const props = defineProps({
         <div class="content">
             <h2>{{ service?.title }}</h2>
             <p>{{ service?.description }}</p>
-            <button class="btn"><span class="btnFont">Request Service</span></button>
+            <router-link :to="`requestService/${service?.title}`" class="btn"><span class="btnFont">Request Service</span></router-link>
         </div>
 
 
@@ -85,7 +85,7 @@ const props = defineProps({
             }
         }
 
-        >button {
+        >.btn {
             width: fit-content;
             margin-left: auto;
             margin-right: 1rem;

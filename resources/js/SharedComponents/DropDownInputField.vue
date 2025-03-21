@@ -10,7 +10,7 @@ const props = defineProps({
     disabled: Boolean,
     error: Boolean,
     default: String,
-    background:String,
+    background: String,
     label: String,
 });
 let filteredList = ref(props.list);
@@ -37,13 +37,13 @@ const clear = () => {
     emit(`input`, input.value);
 }
 
-const defaultValue = (value : string) => {
+const defaultValue = (value: string) => {
     input.value = value;
     if (input.value.length > 0) {
-    asterisk.value?.classList.add('active');
-} else {
-    asterisk.value?.classList.remove('active');
-}
+        asterisk.value?.classList.add('active');
+    } else {
+        asterisk.value?.classList.remove('active');
+    }
     emit(`update:modelValue`, input.value);
     emit(`input`, input.value);
 }
@@ -60,15 +60,15 @@ const hideDropDown = () => {
 }
 
 
-const emit = defineEmits([`input`,'update:modelValue']);
+const emit = defineEmits([`input`, 'update:modelValue']);
 
 const changeInput = (insurance: string) => {
     input.value = insurance;
     emit(`update:modelValue`, input.value);
     emit(`input`, input.value);
     if (input.value.length > 0) {
-    asterisk.value?.classList.add('active');
-}
+        asterisk.value?.classList.add('active');
+    }
     show.value = false;
 
 }
@@ -76,7 +76,7 @@ const changeInput = (insurance: string) => {
 const asterisk: Ref<HTMLElement | null> = ref(null);
 
 const filterList = () => {
-    
+
     if (input.value.length > 0) {
         asterisk.value?.classList.add('active');
     } else {
@@ -108,7 +108,7 @@ onMounted(() => {
     };
     document.addEventListener('click', handleClickOutside);
 
-    if(props.default){
+    if (props.default) {
         input.value = props.default;
     }
 
@@ -116,11 +116,11 @@ onMounted(() => {
 });
 onMounted(() => {
 
-if (input.value.length > 0) {
-    asterisk.value?.classList.add('active');
-} else {
-    asterisk.value?.classList.remove('active');
-}
+    if (input.value.length > 0) {
+        asterisk.value?.classList.add('active');
+    } else {
+        asterisk.value?.classList.remove('active');
+    }
 })
 
 onUnmounted(() => {
@@ -134,54 +134,62 @@ defineExpose({
 </script>
 
 <template>
-<div>
-    <label :for="label" class="label ">{{ label }}</label>
-    <div :class="`drpdown-btn ${id}`" @click="showDropDown" >
+    <div>
+        <label :for="label" class="label ">{{ label }}</label>
+        <div :class="`drpdown-btn ${id}`" @click="showDropDown">
 
-        <div class="required">
-            <input :name="label"  :disabled="props.disabled" ref="inputField" class="input-field " @input="filterList()" @focus="showDropDown"  @focusout="hideDropDown"
-                v-model="input" :style="`width:100%;$;${($props.error) ? 'border-color:red' : ''};${background? `background-color:${background}`:'white'}`" type="text">
-
-
-            <label ref="asterisk" :class="`asterisk `" >{{ $props.placeHolder }}<span v-if="props.required" style="color:red">&nbsp;*</span></label>
-            <label :class="`arrowdown `" ref="arrowdown">
-                <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 7" fill="none">
-                    <path d="M1 1L6 6L11 1" stroke="black" stroke-width="0.5" stroke-linecap="round"
-                        stroke-linejoin="round" />
-                </svg>
-            </label>
+            <div class="required">
+                <input :name="label" :disabled="props.disabled" ref="inputField" class="input-field "
+                    @input="filterList()" @focus="showDropDown" @focusout="hideDropDown" v-model="input"
+                    :style="`width:100%;$;${($props.error) ? 'border-color:red' : ''};${background ? `background-color:${background}` : 'white'}`"
+                    type="text">
 
 
+                <label ref="asterisk" :class="`asterisk `">{{ $props.placeHolder }}<span v-if="props.required"
+                        style="color:red">&nbsp;*</span></label>
+                <label :class="`arrowdown `" ref="arrowdown">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="12" height="13" viewBox="0 0 12 7" fill="none">
+                        <path d="M1 1L6 6L11 1" stroke="black" stroke-width="0.5" stroke-linecap="round"
+                            stroke-linejoin="round" />
+                    </svg>
+                </label>
 
-        </div>
-        <div class="dropdown-wrapper {{ id }}" v-if="show && filteredList?.length && !$props.disabled">
-            <div class="dropdown-list {{ identifier }}">
-                <div class="dropdown-item "  v-for="insurance in filteredList" :key="insurance"
-                    @click="changeInput(insurance)">{{ insurance }}</div>
+
 
             </div>
-        </div>
+            <div class="dropdown-wrapper {{ id }}" v-if="show && filteredList?.length && !$props.disabled">
+                <div class="dropdown-list {{ identifier }}">
+                    <div class="dropdown-item " v-for="insurance in filteredList" :key="insurance"
+                        @click="changeInput(insurance)">{{ insurance }}</div>
 
+                </div>
+            </div>
+
+        </div>
     </div>
-</div>
 
 </template>
 
 <style scoped lang="scss">
 .label {
     margin-left: 0.5rem;
-    margin-bottom:0.5rem;
+    margin-bottom: 0.5rem;
     display: block;
     @extend p;
-    font-size:1rem;
-    font-weight:400;
+    font-size: 1rem;
+    font-weight: 400;
+}
+
+.asterisk {
+    font-size: 1rem;
+
 }
 
 .drpdown-btn {
     >.required {
         >.input-field {
             transition: all 0.3s ease-in-out;
-            height:4rem;
+            height: 4rem;
 
             // @media screen and (max-width: 800px) {
             //     height: 6rem;
@@ -207,7 +215,7 @@ defineExpose({
             background-color: $white;
             z-index: 1;
             // @include flex();
-            display:flex;
+            display: flex;
             justify-content: flex-start;
             align-items: flex-start;
             max-height: 10.5rem;
@@ -262,15 +270,15 @@ defineExpose({
             background-color: $white;
             z-index: 1;
             // @include flex();
-            display:flex;
+            display: flex;
             justify-content: flex-start;
             align-items: flex-start;
 
- 
+
             .dropdown-list {
                 height: 95%;
                 width: 98%;
-                
+
 
 
 
@@ -282,13 +290,13 @@ defineExpose({
                     &:hover {
                         background-color: $blue;
                     }
-                    
+
                 }
             }
         }
 
     }
-    
+
 
 }
 
@@ -300,32 +308,33 @@ defineExpose({
         position: absolute;
         display: flex;
 
-     
+
+
     }
 
- 
+
     .asterisk {
         left: 1.25rem;
         top: 35%;
-        color: rgba(0, 0, 0, 0.793);
-        font-size: 1.3rem;
+        color: rgba(0, 0, 0, 0.6);
+        font-size: 1rem;
         pointer-events: none;
         transition: all 0.3s ease-in-out;
 
-        span{
+        span {
             position: absolute;
             top: -40%;
-            right:-1rem;
+            right: -1rem;
         }
 
 
         &.active {
             top: -1.5rem;
-            left:.7rem;
+            left: .7rem;
             // background-color: white;
             transition: all 0.3s ease-in-out;
             font-size: 0.9rem;
-            display:none;
+            display: none;
         }
 
         @media screen and (max-width: 800px) {
@@ -336,9 +345,11 @@ defineExpose({
             font-size: 13px;
         }
     }
+
     .arrowdown {
         right: 3%;
         top: 34%;
+
         &.rtl {
             left: 3%;
         }

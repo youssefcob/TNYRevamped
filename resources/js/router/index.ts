@@ -27,9 +27,14 @@ const router = createRouter({
       component: Employers
     },
     {
-      path:'/apply',
+      path:'/apply/:position',
       name:'Apply',
       component: () => import('@/Views/Apply.vue')
+    },
+    {
+      path:'/requestService/:service',
+      name:'Request',
+      component: () => import('@/Views/Request.vue')
     }
 
 
