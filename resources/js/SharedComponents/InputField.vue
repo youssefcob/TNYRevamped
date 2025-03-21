@@ -193,7 +193,7 @@ defineExpose({
         left: 1.25rem;
         top: 35%;
         color: rgba(0, 0, 0, 0.6);
-        font-size: 1.4rem;
+        font-size: 1rem;
         pointer-events: none;
         transition: all 0.3s ease-in-out;
 

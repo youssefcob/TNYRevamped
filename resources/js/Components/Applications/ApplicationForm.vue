@@ -5,7 +5,11 @@ import Http from '@/mixins/Http';
 import validation from '@/mixins/Validation';
 import { reactive, ref, Ref } from 'vue';
 import { useSnackbar } from 'vue3-snackbar';
+import DropDownInputField from '@/SharedComponents/DropDownInputField.vue';
 
+import { jobState } from '@/state/state';
+import { computed } from '@vue/reactivity';
+import FileInputField from '@/SharedComponents/FileInputField.vue';
 const name: Ref<InstanceType<typeof InputField> | null> = ref(null);
 const email: Ref<InstanceType<typeof InputField> | null> = ref(null);
 const phone: Ref<InstanceType<typeof InputField> | null> = ref(null);
@@ -14,6 +18,8 @@ const address: Ref<InstanceType<typeof InputField> | null> = ref(null);
 
 const isLoading: Ref<boolean> = ref(false);
 const snackbar = useSnackbar();
+
+const jobNames = computed(() => jobState.value.map(job => job.title));
 
 const form = reactive({
     name: '',
@@ -158,6 +164,7 @@ const submitForm = async () => {
 
 <template>
     <div class="wrapper">
+
         <span class="title">Welcome</span>
         <InputField ref="name" @input="form.name = $event" label="Name" placeHolder="Enter Your Name.."
             :error="formErrors.name" />
@@ -166,14 +173,16 @@ const submitForm = async () => {
         <InputField ref="email" @input="form.email = $event" label="Email" placeHolder="Enter Your Email.."
             :error="formErrors.email" />
 
-        <InputField ref="subject" @input="form.resume = $event" label="Your Resume" placeHolder="Upload Your Resume"
+        
+
+        <FileInputField ref="resume" @input="form.resume = $event" label="Your Resume" placeHolder="Upload Your Resume"
             :error="formErrors.resume" />
-
-
         <div class="split">
             <InputField ref="address" @input="form.address = $event" label="Address" placeHolder="Service You Need"
                 :error="formErrors.address" />
-            <InputField ref="position" @input="form.position = $event" label="Position"
+            <!-- <InputField ref="position" @input="form.position = $event" label="Position"
+                placeHolder="Enter Your Position" :error="formErrors.position" /> -->
+            <DropDownInputField ref="position" @input="form.position = $event" :list="jobNames" label="Position"
                 placeHolder="Enter Your Position" :error="formErrors.position" />
         </div>
         <InputField ref="message" @input="form.message = $event" label="Your Message"
@@ -183,20 +192,24 @@ const submitForm = async () => {
 </template>
 
 <style scoped lang="scss">
-$gap:1rem;
+$gap: 1rem;
+
 .wrapper {
     display: flex;
     flex-direction: column;
     gap: $gap;
 }
-.split{
+
+.split {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: $gap;
+
     @include media-max(phone) {
         grid-template-columns: 1fr;
     }
 }
+
 .title {
     text-align: center;
     font-size: 2rem;
