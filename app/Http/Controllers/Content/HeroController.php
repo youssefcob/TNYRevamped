@@ -28,4 +28,17 @@ class HeroController extends Controller
             return $this->sendError($response);
         return $this->sendResponse($response);
     }
+    public function getHeroSection(){
+        $response = $this->hero->getWithFormattedResponse();
+        // return $response;
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
+    public function editHeroSection(Request $request){
+        $response = $this->hero->edit($request);
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
 }
