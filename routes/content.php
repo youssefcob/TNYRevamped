@@ -52,4 +52,6 @@ Route::group(['prefix' => 'testimonials'], function () {
 Route::group(['prefix' => 'team'], function () {
     Route::post('/', [TeamController::class, 'submit']);
     Route::delete('/{id}', [TeamController::class, 'delete']);
+    Route::get('/', [TeamController::class, 'getWithFormattedResponse']);
+    Route::post('/updateTeamMember/{id}', [TeamController::class, 'upadteWithFormattedResponse']);
 });
