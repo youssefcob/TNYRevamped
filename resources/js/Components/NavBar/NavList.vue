@@ -16,13 +16,13 @@ const isActive = (link: string) => {
             <router-link to="/#home">Home</router-link>
         </li>
         <li role="menuitem" :class="{ active: isActive('#about') }">
-            <router-link to="/#about">About us</router-link>
+            <router-link to="/about">About us</router-link>
         </li>
         <li role="menuitem" :class="{ active: isActive('#services') }">
-            <router-link to="/#services">Services</router-link>
+            <router-link to="/services">Services</router-link>
         </li>
         <li role="menuitem" :class="{ active: isActive('#employers') }">
-            <router-link to="/#employers">Employers</router-link>
+            <router-link to="/employers">Employers</router-link>
         </li>
         <li role="menuitem" :class="{ active: isActive('#jobs') }">
             <router-link to="/#jobs">Job Seekers</router-link>

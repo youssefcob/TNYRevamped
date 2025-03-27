@@ -17,7 +17,7 @@ let showMore = () => {
 
 <template>
     <div class="teamContainer">
-        <h1 class="title">Testimonials</h1>
+        <h1 class="title">Team photos</h1>
 
         <br>
         <br>

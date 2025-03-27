@@ -15,6 +15,12 @@ class EmployersService
 
     public function post($request)
     {
+        try{
+
+        $request->merge([
+            'onMainPage' => filter_var($request->onMainPage, FILTER_VALIDATE_BOOLEAN),
+        ]);
+
         $request->validate([
             'title' => ['required', 'string'],
             'description' => ['required', 'string'],
@@ -29,10 +35,21 @@ class EmployersService
             'title' => $request->title,
             'description' => $request->description,
             'image' => $imageId,
+            'onMainPage' => $request->onMainPage | false,
             
         ]);
 
-        return $employer;
+        return [
+            'success' => true,
+            'data' => $employer,
+        ];
+
+    } catch (\Exception $e) {
+        return [
+            'success' => false,
+            'message' => $e->getMessage()
+        ];
+    }
     }
 
     public function update(Request $request, $id)

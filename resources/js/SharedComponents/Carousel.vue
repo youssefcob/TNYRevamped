@@ -99,7 +99,7 @@ onMounted(() => {
         wheel.value.addEventListener('scroll', updateCurrentIndexBasedOnScroll);
     }
     nextTick(() => {
-    carouselItemsNo.value = wheel.value?.childElementCount || 0;
+        carouselItemsNo.value = wheel.value?.childElementCount || 0;
 
         defineStyle();
     });
@@ -144,6 +144,9 @@ onMounted(() => {
             // background-color: red;
             border: 1px solid $navy;
             padding: 1px;
+            align-self: center;
+            display: flex;
+            justify-content: center;
 
             &::after {
                 content: '';

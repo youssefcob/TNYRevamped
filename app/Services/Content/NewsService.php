@@ -27,7 +27,7 @@ class NewsService
         $news = News::create([
             'title' => $request->title,
             'image' => $imageId,
-            'link' => $request->link ,
+            'link' => $request->link,
         ]);
 
         return [
@@ -62,13 +62,26 @@ class NewsService
 
     public function delete($id)
     {
-        $news = News::find($id);
+        try {
+            $news = News::find($id);
 
-        if (!$news) {
-            return response()->json(['message' => 'news not found'], 404);
+            if (!$news) {
+                return [
+                    'success' => false,
+                    'message' => ['message' => 'news not found']
+                ];
+            }
+
+            $news->delete();
+            return [
+                'success' => true,
+                'message' => 'news deleted successfully'
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
         }
-
-        $news->delete();
     }
-    
 }
