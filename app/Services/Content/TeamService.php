@@ -5,12 +5,28 @@ namespace App\Services\Content;
 use Illuminate\Http\Request;
 use App\Models\Team;
 use App\Services\Cloudinary;
+use Exception;
 
 class TeamService
 {
     public static function get()
     {
         return Team::all();
+    }
+    public static function getWithFormattedResponse(){
+       try {
+        //code...
+        return [
+            'success' => true,
+            'data' => Team::all(),
+        ];
+       } catch (Exception $e) {
+        //throw $th;
+        return [
+            'success' => false,
+           'message' => $e->getMessage(),
+        ];
+       }
     }
 
     public function post($request)
@@ -38,10 +54,11 @@ class TeamService
 
     public function update(Request $request, $id)
     {
+        //TODO: Remove this method if it's not in use.
         $request->validate([
-            'name' => ['required', 'string'],
-            'position' => ['required', 'string'],
-            'image' => ['required', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'name' => ['sometimes', 'string'],
+            'position' => ['sometimes', 'string'],
+            'image' => ['sometimes', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
         ]);
 
         $teamMember = Team::find($id);
@@ -63,6 +80,57 @@ class TeamService
             'success' => true,
             'data' => $teamMember,
         ];
+    }
+    public function updateWithFormattedResponse(Request $request, $id)
+    {
+        try {
+            $request->validate([
+                'name' => ['sometimes', 'string'],
+                'position' => ['sometimes', 'string'],
+                'image' => ['sometimes', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            ]);
+
+            $teamMember = Team::find($id);
+
+            if (!$teamMember) {
+                return [
+                    'success' => false,
+                    'message' => 'Team member not found'
+                ];
+            }
+
+            $updateData = [];
+
+            if ($request->has('name')) {
+                $updateData['name'] = $request->name;
+            }
+
+            if ($request->has('position')) {
+                $updateData['position'] = $request->position;
+            }
+
+            if ($request->hasFile('image')) {
+                $oldImage = $teamMember->image;
+                
+                $cloudinary = new Cloudinary();
+                $imageId = $cloudinary->uploadImage($request->file('image'));
+                $updateData['image'] = $imageId;
+                $cloudinary->deleteImage($oldImage);
+            }
+
+            $teamMember->update($updateData);
+
+            return [
+                'success' => true,
+                'data' => $teamMember,
+            ];
+            
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+        }
     }
 
     public function delete($id)

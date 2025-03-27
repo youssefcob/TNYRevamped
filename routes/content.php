@@ -45,11 +45,15 @@ Route::group(['prefix' => 'clients'], function () {
 });
 
 Route::group(['prefix' => 'testimonials'], function () {
+    Route::get('/', [TestimonialsController::class, 'getWithFormattedResponse']);
     Route::post('/', [TestimonialsController::class, 'submit']);
+    Route::post('/updateTestimonial/{id}', [TestimonialsController::class, 'updateWithFormattedResponse']);
     Route::delete('/{id}', [TestimonialsController::class, 'delete']);
 });
 
 Route::group(['prefix' => 'team'], function () {
     Route::post('/', [TeamController::class, 'submit']);
     Route::delete('/{id}', [TeamController::class, 'delete']);
+    Route::get('/', [TeamController::class, 'getWithFormattedResponse']);
+    Route::post('/updateTeamMember/{id}', [TeamController::class, 'upadteWithFormattedResponse']);
 });
