@@ -19,7 +19,7 @@ const isActive = (link: string) => {
             <router-link to="/#about">About us</router-link>
         </li>
         <li role="menuitem" :class="{ active: isActive('#services') }">
-            <router-link to="/#services">Services</router-link>
+            <router-link to="/services">Services</router-link>
         </li>
         <li role="menuitem" :class="{ active: isActive('#employers') }">
             <router-link to="/#employers">Employers</router-link>

@@ -30,5 +30,13 @@ class HomeController extends Controller
         $data['team'] = TeamService::get();
         return Inertia::render('App', $data);
     }
+
+    public function viewServices()
+    {
+        $data = [];
+
+        $data['services'] = ServicesService::get();
+        return Inertia::render('Services', $data);
+    }
  
 }

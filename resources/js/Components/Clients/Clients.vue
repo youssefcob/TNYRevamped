@@ -8,8 +8,12 @@ import { clientState } from '@/state/state';
 
 <template>
     <div class="container">
-        <InfiniteCarousel :animationDuration="15">
-            <div class="card" v-for="c in clientState" :style="`background-image:url(${c.image})`"></div>
+        <h2 class="title">Our Clients</h2>
+        <br>
+        <h2 class="subtitle">Simplifying Staffing For Maximum Results</h2>
+        <br>
+        <br>
+        <InfiniteCarousel :animationDuration="10">
             <div class="card" v-for="c in clientState" :style="`background-image:url(${c.image})`"></div>
 
         </InfiniteCarousel>
@@ -19,9 +23,20 @@ import { clientState } from '@/state/state';
 <style scoped lang="scss">
 .container {
     display: flex;
+    flex-direction: column;
     gap: 1rem;
     justify-content: space-between;
     padding: 0 3rem;
+
+    .title,
+    .subtitle {
+        align-self: center;
+    }
+
+    .subtitle.blue {
+        color: $blue;
+        align-self: center;
+    }
 
     .card {
         background-color: $grey;
