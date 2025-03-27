@@ -45,7 +45,9 @@ Route::group(['prefix' => 'clients'], function () {
 });
 
 Route::group(['prefix' => 'testimonials'], function () {
+    Route::get('/', [TestimonialsController::class, 'getWithFormattedResponse']);
     Route::post('/', [TestimonialsController::class, 'submit']);
+    Route::post('/updateTestimonial/{id}', [TestimonialsController::class, 'updateWithFormattedResponse']);
     Route::delete('/{id}', [TestimonialsController::class, 'delete']);
 });
 
