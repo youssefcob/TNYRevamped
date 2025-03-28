@@ -5,6 +5,7 @@
 
 <template>
     <div class="container">
+    <!-- add title -->
     <SingleService v-for="service in serviceState" :key="service.id" :service="service" />
     </div>
 </template>

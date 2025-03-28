@@ -35,6 +35,7 @@ class NewsController extends Controller
     }
     public function delete($id)
     {
+        // return $id;
         $response = $this->news->delete($id);
         if (!$response['success'])
             return $this->sendError($response);

@@ -44,11 +44,11 @@ class NewsService
             $cloudinary = new Cloudinary();
             $imageId = $cloudinary->uploadImage($request->file('image'));
 
-            $news = News::create([
-                'title' => $request->title,
-                'image' => $imageId,
-                'link' => $request->link,
-            ]);
+$news = News::create([
+            'title' => $request->title,
+            'image' => $imageId,
+            'link' => $request->link,
+        ]);
 
             return [
                 'success' => true,
@@ -148,7 +148,9 @@ class NewsService
 
     public function delete($id)
     {
-        $news = News::find($id);
+        try {
+            $news = News::find($id);
+
 
         if (!$news) {
             // return response()->json(['message' => 'news not found'], 404);
@@ -166,5 +168,6 @@ class NewsService
             'success' => true,
             'message' => 'News deleted successfully'
         ];
+
     }
 }
