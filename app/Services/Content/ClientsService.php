@@ -4,6 +4,7 @@ namespace App\Services\Content;
 
 use App\Models\Client;
 use App\Services\Cloudinary;
+use Exception;
 use Illuminate\Http\Request;
 
 class ClientsService 
@@ -13,61 +14,172 @@ class ClientsService
         return Client::all();
     }
 
+    public static function getWithFormattedResponse()
+    {
+        try {
+            return [
+                'success' => true,
+                'data' => Client::all(),
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+        }
+    }
+
     public function post($request)
     {
-        $request->validate([
-            'image' => ['required','file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            
-        ]);
-        $cloudinary = new Cloudinary();
-        $imageId = $cloudinary->uploadImage($request->file('image'));
+        try {
+            $request->validate([
+                'image' => ['required', 'file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+                'name' => ['required', 'string'],
+            ]);
 
-        $client = Client::create([
-            'image' => $imageId,
-        ]);
+            $cloudinary = new Cloudinary();
+            $imageId = $cloudinary->uploadImage($request->file('image'));
 
-        return $client;
+            $client = Client::create([
+                'image' => $imageId,
+                'name' => $request->name,
+            ]);
+
+            return [
+                'success' => true,
+                'data' => $client,
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+        }
     }
 
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'image' => ['required','file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+        try {
+            $client = Client::find($id);
 
-        ]);
+            if (!$client) {
+                return [
+                    'success' => false,
+                    'message' => 'Client not found',
+                ];
+            }
 
-        $client = Client::find($id);
+            $updateData = [];
 
-        if (!$client) {
-            return response()->json(['message' => 'client not found'], 404);
+            if ($request->hasFile('image')) {
+                $request->validate([
+                    'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+                ]);
+
+                $cloudinary = new Cloudinary();
+                $imageId = $cloudinary->uploadImage($request->file('image'));
+                $updateData['image'] = $imageId;
+
+                // Delete old image
+                $cloudinary->deleteImage($client->image);
+            }
+
+            if ($request->has('name')) {
+                $request->validate(['name' => ['string']]);
+                $updateData['name'] = $request->name;
+            }
+
+            if (!empty($updateData)) {
+                $client->update($updateData);
+            }
+
+            return $client;
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
         }
+    }
 
-        $cloudinary = new Cloudinary();
-        $imageId = $cloudinary->uploadImage($request->file('image'));
+    public function updateWithFormattedResponse(Request $request, $id)
+    {
+        try {
+            $client = Client::find($id);
 
-        $client->update([
-            'image' => $imageId,
-        ]);
+            if (!$client) {
+                return [
+                    'success' => false,
+                    'message' => 'Client not found',
+                ];
+            }
 
-        return $client;
+            $updateData = [];
+
+            if ($request->hasFile('image')) {
+                $request->validate([
+                    'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+                ]);
+
+                $cloudinary = new Cloudinary();
+                $imageId = $cloudinary->uploadImage($request->file('image'));
+                $updateData['image'] = $imageId;
+
+                // Delete old image
+                $cloudinary->deleteImage($client->image);
+            }
+
+            if ($request->has('name')) {
+                $request->validate(['name' => ['string']]);
+                $updateData['name'] = $request->name;
+            }
+
+            if (empty($updateData)) {
+                return [
+                    'success' => false,
+                    'message' => 'No data provided for update',
+                ];
+            }
+
+            $client->update($updateData);
+
+            return [
+                'success' => true,
+                'data' => $client,
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+        }
     }
 
     public function delete($id)
     {
+        try {
+            $client = Client::find($id);
 
+            if (!$client) {
+                return [
+                    'success' => false,
+                    'message' => 'Client not found',
+                ];
+            }
 
-        $service = Client::find($id);
+            $cloudinary = new Cloudinary();
+            $cloudinary->deleteImage($client->image);
+            $client->delete();
 
-        if (!$service) {
-            return ['message' => 'Service not found', 'success' => false];
+            return [
+                'success' => true,
+                'message' => 'Client deleted successfully',
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
         }
-        $cloudinary = new Cloudinary();
-        $cloudinary->deleteImage($service->image);
-
-      
-
-        $service->delete();
-
-        return ['message' => 'Service deleted', 'success' => true];
     }
 }
