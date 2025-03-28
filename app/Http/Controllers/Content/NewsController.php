@@ -13,6 +13,13 @@ class NewsController extends Controller
     {
         $this->news = $news;
     }
+
+    public function getWithFormattedResponse(){
+        $response = $this->news->getWithFormattedResponse();
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
     public function submit(Request $request)
     {
         $response = $this->news->post($request);
@@ -20,7 +27,12 @@ class NewsController extends Controller
             return $this->sendError($response);
         return $this->sendResponse($response);
     }
-
+    public function updateWithFormattedResponse(Request $request, $id){
+        $response = $this->news->updateWithFormattedResponse($request, $id);
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
     public function delete($id)
     {
         // return $id;

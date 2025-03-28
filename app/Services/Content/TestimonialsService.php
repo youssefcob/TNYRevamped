@@ -169,7 +169,8 @@ class TestimonialsService
         if (!$testimonial) {
             return ['message' => 'Testimonial not found', 'success' => false];
         }
-
+        $cloudinary = new Cloudinary();
+        $cloudinary->deleteImage($testimonial->image);
         $testimonial->delete();
 
         return ['message' => 'Testimonial deleted', 'success' => true];

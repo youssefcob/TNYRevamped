@@ -140,11 +140,13 @@ class TeamService
         if (!$teamMember) {
             return response()->json(['message' => 'team member not found'], 404);
         }
-
+        $cloudinary = new Cloudinary();
+        $cloudinary->deleteImage($teamMember->image);
         $teamMember->delete();
 
         return [
             'success' => true,
+            'message' => 'team member deleted successfully'
         ];
     }
     
