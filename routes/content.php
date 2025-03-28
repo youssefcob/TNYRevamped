@@ -35,7 +35,9 @@ Route::group(['prefix' => 'jobs'], function () {
 });
 
 Route::group(['prefix' => 'news'], function () {
+    Route::get('/', [NewsController::class, 'getWithFormattedResponse']);
     Route::post('/', [NewsController::class, 'submit']);
+    Route::post('/updateTestimonial/{id}', [NewsController::class, 'updateWithFormattedResponse']);
     Route::delete('/{id}', [NewsController::class, 'delete']);
 });
 
