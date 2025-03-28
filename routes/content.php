@@ -11,6 +11,7 @@ use App\Http\Controllers\Content\JobsController;
 use App\Http\Controllers\Content\NewsController;
 
 use Illuminate\Support\Facades\Route;
+use Laravel\Passport\Http\Controllers\ClientController;
 
 Route::group(['prefix' => 'hero'], function () {
     // Route::get('/', [HeroController::class, 'get']);
@@ -42,7 +43,9 @@ Route::group(['prefix' => 'news'], function () {
 });
 
 Route::group(['prefix' => 'clients'], function () {
+    Route::get('/', [ClientsController::class, 'getWithFormattedResponse']);
     Route::post('/', [ClientsController::class, 'submit']);
+    Route::post('/updateTestimonial/{id}', [ClientsController::class, 'updateWithFormattedResponse']);
     Route::delete('/{id}', [ClientsController::class, 'delete']);
 });
 

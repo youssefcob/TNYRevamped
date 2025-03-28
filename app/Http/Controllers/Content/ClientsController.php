@@ -13,10 +13,22 @@ class ClientsController extends Controller
     {
         $this->clients = $clients;
     }
+    public function getWithFormattedResponse(){
+        $response = $this->clients->getWithFormattedResponse();
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
     public function submit(Request $request)
     {
         $response = $this->clients->post($request);
         return $response;
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
+    public function updateWithFormattedResponse(Request $request, $id){
+        $response = $this->clients->updateWithFormattedResponse($request, $id);
         if (!$response['success'])
             return $this->sendError($response);
         return $this->sendResponse($response);
