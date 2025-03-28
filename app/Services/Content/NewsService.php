@@ -44,11 +44,11 @@ class NewsService
             $cloudinary = new Cloudinary();
             $imageId = $cloudinary->uploadImage($request->file('image'));
 
-$news = News::create([
-            'title' => $request->title,
-            'image' => $imageId,
-            'link' => $request->link,
-        ]);
+            $news = News::create([
+                'title' => $request->title,
+                'image' => $imageId,
+                'link' => $request->link,
+            ]);
 
             return [
                 'success' => true,
@@ -151,23 +151,28 @@ $news = News::create([
         try {
             $news = News::find($id);
 
+            if (!$news) {
+                return [
+                    'success' => false,
+                    'message' => 'News not found',
+                    "code" => 404
+                ];
+            }
 
-        if (!$news) {
-            // return response()->json(['message' => 'news not found'], 404);
+            $cloudinary = new Cloudinary();
+            $cloudinary->deleteImage($news->image);
+
+            $news->delete();
+
+            return [
+                'success' => true,
+                'message' => 'News deleted successfully'
+            ];
+        } catch (Exception $e) {
             return [
                 'success' => false,
-                'message' => 'News not found',
-                "code" => 404
+                'message' => $e->getMessage()
             ];
         }
-        $cloudinary = new Cloudinary();
-        $cloudinary->deleteImage($news->image);
-
-        $news->delete();
-        return [
-            'success' => true,
-            'message' => 'News deleted successfully'
-        ];
-
     }
 }
