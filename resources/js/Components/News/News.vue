@@ -37,9 +37,19 @@ onUnmounted(() => {
 
     <div class="carousel-container">
         <Carousel ref="carousel" snap :numberOfItems="numberOfCarouselItems">
-            <NewsCard v-for="news in newsState" :key="news.id" :news="news" />
+            <template v-for="news in newsState" :key="news.id">
+            <router-link :to="`/news/${news.id}`" class="news-card">
+                <NewsCard :news="news" />
+            </router-link>
+            </template>
         </Carousel>
     </div>
 
 
 </template>
+<style lang="scss" scoped>
+.news-card{
+    text-decoration: none;
+
+}
+</style>
