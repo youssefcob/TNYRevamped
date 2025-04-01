@@ -25,13 +25,13 @@ class ApplicationsService
                     'id' => 'required|integer|exists:applications,id',
                 ]);
             }
-            
+
             if ($id) {
-                $application = Application::with(['position' => function($query) {
+                $application = Application::with(['position' => function ($query) {
                     $query->select('id', 'title');
                 }])->find($id);
             } else {
-                $application = Application::with(['position' => function($query) {
+                $application = Application::with(['position' => function ($query) {
                     $query->select('id', 'title');
                 }])->paginate(10);
             }
@@ -116,7 +116,7 @@ class ApplicationsService
         } catch (\Illuminate\Validation\ValidationException $e) {
             return [
                 'success' => false,
-               'message' => 'Validation error',
+                'message' => 'Validation error',
                 'errors' => $e->errors() // This ensures errors are an array
             ];
         } catch (\Exception $e) {
@@ -158,7 +158,7 @@ class ApplicationsService
             }
 
             $drive = new GoogleDrive;
- $link = $drive->upload($request->resume);
+            $link = $drive->upload($request->resume);
             $application = Application::create([
                 'position_id' => $position->id,
                 'name' => $request->name,

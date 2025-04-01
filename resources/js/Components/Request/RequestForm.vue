@@ -24,10 +24,10 @@ const form = reactive({
     name: '',
     email: '',
     phone: '',
-    company: '',
+    company_name: '',
     address: '',
-    requirments: '',
-    position: ''
+    requirements: '',
+    service: ''
 })
 
 const formValidation = {
@@ -57,33 +57,33 @@ const formValidation = {
             required: 'Message Is Required'
         }
     },
-    company: {
+    company_name: {
         rules: ['required'],
         message: {
-            required: 'Please select a company',
+            required: 'Please select a company_name',
         }
     },
-    requirments: {
+    requirements: {
         rules: ['required'],
         message: {
             required: 'Please select a message',
         }
     },
-    position: {
-        rules: ['required'],
+    service: {
+        rules: ['required', { dropdown: serviceNames.value }],
         message: {
-            required: 'Please select a position',
+            required: 'Please select a service',
         }
     }
 }
 const formErrors = reactive({
-    company: false,
+    company_name: false,
     name: false,
     email: false,
     phone: false,
     address: false,
-    requirments: false,
-    position: false
+    requirements: false,
+    service: false
 })
 
 const resetForm = () => {
@@ -138,7 +138,7 @@ const submitForm = async () => {
         // if(recapatchaToken) Object.assign(ModdedForm, {
         // recaptcha: recapatchaToken
         // });
-        let response = await Http.post('message', ModdedForm);
+        let response = await Http.post('request', ModdedForm);
 
         snackbar.add({
 
@@ -149,6 +149,7 @@ const submitForm = async () => {
         resetForm();
         console.log(response)
     } catch (e) {
+        console.error(e)
         snackbar.add({
 
             text: e as string,
@@ -178,21 +179,21 @@ onMounted(() => {
             :error="formErrors.phone" mask="(###) ###-####" />
         <InputField ref="email" @input="form.email = $event" label="Email" placeHolder="Enter Your Email.."
             :error="formErrors.email" />
-        <InputField ref="company" @input="form.company = $event" label="Company Name" placeHolder="Enter Your company.."
-            :error="formErrors.company" />
+        <InputField ref="company_name" @input="form.company_name = $event" label="Company Name" placeHolder="Enter Your company_name.."
+            :error="formErrors.company_name" />
 
 
 
         <div class="split">
             <InputField ref="address" @input="form.address = $event" label="Address" placeHolder="Service You Need"
                 :error="formErrors.address" />
-            <!-- <InputField ref="position" @input="form.position = $event" label="Position"
-                placeHolder="Enter Your Position" :error="formErrors.position" /> -->
-            <DropDownInputField ref="serviceComp" @input="form.position = $event" :list="serviceNames"
-                label="Services Available" placeHolder="Service You Need.." :error="formErrors.position" />
+            <!-- <InputField ref="service" @input="form.service = $event" label="service"
+                placeHolder="Enter Your service" :error="formErrors.service" /> -->
+            <DropDownInputField ref="serviceComp" @input="form.service = $event" :list="serviceNames"
+                label="Services Available" placeHolder="Service You Need.." :error="formErrors.service" />
         </div>
-        <InputField ref="message" @input="form.requirments = $event" label="Your Requirments"
-            placeHolder="Enter Your Requirments ..." height="12.5rem" :error="formErrors.requirments" />
+        <InputField ref="message" @input="form.requirements = $event" label="Your requirements"
+            placeHolder="Enter Your requirements ..." height="12.5rem" :error="formErrors.requirements" />
         <Btn class="btn" @click="validate" :loading="isLoading">Send Email</Btn>
     </div>
 </template>

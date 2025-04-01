@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use App\Models\Service;
 use App\Models\ServiceRequest;
 use Illuminate\Validation\ValidationException;
 
@@ -48,6 +49,59 @@ class ServiceRequestService
             return ['success' => true, 'message' => 'Service request deleted successfully', 'data' => $serviceRequest];
         } catch (\Exception $e) {
             return ['success' => false, 'message' => 'Could not delete service request', 'error' => $e->getMessage()];
+        }
+    }
+
+
+    public function createRequest($request)
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255',
+                'address' => 'required|string|max:255',
+                'phone' => 'required|string|max:255',
+                'company_name' => 'required|string|max:255',
+                'requirements' => 'required|string|max:255',
+                'service' => 'required|string',
+            ]);
+
+            $service = Service::where('title', $request->service)->first();
+            if (!$service) {
+                return [
+                    'success' => false,
+                    'message' => 'Position not found'
+                ];
+            }
+
+            $serviceRequest = ServiceRequest::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'address' => $request->address,
+                'phone' => $request->phone,
+                'company_name' => $request->company_name,
+                'requirements' => $request->requirements,
+                'service_id' => $service->id,
+                'status' => 'pending',
+                
+            ]);
+
+            return [
+                'success' => true,
+                'data' => $serviceRequest,
+                'message' => 'Request created successfully'
+            ];
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return [
+                'success' => false,
+                'message' => 'Validation error',
+                'errors' => $e->errors() // This ensures errors are an array
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
         }
     }
 
