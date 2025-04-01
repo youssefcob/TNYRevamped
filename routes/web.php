@@ -7,11 +7,9 @@ use Inertia\Inertia;
 
 // Route::get('/', [HomeController::class, 'view']);
 
-// Route::get('/services', [HomeController::class, 'viewServices']);
+Route::get('/services', [HomeController::class, 'view']);
 Route::get('/{any?}', [HomeController::class, 'view'])
-->where('any', '.*')
-->name('my-spa-route');
-
+->where('any', '.*');
 // Route::get('{any}', [HomeController::class, 'view']);
 
 

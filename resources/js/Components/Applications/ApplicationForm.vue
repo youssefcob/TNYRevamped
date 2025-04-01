@@ -14,7 +14,7 @@ const name: Ref<InstanceType<typeof InputField> | null> = ref(null);
 const email: Ref<InstanceType<typeof InputField> | null> = ref(null);
 const phone: Ref<InstanceType<typeof InputField> | null> = ref(null);
 const resume: Ref<InstanceType<typeof InputField> | null> = ref(null);
-const address: Ref<InstanceType<typeof InputField> | null> = ref(null);
+const zip: Ref<InstanceType<typeof InputField> | null> = ref(null);
 
 const isLoading: Ref<boolean> = ref(false);
 const snackbar = useSnackbar();
@@ -26,7 +26,7 @@ const form = reactive({
     email: '',
     phone: '',
     resume: '',
-    address: '',
+    zip: '',
     message: '',
     position: ''
 })
@@ -38,13 +38,6 @@ const formValidation = {
             required: 'Please enter your name',
         }
     },
-    email: {
-        rules: ['required', 'email'],
-        message: {
-            required: 'email Is Required',
-            email: 'Please Enter A Valid Email'
-        }
-    },
     phone: {
         rules: ['required'],
         message: {
@@ -52,7 +45,15 @@ const formValidation = {
             phone: 'Please Enter A Valid Phone Number'
         }
     },
-    address: {
+    email: {
+        rules: ['required', 'email'],
+        message: {
+            required: 'email Is Required',
+            email: 'Please Enter A Valid Email'
+        }
+    },
+   
+    zip: {
         rules: ['required'],
         message: {
             required: 'Message Is Required'
@@ -82,7 +83,7 @@ const formErrors = reactive({
     name: false,
     email: false,
     phone: false,
-    address: false,
+    zip: false,
     message: false,
     position: false
 })
@@ -178,8 +179,8 @@ const submitForm = async () => {
         <FileInputField ref="resume" @input="form.resume = $event" label="Your Resume" placeHolder="Upload Your Resume"
             :error="formErrors.resume" />
         <div class="split">
-            <InputField ref="address" @input="form.address = $event" label="Address" placeHolder="Service You Need"
-                :error="formErrors.address" />
+            <InputField ref="zip" @input="form.zip = $event" label="Zip" placeHolder="Enter Your Zip Code"
+                :error="formErrors.zip" />
             <!-- <InputField ref="position" @input="form.position = $event" label="Position"
                 placeHolder="Enter Your Position" :error="formErrors.position" /> -->
             <DropDownInputField ref="position" @input="form.position = $event" :list="jobNames" label="Position"

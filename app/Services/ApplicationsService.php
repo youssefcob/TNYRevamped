@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Application;
+use App\Models\Position;
 
 class ApplicationsService
 {
@@ -116,6 +117,67 @@ class ApplicationsService
             return [
                 'success' => false,
                'message' => 'Validation error',
+                'errors' => $e->errors() // This ensures errors are an array
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
+    /**
+     * Creates a new application in the database.
+     *
+     * @param \Illuminate\Http\Request $request Contains 'position_id', 'name', 'email', 'phone', 'resume', 'cover_letter' parameters.
+     * @return array Application data, or error messages.
+     * @throws \Exception
+     * @throws \Illuminate\Validation\ValidationException
+     */
+
+    public function createApplication($request)
+    {
+        try {
+            $request->validate([
+                'position' => 'required|string|max:255',
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|max:255',
+                'phone' => 'required|string|max:255',
+                'resume' => 'required|file|mimes:pdf,doc,docx|max:2048',
+                'message' => 'required|string',
+                'zip' => 'required|string|max:255',
+            ]);
+
+            $position = Position::where('title', $request->position)->first();
+            if (!$position) {
+                return [
+                    'success' => false,
+                    'message' => 'Position not found'
+                ];
+            }
+
+            $drive = new GoogleDrive;
+ $link = $drive->upload($request->resume);
+            $application = Application::create([
+                'position_id' => $position->id,
+                'name' => $request->name,
+                'email' => $request->email,
+                'phone' => $request->phone,
+                'resume' => $link,
+                'message' => $request->message,
+                'zip' => $request->zip,
+            ]);
+
+            return [
+                'success' => true,
+                'data' => $application,
+                'message' => 'Application created successfully'
+            ];
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return [
+                'success' => false,
+                'message' => 'Validation error',
                 'errors' => $e->errors() // This ensures errors are an array
             ];
         } catch (\Exception $e) {
