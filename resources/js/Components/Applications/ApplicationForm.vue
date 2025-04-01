@@ -14,7 +14,7 @@ const name: Ref<InstanceType<typeof InputField> | null> = ref(null);
 const email: Ref<InstanceType<typeof InputField> | null> = ref(null);
 const phone: Ref<InstanceType<typeof InputField> | null> = ref(null);
 const resume: Ref<InstanceType<typeof InputField> | null> = ref(null);
-const address: Ref<InstanceType<typeof InputField> | null> = ref(null);
+const zip: Ref<InstanceType<typeof InputField> | null> = ref(null);
 
 const isLoading: Ref<boolean> = ref(false);
 const snackbar = useSnackbar();
@@ -25,8 +25,8 @@ const form = reactive({
     name: '',
     email: '',
     phone: '',
-    resume: '',
-    address: '',
+    resume: null,
+    zip: '',
     message: '',
     position: ''
 })
@@ -38,13 +38,6 @@ const formValidation = {
             required: 'Please enter your name',
         }
     },
-    email: {
-        rules: ['required', 'email'],
-        message: {
-            required: 'email Is Required',
-            email: 'Please Enter A Valid Email'
-        }
-    },
     phone: {
         rules: ['required'],
         message: {
@@ -52,7 +45,15 @@ const formValidation = {
             phone: 'Please Enter A Valid Phone Number'
         }
     },
-    address: {
+    email: {
+        rules: ['required', 'email'],
+        message: {
+            required: 'email Is Required',
+            email: 'Please Enter A Valid Email'
+        }
+    },
+   
+    zip: {
         rules: ['required'],
         message: {
             required: 'Message Is Required'
@@ -71,7 +72,7 @@ const formValidation = {
         }
     },
     position: {
-        rules: ['required'],
+        rules: ['required',{dropdown: jobNames.value}],
         message: {
             required: 'Please select a position',
         }
@@ -82,7 +83,7 @@ const formErrors = reactive({
     name: false,
     email: false,
     phone: false,
-    address: false,
+    zip: false,
     message: false,
     position: false
 })
@@ -133,13 +134,13 @@ const handleErrors = (v: validation) => {
 const submitForm = async () => {
     try {
         isLoading.value = true;
-        let ModdedForm = form;
-        ModdedForm.phone = ModdedForm.phone.replace(/\D/g, '');
+        let ModdedForm = modifyForm();
+
         // let recapatchaToken = await recaptcha('career');
         // if(recapatchaToken) Object.assign(ModdedForm, {
         // recaptcha: recapatchaToken
         // });
-        let response = await Http.post('message', ModdedForm);
+        let response = await Http.post('application', ModdedForm);
 
         snackbar.add({
 
@@ -160,6 +161,29 @@ const submitForm = async () => {
     isLoading.value = false;
 }
 
+const modifyForm = () => {
+    let formData = new FormData();
+
+    formData.append('position', form.position);
+    formData.append('name', form.name);
+    formData.append('email', form.email);
+    formData.append('phone', form.phone.replace(/\D/g, ''));
+    formData.append('zip', form.zip);
+    formData.append('message', form.message);
+    if (form.resume) {
+        let resume = form.resume as FormData;
+        for (let [key, value] of resume.entries()) {
+            if (value instanceof File) {
+                formData.append('resume', value);
+                break;
+            }
+        }
+    }
+
+    return formData;
+
+}
+
 </script>
 
 <template>
@@ -172,14 +196,12 @@ const submitForm = async () => {
             :error="formErrors.phone" mask="(###) ###-####" />
         <InputField ref="email" @input="form.email = $event" label="Email" placeHolder="Enter Your Email.."
             :error="formErrors.email" />
-
-        
-
+            
         <FileInputField ref="resume" @input="form.resume = $event" label="Your Resume" placeHolder="Upload Your Resume"
             :error="formErrors.resume" />
         <div class="split">
-            <InputField ref="address" @input="form.address = $event" label="Address" placeHolder="Service You Need"
-                :error="formErrors.address" />
+            <InputField ref="zip" @input="form.zip = $event" label="Zip" placeHolder="Enter Your Zip Code"
+                :error="formErrors.zip" />
             <!-- <InputField ref="position" @input="form.position = $event" label="Position"
                 placeHolder="Enter Your Position" :error="formErrors.position" /> -->
             <DropDownInputField ref="position" @input="form.position = $event" :list="jobNames" label="Position"

@@ -2,7 +2,7 @@ import About from '@/Views/About.vue';
 import Apply from '@/Views/Apply.vue';
 import Employers from '@/Views/Employers.vue';
 import Home from '@/Views/Home.vue';
-import Request from '@/Views/Request.vue';
+import News from '@/Views/News.vue';
 import Services from '@/Views/Services.vue';
 import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
@@ -36,8 +36,14 @@ const router = createRouter({
     {
       path:'/requestService/:service?',
       name:'Request',
-      component: Request
-    }
+      component: () => import('@/Views/Request.vue')
+    },
+    {
+      path: '/news/:id',
+      name: 'news',
+      component: News,
+      props: true
+    },
 
 
   ],

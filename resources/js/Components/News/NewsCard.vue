@@ -16,19 +16,20 @@ const props = defineProps({
 </template>
 
 <style scoped lang="scss">
-.card{
+.card {
     // width:40vw;
-    height:40vh;
+    height: 40vh;
     background-size: cover;
     background-position: center;
     border-radius: $border-radius;
-    padding:2rem;
-    display:flex;
+    padding: 2rem;
+    display: flex;
     justify-content: center;
 
-    h2{
+    h2 {
         @extend h1;
         color: $white;
+
     }
 }
 </style>

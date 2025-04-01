@@ -28,5 +28,13 @@ class ServiceRequestController extends Controller
         return $response['success'] ? $this->sendResponse($response) : $this->sendError($response);
     }
     
+
+    public function submit(Request $request)
+    {
+        $response = $this->service->createRequest($request);
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
     
 }

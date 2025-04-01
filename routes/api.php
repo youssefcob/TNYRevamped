@@ -121,3 +121,10 @@ Route::group(['prefix' => 'message'], function () {
     Route::post('/', [MessageController::class, 'submit']);
 });
 
+Route::group(['prefix' => 'application'], function () {
+    Route::post('/', [ApplicationsController::class, 'submit']);
+});
+
+Route::group(['prefix' => 'request'], function () {
+    Route::post('/', [ServiceRequestController::class, 'submit']);
+});

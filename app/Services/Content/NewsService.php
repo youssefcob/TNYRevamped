@@ -33,22 +33,22 @@ class NewsService
 
     public function post($request)
     {
-        try {
-            //code...
-            $request->validate([
-                'title' => ['required', 'string'],
-                'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-                'link' => ['required', 'string', 'url'],
-            ]);
+        $request->validate([
+            'title' => ['required', 'string'],
+            'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'link' => ['required', 'string', 'url'],
+            'content' => ['required', 'string'],
+        ]);
 
             $cloudinary = new Cloudinary();
             $imageId = $cloudinary->uploadImage($request->file('image'));
 
-            $news = News::create([
-                'title' => $request->title,
-                'image' => $imageId,
-                'link' => $request->link,
-            ]);
+        $news = News::create([
+            'title' => $request->title,
+            'image' => $imageId,
+            'link' => $request->link ,
+            'content' => $request->content,
+        ]);
 
             return [
                 'success' => true,

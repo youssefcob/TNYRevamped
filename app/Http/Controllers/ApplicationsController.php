@@ -31,4 +31,12 @@ class ApplicationsController extends Controller
             return $this->sendError($response);
         return $this->sendResponse($response);
     }
+
+    public function submit(Request $request)
+    {
+        $response = $this->service->createApplication($request);
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
 }
