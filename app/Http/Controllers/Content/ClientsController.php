@@ -37,8 +37,6 @@ class ClientsController extends Controller
     public function delete($id)
     {
         $response = $this->clients->delete($id);
-
-        return $response;
         if (!$response['success'])
             return $this->sendError($response);
         return $this->sendResponse($response);
