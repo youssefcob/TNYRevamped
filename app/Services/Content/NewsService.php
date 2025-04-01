@@ -19,6 +19,7 @@ class NewsService
             'title' => ['required', 'string'],
             'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'link' => ['required', 'string', 'url'],
+            'content' => ['required', 'string'],
         ]);
 
         $cloudinary = new Cloudinary();
@@ -28,6 +29,7 @@ class NewsService
             'title' => $request->title,
             'image' => $imageId,
             'link' => $request->link ,
+            'content' => $request->content,
         ]);
 
         return [

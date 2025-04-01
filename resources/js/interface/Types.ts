@@ -43,6 +43,7 @@ export type News = {
     title: string;
     image: string;
     link: string;
+    content:string;
 }
 
 export type Client = {

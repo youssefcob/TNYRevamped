@@ -1,6 +1,7 @@
 import About from '@/Views/About.vue';
 import Employers from '@/Views/Employers.vue';
 import Home from '@/Views/Home.vue';
+import News from '@/Views/News.vue';
 import Services from '@/Views/Services.vue';
 import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
@@ -35,7 +36,13 @@ const router = createRouter({
       path:'/requestService/:service?',
       name:'Request',
       component: () => import('@/Views/Request.vue')
-    }
+    },
+    {
+      path: '/news/:id',
+      name: 'news',
+      component: News,
+      props: true
+    },
 
 
   ],
