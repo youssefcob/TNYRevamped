@@ -98,7 +98,7 @@ class SystemService
                 ]);
             }
 
-            $data = $id ? Service::find($id) : Service::paginate(5);
+            $data = $id ? Service::find($id) : Service::all();
             // return['success'=>false, 'message'=>'sdsd'];
             return [
                 'success' => true,
