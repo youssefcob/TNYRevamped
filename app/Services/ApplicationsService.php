@@ -4,10 +4,22 @@ namespace App\Services;
 
 use App\Models\Application;
 use App\Models\Position;
+use App\TableFiltersHelperFunctions;
+use Exception;
+use Illuminate\Support\Facades\Validator;
 
 class ApplicationsService
 {
+    use TableFiltersHelperFunctions;
     // Your service logic goes here
+
+    /**
+     * Filter applications by submission date
+     * 
+     * @param string $date Date in Y-m-d format
+     * @return array Filtered applications or error message
+     */
+    
     /**
      * Retrieves all applications from the database or a specific application.
      *
@@ -19,13 +31,15 @@ class ApplicationsService
     public function getApplications($request): array
     {
         try {
+            $submissionDate = $request->input('submission_date');
+            $status = $request->input('status');
+            $startDate = $request->input('start_date');
+            $endDate = $request->input('end_date');
             $id = $request->input('id');
-            if ($id) {
-                $request->validate([
-                    'id' => 'required|integer|exists:applications,id',
-                ]);
-            }
-
+            $request->validate([
+                'id' => 'sometimes|integer|exists:applications,id',
+            ]);
+            
             if ($id) {
                 $application = Application::with(['position' => function ($query) {
                     $query->select('id', 'title');
@@ -33,7 +47,39 @@ class ApplicationsService
             } else {
                 $application = Application::with(['position' => function ($query) {
                     $query->select('id', 'title');
-                }])->paginate(10);
+                }]);
+                // if ($submissionDate) {
+
+                //     $filteredApplications = $this->submissionDateFilter($application, $submissionDate, 'position');
+                //     if (!$filteredApplications['success']) {
+                //         return $filteredApplications;
+                //     }
+                //     $application = $filteredApplications['data'];
+                    
+                // }
+                if($startDate){
+                    $filteredApplications = $this->startDateFilter($application, $startDate);
+                    if (!$filteredApplications['success']) {
+                        return $filteredApplications;
+                    }
+                    $application = $filteredApplications['data'];
+                }
+                if($endDate){
+                    $filteredApplications = $this->endDateFilter($application, $endDate);
+                    if (!$filteredApplications['success']) {
+                        return $filteredApplications;
+                    }
+                    $application = $filteredApplications['data'];
+                }
+                if ($status) {
+                    $filteredApplications = $this->statusFilter($application, $status);
+                    if (!$filteredApplications['success']) {
+                        return $filteredApplications;
+                    }
+                    $application = $filteredApplications['data'];
+                }
+                
+                $application = $application->paginate(10);
             }
 
             return [
@@ -63,7 +109,7 @@ class ApplicationsService
 
             $request->validate([
                 'id' => 'required|integer|exists:applications,id',
-                'status' => 'required|in:pending,approved,rejected',
+                'status' => 'required|in:Hired,Rejected,Pending,Needs Assignment,Missing Documents,Missing Preferences,In Training,Interview',
             ]);
 
             $application = Application::find($id);

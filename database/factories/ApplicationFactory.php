@@ -31,11 +31,20 @@ class ApplicationFactory extends Factory
          return [
              'name' => $this->faker->name(),
              'email' => $this->faker->unique()->safeEmail(),
-             'Address' => $this->faker->address(),
+             'zip' => $this->faker->postcode(),
              'phone' => $this->faker->unique()->phoneNumber(),
              'resume' => $this->faker->filePath(), // Simulated file path
              'position_id' => $position->id, // Use the existing or newly created position's ID
-             'status' => $this->faker->randomElement(['pending', 'approved', 'rejected']),
-         ];
+            'status' => $this->faker->randomElement([
+                'Hired',
+                'Rejected',
+                'Pending',
+                'Needs Assignment',
+                'Missing Documents', 
+                'Missing Preferences',
+                'In Training',
+                'Interview'
+            ]),
+        ];
     }
 }

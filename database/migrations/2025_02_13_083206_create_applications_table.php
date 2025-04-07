@@ -23,7 +23,17 @@ return new class extends Migration
             // $table->unsignedBigInteger('position_id');
             // $table->foreign('position_id')->references('id')->on('positions');
 
-            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
+           
+            $table->enum('status', [
+                'Hired',
+                'Rejected', 
+                'Pending',
+                'Needs Assignment',
+                'Missing Documents',
+                'Missing Preferences',
+                'In Training',
+                'Interview'
+            ])->default('Pending');
             $table->timestamps();
         });
     }
