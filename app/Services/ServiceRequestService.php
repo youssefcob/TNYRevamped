@@ -4,22 +4,75 @@ namespace App\Services;
 
 use App\Models\Service;
 use App\Models\ServiceRequest;
+use App\TableFiltersHelperFunctions;
 use Illuminate\Validation\ValidationException;
 
 class ServiceRequestService
 {
+    use TableFiltersHelperFunctions;
     // Your service logic goes here
-    public function getServiceRequests($request)
+    public function getServiceRequests($request): array
     {
         try {
+            $submissionDate = $request->input('submission_date');
+            $startDate = $request->input('start_date');
+            $endDate = $request->input('end_date');
+            $status = $request->input('status');
             $id = $request->input('id');
+            $request->validate([
+                'id' => 'sometimes|integer|exists:service_requests,id',
+            ]);
+
+
             if ($id) {
-                $request->validate(['id' => 'required|integer|exists:service_requests,id']);
+                $serviceRequest = ServiceRequest::with(['service' => function ($query) {
+                    $query->select('id', 'title');
+                }])->find($id);
+            } else {
+                $serviceRequest = ServiceRequest::with(['service' => function ($query) {
+                    $query->select('id', 'title');
+                }]);
+                // if ($submissionDate) {
+                //     $filteredServiceRequests = $this->submissionDateFilter($serviceRequest, $submissionDate, 'service');
+                //     if (!$filteredServiceRequests['success']) {
+                //         return $filteredServiceRequests;
+                //     }
+                //     $serviceRequest = $filteredServiceRequests['data'];
+                // }
+                if($startDate){
+                    $filteredServiceRequests = $this->startDateFilter($serviceRequest, $startDate);
+                    if (!$filteredServiceRequests['success']) {
+                        return $filteredServiceRequests;
+                    }
+                    $serviceRequest = $filteredServiceRequests['data'];
+                }
+                if($endDate){
+                    $filteredServiceRequests = $this->endDateFilter($serviceRequest, $endDate);
+                    if (!$filteredServiceRequests['success']) {
+                        return $filteredServiceRequests;
+                    }
+                    $serviceRequest = $filteredServiceRequests['data'];
+                }
+                if($status){
+                    $filteredServiceRequests = $this->statusFilter($serviceRequest, $status);
+                    if (!$filteredServiceRequests['success']) {
+                        return $filteredServiceRequests;
+                    }
+                    $serviceRequest = $filteredServiceRequests['data'];
+                }
+               
+                $serviceRequest = $serviceRequest->paginate(10);
             }
-            $data = $id ? ServiceRequest::find($id) : ServiceRequest::with('service')->paginate(10);
-            return ['success' => true, 'data' => $data];
+
+            return [
+                'success' => true,
+                'data' => $serviceRequest,
+            ];
         } catch (\Exception $e) {
-            return ['success' => false, 'message' => $e->getMessage()];
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
         }
     }
 
@@ -32,7 +85,7 @@ class ServiceRequestService
             ]);
             $serviceRequest = ServiceRequest::find($request->id);
             $serviceRequest->update($request->only(['status']));
-            return ['success' => true, 'data' => $serviceRequest, 'message'=>'Service requests updated'];
+            return ['success' => true, 'data' => $serviceRequest, 'message' => 'Service requests updated'];
         } catch (ValidationException $e) {
             return ['code' => 422, 'success' => false, 'message' => 'Validation error', 'errors' => $e->errors()];
         } catch (\Exception $e) {
@@ -83,7 +136,7 @@ class ServiceRequestService
                 'requirements' => $request->requirements,
                 'service_id' => $service->id,
                 'status' => 'pending',
-                
+
             ]);
 
             return [
@@ -104,5 +157,4 @@ class ServiceRequestService
             ];
         }
     }
-
 }
