@@ -4,6 +4,7 @@
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ApplicationsController;
 use App\Http\Controllers\Content\HeroController;
+use App\Http\Controllers\ExportController;
 use App\Http\Controllers\MailListController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PositionController;
@@ -109,6 +110,8 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/insights/main-metrics',[InsightsController::class , 'getMainMetrics'] )->name('get.insights');
     Route::get('/insights/applications-by-postion',[InsightsController::class, 'getPositionsCount'])->name('get.positions.count');
+
+    Route::get('/export-table', [ExportController::class , 'toCSV'])->name('export.toCSV');
 
     Route::get('/hero',[HeroController::class , 'getHeroSection'])->name('get.hero');
     Route::post('/editHero',[HeroController::class , 'editHeroSection'])->name('edit.hero');
