@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import { Link } from '@inertiajs/vue3';
+
+</script>
+
 <template>
     <div class="container">
         <h2 class="title">About us</h2>
@@ -17,7 +22,7 @@
 
         </div>
 
-        <router-link to="/about" class="more">Read More</router-link>
+        <Link href="/about" class="more">Read More</Link>
 
 
     </div>

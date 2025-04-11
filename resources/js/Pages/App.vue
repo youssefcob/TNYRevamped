@@ -2,7 +2,7 @@
 import Navbar from '@/Components/NavBar/NavBar.vue';
 import Footer from '@/Components/Footer/Foot.vue';
 import type { Client, Employer, Job, News, Service, Team, Testimonial, Hero as typeHero } from '@/interface/Types.ts';
-import { Vue3Snackbar } from "vue3-snackbar";
+// import { Vue3Snackbar } from "vue3-snackbar";
 import { assignClient, assignEmployer, assignHero, assignJob, assignNews, assignService, assignTeam, assignTestimonial } from '@/state/state';
 import { onMounted } from 'vue';
 const props = defineProps({
@@ -67,6 +67,7 @@ const checkMobile = () => {
     return onMobile;
 }
 
+
 </script>
 
 
@@ -77,9 +78,9 @@ const checkMobile = () => {
         <router-view></router-view>
     </main>
         <Footer/>
-
+<!-- 
     <vue3-snackbar :iconPresets="{
         path: ` M10 18L8 12L10 6L14 12L10 18Z`
-    }" :bottom="!checkMobile()" :top="checkMobile()" :duration="1500" :limit="1" />
+    }" :bottom="!checkMobile()" :top="checkMobile()" :duration="1500" :limit="1" /> -->
 </template>
 

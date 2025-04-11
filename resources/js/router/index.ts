@@ -3,47 +3,48 @@ import Apply from '@/Views/Apply.vue';
 import Employers from '@/Views/Employers.vue';
 import Home from '@/Views/Home.vue';
 import News from '@/Views/News.vue';
+import Request from '@/Views/Request.vue';
 import Services from '@/Views/Services.vue';
 import { createRouter, createWebHistory } from 'vue-router'
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
-    {
-      path: '/',
-      name: 'Home',
-      component: Home
-    },
-    {
-      path: '/about',
-      // name: 'About',
-      component: About
-    },
-    {
-      path: '/services',
-      name: 'Services',
-      component: Services
-    },
-    {
-      path:'/employers',
-      name:'Employers',
-      component: Employers
-    },
-    {
-      path:'/apply/:position?',
-      name:'Apply',
-      component: Apply
-    },
-    {
-      path:'/requestService/:service?',
-      name:'Request',
-      component: () => import('@/Views/Request.vue')
-    },
-    {
-      path: '/news/:id',
-      name: 'news',
-      component: News,
-      props: true
-    },
+    // {
+    //   path: '/',
+    //   name: 'Home',
+    //   component: Home
+    // },
+    // {
+    //   path: '/about',
+    //   // name: 'About',
+    //   component: About
+    // },
+    // {
+    //   path: '/services',
+    //   name: 'Services',
+    //   component: Services
+    // },
+    // {
+    //   path:'/employers',
+    //   name:'Employers',
+    //   component: Employers
+    // },
+    // {
+    //   path:'/apply/:position?',
+    //   name:'Apply',
+    //   component: Apply
+    // },
+    // {
+    //   path:'/requestService/:service?',
+    //   name:'Request',
+    //   component: Request
+    // },
+    // {
+    //   path: '/news/:id',
+    //   name: 'news',
+    //   component: News,
+    //   props: true
+    // },
 
 
   ],

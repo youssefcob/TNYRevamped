@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Service } from '@/interface/Types';
+import { Link } from '@inertiajs/vue3';
 
 
 const props = defineProps({
@@ -20,7 +21,7 @@ const props = defineProps({
         <div class="content">
             <h2>{{ service?.title }}</h2>
             <p>{{ service?.description }}</p>
-            <router-link :to="`requestService/${service?.title}`" class="btn"><span class="btnFont">Request Service</span></router-link>
+            <Link :href="`/requestService/${service?.title}`" class="btn"><span class="btnFont">Request Service</span></Link>
         </div>
 
 

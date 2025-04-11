@@ -4,7 +4,7 @@ import InputField from '@/SharedComponents/InputField.vue';
 import Http from '@/mixins/Http';
 import validation from '@/mixins/Validation';
 import { onMounted, reactive, ref, Ref } from 'vue';
-import { useSnackbar } from 'vue3-snackbar';
+// import { useSnackbar } from 'vue3-snackbar';
 import DropDownInputField from '@/SharedComponents/DropDownInputField.vue';
 
 // import { serviceState } from '@/state/state';
@@ -12,7 +12,7 @@ import { serviceState } from '@/state/state';
 import { computed } from '@vue/reactivity';
 
 const isLoading: Ref<boolean> = ref(false);
-const snackbar = useSnackbar();
+// const snackbar = useSnackbar();
 
 const serviceNames = computed(() => serviceState.value.map(job => job.title));
 
@@ -112,11 +112,13 @@ const handleErrors = (v: validation) => {
     // console.log(errorsArr)
     let keys = v.keys
     errorsArr.forEach((error) => {
-        snackbar.add({
+        // snackbar.add({
 
-            text: error,
+        //     text: error,
+        //     background: '#F58E8E',
 
-        })
+
+        // })
     })
 
     keys.forEach((key) => {
@@ -140,21 +142,23 @@ const submitForm = async () => {
         // });
         let response = await Http.post('request', ModdedForm);
 
-        snackbar.add({
+        // snackbar.add({
+        //     background: '#8EF5E8',
 
-            text: 'Form Submitted Successfully',
+        //     text: 'Form Submitted Successfully',
 
-        })
+        // })
         isLoading.value = false;
         resetForm();
         console.log(response)
     } catch (e) {
         console.error(e)
-        snackbar.add({
+        // snackbar.add({
+        //     background: '#F58E8E',
 
-            text: e as string,
+        //     text: e as string,
 
-        })
+        // })
         isLoading.value = false;
     }
     isLoading.value = false;
@@ -170,7 +174,9 @@ onMounted(() => {
 </script>
 
 <template>
+    
     <div class="wrapper">
+    
 
         <span class="title">Welcome</span>
         <InputField ref="name" @input="form.name = $event" label="Name" placeHolder="Enter Your Name.."
@@ -190,7 +196,7 @@ onMounted(() => {
             <!-- <InputField ref="service" @input="form.service = $event" label="service"
                 placeHolder="Enter Your service" :error="formErrors.service" /> -->
             <DropDownInputField ref="serviceComp" @input="form.service = $event" :list="serviceNames"
-                label="Services Available" placeHolder="Service You Need.." :error="formErrors.service" />
+                label="Services Available" placeHolder="Service You Need.." :error="formErrors.service" :default="service" />
         </div>
         <InputField ref="message" @input="form.requirements = $event" label="Your requirements"
             placeHolder="Enter Your requirements ..." height="12.5rem" :error="formErrors.requirements" />

@@ -3,6 +3,7 @@
 
 import { employerState } from '@/state/state';
 import EmployerCard from './EmployerCard.vue';
+import { Link } from '@inertiajs/vue3';
 
 
 </script>
@@ -20,7 +21,7 @@ import EmployerCard from './EmployerCard.vue';
                 <EmployerCard v-if="employer.onMainPage" :employer="employer" />
             </template>
         </div>
-        <router-link to="/employers" class="more">Read More</router-link>
+        <Link href="/employers" class="more">Read More</Link>
 
     </div>
 </template>

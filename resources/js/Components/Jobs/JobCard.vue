@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Job } from '@/interface/Types';
+import { Link } from '@inertiajs/vue3';
 
 
 const props = defineProps({
@@ -17,7 +18,7 @@ const props = defineProps({
         <div class="info">
             <h2 class="title blue">{{ job?.title }}</h2>
             <p class="big">{{ job?.description }}</p>
-            <router-link :to="`/apply/${job?.title}`" class="btn">Apply Now</router-link>
+            <Link :href="`/apply/${job?.title}`" class="btn">Apply Now</Link>
         </div>
     </div>
     </div>

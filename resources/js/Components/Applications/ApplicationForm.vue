@@ -4,7 +4,6 @@ import InputField from '@/SharedComponents/InputField.vue';
 import Http from '@/mixins/Http';
 import validation from '@/mixins/Validation';
 import { reactive, ref, Ref } from 'vue';
-import { useSnackbar } from 'vue3-snackbar';
 import DropDownInputField from '@/SharedComponents/DropDownInputField.vue';
 
 import { jobState } from '@/state/state';
@@ -17,9 +16,15 @@ const resume: Ref<InstanceType<typeof InputField> | null> = ref(null);
 const zip: Ref<InstanceType<typeof InputField> | null> = ref(null);
 
 const isLoading: Ref<boolean> = ref(false);
-const snackbar = useSnackbar();
 
 const jobNames = computed(() => jobState.value.map(job => job.title));
+
+const props = defineProps({
+    position: {
+        type: String,
+        default: ''
+    },  
+});
 
 const form = reactive({
     name: '',
@@ -114,11 +119,13 @@ const handleErrors = (v: validation) => {
     // console.log(errorsArr)
     let keys = v.keys
     errorsArr.forEach((error) => {
-        snackbar.add({
+        // snackbar.add({
 
-            text: error,
+        //     text: error,
+        //     background: '#F58E8E',
 
-        })
+
+        // })
     })
 
     keys.forEach((key) => {
@@ -142,20 +149,23 @@ const submitForm = async () => {
         // });
         let response = await Http.post('application', ModdedForm);
 
-        snackbar.add({
+        // snackbar.add({
+        //     background: '#8EF5E8',
 
-            text: 'Form Submitted Successfully',
+        //     text: 'Form Submitted Successfully',
 
-        })
+        // })
         isLoading.value = false;
         resetForm();
         console.log(response)
     } catch (e) {
-        snackbar.add({
+        // snackbar.add({
 
-            text: e as string,
+        //     text: e as string,
+        //     background: '#F58E8E',
 
-        })
+
+        // })
         isLoading.value = false;
     }
     isLoading.value = false;
@@ -205,7 +215,7 @@ const modifyForm = () => {
             <!-- <InputField ref="position" @input="form.position = $event" label="Position"
                 placeHolder="Enter Your Position" :error="formErrors.position" /> -->
             <DropDownInputField ref="position" @input="form.position = $event" :list="jobNames" label="Position"
-                placeHolder="Enter Your Position" :error="formErrors.position" />
+                placeHolder="Enter Your Position" :error="formErrors.position" :default="position" />
         </div>
         <InputField ref="message" @input="form.message = $event" label="Your Message"
             placeHolder="Enter Your message ..." height="12.5rem" :error="formErrors.message" />

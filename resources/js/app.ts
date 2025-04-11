@@ -4,7 +4,6 @@ import './bootstrap';
 import { createApp, h, DefineComponent } from 'vue';  
 import { createInertiaApp } from '@inertiajs/vue3';  
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import { SnackbarService } from "vue3-snackbar";
 import "vue3-snackbar/styles";
 import router from './router'
 
@@ -21,7 +20,6 @@ createInertiaApp({
         createApp({ render: () => h(App, props) })  
             .use(plugin)  
             .use(router) 
-            .use(SnackbarService)
             .mount(el)
     },    progress: {  
         color: '#4B5563',  

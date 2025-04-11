@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Views;
 
 use App\Http\Controllers\Controller;
+use App\Models\News;
 use App\Services\Content\ClientsService;
 use App\Services\Content\EmployersService;
 use App\Services\Content\JobsService;
@@ -28,15 +29,57 @@ class HomeController extends Controller
         $data['clients'] = ClientsService::get();
         $data['testimonials'] = TestimonialsService::get();
         $data['team'] = TeamService::get();
-        return Inertia::render('App', $data);
+        return Inertia::render('Home', $data);
     }
 
-    public function viewServices()
+    public function services()
     {
         $data = [];
 
         $data['services'] = ServicesService::get();
         return Inertia::render('Services', $data);
     }
+
+    public function about()
+    {
+        $data = [];
+
+        // $data['team'] = TeamService::get();
+        return Inertia::render('About', $data);
+    }
+
+    public function employers()
+    {
+        $data = [];
+
+        $data['employers'] = EmployersService::get();
+        return Inertia::render('Employers', $data);
+    }
+
+    public function apply($position = null)
+    {
+        $data = [];
+
+        $data['jobs'] = JobsService::get();
+        $data['position'] = $position;
+        return Inertia::render('Apply', $data);
+    }
+
  
+    public function requestService($service = null)
+    {
+        $data = [];
+
+        $data['services'] = ServicesService::get();
+        $data['service'] = $service;
+        return Inertia::render('RequestService', $data);
+    }
+
+    public function news($id = null)
+    {
+        $data = [];
+
+        $data['news'] = News::findOrFail($id);
+        return Inertia::render('News', $data);
+    }
 }

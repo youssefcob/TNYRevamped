@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Hero } from '@/interface/Types';
+import { Link } from '@inertiajs/vue3';
 
 
 const props = defineProps({
@@ -14,7 +15,7 @@ const props = defineProps({
         <h1 class="card-title">{{ hero?.title }}</h1>
         <div class="buttons-wrapper">
             <template v-for="button in hero?.buttons" :key="button.id">
-                <router-link :to="button.link" :class="`btn ${button.color}` ">{{ button.text }}</router-link>
+                <Link :href="button.link" :class="`btn ${button.color}` ">{{ button.text }}</Link>
             </template>
         </div>
 

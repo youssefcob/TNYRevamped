@@ -4,7 +4,6 @@ import InputField from '@/SharedComponents/InputField.vue';
 import Http from '@/mixins/Http';
 import validation from '@/mixins/Validation';
 import { reactive, ref, Ref } from 'vue';
-import { useSnackbar } from 'vue3-snackbar';
 
 const name: Ref<InstanceType<typeof InputField> | null> = ref(null);
 const email: Ref<InstanceType<typeof InputField> | null> = ref(null);
@@ -13,7 +12,6 @@ const subject: Ref<InstanceType<typeof InputField> | null> = ref(null);
 const message: Ref<InstanceType<typeof InputField> | null> = ref(null);
 
 const isLoading: Ref<boolean> = ref(false);
-const snackbar = useSnackbar();
 
 const form = reactive({
     name: '',
@@ -91,11 +89,11 @@ const handleErrors = (v: validation) => {
     // console.log(errorsArr)
     let keys = v.keys
     errorsArr.forEach((error) => {
-        snackbar.add({
-            background: '#F58E8E',
-            text: error,
+        // snackbar.add({
+        //     background: '#F58E8E',
+        //     text: error,
 
-        })
+        // })
     })
 
     keys.forEach((key) => {
@@ -119,20 +117,20 @@ const submitForm = async () => {
         // });
         let response = await Http.post('message', ModdedForm);
 
-        snackbar.add({
-            background: '#8EF5E8',
-            text: 'Form Submitted Successfully',
+        // snackbar.add({
+        //     background: '#8EF5E8',
+        //     text: 'Form Submitted Successfully',
 
-        })
+        // })
         isLoading.value = false;
         resetForm();
         console.log(response)
     } catch (e) {
-        snackbar.add({
-            background: '#F58E8E',
-            text: e as string,
+        // snackbar.add({
+        //     background: '#F58E8E',
+        //     text: e as string,
 
-        })
+        // })
         isLoading.value = false;
     }
     isLoading.value = false;

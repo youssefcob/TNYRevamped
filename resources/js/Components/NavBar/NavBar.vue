@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { Link } from '@inertiajs/vue3';
 import NavList from './NavList.vue';
 import NavListResponsive from './NavListResponsive.vue';
 
@@ -6,11 +7,11 @@ import NavListResponsive from './NavListResponsive.vue';
 
 <template>
     <nav>
-        <router-link to="/#home"><img src="@/Svg/logo.svg" alt=""></router-link>
+        <Link href="/#home"><img src="@/Svg/logo.svg" alt=""></Link>
         <div class="navlist-desktop">
             <NavList />
         </div>
-        <router-link to="/apply" class="btn">Apply Now</router-link>
+        <Link href="/apply" class="btn">Apply Now</Link>
 
         <div class="navlist-mobile">
             <NavListResponsive />

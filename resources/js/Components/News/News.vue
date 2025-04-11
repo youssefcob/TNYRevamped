@@ -4,6 +4,7 @@ import Carousel from '@/SharedComponents/Carousel.vue';
 import { newsState } from '@/state/state';
 import { onMounted, onUnmounted, ref } from 'vue';
 import NewsCard from './NewsCard.vue';
+import { Link } from '@inertiajs/vue3';
 
 
 const numberOfCarouselItems = ref(1);
@@ -38,9 +39,9 @@ onUnmounted(() => {
     <div class="carousel-container">
         <Carousel ref="carousel" snap :numberOfItems="numberOfCarouselItems">
             <template v-for="news in newsState" :key="news.id">
-            <router-link :to="`/news/${news.id}`" class="news-card">
+            <Link :href="`/news/${news.id}`" class="news-card">
                 <NewsCard :news="news" />
-            </router-link>
+            </Link>
             </template>
         </Carousel>
     </div>

@@ -4,21 +4,24 @@ import { newsState } from '@/state/state';
 import { onMounted, ref, Ref } from 'vue';
 
 const props = defineProps({
-    id: String,
+    news: {
+        type: Object as () => News,
+        default: () => ({})
+    },
 });
 
-let news: Ref<News | undefined> = ref(undefined);
+// let news: Ref<News | undefined> = ref(undefined);
 
-onMounted(() => {
-    if (!props.id) return;
-    const newsId = parseInt(props.id);
-    if (newsId) {
-        const foundNews = newsState.value.find((item) => item.id === newsId);
-        if (foundNews) {
-            news.value = foundNews;
-        }
-    }
-});
+// onMounted(() => {
+//     if (!props.id) return;
+//     const newsId = parseInt(props.id);
+//     if (newsId) {
+//         const foundNews = newsState.value.find((item) => item.id === newsId);
+//         if (foundNews) {
+//             news.value = foundNews;
+//         }
+//     }
+// });
 </script>
 
 <template>

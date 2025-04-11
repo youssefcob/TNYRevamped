@@ -1,12 +1,18 @@
 <script setup lang="ts">
 import ApplicationForm from '@/Components/Applications/ApplicationForm.vue';
 
+const props = defineProps({
+    position: {
+        type: String,
+        default: ''
+    },  
+});
 </script>
 
 <template>
     <div class="container">
         <div class="form">
-            <ApplicationForm />
+            <ApplicationForm :position="position" />
         </div>
         <div class="img" :style="`background-image:url(/images/applications.png)`"></div>
 

@@ -3,6 +3,7 @@ import { ref } from 'vue';
 import SingleService from './SingleService.vue';
 
 import { serviceState } from '@/state/state';
+import { Link } from '@inertiajs/vue3';
 
 
 
@@ -20,7 +21,7 @@ import { serviceState } from '@/state/state';
                 <SingleService v-if="service.onMainPage" :service="service" />
             </template>
         </div>
-        <router-link to="/services" class="more">Show More Services</router-link>
+        <Link href="/services" class="more">Show More Services</Link>
     </div>
 </template>
 

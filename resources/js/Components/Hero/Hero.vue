@@ -4,7 +4,6 @@ import { heroState } from '@/state/state';
 import HeroCard from './HeroCard.vue';
 import Carousel from '@/SharedComponents/Carousel.vue';
 
-console.log(heroState);
 </script>
 
 <template>

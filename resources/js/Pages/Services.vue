@@ -4,6 +4,7 @@ import Footer from '@/Components/Footer/Foot.vue';
 
 import { Service } from '@/interface/Types';
 import ServicesView from '@/Views/Services.vue';
+import MainOverLay from '@/Components/Overlays/MainOverLay.vue';
 
 const props = defineProps({
     services: {
@@ -14,10 +15,8 @@ const props = defineProps({
 </script>
 
 <template>
-    <NavBar active="services" />
-    <main>
+    <MainOverLay>
         <ServicesView :services="services" />
-    </main>
-    <Footer />
+    </MainOverLay>
 
 </template>

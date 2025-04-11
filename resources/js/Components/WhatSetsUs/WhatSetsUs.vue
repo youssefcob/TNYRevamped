@@ -1,3 +1,8 @@
+<script setup lang="ts">
+import { Link } from '@inertiajs/vue3';
+
+</script>
+
 <template>
     <div class="container">
         <h2 class="title">What Sets Us Apart</h2>
@@ -32,8 +37,8 @@
         </div>
 
         <div class="btn-container">
-            <button class="btn"> <span class="btnFont">Apply Now</span></button>
-            <button class="btn secondary"> <span class="btnFont">Request Service</span></button>
+            <Link href="/apply" class="btn"> <span class="btnFont">Apply Now</span></Link>
+            <Link href="/requestService" class="btn secondary"> <span class="btnFont">Request Service</span></Link>
 
         </div>
     </div>
