@@ -3,7 +3,11 @@ import Btn from '@/SharedComponents/btn.vue';
 import InputField from '@/SharedComponents/InputField.vue';
 import Http from '@/mixins/Http';
 import validation from '@/mixins/Validation';
-import { reactive, ref, Ref } from 'vue';
+import { onMounted, reactive, ref, Ref } from 'vue';
+import { snack } from '@/mixins/toast';
+
+// import { toast } from 'vue3-toastify';
+// import 'vue3-toastify/dist/index.css';
 
 const name: Ref<InstanceType<typeof InputField> | null> = ref(null);
 const email: Ref<InstanceType<typeof InputField> | null> = ref(null);
@@ -12,6 +16,8 @@ const subject: Ref<InstanceType<typeof InputField> | null> = ref(null);
 const message: Ref<InstanceType<typeof InputField> | null> = ref(null);
 
 const isLoading: Ref<boolean> = ref(false);
+
+
 
 const form = reactive({
     name: '',
@@ -89,11 +95,8 @@ const handleErrors = (v: validation) => {
     // console.log(errorsArr)
     let keys = v.keys
     errorsArr.forEach((error) => {
-        // snackbar.add({
-        //     background: '#F58E8E',
-        //     text: error,
+        snack.error(error)
 
-        // })
     })
 
     keys.forEach((key) => {
@@ -117,20 +120,14 @@ const submitForm = async () => {
         // });
         let response = await Http.post('message', ModdedForm);
 
-        // snackbar.add({
-        //     background: '#8EF5E8',
-        //     text: 'Form Submitted Successfully',
-
-        // })
+        snack.success('Form Submitted Successfully')
+    
         isLoading.value = false;
         resetForm();
         console.log(response)
     } catch (e) {
-        // snackbar.add({
-        //     background: '#F58E8E',
-        //     text: e as string,
+        snack.error(e as string)
 
-        // })
         isLoading.value = false;
     }
     isLoading.value = false;
@@ -139,14 +136,17 @@ const submitForm = async () => {
 </script>
 
 <template>
-    <InputField ref="name" @input="form.name = $event" label="Name" placeHolder="Enter Your Name ..." :error="formErrors.name" />
-    <InputField ref="email" @input="form.email = $event" label="Email" placeHolder="Enter Your Email ..."  :error="formErrors.email" />
-    <InputField ref="phone" @input="form.phone = $event" label="Phone Number" placeHolder="Enter Your Number..."  :error="formErrors.phone"
-    mask="(###) ###-####" />
-    <InputField ref="subject" @input="form.subject = $event" label="Subject"  placeHolder="Service You Need ..." :error="formErrors.subject" />
+    <InputField ref="name" @input="form.name = $event" label="Name" placeHolder="Enter Your Name ..."
+        :error="formErrors.name" />
+    <InputField ref="email" @input="form.email = $event" label="Email" placeHolder="Enter Your Email ..."
+        :error="formErrors.email" />
+    <InputField ref="phone" @input="form.phone = $event" label="Phone Number" placeHolder="Enter Your Number..."
+        :error="formErrors.phone" mask="(###) ###-####" />
+    <InputField ref="subject" @input="form.subject = $event" label="Subject" placeHolder="Service You Need ..."
+        :error="formErrors.subject" />
 
-    <InputField ref="message" @input="form.message = $event" label="Message" placeHolder="Enter Your Message ..." height="12.5rem" 
-        :error="formErrors.message" />
+    <InputField ref="message" @input="form.message = $event" label="Message" placeHolder="Enter Your Message ..."
+        height="12.5rem" :error="formErrors.message" />
     <Btn class="btn" @click="validate" :loading="isLoading">Send Email</Btn>
 </template>
 

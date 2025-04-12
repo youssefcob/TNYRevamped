@@ -24,14 +24,14 @@ let showMore = () => {
         <br>
         <div class="teams some-hidden">
 
-            <div v-for="n in 40" :key="n">
+            <!-- <div v-for="n in 40" :key="n"> -->
                 <div class="single-team" v-for="teamMember in teamState" :key="teamMember.id">
                     <div class="img" :style="`background-image:url(${teamMember.image})`" alt=""></div>
                     <div class="name"><span>{{ teamMember.name }}</span></div>
                     <div class="position"><span>{{ teamMember.position }}</span></div>
 
                 </div>
-            </div>
+            <!-- </div> -->
 
 
 

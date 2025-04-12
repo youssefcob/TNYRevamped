@@ -10,6 +10,7 @@ import DropDownInputField from '@/SharedComponents/DropDownInputField.vue';
 // import { serviceState } from '@/state/state';
 import { serviceState } from '@/state/state';
 import { computed } from '@vue/reactivity';
+import { snack } from '@/mixins/toast';
 
 const isLoading: Ref<boolean> = ref(false);
 // const snackbar = useSnackbar();
@@ -112,13 +113,8 @@ const handleErrors = (v: validation) => {
     // console.log(errorsArr)
     let keys = v.keys
     errorsArr.forEach((error) => {
-        // snackbar.add({
-
-        //     text: error,
-        //     background: '#F58E8E',
-
-
-        // })
+        snack.error(error);
+        
     })
 
     keys.forEach((key) => {
@@ -142,23 +138,15 @@ const submitForm = async () => {
         // });
         let response = await Http.post('request', ModdedForm);
 
-        // snackbar.add({
-        //     background: '#8EF5E8',
-
-        //     text: 'Form Submitted Successfully',
-
-        // })
+        snack.success('Form Submitted Successfully');
+ 
         isLoading.value = false;
         resetForm();
         console.log(response)
     } catch (e) {
         console.error(e)
-        // snackbar.add({
-        //     background: '#F58E8E',
-
-        //     text: e as string,
-
-        // })
+        snack.error(e as string);
+    
         isLoading.value = false;
     }
     isLoading.value = false;

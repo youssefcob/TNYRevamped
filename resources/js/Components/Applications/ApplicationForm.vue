@@ -9,6 +9,7 @@ import DropDownInputField from '@/SharedComponents/DropDownInputField.vue';
 import { jobState } from '@/state/state';
 import { computed } from '@vue/reactivity';
 import FileInputField from '@/SharedComponents/FileInputField.vue';
+import { snack } from '@/mixins/toast';
 const name: Ref<InstanceType<typeof InputField> | null> = ref(null);
 const email: Ref<InstanceType<typeof InputField> | null> = ref(null);
 const phone: Ref<InstanceType<typeof InputField> | null> = ref(null);
@@ -119,13 +120,7 @@ const handleErrors = (v: validation) => {
     // console.log(errorsArr)
     let keys = v.keys
     errorsArr.forEach((error) => {
-        // snackbar.add({
-
-        //     text: error,
-        //     background: '#F58E8E',
-
-
-        // })
+     snack.error(error)
     })
 
     keys.forEach((key) => {
@@ -149,23 +144,14 @@ const submitForm = async () => {
         // });
         let response = await Http.post('application', ModdedForm);
 
-        // snackbar.add({
-        //     background: '#8EF5E8',
+        snack.success('Form Submitted Successfully')
 
-        //     text: 'Form Submitted Successfully',
-
-        // })
         isLoading.value = false;
         resetForm();
         console.log(response)
     } catch (e) {
-        // snackbar.add({
-
-        //     text: e as string,
-        //     background: '#F58E8E',
-
-
-        // })
+        snack.error(e as string)
+    
         isLoading.value = false;
     }
     isLoading.value = false;

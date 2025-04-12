@@ -4,7 +4,7 @@ import './bootstrap';
 import { createApp, h, DefineComponent } from 'vue';  
 import { createInertiaApp } from '@inertiajs/vue3';  
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
-import "vue3-snackbar/styles";
+// import "vue3-snackbar/styles";
 import router from './router'
 
 // import { ZiggyVue } from 'ziggy';  
