@@ -1,1 +1,0 @@
-import{N as o,F as r}from"./Foot-csgjHp1f.js";import{d as s,c as t,o as n,e,g as c,v as l,F as m}from"./app-Cy3E92sB.js";const u=s({__name:"MainOverLay",setup(p){return(a,_)=>(n(),t(m,null,[e(o),c("main",null,[l(a.$slots,"default")]),e(r)],64))}});export{u as _};
