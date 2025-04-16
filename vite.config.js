@@ -8,7 +8,7 @@ export default defineConfig({
     "plugins":[  
         laravel({  
             "input": [  
-                "resources/css/app.scss",  
+                // "resources/css/app.scss",  
                 "resources/js/app.ts"  
             ],  
             "refresh": true  
