@@ -27,6 +27,8 @@ Route::group(['prefix' => 'service'], function () {
 
 Route::group(['prefix' => 'employer'], function () {
     Route::post('/', [EmployerController::class, 'submit']);
+    Route::get('/', [EmployerController::class, 'getWithFormattedResponse']);
+    Route::post('/updateEmployer/{id}', [EmployerController::class, 'update']);
     Route::delete('/{id}', [EmployerController::class, 'delete']);
 });
 
