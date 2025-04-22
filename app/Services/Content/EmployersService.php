@@ -4,94 +4,222 @@ namespace App\Services\Content;
 
 use App\Models\Employer;
 use App\Services\Cloudinary;
+use Exception;
 use Illuminate\Http\Request;
 
-class EmployersService 
+class EmployersService
 {
     public static function get()
     {
         return Employer::all();
     }
+    public static function getWithFormattedResponse()
+    {
+        try {
+            //code...
+            return [
+                'success' => true,
+                'data' => Employer::all(),
+                'message' => 'News fetched successfully',
+            ];
+        } catch (Exception $e) {
+            //throw $th;
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+        }
+    }
 
     public function post($request)
     {
-        try{
+        try {
 
-        $request->merge([
-            'onMainPage' => filter_var($request->onMainPage, FILTER_VALIDATE_BOOLEAN),
-        ]);
+            $request->merge([
+                'onMainPage' => filter_var($request->onMainPage, FILTER_VALIDATE_BOOLEAN),
+            ]);
 
-        $request->validate([
-            'title' => ['required', 'string'],
-            'description' => ['required', 'string'],
-            'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'onMainPage' => ['boolean'],
-        ]);
+            $request->validate([
+                'title' => ['required', 'string'],
+                'description' => ['required', 'string'],
+                'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+                'onMainPage' => ['boolean'],
+            ]);
 
-        $cloudinary = new Cloudinary();
-        $imageId = $cloudinary->uploadImage($request->file('image'));
+            $cloudinary = new Cloudinary();
+            $imageId = $cloudinary->uploadImage($request->file('image'));
 
-        $employer = Employer::create([
-            'title' => $request->title,
-            'description' => $request->description,
-            'image' => $imageId,
-            'onMainPage' => $request->onMainPage | false,
-            
-        ]);
+            $employer = Employer::create([
+                'title' => $request->title,
+                'description' => $request->description,
+                'image' => $imageId,
+                'onMainPage' => $request->onMainPage | false,
 
-        return [
-            'success' => true,
-            'data' => $employer,
-        ];
+            ]);
 
-    } catch (\Exception $e) {
-        return [
-            'success' => false,
-            'message' => $e->getMessage()
-        ];
+            return [
+                'success' => true,
+                'data' => $employer,
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
     }
-    }
+    // public function updateWithFormattedResponse(Request $request, $id)
+    // {
+    //     try {
+    //         $employer = Employer::find($id);
 
+    //         if (!$employer) {
+    //             return [
+    //                 'success' => false,
+    //                 'message' => 'Employer not found'
+    //             ];
+    //         }
+
+    //         $updateData = [];
+
+    //         if ($request->hasFile('image')) {
+    //             $oldImage = $employer->image;
+    //             $request->validate([
+    //                 'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048']
+    //             ]);
+
+    //             $cloudinary = new Cloudinary();
+    //             $imageId = $cloudinary->uploadImage($request->file('image'));
+    //             $updateData['image'] = $imageId;
+    //             $cloudinary->deleteImage($oldImage);
+    //         }
+
+    //         if ($request->has('title')) {
+    //             $request->validate(['title' => ['string']]);
+    //             $updateData['title'] = $request->title;
+    //         }
+
+    //         if ($request->has('link')) {
+    //             $request->validate(['link' => ['string', 'url']]);
+    //             $updateData['link'] = $request->link;
+    //         }
+    //         if ($request->has('onMainPage')) {
+
+    //             $updateData['onMainPage'] = $request->onMainPage;
+    //         }
+
+    //         if (empty($updateData)) {
+    //             return [
+    //                 'success' => false,
+    //                 'message' => 'No data provided for update'
+    //             ];
+    //         }
+
+    //         $employer->update($updateData);
+
+    //         return [
+    //             'success' => true,
+    //             'data' => $employer,
+    //             'message' => 'Employer updated successfully'
+    //         ];
+    //     } catch (Exception $e) {
+    //         return [
+    //             'success' => false,
+    //             'message' => $e->getMessage()
+    //         ];
+    //     }
+    // }
     public function update(Request $request, $id)
     {
-        $request->validate([
-            'title' => ['required', 'string'],
-            'description' => ['required', 'string'],
-            'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'onMainPage' => ['boolean'],
+        try {
+            $employer = Employer::find($id);
 
-        ]);
+            if (!$employer) {
+                return [
+                    'success' => false,
+                    'message' => 'Employer not found',
+                    "code" => 404
+                ];
+            }
 
-        $employer = Employer::find($id);
+            $updateData = [];
 
-        if (!$employer) {
-            return response()->json(['message' => 'employer not found'], 404);
+            if ($request->hasFile('image')) {
+                $oldImage = $employer->image;
+                $request->validate([
+                    'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048']
+                ]);
+
+                $cloudinary = new Cloudinary();
+                $imageId = $cloudinary->uploadImage($request->file('image'));
+                $updateData['image'] = $imageId;
+                $cloudinary->deleteImage($oldImage);
+            }
+
+            if ($request->has('title')) {
+                $request->validate(['title' => ['string']]);
+                $updateData['title'] = $request->title;
+            }
+
+            if ($request->has('description')) {
+                $request->validate(['description' => ['string']]);
+                $updateData['description'] = $request->description;
+            }
+
+            if ($request->has('onMainPage')) {
+                $request->validate(['onMainPage' => ['boolean']]);
+                $updateData['onMainPage'] = $request->onMainPage;
+            }
+
+            if (empty($updateData)) {
+                return [
+                    'success' => false,
+                    'message' => 'No data provided for update'
+                ];
+            }
+
+            $employer->update($updateData);
+
+            return [
+                'success' => true,
+                'data' => $employer,
+                'message' => 'Employer updated successfully'
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
         }
-
-        $cloudinary = new Cloudinary();
-        $imageId = $cloudinary->uploadImage($request->file('image'));
-
-        $employer->update([
-            'title' => $request->title,
-            'description' => $request->description,
-            'image' => $imageId,
-        ]);
-
-        return $employer;
     }
 
     public function delete($id)
     {
+        try {
+            //code...
+            $employer = Employer::find($id);
+            $cloudinary = new Cloudinary();
+            $cloudinary->deleteImage($employer->image);
 
+            if (!$employer) {
+                return [
+                    'success' => false,
+                    'message' => 'Employer not found',
+                    "code" => 404
+                ];
+            }
 
-        $employer = Employer::find($id);
+            $employer->delete();
 
-        if (!$employer) {
-            return response()->json(['message' => 'employer not found'], 404);
+            return [
+                'success' => true,
+                'message' => 'News deleted successfully'
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
         }
-
-        $employer->delete();
-
-        return response()->json(['message' => 'employer deleted']);
     }
 }

@@ -13,6 +13,12 @@ class EmployerController extends Controller
     {
         $this->employers = $employers;
     }
+    public function getWithFormattedResponse(){
+        $response = $this->employers->getWithFormattedResponse();
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
     public function submit(Request $request)
     {
         $response = $this->employers->post($request);
@@ -20,7 +26,12 @@ class EmployerController extends Controller
             return $this->sendError($response);
         return $this->sendResponse($response);
     }
-
+    public function update(Request $request, $id){
+        $response = $this->employers->update($request, $id);
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
     public function delete($id)
     {
         $response = $this->employers->delete($id);
