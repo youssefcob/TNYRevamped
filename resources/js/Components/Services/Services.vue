@@ -12,7 +12,7 @@ import { Link } from '@inertiajs/vue3';
 <template>
     <div class="container">
         <h2 class="title">Services</h2>
-        <br>
+        <!-- <br> -->
         <h2 class="subtitle">Therapy of New York</h2>
         <p>Your Gateway to Top-tier Talent and Seamless Integration</p>
 
@@ -33,9 +33,9 @@ import { Link } from '@inertiajs/vue3';
     align-items: center;
     text-align: center;
 
-    >h1 {
-        margin-bottom: 1rem;
-        color: $navy;
+    >.title {
+        // margin-bottom: 1rem;
+        // color: $navy;
     }
 
     >p {
