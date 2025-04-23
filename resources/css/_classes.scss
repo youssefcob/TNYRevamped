@@ -1,28 +1,33 @@
 @import 'mixins';
 
-h1{
+h1 {
     @include h1;
 }
 
-h2{
+h2 {
     @include h2;
 
-    &.title{
-            @extend h1;
-            color: $navy;
+    &.title {
+        @extend h1;
+        color: $navy;
     }
 }
 
-h3{
+.title {
+    margin-bottom: 1rem;
+}
+
+h3 {
     @include h3;
 }
 
-span,.text{
+span,
+.text {
     @include span;
     line-height: 150%
 }
 
-p{
+p {
     @include p;
 
     &.big {
@@ -34,11 +39,13 @@ p{
 
 }
 
-input, .input-text{
+input,
+.input-text {
     @include input;
 
 }
-.btn{
+
+.btn {
     @extend .input-text;
     font-weight: $medium;
     padding: 0.9rem 2rem;
@@ -47,23 +54,27 @@ input, .input-text{
     color: $white;
     border: none;
     cursor: pointer;
-    display:block;
+    display: block;
     text-align: center;
     text-decoration: none;
     transition: all 0.3s;
-    &:hover{
+
+    &:hover {
         background-color: $navy;
     }
-    &.secondary{
+
+    &.secondary {
         background-color: $white;
         color: $blue;
         border: 1px solid $blue;
-        &:hover{
+
+        &:hover {
             background-color: $blue;
             color: $white;
         }
     }
-    @include media-max(phone){
+
+    @include media-max(phone) {
         padding: 1rem 1.7rem;
     }
 }
@@ -85,6 +96,6 @@ input, .input-text{
     background: $light-grey;
     outline: none;
     padding: 1.25rem;
-  
-  
-  }
+
+
+}
