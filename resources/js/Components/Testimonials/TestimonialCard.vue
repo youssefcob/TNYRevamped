@@ -18,12 +18,8 @@ const props = defineProps({
 
             </div>
         </div>
-        <br>
         <h3>{{ testimonial?.name }}</h3>
-        <br>
         <span>{{ testimonial?.position }}</span>
-        <br>
-        <br>
 
         <p class="big">{{ testimonial?.review }}</p>
     </div>
@@ -39,6 +35,7 @@ const props = defineProps({
     align-items: center;
     // background-color: red;
     color:$grey;
+    gap:1rem;
 >p{
     color:$grey;
     text-align: center;

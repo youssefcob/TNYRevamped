@@ -25,9 +25,6 @@ onMounted(() => {
         <h1 class="title">Testimonials</h1>
         <!-- {{ testimonialState }} -->
 
-        <br>
-        <br>
-        <br>
         <div class="carousel-container">
             <Carousel ref="carousel" :numberOfItems="1" snap indicator>
                 <TestimonialCard v-for="testimonial in testimonialState" :key="testimonial.id"

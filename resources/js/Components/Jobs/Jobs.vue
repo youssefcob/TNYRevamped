@@ -93,6 +93,8 @@ onUnmounted(() => {
     // width: 100vw;
     background-color: $light-grey;
 
+ 
+
     .title,
     .subtitle {
         align-self: center;
