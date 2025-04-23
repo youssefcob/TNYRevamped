@@ -39,6 +39,7 @@ class HeroService
             $request->validate([
                 'title' => ['required', 'string'],
                 'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+                'subtitles' => ['nullable', 'string'],
             ]);
 
             $buttonsData = json_decode($request->buttons, true);
@@ -52,7 +53,7 @@ class HeroService
             ]);
 
             if ($validator->fails()) {
-                return response()->json($validator->errors(), 422);
+                return ["success"=>false, "errors" => $validator->errors()];
             }
 
             DB::beginTransaction();
@@ -65,6 +66,7 @@ class HeroService
 
             $hero = Hero::create([
                 'title' => $request->title,
+                'subtitles' => $request->subtitles,
                 'image' => $imageId,
                 'order' => $order,
             ]);

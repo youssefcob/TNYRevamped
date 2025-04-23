@@ -12,6 +12,7 @@ export type Hero = {
     order: number;
     image: string;
     buttons: Button[];
+    subtitles: string;
 }
 
 export type Service = {

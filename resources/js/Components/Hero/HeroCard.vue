@@ -13,6 +13,7 @@ const props = defineProps({
 <template>
     <div class="hero-container" :style="{backgroundImage: `url(${hero?.image})`}">
         <h1 class="card-title">{{ hero?.title }}</h1>
+        <h3 class="card-subtitle">{{ hero?.subtitles }}</h3>
         <div class="buttons-wrapper">
             <template v-for="button in hero?.buttons" :key="button.id">
                 <Link :href="button.link" :class="`btn ${button.color}` ">{{ button.text }}</Link>
@@ -37,7 +38,7 @@ const props = defineProps({
     flex-direction: column;
     // justify-content: center;
     align-items: center;
-    gap:3rem;
+    gap:1rem;
     &::before{
         content: '';
         position: absolute;
@@ -73,6 +74,17 @@ const props = defineProps({
         flex-direction: column;
         gap:1rem;
     }
+    }
+
+    .card-subtitle{
+        color:$white;
+        font-size: 2rem;
+        text-align: center;
+        @media screen and (min-width: 768px){
+            margin-top:1rem;
+            margin-bottom: 2rem;
+            
+        }
     }
 }
 </style>

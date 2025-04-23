@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Hero extends Model
 {
-    public $fillable = ['title','image','order'];
+    public $fillable = ['title','image','order','subtitles'];
 
 
     public function buttons()
