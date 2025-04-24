@@ -39,7 +39,7 @@ class HeroService
             $request->validate([
                 'title' => ['required', 'string'],
                 'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-                'subtitles' => ['nullable', 'string'],
+                'subtitles' => ['sometimes'],
             ]);
 
             $buttonsData = json_decode($request->buttons, true);
@@ -132,7 +132,8 @@ class HeroService
                 'id' => ['required', 'exists:heroes,id'],
                 'title' => ['nullable', 'string'],
                 'image' => ['nullable', 'file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-                'buttons' => ['nullable', 'json'], // Ensure it's a valid JSON string if provided
+                'buttons' => ['nullable', 'json'], 
+                'subtitles' => ['nullable', 'string'],
             ]);
 
             // Decode buttons only if it's provided
@@ -165,6 +166,9 @@ class HeroService
 
             if ($request->has('title')) {
                 $updateData['title'] = $request->title;
+            }
+            if ($request->has('subtitles')) {
+                $updateData['subtitles'] = $request->subtitles;
             }
 
             if ($request->hasFile('image')) {
