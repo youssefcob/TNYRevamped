@@ -37,7 +37,7 @@ class NewsService
             $request->validate([
                 'title' => ['required', 'string'],
                 'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-                'link' => ['required', 'string', 'url'],
+                // 'link' => ['required', 'string'],
                 'content' => ['required', 'string'],
             ]);
 
@@ -47,7 +47,7 @@ class NewsService
             $news = News::create([
                 'title' => $request->title,
                 'image' => $imageId,
-                'link' => $request->link,
+                'link' => 'null',
                 'content' => $request->content,
             ]);
 
@@ -71,7 +71,7 @@ class NewsService
         $request->validate([
             'title' => ['required', 'string'],
             'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
-            'link' => ['required', 'string', 'url'],
+            // 'link' => ['required', 'string', 'url'],
         ]);
 
         $news = News::find($id);
@@ -86,7 +86,7 @@ class NewsService
         $news->update([
             'title' => $request->title,
             'image' => $imageId,
-            'link' => $request->link,
+            // 'link' => $request->link,
         ]);
     }
     public function updateWithFormattedResponse(Request $request, $id)
