@@ -5,12 +5,13 @@ namespace App\Services;
 use App\Models\Application;
 use App\Models\Position;
 use App\TableFiltersHelperFunctions;
+use App\Traits\SendsEmail;
 use Exception;
 use Illuminate\Support\Facades\Validator;
 
 class ApplicationsService
 {
-    use TableFiltersHelperFunctions;
+    use TableFiltersHelperFunctions, SendsEmail;
     // Your service logic goes here
 
     /**
@@ -214,6 +215,8 @@ class ApplicationsService
                 'message' => $request->message,
                 'zip' => $request->zip,
             ]);
+
+            // $this->sendApplicationSubmittedEmail($request->email, $application);
 
             return [
                 'success' => true,
