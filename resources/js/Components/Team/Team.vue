@@ -24,14 +24,14 @@ let showMore = () => {
         <br>
         <div class="teams some-hidden">
 
-            <!-- <div v-for="n in 40" :key="n"> -->
+            <div v-for="n in 30" :key="n">
                 <div class="single-team" v-for="teamMember in teamState" :key="teamMember.id">
                     <div class="img" :style="`background-image:url(${teamMember.image})`" alt=""></div>
                     <div class="name"><span>{{ teamMember.name }}</span></div>
                     <div class="position"><span>{{ teamMember.position }}</span></div>
 
                 </div>
-            <!-- </div> -->
+            </div>
 
 
 
@@ -75,8 +75,10 @@ let showMore = () => {
     }
 
     >.teams {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(12.375rem, 1fr));
+        // display: grid;
+         // grid-template-columns: repeat(auto-fit, minmax(12.375rem, 1fr));
+         display:flex;
+         flex-wrap:wrap;
         gap: 1.25rem;
         transition: all 0.5s ease-in-out;
         max-height: 28.2rem;
