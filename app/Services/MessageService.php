@@ -3,10 +3,12 @@
 namespace App\Services;
 
 use App\Models\Message;
+use App\Traits\SendsEmail;
 use Exception;
 
 class MessageService
 {
+    use SendsEmail;
     // Your service logic goes here
 
     /**
@@ -70,6 +72,8 @@ class MessageService
                 'subject' => $request->subject,
                 'message' => $request->message,
             ]);
+
+            $this->sendMessageSubmittedEmail($request->email,$message);
 
             return [
                 'success' => true,

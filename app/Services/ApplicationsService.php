@@ -191,7 +191,7 @@ class ApplicationsService
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|max:255',
                 'phone' => 'required|string|max:255',
-                'resume' => 'required|file|mimes:pdf,doc,docx|max:2048',
+                // 'resume' => 'required|file|mimes:pdf,doc,docx|max:2048',
                 'message' => 'required|string',
                 'zip' => 'required|string|max:255',
             ]);
@@ -204,19 +204,21 @@ class ApplicationsService
                 ];
             }
 
-            $drive = new GoogleDrive;
-            $link = $drive->upload($request->resume);
+            // $drive = new GoogleDrive;
+            // $link = $drive->upload($request->resume);
             $application = Application::create([
                 'position_id' => $position->id,
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                'resume' => $link,
+                // 'resume' => $link,
+                'resume' => 'nth',
                 'message' => $request->message,
                 'zip' => $request->zip,
             ]);
+            $application->position = $position->title;
 
-            // $this->sendApplicationSubmittedEmail($request->email, $application);
+            $this->sendApplicationSubmittedEmail($request->email, $application);
 
             return [
                 'success' => true,

@@ -5,11 +5,12 @@ namespace App\Services;
 use App\Models\Service;
 use App\Models\ServiceRequest;
 use App\TableFiltersHelperFunctions;
+use App\Traits\SendsEmail;
 use Illuminate\Validation\ValidationException;
 
 class ServiceRequestService
 {
-    use TableFiltersHelperFunctions;
+    use TableFiltersHelperFunctions, SendsEmail;
     // Your service logic goes here
     public function getServiceRequests($request): array
     {
@@ -138,6 +139,7 @@ class ServiceRequestService
                 'status' => 'pending',
 
             ]);
+            $this->sendServiceRequestSubmittedEmail($serviceRequest->email,$serviceRequest);
 
             return [
                 'success' => true,

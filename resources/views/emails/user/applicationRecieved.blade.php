@@ -82,6 +82,10 @@
     <div class="container">
         <h1>Application Recieved</h1>
 
+        <p>Dear {{ $data->name }},</p>
+        <p>We have received your application for {{$data->position}} and it's currently being reviewed</p>
+        <p class='invisibile'>{{$data->now}}</p>
+
     </div>
 </body>
 
