@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::table('heroes', function (Blueprint $table) {
             // Add a new 'subtitles' column after the 'title' column
-            $table->string('subtitles')->nullable()->after('title');
+            $table->text('subtitles')->nullable()->after('title');
         });
     }
 
