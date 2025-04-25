@@ -1,4 +1,31 @@
+<script setup lang="ts">
+import Modal from '@/SharedComponents/modal.vue';
+import PrivacyPractices from './PrivacyPractices.vue';
+import { ref, Ref } from 'vue';
+
+function scrollToTop() {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+const privacy: Ref<InstanceType<typeof Modal> | null> = ref(null);
+
+const openModal = () => {
+    if (privacy.value) {
+        privacy.value.openModal();
+    }
+};
+
+const closeModal = () => {
+    if (privacy.value) {
+        privacy.value.closeModal();
+    }
+};
+</script>
+
 <template>
+     <Modal ref="privacy">
+        <PrivacyPractices @close="closeModal()" />
+    </Modal>
     <footer class="container">
         <div class="up">
             <div class="logo">
@@ -61,7 +88,7 @@
             </div>
         </div>
         <div class="down">
-            <div class="policy">
+            <div class="policy" @click="openModal()">
                 <span>
                     Therapy of New York ©  2023. Privacy Policy
                 </span>
@@ -225,5 +252,10 @@
             }
         }
     }
+}
+
+.policy{
+    cursor: pointer;
+
 }
 </style>
