@@ -52,7 +52,7 @@ const props = defineProps({
         z-index: 1;
     }
     .card-title{
-        color:$navy;
+        color:$blue;
         font-size: 4rem;
         text-align: center;
         @media screen and (min-width: 768px){
@@ -77,7 +77,7 @@ const props = defineProps({
     }
 
     .card-subtitle{
-        color:$black;
+        color:#F1F2F2;
         font-size: 2rem;
         text-align: center;
         @media screen and (min-width: 768px){
