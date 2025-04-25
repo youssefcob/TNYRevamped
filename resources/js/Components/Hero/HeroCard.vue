@@ -46,7 +46,8 @@ const props = defineProps({
         left: 0;
         width: 100%;
         height: 100%;
-        background-color: rgba(220, 220, 220,0.5);
+        
+        background-color: rgba(109, 109, 109, 0.502);
     }
     >*{
         z-index: 1;
