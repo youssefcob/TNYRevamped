@@ -9,5 +9,5 @@ class Position extends Model
 {
     use HasFactory;
     //
-    protected $fillable = ['title', 'description', 'available'];
+    protected $fillable = ['title', 'description', 'available', 'address'];
 }

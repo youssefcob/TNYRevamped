@@ -47,7 +47,7 @@ class NewsService
             $news = News::create([
                 'title' => $request->title,
                 'image' => $imageId,
-                'link' => 'null',
+                
                 'content' => $request->content,
             ]);
 
@@ -120,10 +120,10 @@ class NewsService
                 $updateData['title'] = $request->title;
             }
 
-            if ($request->has('link')) {
-                $request->validate(['link' => ['string', 'url']]);
-                $updateData['link'] = $request->link;
-            }
+            // if ($request->has('link')) {
+            //     $request->validate(['link' => ['string', 'url']]);
+            //     $updateData['link'] = $request->link;
+            // }
             if ($request->has('content')) {
                 // $request->validate(['content' => ['string']]);
                 $updateData['content'] = $request->content;
