@@ -53,7 +53,7 @@ class ServiceRequestRecieved extends Mailable
     public function content(): Content
     {
         return new Content(
-            view: 'email.user.serviceRequestRecieved',
+            view: 'emails.user.serviceRequestRecieved',
         );
     }
 
