@@ -80,7 +80,7 @@
 
         <p>
             Job Title: <span class="bold mainColoredText" >“{{ $data->position }}”</span>,
-            <p>Address : </p><span class="mainColoredText">“{{ $data->address }}”</span>
+            <p>Address : <span class="mainColoredText">“{{ $data->address }}”</span> </p>
         </p>
 
         <p>
