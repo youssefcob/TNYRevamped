@@ -6,6 +6,7 @@ use App\Models\Service;
 use App\Models\ServiceRequest;
 use App\TableFiltersHelperFunctions;
 use App\Traits\SendsEmail;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 
 class ServiceRequestService
@@ -139,6 +140,9 @@ class ServiceRequestService
                 'status' => 'pending',
 
             ]);
+            $serviceRequest->service_name = $service->title;
+            $serviceRequest->facility_name = $serviceRequest->company_name;
+            // Log::info($serviceRequest);
             $this->sendServiceRequestSubmittedEmail($serviceRequest->email,$serviceRequest);
 
             return [

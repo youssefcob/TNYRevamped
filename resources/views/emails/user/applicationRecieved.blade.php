@@ -3,7 +3,6 @@
 
 <head>
     <title>TNY Email</title>
-
     <style>
         * {
             margin: 0;
@@ -12,80 +11,94 @@
             box-sizing: border-box;
         }
 
-        html {
-            font-size: clamp(10px, 1vw, 17px);
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            padding: 2rem;
+            color: #000;
         }
 
         .container {
-            padding: 1rem;
-            padding-top: 2.5rem;
-            background-color: #EEECED;
-            gap: 1.25rem;
+            max-width: 600px;
+            margin: auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .highlight {
+            background-color: yellow;
+            font-weight: bold;
+        }
+
+        a {
+            color: #236681;
+            text-decoration: none;
+        }
+
+        .footer-logo {
+            margin-top: 2rem;
         }
 
         h1 {
-            font-family: 'Helvetica Neue', sans-serif;
+            /* color: #236681; */
+            font-size: 2rem;
             font-weight: 600;
-            font-size: 3rem;
-            margin-top: 1rem;
             margin-bottom: 1rem;
-            letter-spacing: 0px;
-            color: #236681;
-
         }
 
         p {
-            font-family: 'Montserrat', sans-serif;
-
-            font-size: 1.125rem;
-            font-style: normal;
-            font-weight: 500;
-            line-height: 200%;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
         }
 
-        .message-body {
-            background-color: white;
-            padding: 1.25rem;
-            border-radius: 1.125rem;
-            color: black;
-            font-family: 'Montserrat', sans-serif;
-
-            font-size: 1.125rem;
-            font-style: normal;
-            font-weight: 500;
-            line-height: 200%;
+        .contact {
+            margin-top: 1rem;
         }
 
-        .invisibile {
-            opacity: 0;
+        .bold {
+            font-weight: bold;
         }
 
-        .clinic-container {
-            margin-top: 1.5rem;
-
+        .footer {
+            margin-top: 2rem;
+        }
+        .mainColoredText{
+            color: #135672;
         }
 
-        .map-wrapper {
-            width: 100%;
-            margin: auto;
-        }
-
-        .map-wrapper img {
-            width: 70%;
-            height: auto;
-        }
     </style>
-
 </head>
 
 <body>
     <div class="container">
-        <h1>Application Recieved</h1>
+        <h1>Hello, <span class="mainColoredText"><strong>{{ $data->name }}</strong></span></h1>
 
-        <p>Dear {{ $data->name }},</p>
-        <p>We have received your application for {{$data->position}} and it's currently being reviewed</p>
-        <p class='invisibile'>{{$data->now}}</p>
+        <p>We received your Application by filling out the form</p>
 
+        <p>
+            Job Title: <span class="bold mainColoredText" >“{{ $data->position }}”</span>,
+            <p>Address : <span class="mainColoredText">“{{ $data->address }}”</span> </p>
+        </p>
+
+        <p>
+            Your CV will be reviewed when it meets the required requirements,
+            and if the information changes, you can contact us
+            <!-- ({{ $data->phone1 }}) – ({{ $data->phone2 }}) -->
+            (347)441-4283 – (917)985-8327
+        </p>
+
+        <p>Thanks,</p>
+
+        <div class="footer-logo">
+            <!-- <span></span> -->
+             <!-- the src should be {{ asset('images/logo.svg') }}, but Gmail doesn't allow showing images from localhost, so I'll uplaod the image on Cloudinary -->
+              <!-- IMPORTNAT: we need to make sure that the logo image is uploaded to Cloudinary when going to production or staging  -->
+            <img src="{{ asset('images/logo.png') }}" alt="TNY Logo" width="100">
+            <!-- <img src="https://res-console.cloudinary.com/dokukdshb/thumbnails/v1/image/upload/v1745947682/bG9nb19mdnBnNjU" alt="TNY Logo" width="100"> -->
+        </div>
     </div>
 </body>
 

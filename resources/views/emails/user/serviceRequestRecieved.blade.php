@@ -3,7 +3,6 @@
 
 <head>
     <title>TNY Email</title>
-
     <style>
         * {
             margin: 0;
@@ -12,80 +11,79 @@
             box-sizing: border-box;
         }
 
-        html {
-            font-size: clamp(10px, 1vw, 17px);
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #ffffff;
+            padding: 2rem;
+            color: #000;
         }
 
         .container {
-            padding: 1rem;
-            padding-top: 2.5rem;
-            background-color: #EEECED;
-            gap: 1.25rem;
+            max-width: 600px;
+            margin: auto;
+            padding: 2rem;
+            background-color: #ffffff;
+            border-radius: 12px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
         }
 
         h1 {
-            font-family: 'Helvetica Neue', sans-serif;
+            font-size: 2rem;
             font-weight: 600;
-            font-size: 3rem;
-            margin-top: 1rem;
-            margin-bottom: 1rem;
-            letter-spacing: 0px;
-            color: #236681;
-
+            margin-bottom: 1.5rem;
         }
 
         p {
-            font-family: 'Montserrat', sans-serif;
-
-            font-size: 1.125rem;
-            font-style: normal;
-            font-weight: 500;
-            line-height: 200%;
+            font-size: 1rem;
+            line-height: 1.8;
+            margin-bottom: 1rem;
         }
 
-        .message-body {
-            background-color: white;
-            padding: 1.25rem;
-            border-radius: 1.125rem;
-            color: black;
-            font-family: 'Montserrat', sans-serif;
-
-            font-size: 1.125rem;
-            font-style: normal;
-            font-weight: 500;
-            line-height: 200%;
+        .mainColoredText {
+            color: #135672;
         }
 
-        .invisibile {
-            opacity: 0;
+        .bold {
+            font-weight: bold;
         }
 
-        .clinic-container {
-            margin-top: 1.5rem;
-
+        .footer {
+            margin-top: 2rem;
         }
 
-        .map-wrapper {
-            width: 100%;
-            margin: auto;
+        .footer-logo {
+            margin-top: 2rem;
         }
 
-        .map-wrapper img {
-            width: 70%;
-            height: auto;
+        a {
+            color: #135672;
+            text-decoration: none;
         }
     </style>
-
 </head>
 
 <body>
     <div class="container">
-        <h1>Service Request Recieved</h1>
+        <h1>Hello, <span class="bold">{{ $data->name }}</span></h1>
 
-        <p>Dear {{ $data->name }},</p>
-        <p>We have received your service request and it's currently being reviewed</p>
-        <p class='invisibile'>{{$data->now}}</p>
+        <p>We received your service by filling out the form</p>
 
+        <p>
+            Service name : <span class="bold mainColoredText">“{{ $data->service_name }}”</span>,
+            Address : <span class="mainColoredText">“{{ $data->address }}”</span>,
+            Facility name : <span class="bold mainColoredText">“{{ $data->facility_name }}”</span>
+        </p>
+
+        <p>
+            Please note that this information will be uploaded to the website and if the information changes,
+            you can contact us (347)441-4283 – (917)985-8327
+        </p>
+
+        <p>Thanks,</p>
+
+        <div class="footer-logo">
+            <img src="{{ config('app.url') . '/images/logo.svg' }}" alt="TNY Logo" width="100">
+        </div>
     </div>
 </body>
 

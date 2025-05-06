@@ -52,18 +52,18 @@ class PositionService
     public function updatePosition($request)
     {
         try {
-            //code...
             $request->validate([
                 'id' => 'required|integer|exists:positions,id',
                 'title' => 'sometimes|string|max:255',
                 'description' => 'sometimes|string|max:255',
-                'available' => 'sometimes|boolean'
+                'available' => 'sometimes|boolean',
+                'address' => 'sometimes|string|max:255|nullable'
             ]);
             $position = Position::find($request->id);
-            $data = $request->only(['title', 'description', 'available']);
+            $data = $request->only(['title', 'description', 'available', 'address']);
             $position->update($data);
             $position->save();
-            // dd('s');
+
             return [
                 'success' => true,
                 'data' => $position,
@@ -77,11 +77,42 @@ class PositionService
                 'errors' => $e->errors()
             ];
         } catch (\Exception $e) {
-            //throw $th;
             return [
                 'success' => false,
                 'message' => $e->getMessage(),
+            ];
+        }
+    }
 
+    public function createPosition($request)
+    {
+        try {
+            $request->validate([
+                'title' => 'required|string|max:255',
+                'description' => 'required|string|max:255',
+                'available' => 'required|boolean',
+                'address' => 'nullable|string|max:255'
+            ]);
+            $data = $request->only(['title', 'description', 'available', 'address']);
+
+            $position = Position::create($data);
+            return [
+                'success' => true,
+                'data' => $position,
+                'message' => 'Position created successfully'
+            ];
+        } catch (ValidationException $e) {
+            return [
+                'code' => 422,
+                'success' => false,
+                'message' => 'Validation error please fill in the required fields',
+                'errors' => $e->errors()
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'success' => false,
+                'message' => 'An error occurred while creating the position',
+                'error' => $th->getMessage()
             ];
         }
     }
@@ -116,37 +147,37 @@ class PositionService
         }
     }
 
-    public function createPosition($request)
-    {
-        try {
-            $request->validate([
-                'title' => 'required|string|max:255',
-                'description' => 'required|string|max:255',
-                'available' => 'required|boolean'
-            ]);
-            $data = $request->only(['title', 'description', 'available']);
+    // public function createPosition($request)
+    // {
+    //     try {
+    //         $request->validate([
+    //             'title' => 'required|string|max:255',
+    //             'description' => 'required|string|max:255',
+    //             'available' => 'required|boolean'
+    //         ]);
+    //         $data = $request->only(['title', 'description', 'available']);
 
-            $position = Position::create($data);
-            return [
-                'success' => true,
-                'data' => $position,
-                'message' => 'Position created successfully'
-            ];
-            //code...
-        } catch (ValidationException $e) {
-            return [
-                'code' => 422,
-                'success' => false,
-                'message' => 'Validation error please fill in the required fields',
-                'errors' => $e->errors()
-            ];
-        } catch (\Throwable $th) {
-            //throw $th;
-            return [
-                'success' => false,
-                'message' => 'An error occurred while creating the position',
-                'error' => $th->getMessage()
-            ];
-        }
-    }
+    //         $position = Position::create($data);
+    //         return [
+    //             'success' => true,
+    //             'data' => $position,
+    //             'message' => 'Position created successfully'
+    //         ];
+    //         //code...
+    //     } catch (ValidationException $e) {
+    //         return [
+    //             'code' => 422,
+    //             'success' => false,
+    //             'message' => 'Validation error please fill in the required fields',
+    //             'errors' => $e->errors()
+    //         ];
+    //     } catch (\Throwable $th) {
+    //         //throw $th;
+    //         return [
+    //             'success' => false,
+    //             'message' => 'An error occurred while creating the position',
+    //             'error' => $th->getMessage()
+    //         ];
+    //     }
+    // }
 }

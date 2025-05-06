@@ -7,6 +7,7 @@ use App\Models\Position;
 use App\TableFiltersHelperFunctions;
 use App\Traits\SendsEmail;
 use Exception;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ApplicationsService
@@ -32,6 +33,9 @@ class ApplicationsService
     public function getApplications($request): array
     {
         try {
+            // Log::info("message");
+            // echo "message";
+            // dd('ss');
             $submissionDate = $request->input('submission_date');
             $status = $request->input('status');
             $startDate = $request->input('start_date');
@@ -186,12 +190,14 @@ class ApplicationsService
     public function createApplication($request)
     {
         try {
+            // We could make the FE sends position id, and validate on it like thie 
+            // 'id' => 'required|integer|exists:applications,id',
             $request->validate([
                 'position' => 'required|string|max:255',
                 'name' => 'required|string|max:255',
                 'email' => 'required|email|max:255',
                 'phone' => 'required|string|max:255',
-                // 'resume' => 'required|file|mimes:pdf,doc,docx|max:2048',
+                'resume' => 'required|file|mimes:pdf,doc,docx|max:2048',
                 'message' => 'required|string',
                 'zip' => 'required|string|max:255',
             ]);
@@ -204,19 +210,22 @@ class ApplicationsService
                 ];
             }
 
-            // $drive = new GoogleDrive;
-            // $link = $drive->upload($request->resume);
+            $drive = new GoogleDrive;
+            // dd($request->resue)
+            $link = $drive->upload($request->resume);
             $application = Application::create([
                 'position_id' => $position->id,
                 'name' => $request->name,
                 'email' => $request->email,
                 'phone' => $request->phone,
-                // 'resume' => $link,
-                'resume' => 'nth',
+                'resume' => $link,
+                // 'resume' => 'nth',
                 'message' => $request->message,
                 'zip' => $request->zip,
             ]);
             $application->position = $position->title;
+            $application->address = $position->address;
+            // dd($application);
 
             $this->sendApplicationSubmittedEmail($request->email, $application);
 
