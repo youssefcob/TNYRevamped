@@ -33,7 +33,7 @@ import { clientState } from '@/state/state';
     .caoursel-wrapper {
         // background-color: red;
 
-        width:55%;
+        width:85%;
         align-self: center;
         position: relative;
 
@@ -70,7 +70,7 @@ import { clientState } from '@/state/state';
     }
 
     .card {
-        background-color: $grey;
+        // background-color: $grey;
         height: 10rem;
         width: 10rem;
         background-size: cover;
