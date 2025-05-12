@@ -17,6 +17,8 @@ let showMore = () => {
 
 <template>
     <div class="teamContainer">
+        <!-- //! HRER I EDITED THE STYLING TO SHOW 2 "SINGLE TEAM" ONLY PER ROW, ON MOBILE DEVICES.
+        //! Sorry ya Youssef walahe bas mkansh feh wa2t ad5ol akra2 el code 3shan amshy 3la nafs el pattern beta3tak, Ama terga3 momken t3adel el code bra7tak. -->
         <h1 class="title">Team photos</h1>
 
         <br>
@@ -181,48 +183,40 @@ let showMore = () => {
         }
 
         .teams {
-            display: flex;
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            /* Smooth scrolling on touch devices */
-            scrollbar-width: thin;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            overflow: hidden;
             height: fit-content;
             align-items: first baseline;
 
-            /* For Firefox */
-            &::-webkit-scrollbar {
-                height: 4px;
-                /* For WebKit browsers */
-            }
-
-            &::-webkit-scrollbar-thumb {
-                background: #ccc;
-                /* Scrollbar thumb color */
-            }
-
             .single-team {
-                flex: 0 0 auto;
-                width: 110px;
+                width: 100%;
+                height: auto;
+                padding: 0.5rem;
 
-                // height: 85px;
-                >.img {
-                    height: 85px;
+                .img-wrapper {
+                    width: 100%;
+                    aspect-ratio: 1/1;
+                    
+                    .img {
+                        height: 70%;
+                    }
                 }
 
-                >.title {
-                    text-align: center;
+                .name {
+                    font-size: 0.875rem;
+                }
+
+                .position span {
+                    font-size: 0.75rem;
                 }
             }
-
-
         }
 
         .show-btn {
             display: none;
         }
-
-
     }
-
 }
 </style>
