@@ -34,7 +34,7 @@ class RegisterController extends Controller
                     'name' => $request->name,
                     'password' => Hash::make($request->password),
                     'email' => $request->email,
-                    'type' => $request->type
+                    'user_type' => $request->type
                 ]);
 
                 $token = '';

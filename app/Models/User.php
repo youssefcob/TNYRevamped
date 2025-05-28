@@ -22,7 +22,6 @@ class User extends Authenticatable
         'password',
         'user_type',
         'reset_token_password',
-        'type'
     ];
 
     /**

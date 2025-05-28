@@ -12,7 +12,7 @@ class AuthenticatedUserController extends Controller
 {
 
     use GeneratesToken;
-    
+
     function login(Request $request)
     {
         $request->validate([
@@ -28,7 +28,7 @@ class AuthenticatedUserController extends Controller
 
         $token = '';
 
-        switch ($request->type) {
+        switch ($user->user_type) {
             case 'employer':
                 $token = $this->generateEmployerToken($user);
                 break;
