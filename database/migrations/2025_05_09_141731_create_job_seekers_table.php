@@ -17,7 +17,7 @@ return new class extends Migration
             //Already have in users table
             // $table->string('name');
             // $table->string('email');
-            $table->string('mobile_number');
+            $table->string('phone_number');
             $table->date('bod'); // birth of date
             $table->string('notice_period');
             $table->integer('salary');
@@ -25,7 +25,7 @@ return new class extends Migration
             $table->string('shift_type');
             $table->integer('experience');
             $table->text('address');
-            $table->string('resume');
+            $table->string('resume')->nullable();
             $table->string('status')->default('pending');
             $table->foreignId('position_id')->constrained('positions')->onDelete('cascade');
             $table->boolean('talent')->default(false);

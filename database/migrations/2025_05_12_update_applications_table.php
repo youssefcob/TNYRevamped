@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
@@ -10,31 +11,35 @@ return new class extends Migration
      * Run the migrations.
      */
     public function up(): void
-    {
-        Schema::table('applications', function (Blueprint $table) {
-            // Drop the foreign key constraint first
-            $table->dropForeign(['position_id']);
-            
-            // Now we can safely drop the index
-            $table->dropIndex('idx_applications_position_id');
-            
-            // Drop existing columns except id and status
-            $table->dropColumn([
-                'name',
-                'email',
-                'messages',
-                // 'status',
-                'phone',
-                'resume',
-                'position_id',
-                'zip'
-            ]);
+{
+    Schema::table('applications', function (Blueprint $table) {
+        $table->dropForeign(['position_id']);
+        $table->dropIndex('idx_applications_position_id');
 
-            // Add new columns
-            $table->foreignId('vacancy_id')->after('id')->constrained()->onDelete('cascade');
-            $table->foreignId('job_seeker_id')->after('vacancy_id')->constrained()->onDelete('cascade');
-        });
-    }
+        $table->dropColumn([
+            'name',
+            'email',
+            'messages',
+            'phone',
+            'resume',
+            'position_id',
+            'zip'
+        ]);
+        DB::table('applications')->delete();
+
+        // Step 1: Add nullable columns first
+        $table->unsignedBigInteger('vacancy_id')->nullable()->after('id');
+        $table->unsignedBigInteger('job_seeker_id')->nullable()->after('vacancy_id');
+    });
+
+    // Step 2: Populate those fields manually or with seeders
+
+    // Step 3: Add foreign keys once data is clean
+    Schema::table('applications', function (Blueprint $table) {
+        $table->foreign('vacancy_id')->references('id')->on('vacancies')->onDelete('cascade');
+        $table->foreign('job_seeker_id')->references('id')->on('job_seekers')->onDelete('cascade');
+    });
+}
 
     /**
      * Reverse the migrations.

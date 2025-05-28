@@ -2,12 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Vacancy extends Model
 {
+    use HasFactory;
     /**
      * The attributes that are mass assignable.
      *
@@ -25,7 +27,7 @@ class Vacancy extends Model
         'facility_type',
         'min_experience',
         'position_id',
-        'user_id'
+        
     ];
 
     /**
@@ -49,13 +51,7 @@ class Vacancy extends Model
         return $this->belongsTo(Position::class);
     }
 
-    /**
-     * Get the user who created the vacancy.
-     */
-    public function user(): BelongsTo
-    {
-        return $this->belongsTo(User::class);
-    }
+    
 
     /**
      * Get the employers associated with the vacancy.

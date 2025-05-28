@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class JobSeeker extends Model
 {
+    use HasFactory;
     /**
      * The attributes that are mass assignable.
      *
@@ -14,7 +17,7 @@ class JobSeeker extends Model
      */
     protected $fillable = [
         // 'name',
-        'mobile_number',
+        'phone_number',
         'bod',
         'notice_period',
         'facility_type',
@@ -56,5 +59,13 @@ class JobSeeker extends Model
     public function position(): BelongsTo
     {
         return $this->belongsTo(Position::class);
+    }
+
+    /**
+     * Get the applications for the job seeker.
+     */
+    public function applications(): HasMany
+    {
+        return $this->hasMany(Application::class);
     }
 }

@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('facility_type');
             $table->integer('min_experience');
             $table->foreignId('position_id')->constrained('positions')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            
             $table->timestamps();
         });
     }

@@ -11,6 +11,7 @@ use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ServiceController;
 
 use App\Http\Controllers\InsightsController;
+use App\Http\Controllers\JobSeekerController;
 // use App\Http\Controllers\InsightsController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\SystemServiceController;
@@ -25,6 +26,7 @@ Route::get('/user', function (Request $request) {
 })->middleware('auth:api');
 
 require __DIR__ . '/content.php';
+require __DIR__ . '/user-routes.php';
 
 
 // Route::post('/new-google-drive-file', function (Request $request) {
@@ -71,7 +73,7 @@ require __DIR__ . '/content.php';
 //     }
 // });
 
-Route::post('/login', [AdminAuthController::class, 'login']);
+Route::post('/admin/login', [AdminAuthController::class, 'adminLogin']);
 Route::middleware('auth:api')->group(function () {
     //Applications routes
     Route::get('/applications', [ApplicationsController::class, 'getApplications'])->name('get.applications');
@@ -115,6 +117,13 @@ Route::middleware('auth:api')->group(function () {
 
     Route::get('/hero',[HeroController::class , 'getHeroSection'])->name('get.hero');
     Route::post('/editHero',[HeroController::class , 'editHeroSection'])->name('edit.hero');
+
+    //Job seekers routes
+    Route::get('/job-seekers', [JobSeekerController::class, 'getJobSeekers'])->name('get.jobSeekers');
+    Route::put('/job-seeker-status', [JobSeekerController::class, 'updateStatus'])->name('update.jobSeeker.status');
+    Route::delete('/job-seekers/{id}', [JobSeekerController::class, 'destroy'])->name('delete.jobSeeker');
+    Route::post('/job-seeker', [JobSeekerController::class, 'createJobSeeker'])->name('create.jobSeeker');
+    Route::put('/job-seeker/talent/{id}', [JobSeekerController::class, 'updateTalent'])->name('update.jobSeekerTalent');
 });
 
 
@@ -131,3 +140,5 @@ Route::group(['prefix' => 'application'], function () {
 Route::group(['prefix' => 'request'], function () {
     Route::post('/', [ServiceRequestController::class, 'submit']);
 });
+
+

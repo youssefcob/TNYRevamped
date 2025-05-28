@@ -10,7 +10,23 @@ class Employer extends Model
 {
     use HasFactory;
     
-    protected $fillable = ['title', 'description', 'image', 'onMainPage', 'user_id'];
+    protected $fillable = [
+        'name',
+        'phone_number',
+        'address',
+        'description',
+        'image',
+        'onMainPage',
+        'user_id'
+    ];
+    
+    /**
+     * Get the user that owns the employer.
+     */
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     
     /**
      * Get the vacancies associated with the employer.

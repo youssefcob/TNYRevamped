@@ -13,8 +13,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            if(!Schema::hasColumn('users', 'user_type'))
-            $table->enum('user_type', ['employer', 'job_seeker'])->after('remember_token');
+            $table->string('reset_token_password')->after('user_type')->nullable();
         });
     }
 
@@ -25,7 +24,7 @@ return new class extends Migration
     {
         Schema::table('users', function (Blueprint $table) {
             //
-            $table->dropColumn('user_type');
+            $table->dropColumn('reset_token_password');
         });
     }
 };

@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Admin;
+use App\Models\User;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 
@@ -15,7 +16,7 @@ class AuthService
      * @param \Illuminate\Http\Request $request Contains 'email' and 'password'.
      * @return array Authentication status, token (if successful), user data, or error messages.
      */
-    public function login($request) : array
+    public function adminLogin($request) : array
     {
         try {
             //code...
@@ -51,6 +52,93 @@ class AuthService
                 'success' => false,
                 'message' => 'Something went wrong',
                 'error' => $e->getMessage(),
+            ];
+        }
+    }
+
+    public function userRegister($request): array
+    {
+        try {
+            $request->validate([
+                'name' => 'required|string|max:255',
+                'email' => 'required|email|unique:users,email',
+                'password' => 'required|min:8',
+                'user_type' => 'required|string|in:employer,job_seeker'
+            ]);
+
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'user_type' => $request->user_type
+            ]);
+
+            // $token = $user->createToken('UserToken')->accessToken;
+
+            return [
+                'success' => true,
+                // 'token' => $token,
+                'data' => $user
+            ];
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return [
+                'success' => false,
+                'message' => 'Validation error',
+                'errors' => $e->errors()
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage()
+            ];
+        }
+    }
+
+    public function userLogin($request): array
+    {
+        try {
+            $request->validate([
+                'email' => 'required|email',
+                'password' => 'required'
+            ]);
+
+            $user = User::where('email', $request->email)->first();
+
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                return [
+                    'success' => false,
+                    'message' => 'Invalid credentials',
+                    'code' => 401
+                ];
+            }
+
+            $token = $user->createToken('UserToken')->accessToken;
+            if($user->user_type == 'employer'){
+                $user->load('employer');
+            }
+            if($user->user_type == 'job_seeker'){
+                $user->load('jobSeeker');
+            }
+
+            return [
+                'success' => true,
+                'token' => $token,
+                'data' => $user
+            ];
+
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return [
+                'success' => false,
+                'message' => 'Validation error',
+                'errors' => $e->errors()
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => 'Something went wrong',
+                'error' => $e->getMessage()
             ];
         }
     }

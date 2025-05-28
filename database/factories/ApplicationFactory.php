@@ -3,48 +3,35 @@
 namespace Database\Factories;
 
 use App\Models\Application;
-use App\Models\Position;
+use App\Models\Vacancy;
+use App\Models\JobSeeker;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Application>
- */
 class ApplicationFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
     protected $model = Application::class;
 
     public function definition(): array
     {
-         // Check if there are any existing positions
-         $position = Position::inRandomOrder()->first();
+        // Get or create a vacancy
+        $vacancy = Vacancy::inRandomOrder()->first() ?? Vacancy::factory()->create();
+        
+        // Get or create a job seeker
+        $jobSeeker = JobSeeker::inRandomOrder()->first() ?? JobSeeker::factory()->create();
 
-         // If no positions exist, create a new one
-         if (!$position) {
-             $position = Position::factory()->create();
-         }
- 
-         return [
-             'name' => $this->faker->name(),
-             'email' => $this->faker->unique()->safeEmail(),
-             'zip' => $this->faker->postcode(),
-             'phone' => $this->faker->unique()->phoneNumber(),
-             'resume' => $this->faker->filePath(), // Simulated file path
-             'position_id' => $position->id, // Use the existing or newly created position's ID
+        return [
+            'vacancy_id' => $vacancy->id,
+            'job_seeker_id' => $jobSeeker->id,
             'status' => $this->faker->randomElement([
                 'Hired',
                 'Rejected',
                 'Pending',
                 'Needs Assignment',
-                'Missing Documents', 
+                'Missing Documents',
                 'Missing Preferences',
                 'In Training',
                 'Interview'
-            ]),
+            ])
         ];
     }
 }
