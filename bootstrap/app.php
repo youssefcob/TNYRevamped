@@ -15,7 +15,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->append(\App\Http\Middleware\ForceJsonResponse::class);
         $middleware->alias([
-            'auth.user' => UserAuthenticate::class
+            'auth.user' => UserAuthenticate::class,
+            'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
+            'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
         ]);
     })
     ->withProviders([

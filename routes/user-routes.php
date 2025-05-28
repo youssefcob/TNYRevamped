@@ -12,7 +12,7 @@ Route::prefix('user')->group(function () {
     // Route::post('/login', [UserAuthController::class, 'login']);
 
     Route::post('/register',[RegisterController::class,'submit']);
-    // Route::post('/login',[AuthenticatedUserController::class,'login']);
+    Route::post('/login',[AuthenticatedUserController::class,'login']);
     // Protected routes
     Route::middleware(['auth.user'])->group(function () {
         // Route::post('/logout', [UserAuthController::class, 'logout']);
@@ -21,4 +21,8 @@ Route::prefix('user')->group(function () {
         });
         // Add other user-specific routes here
     });
+
+    Route::get('hello', function () {
+            return Auth::guard('user')->user();
+    })->middleware(['auth:user','scope:job-seeker']);
 });
