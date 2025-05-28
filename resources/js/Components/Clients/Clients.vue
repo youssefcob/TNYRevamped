@@ -37,6 +37,10 @@ import { clientState } from '@/state/state';
         align-self: center;
         position: relative;
 
+        @include media-max(phone) {
+            width: 100%;
+        }
+
         &::before,
         &::after {
             content: '';
