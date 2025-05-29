@@ -23,13 +23,11 @@ class RegisterController extends Controller
             $request->validate([
                 'name' => ['required', 'string', 'max:30'],
                 'password' => ['required', 'confirmed'],
-                'email' => ['required', 'email'],
+                'email' => ['required', 'email', 'unique:users,email'],
                 'type' => ['required', 'in:employer,job_seeker']
             ]);
 
             //create user
-            $existingGuestUser = User::where('email', $request->email)->first();
-            if (!$existingGuestUser) {
                 $user = User::create([
                     'name' => $request->name,
                     'password' => Hash::make($request->password),
@@ -50,17 +48,24 @@ class RegisterController extends Controller
                         break;
                 }
 
-                return response()->json([
-                    'user' => $user,
-                    'tokens' => $token
-                ]);
-            } else {
-                return response()->json([
-                    'message' => 'This User Already Exists'
-                ]);
-            }
+                // return response()->json([
+                    // 'user' => $user,
+                    // 'tokens' => $token
+                // ]);
+
+                $user = [
+                    'user'=> $user,
+                    'token' => $token
+                ];
+                return response()->json($user, 200);
+        }
+        catch (\Illuminate\Validation\ValidationException $e) {
+            return response()->json(['error' => $e->errors()], 422);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json(['error' => 'Database error: ' . $e->getMessage()], 500);
         } catch (\Exception $e) {
             return response()->json(['error' => $e->getMessage()], 409);
         };
     }
+    
 }

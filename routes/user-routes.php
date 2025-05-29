@@ -13,6 +13,7 @@ Route::prefix('user')->group(function () {
 
     Route::post('/register',[RegisterController::class,'submit']);
     Route::post('/login',[AuthenticatedUserController::class,'login']);
+    
     // Protected routes
     Route::middleware(['auth.user'])->group(function () {
         // Route::post('/logout', [UserAuthController::class, 'logout']);
