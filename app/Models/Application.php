@@ -8,11 +8,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Application extends Model
 {
-    //
     use HasFactory, GenericObserverTrait;
-    protected $fillable = ['name', 'email', 'address', 'phone', 'resume', 'position_id', 'status'];
+    
+    protected $fillable = [
+        'vacancy_id',
+        'job_seeker_id',
+        'status'
+    ];
 
-    public function position(){
-        return $this->belongsTo(Position::class);
+    public function vacancy()
+    {
+        return $this->belongsTo(Vacancy::class);
+    }
+
+    public function jobSeeker()
+    {
+        return $this->belongsTo(JobSeeker::class);
     }
 }

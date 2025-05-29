@@ -12,6 +12,7 @@ use App\Services\Content\ServicesService;
 use App\Services\Content\TeamService;
 use App\Services\Content\TestimonialsService;
 use App\Services\HeroService;
+use App\Services\ViewServices\HomeService;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
 
@@ -19,16 +20,17 @@ class HomeController extends Controller
 {
     public function view()
     {
-        $data = [];
+        // $data = [];
 
-        $data['hero'] = HeroService::get();
-        $data['services'] = ServicesService::get();
-        $data['employers'] = EmployersService::get();
-        $data['jobs'] = JobsService::get();
-        $data['news'] = NewsService::get();
-        $data['clients'] = ClientsService::get();
-        $data['testimonials'] = TestimonialsService::get();
-        $data['team'] = TeamService::get();
+        // $data['hero'] = HeroService::get();
+        // $data['services'] = ServicesService::get();
+        // $data['employers'] = EmployersService::get();
+        // $data['jobs'] = JobsService::get();
+        // $data['news'] = NewsService::get();
+        // $data['clients'] = ClientsService::get();
+        // $data['testimonials'] = TestimonialsService::get();
+        // $data['team'] = TeamService::get();
+        $data = HomeService::get();
         return Inertia::render('Home', $data);
     }
 
@@ -81,5 +83,15 @@ class HomeController extends Controller
 
         $data['news'] = News::findOrFail($id);
         return Inertia::render('News', $data);
+    }
+
+    public function login()
+    {
+        return Inertia::render('Auth/Login');
+    }
+
+    public function register()
+    {
+        return Inertia::render('Auth/Register');
     }
 }

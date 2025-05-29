@@ -2,27 +2,24 @@
 
 namespace Database\Factories;
 
+use App\Models\Employer;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Employer>
- */
 class EmployerFactory extends Factory
 {
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
+    protected $model = Employer::class;
+
     public function definition(): array
     {
-
         return [
-            'title' => $this->faker->sentence(3),
-            'description' => $this->faker->paragraph(),
-            'image' => $this->faker->imageUrl(640, 480, 'business', true), // Generates a random image URL
-            'onMainPage' => $this->faker->boolean()
-            //
+            'name' => fake()->company(),
+            'phone_number' => fake()->phoneNumber(),
+            'address' => fake()->address(),
+            'description' => fake()->paragraph(),
+            'image' => 'employers/' . fake()->uuid() . '.jpg',
+            'onMainPage' => fake()->boolean(),
+            'user_id' => User::factory()->employer(),
         ];
     }
 }

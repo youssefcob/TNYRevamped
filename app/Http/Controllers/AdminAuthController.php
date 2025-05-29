@@ -15,9 +15,9 @@ class AdminAuthController extends Controller
     public function __construct(AuthService $service){
         $this->service = $service;
     }
-    public function login(Request $request)
+    public function adminLogin(Request $request)
     {
-        $response = $this->service->login($request);
+        $response = $this->service->adminLogin($request);
         if (!$response['success'])
             return $this->sendError($response);
         return $this->sendResponse($response);
