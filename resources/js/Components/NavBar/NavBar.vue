@@ -3,6 +3,8 @@ import { Link } from '@inertiajs/vue3';
 import NavList from './NavList.vue';
 import NavListResponsive from './NavListResponsive.vue';
 
+
+
 </script>
 
 <template>
@@ -11,8 +13,9 @@ import NavListResponsive from './NavListResponsive.vue';
         <div class="navlist-desktop">
             <NavList />
         </div>
-        <Link href="/apply" class="btn">Apply Now</Link>
+        <!-- <Link href="/apply" class="btn">Apply Now</Link> -->
 
+        <Link href="/login" class="btn">Login</Link>
         <div class="navlist-mobile">
             <NavListResponsive />
         </div>
@@ -42,11 +45,14 @@ nav {
     }
 
     @include media-max(desktop) {
-        .navlist-desktop,.btn {
-            display:none;
+
+        .navlist-desktop,
+        .btn {
+            display: none;
         }
+
         .navlist-mobile {
-            display:block;
+            display: block;
         }
     }
 
