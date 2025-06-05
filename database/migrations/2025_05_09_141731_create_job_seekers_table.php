@@ -13,22 +13,23 @@ return new class extends Migration
     {
         Schema::create('job_seekers', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            //Already have in users table
-            // $table->string('name');
-            // $table->string('email');
-            $table->string('phone_number');
-            $table->date('bod'); // birth of date
-            $table->string('notice_period');
-            $table->integer('salary');
-            $table->string('facility_type');
-            $table->string('shift_type');
-            $table->integer('experience');
-            $table->text('address');
-            $table->string('resume')->nullable();
-            $table->string('status')->default('pending');
             $table->foreignId('position_id')->constrained('positions')->onDelete('cascade');
-            $table->boolean('talent')->default(false);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->integer('xp')->nullable();
+            $table->string('facility_type')->nullable();
+            $table->string('payment_type')->nullable();
+            $table->string('languages')->nullable();
+            $table->string('preferred_location')->nullable();
+            $table->string('employment_status')->nullable();
+            $table->string('availability_to_start')->nullable();
+            $table->decimal('rate_per_hour', 8, 2)->nullable();
+            $table->string('licensing')->nullable();
+            $table->string('legal_status')->nullable();
+            $table->string('resume')->nullable();
+            $table->boolean('is_talent')->default(false);
+            $table->string('status')->nullable();
+            $table->string('phone_number')->nullable();
+            $table->string('gender')->nullable();
             $table->timestamps();
         });
     }

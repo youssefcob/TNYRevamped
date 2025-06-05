@@ -13,10 +13,9 @@ return new class extends Migration
     {
         Schema::create('employers', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->text('description');
-            $table->string('image');
-            $table->boolean('onMainPage')->default(true);
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->string('facility_name');
+            $table->string('phone_number');
             $table->timestamps();
         });
     }
