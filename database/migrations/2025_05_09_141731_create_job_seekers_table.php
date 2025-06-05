@@ -15,10 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('position_id')->constrained('positions')->onDelete('cascade');
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
-            $table->integer('xp')->nullable();
+            $table->integer('experience')->nullable();
             $table->string('facility_type')->nullable();
             $table->string('payment_type')->nullable();
-            $table->string('languages')->nullable();
+            // $table->string('languages')->nullable();
             $table->string('preferred_location')->nullable();
             $table->string('employment_status')->nullable();
             $table->string('availability_to_start')->nullable();
