@@ -13,6 +13,7 @@ class Application extends Model
     protected $fillable = [
         'vacancy_id',
         'job_seeker_id',
+        'resume',
         'status'
     ];
 
