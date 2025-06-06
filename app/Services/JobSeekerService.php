@@ -142,10 +142,6 @@ class JobSeekerService
             if ($userId) {
                 User::destroy($userId);
             }
-            // Delete job seeker
-            // $jobSeeker->delete();
-            
-            // Delete associated user
             
             return ['success' => true, 'message' => 'Job seeker deleted successfully'];
             
@@ -184,6 +180,47 @@ class JobSeekerService
                 'success' => true,
                 'message' => 'Job seeker created successfully',
                 'data' => $jobSeeker->load('languages')
+            ];
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+                'errors' => $e instanceof \Illuminate\Validation\ValidationException ? $e->errors() : null
+            ];
+        }
+    }
+
+    public function updateJobSeeker(Request $request, $userId)
+    {
+        try {
+            $user = $this->findUserOrFail($userId);
+            if (!$user) {
+                return ['success' => false, 'message' => 'User not found'];
+            }
+            $jobSeeker = JobSeeker::where('user_id', $userId)->firstOrFail();
+
+            $validationResult = $this->validateUpdateJobSeekerRequest($request);
+            if ($validationResult !== true) {
+                return $validationResult;
+            }
+
+            DB::beginTransaction();
+
+            $resumePath = null;
+            if ($request->hasFile('resume')) {
+                $resumePath = $this->handleResumeUpload($request);
+            }
+            // dd($request->all());
+            $this->updateJobSeekerFields($request, $jobSeeker, $resumePath);
+            $this->updateUserName($request, $jobSeeker);
+            $this->syncLanguages($request, $jobSeeker);
+
+            DB::commit();
+            return [
+                'success' => true,
+                'message' => 'Job seeker updated successfully',
+                'data' => $jobSeeker->load('user', 'languages')
             ];
         } catch (\Exception $e) {
             DB::rollBack();

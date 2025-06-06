@@ -44,4 +44,11 @@ class JobSeekerController extends Controller
         $response = $this->service->updateTalent($request, $id);
         return $response['success'] ? $this->sendResponse($response) : $this->sendError($response);
     }
+
+    public function updateJobSeeker(Request $request)
+    {
+        $userId = Auth::guard('user')->user()->id;
+        $response = $this->service->updateJobSeeker($request, $userId);
+        return $response['success'] ? $this->sendResponse($response) : $this->sendError($response);
+    }
 }
