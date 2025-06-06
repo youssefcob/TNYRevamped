@@ -23,19 +23,21 @@ class JobSeekerFactory extends Factory
     {
         return [
             'user_id' => User::factory()->jobSeeker(),
-            'phone_number' => $this->faker->phoneNumber(),
-            'bod' => $this->faker->date(),
-            'notice_period' => $this->faker->randomElement(['Immediate', '1 Month', '2 Months', '3 Months']),
-            'salary' => $this->faker->numberBetween(3000, 20000),
-            'facility_type' => $this->faker->randomElement(['Hospital', 'Clinic', 'Care Home', 'Other']),
-            'shift_type' => $this->faker->randomElement(['Morning', 'Evening', 'Night', 'Rotating']),
-            'experience' => $this->faker->numberBetween(0, 20),
-            'address' => $this->faker->address(),
-            'resume' => $this->faker->url(),
-            'status' => $this->faker->randomElement(['pending', 'approved', 'rejected']),
             'position_id' => Position::factory(),
-            'talent' => $this->faker->boolean(),
+            'experience' => $this->faker->numberBetween(0, 20),
+            'facility_type' => $this->faker->randomElement(['Outpatient', 'Inpatient', 'SNF', 'Home Therapy']),
+            'payment_type' => $this->faker->randomElement(['W2', '1099']),
+            'preferred_location' => $this->faker->randomElement(['Manhattan', 'The Bronx', 'Brooklyn', 'Queens', 'Staten Island', 'Long Island']),
+            'employment_status' => $this->faker->randomElement(['Currently Employed', 'Unemployed']),
+            'availability_to_start' => $this->faker->numberBetween(0, 60),
+            'rate_per_hour' => $this->faker->randomFloat(2, 20, 100),
+            'licensing' => $this->faker->boolean(),
+            'legal_status' => $this->faker->randomElement(['US Citizen', 'Green Card Holder', 'H-1B', 'B1B2', 'F1 Student', 'other']),
+            'resume' => $this->faker->url(),
+            'is_talent' => $this->faker->boolean(),
+            'status' => $this->faker->randomElement(['pending', 'approved', 'rejected']),
+            'phone_number' => $this->faker->phoneNumber(),
+            'gender' => $this->faker->randomElement(['male', 'female']),
         ];
-    
     }
 }

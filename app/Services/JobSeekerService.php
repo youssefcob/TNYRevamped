@@ -8,10 +8,12 @@ use App\Services\Cloudinary;
 use App\Models\User;
 use App\TableFiltersHelperFunctions;
 use Illuminate\Support\Facades\DB;
+use App\Traits\JobSeekerHelperFunctions;
 
 class JobSeekerService
 {
     use TableFiltersHelperFunctions;
+    use JobSeekerHelperFunctions;
     private $cloudinary;
     public function __construct()
     {
@@ -137,13 +139,13 @@ class JobSeekerService
             // Get user ID before deleting job seeker
             $userId = $jobSeeker->user_id;
             
-            // Delete job seeker
-            $jobSeeker->delete();
-            
-            // Delete associated user
             if ($userId) {
                 User::destroy($userId);
             }
+            // Delete job seeker
+            // $jobSeeker->delete();
+            
+            // Delete associated user
             
             return ['success' => true, 'message' => 'Job seeker deleted successfully'];
             
@@ -152,66 +154,37 @@ class JobSeekerService
         }
     }
 
-    public function createJobSeeker(Request $request)
+    public function createJobSeeker(Request $request, $userId)
     {
         try {
-            $request->validate([
-                'name' => 'required|string|max:255',
-                'email' => 'required|email|unique:users,email',
-                'password' => 'required|string|min:8',
-                'phone_number' => 'required|string',
-                'bod' => 'required|date',
-                'notice_period' => 'required|string',
-                'facility_type' => 'required|string',
-                'shift_type' => 'required|string',
-                'experience' => 'required|string',
-                'address' => 'required|string',
-                'salary' => 'required|numeric',
-                'position_id' =>'required|integer|exists:positions,id',
-                'talent' =>'nullable|boolean',
-                'status' =>'nullable|string|in:pending,approved,rejected'
-                // 'resume' => 'required|file|mimes:pdf,doc,docx'
-            ]);
-            DB::beginTransaction();
-            // Create user first
-            $user = User::create([
-                'name' => $request->name,
-                'email' => $request->email,
-                'password' => bcrypt($request->password),
-                'user_type' => 'job_seeker'
-            ]);
-
-            // Handle resume upload
-            $resumePath = null;
-            if ($request->hasFile('resume')) {
-                $googleDrive = new GoogleDrive();
-                $resumePath = $googleDrive->upload($request->file('resume'));
+            $user = $this->findUserOrFail($userId);
+            if (!$user) {
+                return ['success' => false, 'message' => 'User not found'];
             }
 
-            // Create job seeker
-            $jobSeeker = JobSeeker::create([
-                'user_id' => $user->id,
-                'phone_number' => $request->phone_number,
-                'bod' => $request->bod,
-                'notice_period' => $request->notice_period,
-                'facility_type' => $request->facility_type,
-                'shift_type' => $request->shift_type,
-                'experience' => $request->experience,
-                'address' => $request->address,
-                'resume' => $resumePath,
-                'status' => 'pending',
-                'salary' => $request->salary,
-                'position_id' => $request->position_id,
-                'talent' => $request->talent ?? false,
-                'status' => $request->status?? 'pending'
-            ]);
+            $validationResult = $this->validateJobSeekerRequest($request);
+            if ($validationResult !== true) {
+                return $validationResult;
+            }
+
+            DB::beginTransaction();
+
+            $resumePath = $this->handleResumeUpload($request);
+
+            if ($this->jobSeekerExists($userId)) {
+                return ['success' => false, 'message' => 'Job seeker already exists'];
+            }
+
+            $jobSeeker = $this->createJobSeekerRecord($request, $userId, $resumePath);
+
+            $this->syncLanguages($request, $jobSeeker);
+
             DB::commit();
             return [
                 'success' => true,
                 'message' => 'Job seeker created successfully',
-                'data' => $jobSeeker->load('user')
+                'data' => $jobSeeker->load('languages')
             ];
-
         } catch (\Exception $e) {
             DB::rollBack();
             return [

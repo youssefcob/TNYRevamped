@@ -122,7 +122,7 @@ Route::middleware('auth:api')->group(function () {
     Route::get('/job-seekers', [JobSeekerController::class, 'getJobSeekers'])->name('get.jobSeekers');
     Route::put('/job-seeker-status', [JobSeekerController::class, 'updateStatus'])->name('update.jobSeeker.status');
     Route::delete('/job-seekers/{id}', [JobSeekerController::class, 'destroy'])->name('delete.jobSeeker');
-    Route::post('/job-seeker', [JobSeekerController::class, 'createJobSeeker'])->name('create.jobSeeker');
+    
     Route::put('/job-seeker/talent/{id}', [JobSeekerController::class, 'updateTalent'])->name('update.jobSeekerTalent');
 });
 

@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('job_seekers', function (Blueprint $table) {
             $table->id();
             $table->foreignId('position_id')->constrained('positions')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->unique()->onDelete('cascade');
             $table->integer('experience')->nullable();
             $table->string('facility_type')->nullable();
             $table->string('payment_type')->nullable();
