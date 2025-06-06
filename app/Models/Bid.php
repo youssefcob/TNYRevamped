@@ -2,28 +2,26 @@
 
 namespace App\Models;
 
-use App\GenericObserverTrait;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Application extends Model
+class Bid extends Model
 {
-    use HasFactory, GenericObserverTrait;
-    
+    use HasFactory;
+
     protected $fillable = [
-        'vacancy_id',
+        'employer_id',
         'job_seeker_id',
-        'resume',
-        'status'
+        'amount'
     ];
 
-    public function vacancy()
+    public function employer()
     {
-        return $this->belongsTo(Vacancy::class);
+        return $this->belongsTo(Employer::class);
     }
 
     public function jobSeeker()
     {
         return $this->belongsTo(JobSeeker::class);
     }
-}
+} 

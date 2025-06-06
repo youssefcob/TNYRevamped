@@ -16,18 +16,21 @@ class Vacancy extends Model
      * @var array<string>
      */
     protected $fillable = [
-        'facility_name',
-        'mobile_number',
-        'email',
-        'address',
-        'shift_type',
-        'from',
-        'to',
-        'license',
-        'facility_type',
-        'min_experience',
+        'employer_id',
         'position_id',
-        
+        'borough',
+        'address',
+        'shift_details',
+        'experience',
+        'facility_type',
+        'payment_type',
+        'rate_per_hour',
+        'license_required',
+        'legal_status',
+        'status',
+        'gender_pref',
+        'work_days',
+        'availability'
     ];
 
     /**
@@ -51,7 +54,13 @@ class Vacancy extends Model
         return $this->belongsTo(Position::class);
     }
 
-    
+    /**
+     * Get the employer associated with the vacancy.
+     */
+    public function employer()
+    {
+        return $this->belongsTo(Employer::class);
+    }
 
     /**
      * Get the employers associated with the vacancy.
@@ -60,5 +69,10 @@ class Vacancy extends Model
     {
         return $this->belongsToMany(Employer::class, 'employer_vacancies')
                     ->withTimestamps();
+    }
+
+    public function languages()
+    {
+        return $this->belongsToMany(Language::class, 'vacancy_languages');
     }
 }

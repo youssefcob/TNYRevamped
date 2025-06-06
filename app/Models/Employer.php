@@ -11,12 +11,8 @@ class Employer extends Model
     use HasFactory;
     
     protected $fillable = [
-        'name',
+        'facility_name',
         'phone_number',
-        'address',
-        'description',
-        'image',
-        'onMainPage',
         'user_id'
     ];
     
@@ -29,11 +25,18 @@ class Employer extends Model
     }
     
     /**
-     * Get the vacancies associated with the employer.
+     * Get the vacancies for the employer.
      */
-    public function vacancies(): BelongsToMany
+    public function vacancies()
     {
-        return $this->belongsToMany(Vacancy::class, 'employer_vacancies')
-                    ->withTimestamps();
+        return $this->hasMany(Vacancy::class);
+    }
+    
+    /**
+     * Get the bids for the employer.
+     */
+    public function bids()
+    {
+        return $this->hasMany(Bid::class);
     }
 }

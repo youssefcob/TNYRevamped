@@ -13,18 +13,21 @@ return new class extends Migration
     {
         Schema::create('vacancies', function (Blueprint $table) {
             $table->id();
-            $table->string('facility_name');
-            $table->string('mobile_number');
-            $table->string('email');
-            $table->text('address');
-            $table->string('shift_type');
-            $table->time('from');
-            $table->time('to');
-            $table->string('license');
-            $table->string('facility_type');
-            $table->integer('min_experience');
+            $table->foreignId('employer_id')->constrained('employers')->onDelete('cascade');
             $table->foreignId('position_id')->constrained('positions')->onDelete('cascade');
-            
+            $table->string('borough')->nullable();
+            $table->text('address')->nullable();
+            $table->text('shift_details')->nullable();
+            $table->integer('experience')->nullable();
+            $table->string('facility_type')->nullable();
+            $table->string('payment_type')->nullable();
+            $table->decimal('rate_per_hour', 8, 2)->nullable();
+            $table->string('license_required')->nullable();
+            $table->string('legal_status')->nullable();
+            $table->string('status')->nullable();
+            $table->string('gender_pref')->nullable();
+            $table->string('work_days')->nullable();
+            $table->string('availability')->nullable();
             $table->timestamps();
         });
     }

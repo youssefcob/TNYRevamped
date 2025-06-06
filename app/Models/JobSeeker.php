@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class JobSeeker extends Model
 {
@@ -16,20 +17,23 @@ class JobSeeker extends Model
      * @var array<string>
      */
     protected $fillable = [
-        // 'name',
-        'phone_number',
-        'bod',
-        'notice_period',
-        'facility_type',
-        'shift_type',
-        'experience',
-        'address',
-        'resume',
-        'status',
-        'salary',
-        'talent',
         'position_id',
-        'user_id'
+        'user_id',
+        'experience',
+        'facility_type',
+        'payment_type',
+        // 'languages',
+        'preferred_location',
+        'employment_status',
+        'availability_to_start',
+        'rate_per_hour',
+        'licensing',
+        'legal_status',
+        'resume',
+        'is_talent',
+        'status',
+        'phone_number',
+        'gender'
     ];
 
     /**
@@ -67,5 +71,18 @@ class JobSeeker extends Model
     public function applications(): HasMany
     {
         return $this->hasMany(Application::class);
+    }
+
+    /**
+     * Get the bids for the job seeker.
+     */
+    public function bids()
+    {
+        return $this->hasMany(Bid::class);
+    }
+
+    public function languages()
+    {
+        return $this->belongsToMany(Language::class, 'job_seeker_languages');
     }
 }
