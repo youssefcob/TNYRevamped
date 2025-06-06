@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\JobSeekerController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\Views\Auth\AuthenticatedUserController;
@@ -26,4 +27,5 @@ Route::prefix('user')->group(function () {
     Route::get('hello', function () {
             return Auth::guard('user')->user();
     })->middleware(['auth:user','scope:job-seeker']);
+    Route::post('/job-seeker', [JobSeekerController::class, 'createJobSeeker'])->name('create.jobSeeker')->middleware(['auth:user','scope:job-seeker']);
 });
