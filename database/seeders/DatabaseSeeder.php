@@ -25,11 +25,11 @@ class DatabaseSeeder extends Seeder
         $this->call(MailListSeeder::class);
         $this->call(JobSeekersTableSeeder::class);
         // Position::factory(10)->create();
-        Application::factory(40)->create();
+        // Application::factory(40)->create();
         // Message::factory(10)->create();
         // Service::factory(10)->create();
-        ServiceRequest::factory(20)->create();
-        Employer::factory(10)->create();
+        // ServiceRequest::factory(20)->create();
+        // Employer::factory(10)->create();
         // User::factory(10)->create();
         // User::factory()->create([
         //     'name' => 'Test User',
