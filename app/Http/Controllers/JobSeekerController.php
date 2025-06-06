@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Services\JobSeekerService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class JobSeekerController extends Controller
 {
@@ -32,7 +33,10 @@ class JobSeekerController extends Controller
 
     public function createJobSeeker(Request $request)
     {
-        $response = $this->service->createJobSeeker($request);
+        // dd('s');
+        $userId = Auth::guard('user')->user()->id;
+        // dd($userId);
+        $response = $this->service->createJobSeeker($request, $userId);
         return $response['success'] ? $this->sendResponse($response) : $this->sendError($response);
     }
     public function updateTalent(Request $request, $id)
