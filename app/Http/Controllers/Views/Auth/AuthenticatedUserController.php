@@ -28,7 +28,7 @@ class AuthenticatedUserController extends Controller
 
         $token = '';
 
-        switch ($request->type) {
+        switch ($user->type) {
             case 'employer':
                 $token = $this->generateEmployerToken($user);
                 break;
