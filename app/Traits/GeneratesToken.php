@@ -28,7 +28,7 @@ trait GeneratesToken
     public function generateEmployerToken(User $user)
     {
 
-        $token = $user->createToken('Employer-' . $user->id, ['job-seeker']);
+        $token = $user->createToken('Employer-' . $user->id, ['employer']);
 
         $tokenModel = $token->token;
         $tokenModel->expires_at = now()->addDays(30);
