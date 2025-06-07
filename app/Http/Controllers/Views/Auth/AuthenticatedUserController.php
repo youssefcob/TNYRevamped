@@ -31,9 +31,11 @@ class AuthenticatedUserController extends Controller
         switch ($user->user_type) {
             case 'employer':
                 $token = $this->generateEmployerToken($user);
+                $user->load('employer'); 
                 break;
             case 'job_seeker':
                 $token = $this->generateJobSeekerToken($user);
+                $user->load('jobSeeker');
                 break;
         }
 
