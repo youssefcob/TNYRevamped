@@ -89,9 +89,14 @@ class PositionService
             $request->validate([
                 'title' => 'required|string|max:255',
                 'description' => 'required|string|max:255',
-                'available' => 'required|boolean',
+                'available' => 'boolean',
             ]);
             $data = $request->only(['title', 'description', 'available']);
+
+            // Set default for 'available' if not provided
+            if (!array_key_exists('available', $data)) {
+                $data['available'] = true;
+            }
 
             $position = Position::create($data);
             return [
