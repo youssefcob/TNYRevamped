@@ -27,7 +27,7 @@ class PositionService
                     'id' => 'required|integer|exists:positions,id',
                 ]);
             }
-            $data = $id ? Position::find($id) : Position::paginate(10);
+            $data = $id ? Position::find($id) : Position::all();
             return [
                 'success' => true,
                 'data' => $data,
@@ -57,10 +57,9 @@ class PositionService
                 'title' => 'sometimes|string|max:255',
                 'description' => 'sometimes|string|max:255',
                 'available' => 'sometimes|boolean',
-                'address' => 'sometimes|string|max:255|nullable'
             ]);
             $position = Position::find($request->id);
-            $data = $request->only(['title', 'description', 'available', 'address']);
+            $data = $request->only(['title', 'description', 'available']);
             $position->update($data);
             $position->save();
 
@@ -91,9 +90,8 @@ class PositionService
                 'title' => 'required|string|max:255',
                 'description' => 'required|string|max:255',
                 'available' => 'required|boolean',
-                'address' => 'nullable|string|max:255'
             ]);
-            $data = $request->only(['title', 'description', 'available', 'address']);
+            $data = $request->only(['title', 'description', 'available']);
 
             $position = Position::create($data);
             return [
