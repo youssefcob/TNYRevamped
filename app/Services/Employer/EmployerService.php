@@ -14,6 +14,8 @@ class EmployerService
             'facility_name' => 'required|string|max:255',
             'phone_number' => 'required|string|max:20',
         ]);
+
+        /** @var \App\Models\User $user */
         $user = Auth::user();
 
         $employerData = [
@@ -26,17 +28,10 @@ class EmployerService
             $employerData
         );
 
-        
-        
-
-        // return $user;
-
         return [
             'success' => true,
             'user' => $employer,
         ];
 
-
-        
     }
 }
