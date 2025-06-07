@@ -21,12 +21,13 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
-Route::get('/user', function (Request $request) {
-    return Auth::user();
-})->middleware('auth:api');
+// Route::get('/user', function (Request $request) {
+//     return Auth::user();
+// })->middleware('auth:api');
 
 require __DIR__ . '/content.php';
 require __DIR__ . '/user-routes.php';
+require __DIR__ . '/employer/employer-routes.php';
 
 
 // Route::post('/new-google-drive-file', function (Request $request) {
