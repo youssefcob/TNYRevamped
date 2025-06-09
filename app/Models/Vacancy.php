@@ -43,7 +43,8 @@ class Vacancy extends Model
         'to' => 'datetime',
         'min_experience' => 'integer',
         'created_at' => 'datetime',
-        'updated_at' => 'datetime'
+        'updated_at' => 'datetime',
+        'work_days' => 'array',
     ];
 
     /**
