@@ -193,4 +193,40 @@ class VacanciesService
             ];
         }
     }
+
+    public function adminViewVacanciesPerEmployer($id)
+    {
+        try {
+            $user = \App\Models\User::find($id);
+            if (!$user || !$user->hasRole('employer')) {
+                return [
+                    'success' => false,
+                    'message' => 'Employer not found or user is not an employer.'
+                ];
+            }
+            $employer = $user->employer()->first();
+            
+            if (!$employer) {
+                return [
+                    'success' => false,
+                    'message' => 'Employer not found.'
+                ];
+            }
+            
+            $vacancies = $employer->vacancies()->with('position')->get();
+            
+            return [
+                'success' => true,
+                'data' => [
+                    'employer' => $employer,
+                    'vacancies' => $vacancies
+                ]
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
 }

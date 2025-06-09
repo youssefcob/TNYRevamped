@@ -51,4 +51,13 @@ class VacanciesController extends Controller
         }
         return $this->sendResponse($response);
     }
+    
+    public function adminViewVacanciesPerEmployer($id)
+    {
+        $response = $this->service->adminViewVacanciesPerEmployer($id);
+        if (!$response['success']) {
+            return $this->sendError($response);
+        }
+        return $this->sendResponse($response);
+    }
 }

@@ -15,4 +15,8 @@ Route::prefix('vacancies')->group(function () {
         Route::put('/update/{id}', [VacanciesController::class,'employerUpdateVacancy'])->name('vacancies.update');
         Route::delete('/delete/{id}', [VacanciesController::class,'employerDeleteVacancy'])->name('vacancies.delete');
     });
+
+    Route::prefix('admin')->middleware(['auth:user', 'scope:admin'])->group(function () {
+        Route::get('/employer/{id}', [VacanciesController::class,'adminViewVacanciesPerEmployer'])->name('vacancies.admin.view');
+    });
 });
