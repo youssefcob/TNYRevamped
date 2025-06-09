@@ -41,4 +41,20 @@ trait GeneratesToken
             'scopes' => ['employer']
         ];
     }
+
+    public function generateAdminToken(User $user)
+    {
+        $token = $user->createToken('Admin-' . $user->id, ['admin']);
+
+        $tokenModel = $token->token;
+        $tokenModel->expires_at = now()->addDays(30);
+        $tokenModel->save();
+
+        return [
+            'access_token' => $token->accessToken,
+            'token_type' => 'Bearer',
+            'expires_at' => $tokenModel->expires_at,
+            'scopes' => ['admin']
+        ];
+    }
 }

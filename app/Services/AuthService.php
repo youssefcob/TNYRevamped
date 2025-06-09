@@ -4,11 +4,13 @@ namespace App\Services;
 
 use App\Models\Admin;
 use App\Models\User;
+use App\Traits\GeneratesToken;
 use Exception;
 use Illuminate\Support\Facades\Hash;
 
 class AuthService
 {
+    use GeneratesToken;
     // Your service logic goes here
     /**
      * Authenticate an admin and generate an access token.
@@ -16,7 +18,7 @@ class AuthService
      * @param \Illuminate\Http\Request $request Contains 'email' and 'password'.
      * @return array Authentication status, token (if successful), user data, or error messages.
      */
-    public function adminLogin($request) : array
+    public function adminLogin($request): array
     {
         try {
             //code...
@@ -34,7 +36,11 @@ class AuthService
             }
 
             // Generate a Passport token
-            $token = $admin->createToken('AdminToken')->accessToken;
+
+            // Note: Youssef changed the token generation method to include a scope and use a trait instead
+            // $token = $admin->createToken('AdminToken')->accessToken;
+
+            $token = $this->generateAdminToken($admin);
 
             return [
                 'success' => true,
@@ -80,7 +86,6 @@ class AuthService
                 // 'token' => $token,
                 'data' => $user
             ];
-
         } catch (\Illuminate\Validation\ValidationException $e) {
             return [
                 'success' => false,
@@ -115,10 +120,10 @@ class AuthService
             }
 
             $token = $user->createToken('UserToken')->accessToken;
-            if($user->user_type == 'employer'){
+            if ($user->user_type == 'employer') {
                 $user->load('employer');
             }
-            if($user->user_type == 'job_seeker'){
+            if ($user->user_type == 'job_seeker') {
                 $user->load('jobSeeker');
             }
 
@@ -127,7 +132,6 @@ class AuthService
                 'token' => $token,
                 'data' => $user
             ];
-
         } catch (\Illuminate\Validation\ValidationException $e) {
             return [
                 'success' => false,
