@@ -24,6 +24,7 @@ class AuthenticationServiceProvider extends ServiceProvider
          Passport::tokensCan([
             'job-seeker' => 'Seek Jobs',
             'employer' => 'Employ',
+            'admin' => 'Manage System',
         ]);
     }
 }

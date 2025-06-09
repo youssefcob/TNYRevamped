@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Admin;
 use App\Models\User;
 
 trait GeneratesToken
@@ -39,6 +40,22 @@ trait GeneratesToken
             'token_type' => 'Bearer',
             'expires_at' => $tokenModel->expires_at,
             'scopes' => ['employer']
+        ];
+    }
+
+    public function generateAdminToken(Admin $admin)
+    {
+        $token = $admin->createToken('Admin-' . $admin->id, ['admin']);
+
+        $tokenModel = $token->token;
+        $tokenModel->expires_at = now()->addDays(30);
+        $tokenModel->save();
+
+        return [
+            'access_token' => $token->accessToken,
+            'token_type' => 'Bearer',
+            'expires_at' => $tokenModel->expires_at,
+            'scopes' => ['admin']
         ];
     }
 }

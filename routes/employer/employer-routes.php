@@ -15,3 +15,7 @@ Route::middleware(['auth:user', 'scope:employer'])
 
 
     });
+
+
+require __DIR__ . '/vacancies-routes.php';
+

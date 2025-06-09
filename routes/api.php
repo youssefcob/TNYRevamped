@@ -21,9 +21,9 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Validator;
 
-// Route::get('/user', function (Request $request) {
-//     return Auth::user();
-// })->middleware('auth:api');
+Route::get('/user', function (Request $request) {
+    return Auth::user();
+})->middleware('auth:api');
 
 require __DIR__ . '/content.php';
 require __DIR__ . '/user-routes.php';
@@ -83,10 +83,13 @@ Route::middleware('auth:api')->group(function () {
     Route::delete('/application', [ApplicationsController::class, 'deleteApplication'])->name('delete.application');
 
     //Positions routes
-    Route::get('/positions', [PositionController::class, 'getPositions'])->name('get.positions');
-    Route::put('/positions', [PositionController::class, 'updatePosition'])->name('update.positions');
-    Route::delete('/positions', [PositionController::class, 'deletePosition'])->name('delete.positions');
-    Route::post('/positions', [PositionController::class, 'createPosition'])->name('create.positions');
+    Route::prefix('/positions')->group(function () {
+        Route::get('/', [PositionController::class, 'getPositions'])->name('get.positions');
+        Route::put('/', [PositionController::class, 'updatePosition'])->name('update.positions');
+        Route::delete('/', [PositionController::class, 'deletePosition'])->name('delete.positions');
+        Route::post('/', [PositionController::class, 'createPosition'])->name('create.positions');
+    });
+    
 
     //Messages routes 
     Route::get('/messages', [MessageController::class, 'getMessages'])->name('get.messages');
