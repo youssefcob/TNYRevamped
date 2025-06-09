@@ -52,6 +52,11 @@ class User extends Authenticatable
     public const TYPE_EMPLOYER = 'employer';
     public const TYPE_JOB_SEEKER = 'job_seeker';
 
+    public function hasRole(string $role): bool
+    {
+        return $this->user_type === $role;
+    }
+
     public function jobSeeker()
     {
         return $this->hasOne(JobSeeker::class);

@@ -2,6 +2,7 @@
 
 namespace App\Traits;
 
+use App\Models\Admin;
 use App\Models\User;
 
 trait GeneratesToken
@@ -42,9 +43,9 @@ trait GeneratesToken
         ];
     }
 
-    public function generateAdminToken(User $user)
+    public function generateAdminToken(Admin $admin)
     {
-        $token = $user->createToken('Admin-' . $user->id, ['admin']);
+        $token = $admin->createToken('Admin-' . $admin->id, ['admin']);
 
         $tokenModel = $token->token;
         $tokenModel->expires_at = now()->addDays(30);
