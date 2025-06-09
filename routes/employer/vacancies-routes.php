@@ -18,5 +18,8 @@ Route::prefix('vacancies')->group(function () {
 
     Route::prefix('admin')->middleware(['auth:user', 'scope:admin'])->group(function () {
         Route::get('/employer/{id}', [VacanciesController::class,'adminViewVacanciesPerEmployer'])->name('vacancies.admin.view');
+        Route::put('/status/{id}', [VacanciesController::class,'adminUpdateVacancyStatus'])->name('vacancies.admin.update.status');
     });
+
+    Route::get('/filter', [VacanciesController::class, 'filterVacancies'])->name('vacancies.filter');
 });

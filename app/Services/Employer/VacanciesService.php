@@ -229,4 +229,54 @@ class VacanciesService
             ];
         }
     }
+
+    public function adminUpdateVacancyStatus(Request $request, $id)
+    {
+        $request->validate([
+            'status' => 'required|string'
+        ]);
+
+        $vacancy = \App\Models\Vacancy::find($id);
+        if (!$vacancy) {
+            return [
+                'success' => false,
+                'message' => 'Vacancy not found.'
+            ];
+        }
+
+        try {
+            $vacancy->update(['status' => $request->input('status')]);
+            return [
+                'success' => true,
+                'data' => $vacancy,
+                'message' => 'Vacancy status updated successfully.'
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+
+
+    public function filterVacancies(Request $request)
+    {
+        $query = \App\Models\Vacancy::query();
+
+        if ($request->has('position_id')) {
+            $query->where('position_id', $request->input('position_id'));
+        }
+        if ($request->has('borough')) {
+            $query->where('borough', 'like', '%' . $request->input('borough') . '%');
+        }
+       
+
+        $vacancies = $query->with('position')->get();
+
+        return [
+            'success' => true,
+            'data' => $vacancies
+        ];
+    }
 }

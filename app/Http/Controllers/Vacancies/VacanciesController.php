@@ -16,6 +16,15 @@ class VacanciesController extends Controller
         $this->service = $service;
     }
 
+    public function filterVacancies(Request $request)
+    {
+        $response = $this->service->filterVacancies( $request);
+        if (!$response['success']) {
+            return $this->sendError($response);
+        }
+        return $this->sendResponse($response);
+    }
+
     public function create(Request $request)
     {
         $response = $this->service->create($request);
@@ -60,4 +69,14 @@ class VacanciesController extends Controller
         }
         return $this->sendResponse($response);
     }
+
+    public function adminUpdateVacancyStatus(Request $request, $id)
+    {
+        $response = $this->service->adminUpdateVacancyStatus($request, $id);
+        if (!$response['success']) {
+            return $this->sendError($response);
+        }
+        return $this->sendResponse($response);
+    }
+
 }
