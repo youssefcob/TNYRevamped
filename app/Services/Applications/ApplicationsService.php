@@ -35,11 +35,10 @@ class ApplicationsService
         /** @var \App\Models\User $user */
         $user = Auth::user();
         $jobSeeker = $user->jobSeeker;
-        if(!$jobSeeker)
-        {
+        if (!$jobSeeker) {
             return [
-                'success'=>false,
-                'message'=>'Please Complete your profile'
+                'success' => false,
+                'message' => 'Please Complete your profile'
             ];
         }
 
@@ -100,7 +99,7 @@ class ApplicationsService
 
         return [
             'success' => true,
-            'data' => $user->jobSeeker->applications(),
+            'data' => $user->jobSeeker->applications,
             'message' => 'Application submitted successfully.',
         ];
     }
@@ -111,7 +110,6 @@ class ApplicationsService
         // Create the application
         /** @var \App\Models\User $user */
         $user = Auth::user();
-
         return $this->ApplicationsPerEmployer($user);
     }
 
@@ -124,10 +122,11 @@ class ApplicationsService
     private function ApplicationsPerEmployer(User $user)
     {
 
+        $vacancies = $user->employer->vacancies;
+        $vacancies->load('applications');
         return [
             'success' => true,
-            'data' => $user->employer->applications(),
-            'message' => 'Application submitted successfully.',
+            'data' => $vacancies
         ];
     }
 
@@ -138,7 +137,7 @@ class ApplicationsService
         $user = Auth::user();
 
         // Check if user has an employer profile
-        if (!$user->employer) {
+        if (!$user->hasRole('employer')) {
             throw new \Exception('User is not an employer');
         }
 
@@ -151,17 +150,9 @@ class ApplicationsService
             throw new \Exception('Vacancy not found or does not belong to this employer');
         }
 
+        $vacancy->load('applications');
         // Get applications with related data
-        $applications = $vacancy->applications()
-            ->with([
-                'user.profile',
-                'user' => function ($query) {
-                    $query->select('id', 'name', 'email');
-                }
-            ])
-            ->select('id', 'user_id', 'vacancy_id', 'status', 'created_at', 'updated_at')
-            ->orderBy('created_at', 'desc')
-            ->get();
+        $applications = $vacancy;
 
         return [
             'success' => true,
@@ -175,10 +166,23 @@ class ApplicationsService
     {
 
         $query = Application::query()
-            ->with([
-                'vacancy.employer',
-                'vacancy.position',
-            ]);
+        ->join('vacancies', 'applications.vacancy_id', '=', 'vacancies.id')
+        ->join('positions', 'vacancies.position_id', '=', 'positions.id')
+        ->join('employers', 'vacancies.employer_id', '=', 'employers.id')
+        ->join('job_seekers', 'applications.job_seeker_id', '=', 'job_seekers.id')
+        ->join('users as job_seeker_users', 'job_seeker_users.id', '=', 'job_seekers.user_id')
+        ->join('users as employer_users', 'employer_users.id', '=', 'employers.user_id')
+        ->select([
+            'applications.resume as resume',
+            'applications.status as status',
+            'vacancies.*',
+            'positions.title as position_title',
+            'employer_users.name as employer_name',
+            'employer_users.email as employer_email',
+            'job_seeker_users.name as job_seeker_name',
+            'job_seeker_users.email as employer_email'
+
+        ]);
 
 
         // Filter by vacancy_id (direct column in applications table)
@@ -186,24 +190,24 @@ class ApplicationsService
             $query->where('vacancy_id', $request->vacancy_id);
         }
 
-        // Filter by position_id (direct column in applications table)
+        // // // Filter by position_id (direct column in vacancy table)
         if ($request->filled('position_id')) {
-            $query->where('position_id', $request->position_id);
+            $query->where('vacancies.position_id', $request->position_id);
         }
 
-        // Filter by employer_id (through vacancy relationship)
+        // // Filter by employer_id (through vacancy relationship)
         if ($request->filled('employer_id')) {
             $query->whereHas('vacancy', function ($q) use ($request) {
                 $q->where('employer_id', $request->employer_id);
             });
         }
 
-        // Filter by job_seeker_id (user_id in applications table)
+        // // Filter by job_seeker_id (user_id in applications table)
         if ($request->filled('job_seeker_id')) {
             $query->where('job_seeker_id', $request->job_seeker_id);
         }
 
-        $applications = $query->orderBy('created_at', 'desc')->paginate(15);
+        $applications = $query->orderBy('applications.created_at', 'desc')->paginate(15);
 
 
         return [
