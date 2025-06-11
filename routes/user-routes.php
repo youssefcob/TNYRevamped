@@ -18,19 +18,7 @@ Route::prefix('user')->group(function () {
     Route::post('/register', [RegisterController::class, 'submit']);
     Route::post('/login', [AuthenticatedUserController::class, 'login']);
 
-    // Protected routes
-    Route::middleware(['auth:user'])->group(function () {
-        // Route::post('/logout', [UserAuthController::class, 'logout']);
-        Route::get('/profile', function () {
-            return Auth::guard('user')->user();
-        });
-        // Add other user-specific routes here
-
-        Route::middleware(['scope:job-seeker'])->group(function () {
-            Route::post('/job-seeker', [JobSeekerController::class, 'createJobSeeker'])->name('create.jobSeeker');
-            Route::post('/update-job-seeker', [JobSeekerController::class, 'updateJobSeeker'])->name('update.jobSeeker');
-        });
-    });
+   
 
     Route::get('hello', function () {
         return Auth::guard('user')->user();
