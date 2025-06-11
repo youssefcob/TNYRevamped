@@ -198,7 +198,10 @@ class JobSeekerService
             if (!$user) {
                 return ['success' => false, 'message' => 'User not found'];
             }
-            $jobSeeker = JobSeeker::where('user_id', $userId)->firstOrFail();
+            $jobSeeker = JobSeeker::where('user_id', $userId)->first();
+            if (!$jobSeeker) {
+                return ['success' => false, 'message' => 'Job seeker not found, Please create a job seeker profile first'];
+            }
 
             $validationResult = $this->validateUpdateJobSeekerRequest($request);
             if ($validationResult !== true) {
@@ -229,6 +232,17 @@ class JobSeekerService
                 'message' => $e->getMessage(),
                 'errors' => $e instanceof \Illuminate\Validation\ValidationException ? $e->errors() : null
             ];
+        }
+    }
+
+    public function createOrUpdateJobSeeker(Request $request, $userId)
+    {
+        if ($this->jobSeekerExists($userId)) {
+            // Update
+            return $this->updateJobSeeker($request, $userId);
+        } else {
+            // Create
+            return $this->createJobSeeker($request, $userId);
         }
     }
 }
