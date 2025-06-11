@@ -72,6 +72,11 @@ class Vacancy extends Model
                     ->withTimestamps();
     }
 
+    public function applications()
+    {
+        return $this->hasMany(Application::class);
+    }
+
     public function languages()
     {
         return $this->belongsToMany(Language::class, 'vacancy_languages');
