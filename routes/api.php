@@ -28,6 +28,7 @@ Route::get('/user', function (Request $request) {
 require __DIR__ . '/content.php';
 require __DIR__ . '/user-routes.php';
 require __DIR__ . '/employer/employer-routes.php';
+require __DIR__.'/applications-routes.php';
 require __DIR__ . '/job-seeker.php';
 
 // Route::post('/new-google-drive-file', function (Request $request) {
