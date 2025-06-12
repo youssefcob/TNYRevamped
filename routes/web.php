@@ -9,6 +9,9 @@ use Inertia\Inertia;
 // Route::get('{any}', [HomeController::class, 'view'])
 // ->name('home');
 
+require __DIR__ . '/web/job-seeker-web.php';
+
+
 Route::get('login', [HomeController::class, 'login'])
 ->name('login');
 

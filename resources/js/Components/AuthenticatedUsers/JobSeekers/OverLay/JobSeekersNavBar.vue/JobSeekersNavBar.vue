@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import { Link } from '@inertiajs/vue3';
-import NavList from './NavList.vue';
-import NavListResponsive from './NavListResponsive.vue';
+
+import NavList from '@/Components/NavBar/NavList.vue';
+import NavListResponsive from '@/Components/NavBar/NavListResponsive.vue';
 
 
 
@@ -14,11 +15,13 @@ import NavListResponsive from './NavListResponsive.vue';
             <NavList />
         </div>
         <!-- <Link href="/apply" class="btn">Apply Now</Link> -->
-
+<!-- 
         <div class="auth-btns-wrapper">
             <Link href="/login" class="btn">Login</Link>
             <Link href="/register" class="btn">Sign up</Link>
-        </div>
+        </div> -->
+
+        JobSeeker lol
         <div class="navlist-mobile">
             <NavListResponsive />
         </div>

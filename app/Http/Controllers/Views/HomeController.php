@@ -15,6 +15,9 @@ use App\Services\HeroService;
 use App\Services\ViewServices\HomeService;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 
 class HomeController extends Controller
 {
@@ -30,6 +33,20 @@ class HomeController extends Controller
         // $data['clients'] = ClientsService::get();
         // $data['testimonials'] = TestimonialsService::get();
         // $data['team'] = TeamService::get();
+
+        /** @var \App\Models\User $user */
+        $user = Auth::user();
+
+        Log::alert($user);
+
+        if($user){
+            if($user->hasRole('job-seeker'))
+            {
+                $data = HomeService::get();
+                return Inertia::render('/JobSeekers/JobSeekersHome',$data);
+            }
+        }
+
         $data = HomeService::get();
         return Inertia::render('Home', $data);
     }
@@ -67,7 +84,7 @@ class HomeController extends Controller
         return Inertia::render('Apply', $data);
     }
 
- 
+
     public function requestService($service = null)
     {
         $data = [];

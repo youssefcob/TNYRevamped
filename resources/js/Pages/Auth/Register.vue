@@ -3,7 +3,7 @@ import MainOverLay from '@/Components/Overlays/MainOverLay.vue';
 import Http from '@/mixins/Http';
 import Btn from '@/SharedComponents/btn.vue';
 import InputField from '@/SharedComponents/InputField.vue';
-import { Link, useForm } from '@inertiajs/vue3';
+import { Link, router, useForm } from '@inertiajs/vue3';
 import axios from 'axios';
 import { reactive, ref } from 'vue';
 import { snack } from '@/mixins/toast';
@@ -30,7 +30,6 @@ const submit = async () => {
         snack.success('Form Submitted Successfully')
 
         console.log(res.data);
-        user.set(res.data);
         loading.value = false;
     } catch (error) {
         loading.value = false;
@@ -59,7 +58,7 @@ const submit = async () => {
 <template>
     <MainOverLay>
         <div class="container">
-            <div class="login-wrapper">
+            <div class="box-wrapper-border">
                 <h2 class="title">Sign Up</h2>
 
                 <InputField type="text" name="name" label="Name" placeHolder="Enter your name" v-model="form.name" />
@@ -103,7 +102,8 @@ const submit = async () => {
 <style scoped lang="scss">
 .container {
     width: 100%;
-    height: 120vh;
+    // height: 110vh;
+    padding: 15vh 0 8vh 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -113,17 +113,8 @@ const submit = async () => {
     background-repeat: no-repeat;
 
 
-    .login-wrapper {
-        width: 100%;
-        max-width: 40vw;
-        background-color: rgba(255, 255, 255, 0.8);
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border: 3px solid $navy;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+    .box-wrapper-border {
+
 
         .title {
             align-self: center;
@@ -132,13 +123,13 @@ const submit = async () => {
         .radio-group {
             display: flex;
             justify-content: space-around;
+
+            label {
+                margin-left: 1rem;
+            }
         }
 
-        .btn-wrapper {
-            margin-top: 2rem;
-            width: 40%;
-            align-self: center;
-        }
+
     }
 
 }

@@ -124,6 +124,11 @@ onMounted(() => {
     } else {
         asterisk.value?.classList.remove('active');
     }
+
+    if(props.value)
+    {
+        emitInput();
+    }
 })
 
 defineExpose({
