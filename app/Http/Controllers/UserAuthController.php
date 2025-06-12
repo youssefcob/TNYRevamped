@@ -26,4 +26,8 @@ class UserAuthController extends Controller
             return $this->sendError($response);
         return $this->sendResponse($response);
     }
+    public function loginWeb(Request $request){
+        $response = $this->service->loginWeb($request);
+        return $response;
+    }
 }

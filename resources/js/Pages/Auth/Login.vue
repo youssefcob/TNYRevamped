@@ -6,14 +6,20 @@ import Btn from '@/SharedComponents/btn.vue';
 import InputField from '@/SharedComponents/InputField.vue';
 import { Link } from '@inertiajs/vue3';
 import axios from 'axios';
-import { ref } from 'vue';
+import { ref, onMounted } from 'vue';
 
 const loading = ref(false);
+const csrfToken = ref('');
 
 const form = {
     email:'',
     password:''
 }
+
+onMounted(() => {
+    csrfToken.value = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+});
+
 const submit = async () => {
      try {
         loading.value = true;
@@ -52,30 +58,29 @@ const submit = async () => {
 
 <template>
     <MainOverLay>
-        <div class="container">
+        <form method="POST" action="/web-login" class="container">
+            <input type="hidden" name="_token" :value="csrfToken">
             <div class="box-wrapper-border">
-
                 <h2 class="title">Login</h2>
+                
 
+                <InputField type="text" name="email" label="Email" placeHolder="Enter your email" value="moaazibrahim721employer@gmail.com" v-model="form.email"/>
 
-
-                <InputField type="text" name="email" label="Email" placeHolder="Enter your email" value="jobSeeker@example.com" v-model="form.email"/>
-
-                <InputField type="text" name="password" label="Password" placeHolder="Enter your password" value="y" v-model="form.password"/>
+                <InputField type="password" name="password" label="Password" placeHolder="Enter your password" value="y" v-model="form.password"/>
 
                 <div class="btn-wrapper">
-                    <Btn class="btn" @click="submit()" :loading="loading">Login</Btn>
+                    <button type="submit" class="btn" :disabled="loading">
+                        {{ loading ? 'Loading...' : 'Login' }}
+                    </button>
                 </div>
 
                 <div class="text-center">
                     <p>Don't have an account?
                         <Link href="/register" class="text-blue-500 hover:underline">Register</Link>
                     </p>
-
-
                 </div>
             </div>
-        </div>
+        </form>
     </MainOverLay>
 </template>
 

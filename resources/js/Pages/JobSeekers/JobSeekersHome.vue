@@ -5,7 +5,8 @@ import JobSeekersMainOverlay from '@/Components/AuthenticatedUsers/JobSeekers/Ov
 </script>
 
 <template>
-    <JobSeekersMainOverlay>
+    <p>Job Seekers Home</p>
+    <!-- <JobSeekersMainOverlay>
     
-    </JobSeekersMainOverlay>
+    </JobSeekersMainOverlay> -->
 </template>

@@ -10,6 +10,7 @@ const props = defineProps({
     asteriskPosition: String,
     height: String,
     mask: String,
+    name: String,
     disabled: Boolean,
     error: Boolean,
     date: Boolean,
@@ -143,7 +144,7 @@ defineExpose({
         <div class="required">
             <input :disabled="$props.disabled" class="input-field" v-if="!$props.height"
                 :style="`width:100%; ${CalcHeight()};${($props.error) ? 'border-color:red' : ''};${props.background ? `background-color:${props.background}` : 'white'}`"
-                v-maska="mask" type="text" v-model="input" :name="label">
+                v-maska="mask" type="text" v-model="input" :name="name">
 
             <textarea :disabled="$props.disabled" class="input-field" v-if="$props.height"
                 :style="`width:100%;resize:none; ${CalcHeight()};${($props.error) ? 'border-color:red' : ''}`"

@@ -111,4 +111,9 @@ class HomeController extends Controller
     {
         return Inertia::render('Auth/Register');
     }
+
+    public function jobSeekers()
+    {
+        return Inertia::render('JobSeekers/JobSeekersHome');
+    }
 }

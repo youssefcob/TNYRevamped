@@ -6,7 +6,9 @@ use App\Models\Admin;
 use App\Models\User;
 use App\Traits\GeneratesToken;
 use Exception;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Inertia\Inertia;
 
 class AuthService
 {
@@ -144,6 +146,55 @@ class AuthService
                 'message' => 'Something went wrong',
                 'error' => $e->getMessage()
             ];
+        }
+    }
+
+
+    public function loginWeb(Request $request)
+    {
+        // dd($request->all());
+        try {
+            //code...
+            $request->validate([
+                'email' => ['required', 'email'],
+                'password' => ['required'],
+                // 'ssdstoken' => ['required'],
+            ]);
+
+            $user = User::where('email', $request->email)->first();
+
+            if (!$user || !Hash::check($request->password, $user->password)) {
+                dd('Invalid credentials');
+                // return Inertia::render('Auth/Login', [
+                //     'error' => 'Invalid credentials'
+                // ]);
+            }
+
+            $token = '';
+
+            switch ($user->user_type) {
+                case 'employer':
+                    $token = $this->generateEmployerToken($user);
+                    $user->load('employer');
+                    break;
+                case 'job_seeker':
+                    $token = $this->generateJobSeekerToken($user);
+                    $user->load('jobSeeker');
+                    break;
+            }
+
+            // $data = HomeService::get();
+            // return Inertia::render('Home');
+            // dd($token);
+            cookie()->queue('token', $token['access_token'], 60*24, '/', null, true, false, false, 'strict');
+        
+        return Inertia::render('Home');
+        } catch (\Throwable $e) {
+            //throw $th;
+            dd($e->getMessage());
+            // return Inertia::render('Auth/Login', [
+            //     'error' => '$e->message()'
+            // ]);
         }
     }
 }

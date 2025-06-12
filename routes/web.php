@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\Views\Auth\RegisterController;
 use App\Http\Controllers\Views\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -38,6 +39,14 @@ Route::get('/news/{id?}', [HomeController::class, 'news'])
 
 Route::post('/register', [RegisterController::class, 'submit'])
 ->name('register.submit');
+
+Route::post('/web-login', [UserAuthController::class, 'loginWeb'])
+->name('login.web');
+
+Route::get('/job-seekers', [HomeController::class, 'jobSeekers'])
+->name('job-seekers')
+->middleware('auth.view:job-seeker');
+
 
 Route::get('/{any?}', [HomeController::class, 'view'])
 ->where('any', '.*');
