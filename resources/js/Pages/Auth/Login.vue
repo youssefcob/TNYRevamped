@@ -1,38 +1,96 @@
 <script setup lang="ts">
 import MainOverLay from '@/Components/Overlays/MainOverLay.vue';
+import { snack } from '@/mixins/toast';
+import user from '@/mixins/user';
+import Btn from '@/SharedComponents/btn.vue';
 import InputField from '@/SharedComponents/InputField.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
+import axios from 'axios';
+import { ref, onMounted, watch } from 'vue';
+
+import { usePage } from '@inertiajs/vue3'
+
+// const { errors } = usePage().props
+
+const loading = ref(false);
+const csrfToken = ref<null | string | undefined>('');
+
+const props = defineProps({
+    errors: {
+        type: Object
+    },
+})
 
 
+const form = {
+    email: '',
+    password: ''
+}
+
+onMounted(() => {
+    csrfToken.value = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+});
+
+
+
+function submit() {
+    
+    router.post('/login', form, {
+        onStart: () => {
+            loading.value = true;
+        },
+        onFinish: () => {
+            loading.value = false;
+            if (props.errors && Object.keys(props.errors).length > 0) {
+                Object.values(props.errors).forEach(errorArray => {
+                    if (Array.isArray(errorArray)) {
+                        errorArray.forEach(error => snack.error(error));
+                    } else if (typeof errorArray === 'string') {
+                        snack.error(errorArray);
+                    }
+                });
+            }
+        },
+        preserveState: true,
+        preserveScroll: true,
+    });
+}
+
+// console.log(props.errors);
+onMounted(() => {
+
+});
 
 </script>
 
 <template>
     <MainOverLay>
-        <div class="container">
-            <div class="login-wrapper">
-
+        <form method="POST" action="/login" class="container" @submit.prevent="submit">
+            <input type="hidden" name="_token" :value="csrfToken">
+            <div class="box-wrapper-border">
                 <h2 class="title">Login</h2>
+                <!-- {{ props.errors }} -->
 
 
+                <InputField type="text" name="email" label="Email" placeHolder="Enter your email"
+                    value="jobSeeker@example.com" v-model="form.email" />
 
-                <InputField type="text" name="email" label="Email" placeHolder="Enter your email" />
-
-                <InputField type="text" name="password" label="Password" placeHolder="Enter your password" />
+                <InputField type="password" name="password" label="Password" placeHolder="Enter your password" value="y"
+                    v-model="form.password" />
 
                 <div class="btn-wrapper">
-                    <Btn class="btn">Login</Btn>
+                    <button type="submit" class="btn" :disabled="loading">
+                        {{ loading ? 'Loading...' : 'Login' }}
+                    </button>
                 </div>
 
                 <div class="text-center">
                     <p>Don't have an account?
                         <Link href="/register" class="text-blue-500 hover:underline">Register</Link>
                     </p>
-
-
                 </div>
             </div>
-        </div>
+        </form>
     </MainOverLay>
 </template>
 
@@ -48,28 +106,14 @@ import { Link } from '@inertiajs/vue3';
     background-position: center;
     background-repeat: no-repeat;
 
-    .login-wrapper {
-        width: 100%;
-        max-width: 40vw;
-        background-color: rgba(255, 255, 255, 0.8);
-        padding: 2rem;
-        border-radius: 10px;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        border: 3px solid $navy;
-        display: flex;
-        flex-direction: column;
-        gap: 1rem;
+    .box-wrapper-border {
+
         // align-items: center;
 
         .title {
             align-self: center;
         }
 
-        .btn-wrapper {
-            margin-top: 2rem;
-            width: 40%;
-            align-self: center;
-        }
     }
 
 }

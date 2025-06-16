@@ -65,7 +65,12 @@ onUnmounted(() => {
                 <li role="menuitem" :active="isActive('#contact')">
                     <Hroute on="/" to="#contact" :active="isActive('#contact')">Contact Us</Hroute>
                 </li>
+                <div class="auth-btns-wrapper">
+                    <Link href="/login" class="btn">Login</Link>
+                    <Link href="/register" class="btn">Sign up</Link>
+                </div>
             </ul>
+
 
         </div>
     </div>
@@ -97,6 +102,7 @@ onUnmounted(() => {
     right: 0;
     position: absolute;
     gap: 1rem;
+    
 
     ul {
         list-style: none;
@@ -140,6 +146,11 @@ onUnmounted(() => {
         }
 
     }
+    .auth-btns-wrapper{
+        display:flex;
+        flex-direction: column;
+        gap:1rem;
+    }
 
     &.active {
         transition: all 0.5s ease-in-out;
@@ -152,9 +163,12 @@ onUnmounted(() => {
     @include media-max(phone) {
         // padding-left:10rem;
         // padding-top:6rem;
-        // right:-3rem;
-        // width:110vw;
+        right:-3rem;
+        width:110vw;
         // height:100vh;
+        ul{
+            gap:2rem;
+        }
     }
 }
 </style>

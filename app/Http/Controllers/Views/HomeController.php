@@ -15,22 +15,36 @@ use App\Services\HeroService;
 use App\Services\ViewServices\HomeService;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 
 class HomeController extends Controller
 {
-    public function view()
+    public function view(Request $request)
     {
-        // $data = [];
-
-        // $data['hero'] = HeroService::get();
-        // $data['services'] = ServicesService::get();
-        // $data['employers'] = EmployersService::get();
-        // $data['jobs'] = JobsService::get();
-        // $data['news'] = NewsService::get();
-        // $data['clients'] = ClientsService::get();
-        // $data['testimonials'] = TestimonialsService::get();
-        // $data['team'] = TeamService::get();
         $data = HomeService::get();
+
+        $token = $request->cookie('token');
+        if ($token) {
+            $request->headers->set('Authorization', 'Bearer ' . $token);
+            /** @var \App\Models\User $user */
+            $user = Auth::guard('user')->user();
+            if ($user) {
+                $data['user'] = $user;
+                $data['token'] = $token;
+
+                if($user->hasRole('employer')) {
+                    $data['employer'] = $user->employer;
+                    return Inertia::render('Employers/EmployersHome', $data);
+
+                } elseif ($user->hasRole('job_seeker')) {
+                    $data['job_seeker'] = $user->jobSeeker;
+                    return Inertia::render('JobSeekers/JobSeekersHome', $data);
+                }
+            }
+        }
+
         return Inertia::render('Home', $data);
     }
 
@@ -67,7 +81,7 @@ class HomeController extends Controller
         return Inertia::render('Apply', $data);
     }
 
- 
+
     public function requestService($service = null)
     {
         $data = [];
@@ -85,13 +99,12 @@ class HomeController extends Controller
         return Inertia::render('News', $data);
     }
 
-    public function login()
-    {
-        return Inertia::render('Auth/Login');
-    }
 
-    public function register()
+
+
+
+    public function jobSeekers()
     {
-        return Inertia::render('Auth/Register');
+        return Inertia::render('JobSeekers/JobSeekersHome');
     }
 }

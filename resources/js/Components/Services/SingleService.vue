@@ -1,96 +1,68 @@
+
 <script setup lang="ts">
 import { Service } from '@/interface/Types';
-import { Link } from '@inertiajs/vue3';
-
 
 const props = defineProps({
     service: {
-        type: Object as () => Service
-    }
-}
-)
+        type: Object as () => Service,
+        required: true
+    },
 
+});
 </script>
 
 <template>
-    <div class="service">
-        <div class="img-wrapper">
-            <img :src="service?.image" alt="Service Image" />
-
+    <div class="service-card">
+        <div class="img" :style="`background-image:url(${service?.image})`"></div>
+        <div class="info">
+            <h2 class="title blue">{{ service?.title }}</h2>
+            <p class="big">{{ service?.description }}</p>
         </div>
-        <div class="content">
-            <h2>{{ service?.title }}</h2>
-            <p>{{ service?.description }}</p>
-            <Link :href="`/requestService/${service?.title}`" class="btn"><span class="btnFont">Request Service</span></Link>
-        </div>
-
-
     </div>
 </template>
 
-<style lang="scss" scoped>
-.service {
+
+<style scoped lang="scss">
+.service-card {
+    width: 100%;
+    aspect-ratio: 1/1;
+    border-radius: $border-radius;
+    border: 3px solid $navy;
+    overflow: hidden;
     display: flex;
-    align-items: center;
-    gap: 0.5rem;
-
-    // min-width: 100%;
-    @include media-max(tablet) {
-        flex-direction: column;
+    flex-direction: column;
+    // gap: 1rem;
+    // @include media-max(desktop) {
+    //     aspect-ratio: 1/1;
+    // }
+    @include media-min(desktop) {
+        aspect-ratio: 1/0.8;
     }
 
-    .img-wrapper {
-        padding: 1.5rem;
-        height: 8rem;
-        width: 8rem;
-        background-color: $service-blue;
-        border-radius: 100vh;
-
-        >img {
-            height: 100%;
-            // width: 100%;
-        }
+    @include media-max(phone){
+        aspect-ratio: 1/1.5;
     }
 
-    .content {
+    .img {
+        // width: 100%;
+        height: 40%;
+        background-size: cover;
+        background-position: center;
+        // border-radius: 40px;
+    }
+
+    .info {
         display: flex;
         flex-direction: column;
         gap: 1rem;
-        box-shadow: -2px 2px 10px rgba(0, 0, 0, 0.1);
-        padding: 1rem 2rem;
-        border-radius: 1rem;
-        flex-grow: 1;
+        padding: 2rem;
 
-        >h2 {
+        >h2.title.blue {
             color: $blue;
-            text-align: center;
-
-
+            align-self: center;
         }
 
-        >p {
-            color: $grey;
-            font-weight: $medium;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-            text-overflow: ellipsis;
-
-            @include media-max(tablet) {
-                -webkit-line-clamp: 3;
-            }
-
-            @include media-max(phone) {
-                -webkit-line-clamp: 4;
-            }
-        }
-
-        >.btn {
-            width: fit-content;
-            margin-left: auto;
-            margin-right: 1rem;
-        }
+  
     }
-}
-</style>
+
+    }</style>

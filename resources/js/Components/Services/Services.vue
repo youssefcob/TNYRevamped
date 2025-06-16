@@ -10,51 +10,48 @@ import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
+ 
+
     <div class="container">
         <h2 class="title">Services</h2>
-        <!-- <br> -->
-        <h2 class="subtitle">Therapy of New York</h2>
-        <p>Your Gateway to Top-tier Talent and Seamless Integration</p>
-
-        <div class="services-wrapper">
+        <br>
+        <h2 class="subtitle">Therapy of New York- redefining staffing solutions</h2>
+        <br>
+        <h2 class="subtitle blue">Why Therapy of New York?</h2>
+        <div class="services-container">
             <template v-for="service in serviceState">
                 <SingleService v-if="service.onMainPage" :service="service" />
             </template>
         </div>
-        <Link href="/services" class="more">Show More Services</Link>
+        <Link href="/services" class="more">Read More</Link>
+
     </div>
 </template>
 
 <style scoped lang="scss">
-.container {
+.container{
     @include pagePadding();
     display: flex;
     flex-direction: column;
-    align-items: center;
-    text-align: center;
-
-    >.title {
-        // margin-bottom: 1rem;
-        // color: $navy;
+    
+    .title,.subtitle{
+        align-self: center;
+    }
+    .subtitle.blue{
+        color: $blue;
+        align-self: flex-start;
     }
 
-    >p {
-        @extend h2;
-        font-weight: 400;
+    .services-container{
+        display: grid;
+        grid-template-columns: repeat(2,1fr);
+        gap: 2rem;
+        margin-top: 2rem;
+        @include media-max(tablet){
+            grid-template-columns: 1fr;
+        }
     }
 
-    // >.subtitle,
-    // >p {
-    //     // color: $grey;
-    // }
-
-    .services-wrapper {
-        margin-top: 3rem;
-        display: flex;
-        flex-direction: column;
-        gap: 1.5rem;
-    }
-
-  
+ 
 }
 </style>

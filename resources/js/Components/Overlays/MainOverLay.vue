@@ -6,11 +6,17 @@ import Footer from '../Footer/Foot.vue';
 </script>
 
 <template>
-    <NavBar />
-    <main>
-        <slot></slot>
-    </main>
-    <Footer />
-
+        <NavBar />
+        <main class="main-body">
+            <slot></slot>
+        </main>
+        <Footer />
 
 </template>
+
+<style scoped lang="scss">
+.main-body {
+    padding-top:12vh;
+    padding-bottom:2vh;
+}
+</style>
