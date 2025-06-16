@@ -13,12 +13,8 @@ class EmployerFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->company(),
-            'phone_number' => fake()->phoneNumber(),
-            'address' => fake()->address(),
-            'description' => fake()->paragraph(),
-            'image' => 'employers/' . fake()->uuid() . '.jpg',
-            'onMainPage' => fake()->boolean(),
+            'facility_name' => $this->faker->company(),
+            'phone_number' => $this->faker->phoneNumber(),
             'user_id' => User::factory()->employer(),
         ];
     }
