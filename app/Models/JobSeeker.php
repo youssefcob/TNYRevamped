@@ -78,7 +78,7 @@ class JobSeeker extends Model
      */
     public function bids()
     {
-        return $this->hasMany(Bid::class);
+        return $this->belongsToMany(Employer::class, 'bids','job_seeker_id','employer_id');
     }
 
     public function languages()

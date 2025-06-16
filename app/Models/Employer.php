@@ -37,6 +37,7 @@ class Employer extends Model
      */
     public function bids()
     {
-        return $this->hasMany(Bid::class);
+        return $this->belongsToMany(JobSeeker::class, 'bids','employer_id','job_seeker_id')
+        ->withPivot('id','rate_per_hour','status','created_at','updated_at');
     }
 }
