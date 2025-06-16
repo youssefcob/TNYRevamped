@@ -15,7 +15,8 @@ return new class extends Migration
             $table->id();
             $table->foreignId('employer_id')->constrained('employers')->onDelete('cascade');
             $table->foreignId('job_seeker_id')->constrained('job_seekers')->onDelete('cascade');
-            $table->decimal('amount', 10, 2);
+            $table->decimal('rate_per_hour', 8, 2);
+            $table->string('status')->default('pending');
             $table->timestamps();
         });
     }

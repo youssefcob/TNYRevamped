@@ -81,15 +81,15 @@ trait TableFiltersHelperFunctions
         }
     }
     
-    private function statusFilter($query, $status)
+    private function statusFilter($query, $status, $joinedTable = '')
     {
         try {
             // Validate status value
             // Validator::make(['status' => $status], [
             //     'status' => 'required|string|in:pending,approved,rejected',
             // ])->validate();
-            
-            $data = $query->where('status', $status);
+            $column = $joinedTable ? $joinedTable . '.status' : 'status';
+            $data = $query->where($column, $status);
             
             return [
                 'success' => true,
