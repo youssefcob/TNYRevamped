@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import MainOverLay from '@/Components/Overlays/MainOverLay.vue';
-
 
 const props = defineProps({
     user: {
@@ -15,9 +13,7 @@ const props = defineProps({
 </script>
 
 <template>
-    <MainOverLay>
-    <p>Job Seekers Home</p>
+    <p>Employers Home</p>
     {{ user }}
     {{ token }}
-    </MainOverLay>
 </template>

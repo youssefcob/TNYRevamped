@@ -22,14 +22,17 @@ onMounted(() => {
 </script>
 
 <template>
-    <div class="container">
-        <div class="header">
-            <h2 class="title">Services</h2>
-            <br>
-            <h2 class="subtitle">Therapy of New York</h2>
-            <h2 class="subtitle">Your Gateway to Top-tier Talent and Seamless Integration</h2>
+      <div class="container">
+        <h2 class="title">Services</h2>
+        <br>
+        <h2 class="subtitle">Therapy of New York- redefining staffing solutions</h2>
+        <br>
+        <h2 class="subtitle blue">Why Therapy of New York?</h2>
+
+        <div class="services-wrapper">
+            <SingleService v-for="service in serviceState" :key="service.id" :service="service" />
         </div>
-        <SingleService v-for="service in serviceRef" :key="service.id" :service="service" />
+
     </div>
 </template>
 
@@ -37,14 +40,33 @@ onMounted(() => {
 <style lang="scss" scoped>
 .container {
     @include pagePadding();
-    padding-top: 20vh;
-    display: flex;
-    flex-direction: column;
-    gap: 2rem;
+
+
+    .title {
+        color: $navy;
+        margin-bottom: 1.5rem;
+    }
 
     .title,
     .subtitle {
         text-align: center;
     }
+
+    .subtitle.blue {
+        color: $blue;
+        text-align: left;
+    }
+
+    .services-wrapper {
+        margin-top: 2rem;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+
+        @include media-max(tablet) {
+            grid-template-columns: 1fr;
+        }
+    }
+
 }
 </style>

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\DB;
+use Inertia\Inertia;
 
 class AuthView
 {
@@ -19,9 +20,18 @@ class AuthView
     {
         // dd($role);
         $token = $request->cookie('token');
+        if (!$token) {
+            return redirect()->route('login');
+        }
         $request->headers->set('Authorization', 'Bearer ' . $token);
+
+        /** @var \App\Models\User $user */
         $user = Auth::guard('user')->user();
-        dd($user);
-        return $next($request);
+        // dd($user);
+        if ($user->hasRole($role)) {
+            return $next($request);
+        }
+        return redirect()->route('login.web');
+        // return 
     }
 }

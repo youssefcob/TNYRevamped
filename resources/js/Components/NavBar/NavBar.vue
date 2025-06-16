@@ -2,7 +2,9 @@
 import { Link } from '@inertiajs/vue3';
 import NavList from './NavList.vue';
 import NavListResponsive from './NavListResponsive.vue';
+import user from '@/mixins/user';
 
+const userData = user.get()
 
 
 </script>
@@ -15,7 +17,8 @@ import NavListResponsive from './NavListResponsive.vue';
         </div>
         <!-- <Link href="/apply" class="btn">Apply Now</Link> -->
 
-        <div class="auth-btns-wrapper">
+        <!-- {{ userData }} -->
+        <div  class="auth-btns-wrapper">
             <Link href="/login" class="btn">Login</Link>
             <Link href="/register" class="btn">Sign up</Link>
         </div>

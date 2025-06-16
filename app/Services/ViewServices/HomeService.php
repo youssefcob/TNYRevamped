@@ -19,7 +19,7 @@ class HomeService
 
         $data['hero'] = HeroService::get();
         $data['services'] = ServicesService::get();
-        $data['employers'] = EmployersService::get();
+        // $data['employers'] = EmployersService::get();
         $data['jobs'] = JobsService::get();
         $data['news'] = NewsService::get();
         $data['clients'] = ClientsService::get();

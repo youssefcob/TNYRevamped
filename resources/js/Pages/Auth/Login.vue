@@ -4,69 +4,79 @@ import { snack } from '@/mixins/toast';
 import user from '@/mixins/user';
 import Btn from '@/SharedComponents/btn.vue';
 import InputField from '@/SharedComponents/InputField.vue';
-import { Link } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import axios from 'axios';
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
+
+import { usePage } from '@inertiajs/vue3'
+
+// const { errors } = usePage().props
 
 const loading = ref(false);
-const csrfToken = ref('');
+const csrfToken = ref<null | string | undefined>('');
+
+const props = defineProps({
+    errors: {
+        type: Object
+    },
+})
+
 
 const form = {
-    email:'',
-    password:''
+    email: '',
+    password: ''
 }
 
 onMounted(() => {
-    csrfToken.value = document.querySelector('meta[name="csrf-token"]').getAttribute('content');
+    csrfToken.value = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
 });
 
-const submit = async () => {
-     try {
-        loading.value = true;
 
-        const res = await axios.post('/api/user/login', form);
 
-        snack.success('Form Submitted Successfully')
-
-        console.log(res.data);
-        user.setToken(res.data.tokens);
-        user.set(res.data.user)
-        loading.value = false;
-    } catch (error) {
-        loading.value = false;
-        if (axios.isAxiosError(error)) {
-            // console.log('Registration failed:', error.response?.data);
-            let errorMessages = error.response?.data.error
-            console.log(errorMessages);
-            if (errorMessages && typeof errorMessages === 'object') {
-                Object.values(errorMessages).forEach(msgArr => {
-                    if (Array.isArray(msgArr)) {
-                        msgArr.forEach(msg => snack.error(msg));
-                    } else if (typeof msgArr === 'string') {
-                        snack.error(msgArr);
+function submit() {
+    
+    router.post('/login', form, {
+        onStart: () => {
+            loading.value = true;
+        },
+        onFinish: () => {
+            loading.value = false;
+            if (props.errors && Object.keys(props.errors).length > 0) {
+                Object.values(props.errors).forEach(errorArray => {
+                    if (Array.isArray(errorArray)) {
+                        errorArray.forEach(error => snack.error(error));
+                    } else if (typeof errorArray === 'string') {
+                        snack.error(errorArray);
                     }
                 });
             }
-            // Handle error, e.g., show a notification or alert
-        } else {
-            console.log('An unexpected error occurred:', error);
-        }
-    }
+        },
+        preserveState: true,
+        preserveScroll: true,
+    });
 }
+
+// console.log(props.errors);
+onMounted(() => {
+
+});
 
 </script>
 
 <template>
     <MainOverLay>
-        <form method="POST" action="/web-login" class="container">
+        <form method="POST" action="/login" class="container" @submit.prevent="submit">
             <input type="hidden" name="_token" :value="csrfToken">
             <div class="box-wrapper-border">
                 <h2 class="title">Login</h2>
-                
+                <!-- {{ props.errors }} -->
 
-                <InputField type="text" name="email" label="Email" placeHolder="Enter your email" value="moaazibrahim721employer@gmail.com" v-model="form.email"/>
 
-                <InputField type="password" name="password" label="Password" placeHolder="Enter your password" value="y" v-model="form.password"/>
+                <InputField type="text" name="email" label="Email" placeHolder="Enter your email"
+                    value="jobSeeker@example.com" v-model="form.email" />
+
+                <InputField type="password" name="password" label="Password" placeHolder="Enter your password" value="y"
+                    v-model="form.password" />
 
                 <div class="btn-wrapper">
                     <button type="submit" class="btn" :disabled="loading">

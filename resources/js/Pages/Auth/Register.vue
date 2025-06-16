@@ -20,44 +20,41 @@ const form = {
 
 const loading = ref(false);
 
-const submit = async () => {
 
-    try {
-        loading.value = true;
+const props = defineProps({
+    errors: {
+        type: Object
+    },
+})
+const submit = () => {
 
-        const res = await axios.post('/api/user/register', form);
-
-        snack.success('Form Submitted Successfully')
-
-        console.log(res.data);
-        loading.value = false;
-    } catch (error) {
-        loading.value = false;
-        if (axios.isAxiosError(error)) {
-            // console.log('Registration failed:', error.response?.data);
-            let errorMessages = error.response?.data.error
-            console.log(errorMessages);
-            if (errorMessages && typeof errorMessages === 'object') {
-                Object.values(errorMessages).forEach(msgArr => {
-                    if (Array.isArray(msgArr)) {
-                        msgArr.forEach(msg => snack.error(msg));
-                    } else if (typeof msgArr === 'string') {
-                        snack.error(msgArr);
+     router.post('/register', form, {
+        onStart: () => {
+            loading.value = true;
+        },
+        onFinish: () => {
+            loading.value = false;
+            if (props.errors && Object.keys(props.errors).length > 0) {
+                Object.values(props.errors).forEach(errorArray => {
+                    if (Array.isArray(errorArray)) {
+                        errorArray.forEach(error => snack.error(error));
+                    } else if (typeof errorArray === 'string') {
+                        snack.error(errorArray);
                     }
                 });
             }
-            // Handle error, e.g., show a notification or alert
-        } else {
-            console.log('An unexpected error occurred:', error);
-        }
-    }
+        },
+        preserveState: true,
+        preserveScroll: true,
+    });
+    
 };
 
 </script>
 
 <template>
     <MainOverLay>
-        <div class="container">
+        <form method="POST" action="/register" class="container" @submit.prevent="submit">
             <div class="box-wrapper-border">
                 <h2 class="title">Sign Up</h2>
 
@@ -83,7 +80,9 @@ const submit = async () => {
                     </div>
                 </div>
                 <div class="btn-wrapper">
-                    <Btn :loading="loading" class="btn" @click="submit">Register</Btn>
+                    <button type="submit" class="btn" :disabled="loading">
+                        {{ loading ? 'Loading...' : 'register' }}
+                    </button>
                 </div>
 
 
@@ -95,7 +94,7 @@ const submit = async () => {
 
                 </div>
             </div>
-        </div>
+            </form>
     </MainOverLay>
 </template>
 

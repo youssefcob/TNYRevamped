@@ -1,11 +1,11 @@
 
-type User = {
+export type User = {
     email: string;
     name: string;
     user_type: string;
 }
 
-type Token = {
+export type Token = {
     access_token: string;
     token_type: string;
     expires_at: number;
@@ -14,11 +14,13 @@ type Token = {
 
 export default {
     setToken: (data: Token) => {
-        localStorage.setItem('token', data.access_token)
-        localStorage.setItem('tokenExpiry', data.expires_at.toString())
+        localStorage.setItem('token',data.access_token);
     },
     token: (() => {
-        return localStorage.getItem('token');
+        const match = document.cookie.match(/token=([^;]+)/);
+        if (match) {
+            return match[1];
+        }
     }),
     set: (data: User) => {
         localStorage.setItem('user', JSON.stringify(data))
