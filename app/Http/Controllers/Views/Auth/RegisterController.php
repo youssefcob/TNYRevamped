@@ -8,14 +8,20 @@ use App\Traits\GeneratesToken;
 use Illuminate\Http\Request;
 use Illuminate\Validation\Rule;
 use Illuminate\Support\Facades\Hash;
-
-
+use Inertia\Inertia;
 
 class RegisterController extends Controller
 {
     use GeneratesToken;
+
+
+    public function index()
+    {
+        return Inertia::render('Auth/Register');
+    }
     function submit(Request $request)
     {
+        // dd('hello');
 
         // return"hello";
         try {
@@ -28,46 +34,47 @@ class RegisterController extends Controller
             ]);
 
             //create user
-                $user = User::create([
-                    'name' => $request->name,
-                    'password' => Hash::make($request->password),
-                    'email' => $request->email,
-                    'user_type' => $request->type
-                ]);
+            $user = User::create([
+                'name' => $request->name,
+                'password' => Hash::make($request->password),
+                'email' => $request->email,
+                'user_type' => $request->type
+            ]);
 
-                $token = '';
+            $token = '';
 
 
 
-                switch( $request->type) {
-                    case 'employer':
-                        $token = $this->generateEmployerToken($user);
-                        $user->load('employer'); 
-                        break;
-                    case 'job_seeker':
-                        $token = $this->generateJobSeekerToken($user);
-                        $user->load('jobSeeker');
-                        break;
-                }
+            switch ($request->type) {
+                case 'employer':
+                    $token = $this->generateEmployerToken($user);
+                    $user->load('employer');
+                    break;
+                case 'job_seeker':
+                    $token = $this->generateJobSeekerToken($user);
+                    $user->load('jobSeeker');
+                    break;
+            }
 
-                // return response()->json([
-                    // 'user' => $user,
-                    // 'tokens' => $token
-                // ]);
+            // return response()->json([
+            // 'user' => $user,
+            // 'tokens' => $token
+            // ]);
 
-                $user = [
-                    'user'=> $user,
-                    'token' => $token
-                ];
-                return response()->json($user, 200);
-        }
-        catch (\Illuminate\Validation\ValidationException $e) {
-            return response()->json(['error' => $e->errors()], 422);
+            cookie()->queue('token', $token['access_token'], 60 * 24, '/', null, true, false, false, 'strict');
+            return redirect()->route('home');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return inertia('Auth/Register', [
+                'errors' => [$e->getMessage()]
+            ]);
         } catch (\Illuminate\Database\QueryException $e) {
-            return response()->json(['error' => 'Database error: ' . $e->getMessage()], 500);
+            return inertia('Auth/Register', [
+                'errors' => [$e->getMessage()]
+            ]);
         } catch (\Exception $e) {
-            return response()->json(['error' => $e->getMessage()], 409);
+            return inertia('Auth/Register', [
+                'errors' => [$e->getMessage()]
+            ]);
         };
     }
-    
 }

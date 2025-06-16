@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\UserAuthController;
+use App\Http\Controllers\Views\Auth\LoginController;
 use App\Http\Controllers\Views\Auth\RegisterController;
 use App\Http\Controllers\Views\HomeController;
 use Illuminate\Support\Facades\Route;
@@ -9,11 +11,10 @@ use Inertia\Inertia;
 // Route::get('{any}', [HomeController::class, 'view'])
 // ->name('home');
 
-Route::get('login', [HomeController::class, 'login'])
-->name('login');
+require __DIR__ . '/web/auth-routes.php';
 
-Route::get('register', [HomeController::class, 'register'])
-->name('register');
+
+
 
 Route::get('/services',[HomeController::class, 'services'])
 ->name('services');
@@ -35,6 +36,21 @@ Route::get('/news/{id?}', [HomeController::class, 'news'])
 
 Route::post('/register', [RegisterController::class, 'submit'])
 ->name('register.submit');
+
+// Route::get('/login', [LoginController::class, 'login'])
+// ->name('login.submit');
+
+Route::get('/job-seekers', [HomeController::class, 'jobSeekers'])
+->name('job-seekers')
+->middleware('auth.view:job-seeker');
+
+// Route::post('/web-login', [UserAuthController::class, 'loginWeb'])
+// ->name('login.web');
+
+
+Route::get('/', [HomeController::class, 'view'])
+->name('home');
+
 
 Route::get('/{any?}', [HomeController::class, 'view'])
 ->where('any', '.*');

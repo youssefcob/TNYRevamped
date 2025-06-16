@@ -2,7 +2,9 @@
 import { Link } from '@inertiajs/vue3';
 import NavList from './NavList.vue';
 import NavListResponsive from './NavListResponsive.vue';
+import user from '@/mixins/user';
 
+const userData = user.get()
 
 
 </script>
@@ -15,7 +17,11 @@ import NavListResponsive from './NavListResponsive.vue';
         </div>
         <!-- <Link href="/apply" class="btn">Apply Now</Link> -->
 
-        <Link href="/login" class="btn">Login</Link>
+        <!-- {{ userData }} -->
+        <div  class="auth-btns-wrapper">
+            <Link href="/login" class="btn">Login</Link>
+            <Link href="/register" class="btn">Sign up</Link>
+        </div>
         <div class="navlist-mobile">
             <NavListResponsive />
         </div>
@@ -44,10 +50,14 @@ nav {
         width: clamp(100px, 7vw, 300px);
     }
 
+    .auth-btns-wrapper{
+        display:flex;
+        gap:1rem;
+    }
     @include media-max(desktop) {
 
         .navlist-desktop,
-        .btn {
+        .auth-btns-wrapper {
             display: none;
         }
 

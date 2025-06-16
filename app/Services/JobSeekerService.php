@@ -19,7 +19,11 @@ class JobSeekerService
     {
         $this->cloudinary = new Cloudinary();
     }
-
+    public static function getTalent()
+    {
+        $jobSeekers = JobSeeker::where('is_talent', '=', true)->with(['user', 'position']);
+        return $jobSeekers;
+    }
     public function getJobSeekers(Request $request)
     {
         try {
@@ -27,7 +31,7 @@ class JobSeekerService
             $endDate = $request->input('end_date');
             $status = $request->input('status');
             $id = $request->input('id');
-            
+
             $request->validate([
                 'id' => 'sometimes|integer|exists:job_seekers,id',
             ]);
@@ -37,14 +41,14 @@ class JobSeekerService
                     ->find($id);
             } else {
                 $jobSeeker = JobSeeker::with(['user', 'position']);
-                if($startDate){
+                if ($startDate) {
                     $filteredJobSeekers = $this->startDateFilter($jobSeeker, $startDate);
                     if (!$filteredJobSeekers['success']) {
                         return $filteredJobSeekers;
                     }
                     $jobSeeker = $filteredJobSeekers['data'];
                 }
-                if($endDate){
+                if ($endDate) {
                     $filteredJobSeekers = $this->endDateFilter($jobSeeker, $endDate);
                     if (!$filteredJobSeekers['success']) {
                         return $filteredJobSeekers;
@@ -58,8 +62,8 @@ class JobSeekerService
                     }
                     $jobSeeker = $filteredJobSeekers['data'];
                 }
-                
-                
+
+
                 $jobSeeker = $jobSeeker->paginate(10);
             }
 
@@ -129,22 +133,21 @@ class JobSeekerService
     {
         try {
             $jobSeeker = JobSeeker::with('user')->findOrFail($id);
-            
+
             // Delete resume from Google Drive if exists
             if ($jobSeeker->resume) {
                 $googleDrive = new GoogleDrive();
                 $googleDrive->deleteFile($jobSeeker->resume);
             }
-            
+
             // Get user ID before deleting job seeker
             $userId = $jobSeeker->user_id;
-            
+
             if ($userId) {
                 User::destroy($userId);
             }
-            
+
             return ['success' => true, 'message' => 'Job seeker deleted successfully'];
-            
         } catch (\Exception $e) {
             return ['success' => false, 'message' => 'Failed to delete job seeker: ' . $e->getMessage()];
         }

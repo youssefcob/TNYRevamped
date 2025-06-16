@@ -2,8 +2,7 @@
 
 use App\Http\Controllers\JobSeekerController;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\UserAuthController;
-use App\Http\Controllers\Views\Auth\AuthenticatedUserController;
+use App\Http\Controllers\Views\Auth\LoginController;
 use App\Http\Controllers\Views\Auth\RegisterController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +15,7 @@ Route::prefix('user')->group(function () {
     Route::get('/',fn()=> Auth::user())->middleware('auth:user');
 
     Route::post('/register', [RegisterController::class, 'submit']);
-    Route::post('/login', [AuthenticatedUserController::class, 'login']);
+    Route::post('/login', [LoginController::class, 'login']);
 
    
 

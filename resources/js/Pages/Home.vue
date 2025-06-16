@@ -3,20 +3,23 @@
         <section id="home">
             <Hero />
         </section>
+        <section>
+            <!-- <Talents /> -->
+        </section>
         <section id="about">
             <AboutUs />
         </section>
         <section>
             <Numbers />
         </section>
-        <section id="services">
-            <Services />
-        </section>
+
         <section>
             <WhatSetsUs />
         </section>
-        <section id="employers">
-            <Employers />
+        
+
+        <section id="services">
+            <Services />
         </section>
         <section id="jobs">
             <Jobs />
@@ -56,7 +59,6 @@ import Hero from '@/Components/Hero/Hero.vue';
 import Numbers from '@/Components/Numbers/Numbers.vue';
 import Services from '@/Components/Services/Services.vue';
 import WhatSetsUs from '@/Components/WhatSetsUs/WhatSetsUs.vue';
-import Employers from '@/Components/Employers/Employers.vue';
 import Jobs from '@/Components/Jobs/Jobs.vue';
 import NewsAndEvents from '@/Components/News/NewsAndEvents.vue';
 import Testimonials from '@/Components/Testimonials/Testimonials.vue';
@@ -72,16 +74,21 @@ import { assignClient, assignEmployer, assignHero, assignJob, assignNews, assign
 import { onMounted } from 'vue';
 
 import MainOverlay from '@/Components/Overlays/MainOverLay.vue';
+import user, { Token, User } from '@/mixins/user';
 const props = defineProps({
+    user: {
+        type: Object as () => User,
+    },
+    token:{
+        type: Object as () => Token
+    },
     hero: {
         type: Object as () => typeHero[]
     },
     services: {
         type: Object as () => Service[]
     },
-    employers: {
-        type: Object as () => Employer[]
-    },
+    
     jobs: {
         type: Object as () => Job[]
     },
@@ -106,9 +113,6 @@ onMounted(() => {
     if (props.services) {
         assignService(props.services);
     }
-    if (props.employers) {
-        assignEmployer(props.employers);
-    }
     if (props.jobs) {
         assignJob(props.jobs);
     }
@@ -124,10 +128,11 @@ onMounted(() => {
     if (props.team) {
         assignTeam(props.team);
     }
+    if( props.user) {
+        user.set(props.user);
+    }
+    if (props.token) {
+        user.setToken(props.token);
+    }
 });
-
-
-
-
-
 </script>
