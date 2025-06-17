@@ -25,6 +25,7 @@ return new class extends Migration
             $table->decimal('rate_per_hour', 8, 2)->nullable();
             $table->string('licensing')->nullable();
             $table->string('legal_status')->nullable();
+            $table->string('shift_type')->nullable();
             $table->string('resume')->nullable();
             $table->boolean('is_talent')->default(false);
             $table->string('status')->nullable();

@@ -38,6 +38,7 @@ class JobSeekerFactory extends Factory
             'status' => $this->faker->randomElement(['pending', 'approved', 'rejected']),
             'phone_number' => $this->faker->phoneNumber(),
             'gender' => $this->faker->randomElement(['male', 'female']),
+            'shift_type' => $this->faker->randomElement(['Full Time', 'Part Time', 'Per Diem', 'On Call']),
         ];
     }
 }

@@ -33,7 +33,8 @@ class JobSeeker extends Model
         'is_talent',
         'status',
         'phone_number',
-        'gender'
+        'gender',
+        'shift_type'
     ];
 
     /**
