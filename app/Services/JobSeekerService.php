@@ -118,11 +118,11 @@ class JobSeekerService
     {
         try {
             $request->validate([
-                'talent' => 'required|boolean'
+                'is_talent' => 'required|boolean'
             ]);
 
             $jobSeeker = JobSeeker::findOrFail($id);
-            $jobSeeker->talent = $request->talent;
+            $jobSeeker->is_talent = $request->is_talent;
             $jobSeeker->save();
 
             return [
