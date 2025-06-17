@@ -5,12 +5,15 @@ import { talentState } from '@/state/state';
 
 <template>
     <div class="container" v-if="talentState.length > 0">
-        <h2 class="title">Services</h2>
+        <h2 class="title">Talents</h2>
         <br>
         <h2 class="subtitle">Therapy of New York</h2>
         <h3>Your Gateway to Top-tier Talent and Seamless Integration</h3>
 
         <br>
+        <br>
+        <br>
+
         <div class="job-seeker-wrapper">
             <JobSeekerCard v-for="talent in talentState" :key="talent.id" :jobSeeker="talent" />
         </div>

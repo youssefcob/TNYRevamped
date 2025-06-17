@@ -12,6 +12,8 @@ use App\Models\User;
 use Database\Factories\EmployerFactory;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\Artisan; // Import the Artisan facade
+
 
 class DatabaseSeeder extends Seeder
 {
@@ -21,11 +23,16 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        // $this->call(AdminsTableSeeder::class);
-        // $this->call(MailListSeeder::class);
+        $this->call(AdminsTableSeeder::class);
+        $this->call(MailListSeeder::class);
         $this->call(JobSeekersTableSeeder::class);
-        // $this->call(PositionsTableSeeder::class);
-        // $this->call(ServicesTableSeeder::class);
+        $this->call(PositionsTableSeeder::class);
+        $this->call(ServicesTableSeeder::class);
+
+        Artisan::call('passport:client', [
+            '--personal' => true,
+            '--no-interaction' => true,
+        ]);
 
         // Position::factory(10)->create();
         // Application::factory(40)->create();

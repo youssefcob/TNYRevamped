@@ -14,7 +14,7 @@ export type Token = {
 
 export default {
     setToken: (data: Token) => {
-        localStorage.setItem('token',data.access_token);
+        localStorage.setItem('token', data.access_token);
     },
     token: (() => {
         const match = document.cookie.match(/token=([^;]+)/);
@@ -31,7 +31,23 @@ export default {
             return JSON.parse(user);
         }
         return null;
-    })
+    }),
+
+    loggedIn: async () => {
+        return fetch('/api/user', { credentials: 'include' })
+            .then(res => res.ok ? res.json() : null)
+            .then(user => !!user)
+            .catch(() => false);
+    },
+    type: (() => {
+        const user = localStorage.getItem('user');
+        if (user) {
+            const parsedUser = JSON.parse(user);
+            return parsedUser.user_type || '';
+        }
+        return '';
+    }),
+
 
     // user: (() => {
     //     const userStr = localStorage.getItem('user');
