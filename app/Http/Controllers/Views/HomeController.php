@@ -33,7 +33,7 @@ class HomeController extends Controller
             $user = Auth::guard('user')->user();
             if ($user) {
                 $data['user'] = $user;
-                $data['token'] = $token;
+                $data['token'] = ['access_token'=>$token, 'token_type' => 'Bearer'];
 
                 if ($user->hasRole('employer')) {
                     $data['employer'] = $user->employer;
@@ -106,8 +106,8 @@ class HomeController extends Controller
     {
         $data = [];
 
-        $jobSeekers = JobSeekerService::get( $request);
-        if($jobSeekers['success']){
+        $jobSeekers = JobSeekerService::get($request);
+        if ($jobSeekers['success']) {
             $data['job_seekers'] = $jobSeekers['data'];
         } else {
             Log::error('Failed to fetch job seekers: ' . $jobSeekers['message']);

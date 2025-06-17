@@ -1,6 +1,10 @@
 <script lang="ts" setup>
 import { JobSeeker } from '@/interface/Types';
 import Btn from './btn.vue';
+import user from '@/mixins/user';
+import { ref } from 'vue';
+import { router } from '@inertiajs/vue3';
+import { snack } from '@/mixins/toast';
 
 const props = defineProps({
     jobSeeker: {
@@ -8,6 +12,21 @@ const props = defineProps({
         required: true
     }
 });
+
+const loading = ref(false);
+
+const Bid = async () => {
+    loading.value = true;
+    if (await user.loggedIn() && user.type() === 'employer') {
+        window.location.href = `/bid/${props.jobSeeker.id}`;
+    } else {
+        snack.error('You need to be logged in as an employer to bid on a talent.');
+        setTimeout(() => {
+            router.visit('/login');
+        }, 2000);
+    }
+    loading.value = false;
+}
 </script>
 
 <template>
@@ -33,7 +52,13 @@ const props = defineProps({
                                 d="M17.5 13.75C16.9419 13.75 16.3892 13.8599 15.8736 14.0735C15.358 14.2871 14.8894 14.6001 14.4948 14.9948C14.1001 15.3894 13.7871 15.858 13.5735 16.3736C13.3599 16.8892 13.25 17.4419 13.25 18C13.25 18.5581 13.3599 19.1108 13.5735 19.6264C13.7871 20.142 14.1001 20.6106 14.4948 21.0052C14.8894 21.3999 15.358 21.7129 15.8736 21.9265C16.3892 22.1401 16.9419 22.25 17.5 22.25C18.6272 22.25 19.7082 21.8022 20.5052 21.0052C21.3022 20.2082 21.75 19.1272 21.75 18C21.75 16.8728 21.3022 15.7918 20.5052 14.9948C19.7082 14.1978 18.6272 13.75 17.5 13.75ZM14.75 18C14.75 17.2707 15.0397 16.5712 15.5555 16.0555C16.0712 15.5397 16.7707 15.25 17.5 15.25C18.2293 15.25 18.9288 15.5397 19.4445 16.0555C19.9603 16.5712 20.25 17.2707 20.25 18C20.25 18.7293 19.9603 19.4288 19.4445 19.9445C18.9288 20.4603 18.2293 20.75 17.5 20.75C16.7707 20.75 16.0712 20.4603 15.5555 19.9445C15.0397 19.4288 14.75 18.7293 14.75 18Z"
                                 fill="#135672" />
                         </svg>
-                        <span>After {{ jobSeeker.availability_to_start }} days</span>
+                        <span>
+                            {{
+                                parseInt(jobSeeker.availability_to_start) > 0
+                                    ? 'After ' + jobSeeker.availability_to_start + ' days'
+                                    : 'Immediately'
+                            }}
+                        </span>
                     </div>
 
                 </div>
@@ -92,7 +117,7 @@ const props = defineProps({
                 </div>
             </div>
             <div class="btn-wrapper">
-                <Btn class="btn">Bid Now</Btn>
+                <Btn class="btn" @click="Bid()" :loading="loading">Bid Now</Btn>
             </div>
         </div>
     </div>
