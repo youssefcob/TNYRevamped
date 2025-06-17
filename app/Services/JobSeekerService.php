@@ -21,10 +21,18 @@ class JobSeekerService
     }
     public static function getTalent()
     {
-        $jobSeekers = JobSeeker::where('is_talent', '=', true)->with(['user', 'position']);
+        $jobSeekers = JobSeeker::where('is_talent', '=', true)->with(['user', 'position'])->get();
         return $jobSeekers;
     }
-    public function getJobSeekers(Request $request)
+    public static function get(Request $request)
+    {
+        $service = new self();
+        return  $service->getJobSeekers($request,16);
+        
+    }
+    
+
+    public function getJobSeekers(Request $request, $perPage = 10)
     {
         try {
             $startDate = $request->input('start_date');
@@ -66,8 +74,9 @@ class JobSeekerService
                     }
                     $query = $filteredJobSeekers['data'];
                 }
-                
-                $jobSeeker = $query->paginate(10);
+
+
+                $jobSeeker = $jobSeeker->paginate($perPage);
             }
 
             return [

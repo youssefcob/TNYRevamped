@@ -32,6 +32,7 @@ const emit = defineEmits(['click']);
 .btn {
   @extend .btn;
   overflow: hidden;
+  width:100%;
 
   &.delete {
       background-color: red;

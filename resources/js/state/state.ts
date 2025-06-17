@@ -65,3 +65,10 @@ const assignTeam = (team:Team[]) => {
 }
 
 export { teamState, assignTeam };
+
+
+const talentState:Ref<any[]> = ref([]);
+const assignTalent = (talent:any[]) => {
+  talentState.value = talent;
+}
+export { talentState, assignTalent };

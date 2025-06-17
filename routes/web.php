@@ -46,7 +46,7 @@ Route::get('/job-seekers', [HomeController::class, 'jobSeekers'])
 
 // Route::post('/web-login', [UserAuthController::class, 'loginWeb'])
 // ->name('login.web');
-
+Route::get('/talents', [HomeController::class, 'talents']);
 
 Route::get('/', [HomeController::class, 'view'])
 ->name('home');
