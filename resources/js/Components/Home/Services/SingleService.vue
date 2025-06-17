@@ -13,7 +13,10 @@ const props = defineProps({
 
 <template>
     <div class="service-card">
-        <div class="img" :style="`background-image:url(${service?.image})`"></div>
+        <!-- <div class="img" :style="`background-image:url(${service?.image})`"></div> -->
+        <div class="img" :style="`background-image:url(https://placehold.co/600x400)`"></div>
+
+        
         <div class="info">
             <h2 class="title blue">{{ service?.title }}</h2>
             <p class="big">{{ service?.description }}</p>
