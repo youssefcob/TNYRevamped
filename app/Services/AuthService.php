@@ -82,10 +82,21 @@ class AuthService
             ]);
 
             // $token = $user->createToken('UserToken')->accessToken;
+            $token = '';
+            switch ($request->user_type) {
+                case 'employer':
+                    $token = $this->generateEmployerToken($user);
+                    $user->load('employer');
+                    break;
+                case 'job_seeker':
+                    $token = $this->generateJobSeekerToken($user);
+                    $user->load('jobSeeker');
+                    break;
+            }
 
             return [
                 'success' => true,
-                // 'token' => $token,
+                'token' => $token,
                 'data' => $user
             ];
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -121,12 +132,17 @@ class AuthService
                 ];
             }
 
-            $token = $user->createToken('UserToken')->accessToken;
-            if ($user->user_type == 'employer') {
-                $user->load('employer');
-            }
-            if ($user->user_type == 'job_seeker') {
-                $user->load('jobSeeker');
+            $token = '';
+
+            switch ($user->user_type) {
+                case 'employer':
+                    $token = $this->generateEmployerToken($user);
+                    $user->load('employer');
+                    break;
+                case 'job_seeker':
+                    $token = $this->generateJobSeekerToken($user);
+                    $user->load('jobSeeker');
+                    break;
             }
 
             return [

@@ -15,6 +15,9 @@ use App\Http\Controllers\JobSeekerController;
 // use App\Http\Controllers\InsightsController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\SystemServiceController;
+use App\Http\Controllers\UserAuthController;
+use App\Http\Controllers\Views\Auth\LoginController;
+use App\Http\Controllers\Views\Auth\RegisterController;
 use App\Services\GoogleDrive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -77,7 +80,13 @@ require __DIR__ . '/bids.php';
 // });
 
 Route::post('/admin/login', [AdminAuthController::class, 'adminLogin']);
-Route::middleware('auth:api')->group(function () {
+
+Route::prefix('auth')->group(function () {
+    Route::post('/register', [UserAuthController::class, 'register'])->name('register.api');
+    Route::post('/login', [UserAuthController::class, 'login'])->name('login.api');
+});
+
+Route::middleware('auth:api', 'scope:admin')->group(function () {
     //Applications routes
     Route::get('/applications', [ApplicationsController::class, 'getApplications'])->name('get.applications');
     //TODO: When delete application make sure to delete the application's files from Cloudinary.
