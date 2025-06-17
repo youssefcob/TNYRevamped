@@ -21,11 +21,12 @@ class DatabaseSeeder extends Seeder
     public function run(): void
     {
 
-        $this->call(AdminsTableSeeder::class);
-        $this->call(MailListSeeder::class);
+        // $this->call(AdminsTableSeeder::class);
+        // $this->call(MailListSeeder::class);
         $this->call(JobSeekersTableSeeder::class);
-        $this->call(PositionsTableSeeder::class);
-        $this->call(ServicesTableSeeder::class);
+        // $this->call(PositionsTableSeeder::class);
+        // $this->call(ServicesTableSeeder::class);
+
         // Position::factory(10)->create();
         // Application::factory(40)->create();
         // Message::factory(10)->create();
