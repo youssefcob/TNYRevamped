@@ -40,31 +40,34 @@ class JobSeekerService
                 $jobSeeker = JobSeeker::with(['user', 'position'])
                     ->find($id);
             } else {
-                $jobSeeker = JobSeeker::with(['user', 'position']);
-                if ($startDate) {
-                    $filteredJobSeekers = $this->startDateFilter($jobSeeker, $startDate);
+                $query = JobSeeker::with(['user', 'position']);
+                
+                // Apply all filters to the base query
+                if($startDate){
+                    $filteredJobSeekers = $this->startDateFilter($query, $startDate);
                     if (!$filteredJobSeekers['success']) {
                         return $filteredJobSeekers;
                     }
-                    $jobSeeker = $filteredJobSeekers['data'];
+                    $query = $filteredJobSeekers['data'];
                 }
-                if ($endDate) {
-                    $filteredJobSeekers = $this->endDateFilter($jobSeeker, $endDate);
+                
+                if($endDate){
+                    $filteredJobSeekers = $this->endDateFilter($query, $endDate);
                     if (!$filteredJobSeekers['success']) {
                         return $filteredJobSeekers;
                     }
-                    $jobSeeker = $filteredJobSeekers['data'];
+                    $query = $filteredJobSeekers['data'];
                 }
+                
                 if ($status) {
-                    $filteredJobSeekers = $this->statusFilter($jobSeeker, $status);
+                    $filteredJobSeekers = $this->statusFilter($query, $status);
                     if (!$filteredJobSeekers['success']) {
                         return $filteredJobSeekers;
                     }
-                    $jobSeeker = $filteredJobSeekers['data'];
+                    $query = $filteredJobSeekers['data'];
                 }
-
-
-                $jobSeeker = $jobSeeker->paginate(10);
+                
+                $jobSeeker = $query->paginate(10);
             }
 
             return [
@@ -83,13 +86,19 @@ class JobSeekerService
     public function updateStatus(Request $request)
     {
         try {
+            $status = $request->query('status');
+            if($status){
+                $status = strtolower($status);
+            }
+            $request->merge(['status' => $status]);
+            // dd($status);
             $request->validate([
                 'id' => 'required|integer|exists:job_seekers,id',
                 'status' => 'required|string|in:pending,approved,rejected'
             ]);
 
             $jobSeeker = JobSeeker::findOrFail($request->query('id'));
-            $jobSeeker->status = $request->query('status');
+            $jobSeeker->status = $status;
             $jobSeeker->save();
 
             return [
