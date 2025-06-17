@@ -77,4 +77,61 @@ class RegisterController extends Controller
             ]);
         };
     }
+
+    function ApiSubmit(Request $request)
+    {
+        try {
+            //validate request
+            $request->validate([
+                'name' => ['required', 'string', 'max:30'],
+                'password' => ['required', 'confirmed'],
+                'email' => ['required', 'email', 'unique:users,email'],
+                'type' => ['required', 'in:employer,job_seeker']
+            ]);
+
+            //create user
+            $user = User::create([
+                'name' => $request->name,
+                'password' => Hash::make($request->password),
+                'email' => $request->email,
+                'user_type' => $request->type
+            ]);
+
+            $token = '';
+
+
+
+            switch ($request->type) {
+                case 'employer':
+                    $token = $this->generateEmployerToken($user);
+                    $user->load('employer');
+                    break;
+                case 'job_seeker':
+                    $token = $this->generateJobSeekerToken($user);
+                    $user->load('jobSeeker');
+                    break;
+            }
+
+            return response()->json([
+            'user' => $user,
+            'tokens' => $token
+            ]);
+
+            // cookie()->queue('token', $token['access_token'], 60 * 24, '/', null, true, false, false, 'strict');
+            // return redirect()->route('home');
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return inertia('Auth/Register', [
+                'errors' => [$e->getMessage()]
+            ]);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return inertia('Auth/Register', [
+                'errors' => [$e->getMessage()]
+            ]);
+        } catch (\Exception $e) {
+            return inertia('Auth/Register', [
+                'errors' => [$e->getMessage()]
+            ]);
+        };
+    }
+
 }

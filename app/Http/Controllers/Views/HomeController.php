@@ -12,6 +12,7 @@ use App\Services\Content\ServicesService;
 use App\Services\Content\TeamService;
 use App\Services\Content\TestimonialsService;
 use App\Services\HeroService;
+use App\Services\JobSeekerService;
 use App\Services\ViewServices\HomeService;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -34,16 +35,17 @@ class HomeController extends Controller
                 $data['user'] = $user;
                 $data['token'] = $token;
 
-                if($user->hasRole('employer')) {
+                if ($user->hasRole('employer')) {
                     $data['employer'] = $user->employer;
+                    $data['talent'] = JobSeekerService::getTalent();
                     return Inertia::render('Employers/EmployersHome', $data);
-
                 } elseif ($user->hasRole('job_seeker')) {
                     $data['job_seeker'] = $user->jobSeeker;
                     return Inertia::render('JobSeekers/JobSeekersHome', $data);
                 }
             }
         }
+        $data['talent'] = JobSeekerService::getTalent();
 
         return Inertia::render('Home', $data);
     }
@@ -100,6 +102,19 @@ class HomeController extends Controller
     }
 
 
+    public function talents(Request $request)
+    {
+        $data = [];
+
+        $jobSeekers = JobSeekerService::get( $request);
+        if($jobSeekers['success']){
+            $data['job_seekers'] = $jobSeekers['data'];
+        } else {
+            Log::error('Failed to fetch job seekers: ' . $jobSeekers['message']);
+            $data['job_seekers'] = [];
+        }
+        return Inertia::render('Talents', $data);
+    }
 
 
 
