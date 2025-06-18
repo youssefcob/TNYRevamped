@@ -134,7 +134,7 @@ trait JobSeekerHelperFunctions
         $fields = [
             'phone_number', 'position_id', 'experience', 'facility_type', 'payment_type',
             'preferred_location', 'employment_status', 'availability_to_start', 'rate_per_hour',
-            'licensing', 'legal_status', 'gender'
+            'licensing', 'legal_status', 'gender', 'shift_type'
         ];
 
         // dd($request->all());
