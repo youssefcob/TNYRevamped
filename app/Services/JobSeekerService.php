@@ -45,10 +45,10 @@ class JobSeekerService
             ]);
 
             if ($id) {
-                $jobSeeker = JobSeeker::with(['user', 'position'])
+                $jobSeeker = JobSeeker::with(['user', 'position','languages'])
                     ->find($id);
             } else {
-                $query = JobSeeker::with(['user', 'position']);
+                $query = JobSeeker::with(['user', 'position','languages']);
                 
                 // Apply all filters to the base query
                 if($startDate){
