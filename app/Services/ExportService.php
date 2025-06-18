@@ -3,6 +3,8 @@
 namespace App\Services;
 
 use App\Models\Application;
+use App\Models\Employer;
+use App\Models\JobSeeker;
 use App\Models\ServiceRequest;
 use App\TableFiltersHelperFunctions;
 use Exception;
@@ -17,7 +19,7 @@ class ExportService
     {
         try {
             $request->validate([
-                'table' => 'required|in:applications,service_requests',
+                'table' => 'required|in:job_seekers,employers',
             ]);
 
             $startDate = $request->input('start_date');
@@ -25,14 +27,16 @@ class ExportService
             $table = $request->input('table');
             $status = $request->input('status');
 
-            $query = $table === 'applications'
-                ? Application::with(['position' => function ($q) {
+            $query = $table === 'job_seekers'
+                ? JobSeeker::with(['user' => function ($q) {
+                    $q->select('id', 'name', 'email');
+                }, 'position' => function ($q) {
                     $q->select('id', 'title');
                 }])
-                : ServiceRequest::with(['service' => function ($query) {
-                    $query->select('id', 'title');
+                : Employer::with(['user' => function ($q) {
+                    $q->select('id', 'name', 'email');
                 }]);
-                // dd('s');
+                
             if ($startDate) {
                 $filteredQuery = $this->startDateFilter($query, $startDate);
                 if (!$filteredQuery['success']) return $filteredQuery;
@@ -51,6 +55,7 @@ class ExportService
                 }
                 $query = $filteredQuery['data'];
             }
+
 
             // Fetch data
             $data = $query->get();
@@ -74,9 +79,22 @@ class ExportService
                 $row = $row->toArray();
             
                 // Flatten relationship based on table
-                if ($table === 'applications' && isset($row['position'])) {
+                if ($table === 'job_seekers') {
+                    $row['name'] = $row['user']['name'];
+                    $row['email'] = $row['user']['email'];
                     $row['position'] = $row['position']['title'];
+                    // dd($row);
+                    unset($row['user_id']);
                     unset($row['position_id']);
+                    unset($row['user']);
+                    // unset($row['position']);
+                }
+
+                if ($table === 'employers') {
+                    $row['name'] = $row['user']['name'];
+                    $row['email'] = $row['user']['email'];
+                    unset($row['user_id']);
+                    unset($row['user']);
                 }
             
                 if ($table === 'service_requests' && isset($row['service'])) {
@@ -90,11 +108,18 @@ class ExportService
                 }
             
                 $csvContent .= implode(',', array_map(function ($value) {
+                    // Handle array values by converting to JSON string
+                    if (is_array($value)) {
+                        $value = json_encode($value);
+                    }
+                    // Handle null values
+                    if ($value === null) {
+                        $value = '';
+                    }
                     return '"' . str_replace('"', '""', $value) . '"';
                 }, array_values($row))) . "\n";
             }
             
-            // dd('s');
             // Store file
             // Storage::disk('public')->put($path, $csvContent);
             file_put_contents(public_path($path), $csvContent);
