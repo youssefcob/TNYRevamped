@@ -59,4 +59,10 @@ class JobSeekerController extends Controller
         $response = $this->service->createOrUpdateJobSeeker($request, $userId);
         return $response['success'] ? $this->sendResponse($response) : $this->sendError($response);
     }
+    public function getJobSeekerProfile(Request $request)
+    {
+        $userId = Auth::guard('user')->user()->id;
+        $response = $this->service->getJobSeekerProfile($userId);
+        return $response['success'] ? $this->sendResponse($response) : $this->sendError($response);
+    }
 }

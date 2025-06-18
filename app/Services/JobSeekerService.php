@@ -76,7 +76,7 @@ class JobSeekerService
                 }
 
 
-                $jobSeeker = $jobSeeker->paginate($perPage);
+                $jobSeeker = $query->paginate($perPage);
             }
 
             return [
@@ -264,6 +264,23 @@ class JobSeekerService
         } else {
             // Create
             return $this->createJobSeeker($request, $userId);
+        }
+    }
+    public function getJobSeekerProfile($userId)
+    {
+        try {
+            $jobSeeker = JobSeeker::where('user_id', $userId)
+            ->with('user', 'languages', 'position')
+            ->first();
+            return [
+                'success' => true,
+                'data' => $jobSeeker
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'success' => false,
+                'message' => $th->getMessage()
+            ];
         }
     }
 }
