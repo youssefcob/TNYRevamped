@@ -8,6 +8,17 @@ import Hroute from '@/SharedComponents/hroute.vue';
 
 const route = useRoute();
 
+const props = defineProps({
+    userIsLoggedIn: {
+        type: Boolean,
+        default: false
+    },
+    userData: {
+        type: Object,
+        default: () => ({})
+    }
+});
+
 const isActive = (link: string) => {
     return false;
     return route.hash === link;
@@ -65,10 +76,13 @@ onUnmounted(() => {
                 <li role="menuitem" :active="isActive('#contact')">
                     <Hroute on="/" to="#contact" :active="isActive('#contact')">Contact Us</Hroute>
                 </li>
-                <div class="auth-btns-wrapper">
-                    <Link href="/login" class="btn">Login</Link>
-                    <Link href="/register" class="btn">Sign up</Link>
-                </div>
+                <div v-if="!userIsLoggedIn"  class="auth-btns-wrapper">
+            <Link href="/login" class="btn">Login</Link>
+            <Link href="/register" class="btn">Sign up</Link>
+        </div>
+        <div v-if="userIsLoggedIn && userData && userData.user_type == 'job_seeker'" class="auth-btns-wrapper">
+            <Link href="/apply"  class="btn">Apply Now</Link>
+        </div>
             </ul>
 
 

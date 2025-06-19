@@ -3,6 +3,7 @@ import { Link } from '@inertiajs/vue3';
 import NavList from './NavList.vue';
 import NavListResponsive from './NavListResponsive.vue';
 import user from '@/mixins/user';
+import ProfileDropDown from './ProfileDropDown.vue';
 
 const userIsLoggedIn = user.loggedIn();
 const userData = user.get();
@@ -16,18 +17,20 @@ const userData = user.get();
         <div class="navlist-desktop">
             <NavList />
         </div>
-        <!-- <Link href="/apply" class="btn">Apply Now</Link> -->
 
-        <!-- {{ userData }} -->
-        <div v-if="!userIsLoggedIn"  class="auth-btns-wrapper">
-            <Link href="/login" class="btn">Login</Link>
-            <Link href="/register" class="btn">Sign up</Link>
-        </div>
-        <div v-if="userIsLoggedIn && userData.user_type == 'job_seeker'" class="auth-btns-wrapper">
-            <Link href="/logout" method="post" class="btn">Apply Now</Link>
-        </div>
-        <div class="navlist-mobile">
-            <NavListResponsive />
+        <div class="nav-btns">
+            <div v-if="!userIsLoggedIn" class="auth-btns-wrapper">
+                <Link href="/login" class="btn">Login</Link>
+                <Link href="/register" class="btn">Sign up</Link>
+            </div>
+            <div v-if="userIsLoggedIn && userData && userData.user_type == 'job_seeker'" class="auth-btns-wrapper">
+                <Link href="/apply" class="btn">Apply Now</Link>
+            </div>
+            <div class="navlist-mobile">
+                <NavListResponsive :userIsLoggedIn="userIsLoggedIn" :userData="userData" />
+            </div>
+            <div v-if="userIsLoggedIn && userData" class="profile"><ProfileDropDown/></div>
+            
         </div>
 
     </nav>
@@ -54,14 +57,30 @@ nav {
         width: clamp(100px, 7vw, 300px);
     }
 
-    .auth-btns-wrapper{
-        display:flex;
-        gap:1rem;
+    .nav-btns {
+        display: flex;
+        gap: 1rem;
+
+        .auth-btns-wrapper {
+            display: flex;
+            gap: 1rem;
+
+
+        }
+
+        .profile {
+            // background-color: red;
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
     }
+
+
     @include media-max(desktop) {
 
         .navlist-desktop,
-        .auth-btns-wrapper {
+        .nav-btns .auth-btns-wrapper {
             display: none;
         }
 
