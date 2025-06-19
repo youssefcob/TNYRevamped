@@ -52,6 +52,8 @@ class HomeController extends Controller
         return Inertia::render('Home', $data);
     }
 
+  
+
     public function services()
     {
         $data = [];
@@ -82,7 +84,7 @@ class HomeController extends Controller
 
         $data['jobs'] = JobsService::get();
         $data['position'] = $position;
-        return Inertia::render('Apply', $data);
+        return Inertia::render('JobSeekers/Apply', $data);
     }
 
 
