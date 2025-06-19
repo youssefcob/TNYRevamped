@@ -12,8 +12,17 @@ const props = defineProps({
     default: String,
     background: String,
     label: String,
+    value: String,
 });
 let filteredList = ref(props.list);
+const emit = defineEmits([`input`, 'update:modelValue']);
+
+const emitInput = () => {
+    // emit(`input`, (e.target as HTMLInputElement).value);
+    emit(`update:modelValue`, (input.value));
+    emit(`input`, (input.value));
+
+}
 const makeid = (length: number) => {
     let result = '';
     const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
@@ -60,7 +69,7 @@ const hideDropDown = () => {
 }
 
 
-const emit = defineEmits([`input`, 'update:modelValue']);
+
 
 const changeInput = (insurance: string) => {
     input.value = insurance;
@@ -110,6 +119,11 @@ onMounted(() => {
 
     if (props.default) {
         input.value = props.default;
+        emitInput();
+    }
+    if(props.value) {
+        input.value = props.value;
+        emitInput();
     }
 
 
@@ -121,6 +135,7 @@ onMounted(() => {
     } else {
         asterisk.value?.classList.remove('active');
     }
+
 })
 
 onUnmounted(() => {
