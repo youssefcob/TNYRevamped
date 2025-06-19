@@ -4,6 +4,7 @@ use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\Views\Auth\LoginController;
 use App\Http\Controllers\Views\Auth\RegisterController;
 use App\Http\Controllers\Views\HomeController;
+use App\Http\Controllers\Views\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use Inertia\Inertia;
@@ -50,6 +51,14 @@ Route::get('/job-seekers', [HomeController::class, 'jobSeekers'])
 // Route::post('/web-login', [UserAuthController::class, 'loginWeb'])
 // ->name('login.web');
 Route::get('/talents', [HomeController::class, 'talents']);
+
+Route::get('/profile', [ProfileController::class, 'index'])
+    ->middleware('auth.view:any')
+    ->name('job-seeker.profile');
+
+Route::get('/profile/edit', [ProfileController::class, 'editView'])
+    ->middleware('auth.view:any')
+    ->name('job-seeker.profile.edit');
 
 Route::get('/', [HomeController::class, 'view'])
 ->name('home');
