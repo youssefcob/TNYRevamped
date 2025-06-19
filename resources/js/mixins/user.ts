@@ -35,8 +35,10 @@ export default {
 
     loggedIn: () => {
         const token = (() => {
-            const match = document.cookie.match(/token=([^;]+)/);
-            if (match) {
+            const cookie = document.cookie.match(/token=([^;]+)/);
+            const token = localStorage.getItem('token');
+            const user = localStorage.getItem('user');
+            if (cookie && token && user) {
                 return true;
             }
             return false;
