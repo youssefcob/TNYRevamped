@@ -29,7 +29,7 @@ class AuthView
         /** @var \App\Models\User $user */
         $user = Auth::guard('user')->user();
         // dd($user->toArray());
-        if ($user->hasRole($role)) {
+        if ($user->hasRole($role) || $role == 'any') {
             return $next($request);
             
         }
