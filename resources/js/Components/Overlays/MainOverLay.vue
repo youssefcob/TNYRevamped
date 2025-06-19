@@ -16,7 +16,7 @@ import Footer from '../Footer/Foot.vue';
 
 <style scoped lang="scss">
 .main-body {
-    padding-top:12vh;
-    padding-bottom:2vh;
+    padding-top:9vh;
+    // padding-bottom:2vh;
 }
 </style>
