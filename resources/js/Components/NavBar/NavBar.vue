@@ -4,8 +4,8 @@ import NavList from './NavList.vue';
 import NavListResponsive from './NavListResponsive.vue';
 import user from '@/mixins/user';
 
-const userData = user.get()
-console.log(userData);
+const userIsLoggedIn = user.loggedIn();
+const userData = user.get();
 
 
 </script>
@@ -19,11 +19,11 @@ console.log(userData);
         <!-- <Link href="/apply" class="btn">Apply Now</Link> -->
 
         <!-- {{ userData }} -->
-        <div v-if="!userData"  class="auth-btns-wrapper">
+        <div v-if="!userIsLoggedIn"  class="auth-btns-wrapper">
             <Link href="/login" class="btn">Login</Link>
             <Link href="/register" class="btn">Sign up</Link>
         </div>
-        <div v-if="userData.user_type == 'job_seeker'" class="auth-btns-wrapper">
+        <div v-if="userIsLoggedIn && userData.user_type == 'job_seeker'" class="auth-btns-wrapper">
             <Link href="/logout" method="post" class="btn">Apply Now</Link>
         </div>
         <div class="navlist-mobile">

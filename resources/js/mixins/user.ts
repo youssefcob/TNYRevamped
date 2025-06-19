@@ -33,11 +33,31 @@ export default {
         return null;
     }),
 
-    loggedIn: async () => {
-        return fetch('/api/user', { credentials: 'include' })
-            .then(res => res.ok ? res.json() : null)
-            .then(user => !!user)
-            .catch(() => false);
+    loggedIn: () => {
+        const token = (() => {
+            const match = document.cookie.match(/token=([^;]+)/);
+            if (match) {
+                return true;
+            }
+            return false;
+        }
+        )();
+
+        const tokenExpired = (() => {
+            const tokenInfoStr = localStorage.getItem('token_info');
+            if (!token || !tokenInfoStr) {
+                return false;
+            }
+            const tokenInfo: Token = JSON.parse(tokenInfoStr);
+            return tokenInfo.expires_at > Date.now();
+        })();
+
+        if (token && !tokenExpired) {
+            return true;
+        } else {
+            return false;
+        }
+
     },
     type: (() => {
         const user = localStorage.getItem('user');

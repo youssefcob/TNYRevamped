@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Employer;
 use App\Models\Vacancy;
 use App\Models\Position;
 use Illuminate\Database\Eloquent\Factories\Factory;
@@ -13,19 +14,25 @@ class VacancyFactory extends Factory
     public function definition(): array
     {
         $position = Position::inRandomOrder()->first() ?? Position::factory()->create();
-
+        $employer =  Employer::factory()->create();
         return [
-            'facility_name' => $this->faker->company(),
-            'mobile_number' => $this->faker->phoneNumber(),
-            'email' => $this->faker->companyEmail(),
-            'address' => $this->faker->address(),
-            'shift_type' => $this->faker->randomElement(['Day', 'Night', 'Rotating']),
-            'from' => $this->faker->dateTimeBetween('now', '+1 month'),
-            'to' => $this->faker->dateTimeBetween('+1 month', '+3 months'),
-            'license' => $this->faker->randomElement(['RN', 'LPN', 'CNA']),
-            'facility_type' => $this->faker->randomElement(['Hospital', 'Nursing Home', 'Clinic', 'Rehabilitation Center']),
-            'min_experience' => $this->faker->numberBetween(0, 10),
+            'employer_id' => $employer->id,
             'position_id' => $position->id,
+            'borough' => $this->faker->city(),
+            'address' => $this->faker->address(),
+            'shift_details' => $this->faker->randomElement(['Day Shift', 'Night Shift', 'Flexible Hours']),
+            'experience' => $this->faker->numberBetween(1, 5),
+            'facility_type' => $this->faker->word(),
+            'payment_type' => $this->faker->word(),
+            'rate_per_hour' => $this->faker->randomFloat(2, 10, 50),
+            'license_required' => $this->faker->boolean(),
+            'legal_status' => $this->faker->word(),
+            'status' => $this->faker->randomElement(['open', 'closed', 'pending']),
+            'gender_pref' => $this->faker->randomElement(['Male','Female','Any']),
+            'work_days' => $this->faker->randomElements(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], $this->faker->numberBetween(1, 7)),
+            'availability' => $this->faker->numberBetween(0, 60),
+            'is_featured' => $this->faker->boolean(30), 
+
         ];
     }
 }

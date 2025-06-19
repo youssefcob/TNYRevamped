@@ -20,6 +20,7 @@ class AuthView
     {
         // dd($role);
         $token = $request->cookie('token');
+        // dd($token);
         if (!$token) {
             return redirect()->route('login');
         }
@@ -27,9 +28,10 @@ class AuthView
 
         /** @var \App\Models\User $user */
         $user = Auth::guard('user')->user();
-        // dd($user);
+        // dd($user->toArray());
         if ($user->hasRole($role)) {
             return $next($request);
+            
         }
         return redirect()->route('login.web');
         // return 

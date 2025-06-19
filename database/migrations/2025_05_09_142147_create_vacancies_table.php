@@ -22,12 +22,13 @@ return new class extends Migration
             $table->string('facility_type')->nullable();
             $table->string('payment_type')->nullable();
             $table->decimal('rate_per_hour', 8, 2)->nullable();
-            $table->string('license_required')->nullable();
+            $table->boolean('license_required')->nullable();
             $table->string('legal_status')->nullable();
             $table->string('status')->nullable();
             $table->string('gender_pref')->nullable();
             $table->string('work_days')->nullable();
             $table->string('availability')->nullable();
+            $table->boolean('is_featured')->default(false);
             $table->timestamps();
         });
     }

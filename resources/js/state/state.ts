@@ -72,3 +72,15 @@ const assignTalent = (talent:any[]) => {
   talentState.value = talent;
 }
 export { talentState, assignTalent };
+
+const vacanciesState:Ref<any[]> = ref([]);
+const assignVacancies = (vacancies:any[]) => {
+  vacanciesState.value = vacancies;
+}
+export { vacanciesState, assignVacancies };
+
+const jobSeekerProfileState:Ref<any> = ref(null);
+const assignJobSeekerProfile = (profile:any) => {
+  jobSeekerProfileState.value = profile;
+}
+export { jobSeekerProfileState, assignJobSeekerProfile };

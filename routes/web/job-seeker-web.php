@@ -3,7 +3,13 @@
 use App\Http\Controllers\Views\JobSeekerViewsController;
 use Illuminate\Support\Facades\Route;
 
-Route::prefix('js')->middleware(['auth:user','scope:job-seeker'])->group(function (){
+Route::prefix('js')->middleware(['auth:user', 'scope:job-seeker'])->group(function () {
 
-    Route::get('/',[JobSeekerViewsController::class,'home']);
+    Route::get('/', [JobSeekerViewsController::class, 'home']);
 });
+
+Route::get('/vacancies', [JobSeekerViewsController::class, 'vacancies'])
+    ->middleware('auth.view:job_seeker')
+    ->name('job-seeker.vacancies');
+
+    

@@ -8,14 +8,16 @@ import NewsAndEvents from '@/Components/Home/News/NewsAndEvents.vue';
 import Team from '@/Components/Home/Team/Team.vue';
 import Testimonials from '@/Components/Home/Testimonials/Testimonials.vue';
 import MainOverLay from '@/Components/Overlays/MainOverLay.vue';
-import { Client, Hero as HeroType, Job, JobSeeker, News, Service, Team as TeamType, Testimonial, User } from '@/interface/Types';
+import { Client, Hero as HeroType, Job, JobSeeker, News, Service, Team as TeamType, Testimonial, User, Vacancy } from '@/interface/Types';
 import user, { Token } from '@/mixins/user';
-import { assignClient, assignHero, assignJob, assignNews, assignService, assignTalent, assignTeam, assignTestimonial } from '@/state/state';
+import { assignClient, assignHero, assignJob, assignJobSeekerProfile, assignNews, assignService, assignTalent, assignTeam, assignTestimonial, assignVacancies } from '@/state/state';
 import { onMounted } from 'vue';
 import WhatSetsUs from '@/Components/Home/WhatSetsUs/WhatSetsUs.vue';
 import Numbers from '@/Components/Home/Numbers/Numbers.vue';
 import AboutUs from '@/Components/Home/AboutUs/AboutUs.vue';
 import Services from '@/Components/Home/Services/Services.vue';
+import { snack } from '@/mixins/toast';
+import Vacancies from '@/Components/JobSeeker/Home/Vacancies/Vacancies.vue';
 
 
 const props = defineProps({
@@ -49,7 +51,14 @@ const props = defineProps({
     },
     team: {
         type: Object as () => TeamType[]
+    },
+    vacancies: {
+        type: Object as () => Vacancy[]
+    },
+    job_seeker: {
+        type: Object as () => JobSeeker[]
     }
+
 });
 
 onMounted(() => {
@@ -80,8 +89,20 @@ onMounted(() => {
     if (props.token) {
         user.setToken(props.token);
     }
-    if (props.talent) {
-        assignTalent(props.talent);
+    if (props.vacancies) {
+        assignVacancies(props.vacancies);
+    }
+    if(props.job_seeker) {
+        assignJobSeekerProfile(props.job_seeker);
+    }
+});
+
+// console.log('job_seeker', props.job_seeker);
+// console.log('vacancies', props.vacancies);
+
+onMounted(() => {
+    if(!props.job_seeker) {
+        snack.error('Complete your profile to apply for jobs');
     }
 });
 </script>
@@ -98,9 +119,9 @@ onMounted(() => {
         <section>
             <Numbers />
         </section>
-        <!-- <section> -->
-            <!-- <Talents /> -->
-        <!-- </section> -->
+        <section>
+            <Vacancies />
+        </section>
         <section>
             <WhatSetsUs />
         </section>

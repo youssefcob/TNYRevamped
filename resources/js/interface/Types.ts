@@ -103,6 +103,29 @@ export type JobSeeker = {
     user: User;
 }
 
+export type Vacancy = {
+    id: number;
+    employer_id: number;
+    position_id: number;
+    borough: string;
+    address: string;
+    shift_details: string;
+    experience: number;
+    facility_type: string;
+    payment_type: string;
+    rate_per_hour: string;
+    license_required: boolean;
+    legal_status: string;
+    status: string;
+    gender_pref: string;
+    work_days: string;
+    availability: string;
+    is_featured: boolean;
+    created_at: string;
+    updated_at: string;
+    position: Job;
+}
+
 type Links = {
     url: string | null;
     label: string;

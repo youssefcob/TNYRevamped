@@ -9,6 +9,13 @@ use Illuminate\Validation\ValidationException;
 class PositionService
 {
 
+    public static function get()
+    {
+        $service = new self();
+        $positions = $service->getPositions(request());
+
+        return $positions['data'] ?? [];
+    }
     // Your service logic goes here
     /**
      * Retrieves all Position from the database or a specific position.

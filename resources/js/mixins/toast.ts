@@ -6,7 +6,7 @@ export const snack = {
 
     error: (message: string) => {
         toast.error(message, {
-            position: "bottom-right",
+            position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,
@@ -15,7 +15,7 @@ export const snack = {
     },
     success: (message: string) => {
         toast.success(message, {
-            position: "bottom-right",
+            position: "top-right",
             autoClose: 3000,
             hideProgressBar: false,
             closeOnClick: true,

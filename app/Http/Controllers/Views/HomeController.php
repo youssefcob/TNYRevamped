@@ -11,6 +11,7 @@ use App\Services\Content\NewsService;
 use App\Services\Content\ServicesService;
 use App\Services\Content\TeamService;
 use App\Services\Content\TestimonialsService;
+use App\Services\Employer\VacanciesService;
 use App\Services\HeroService;
 use App\Services\JobSeekerService;
 use App\Services\ViewServices\HomeService;
@@ -41,6 +42,7 @@ class HomeController extends Controller
                     return Inertia::render('Employers/EmployersHome', $data);
                 } elseif ($user->hasRole('job_seeker')) {
                     $data['job_seeker'] = $user->jobSeeker;
+                    $data['vacancies'] = VacanciesService::featured();
                     return Inertia::render('JobSeekers/JobSeekersHome', $data);
                 }
             }

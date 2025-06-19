@@ -2,9 +2,11 @@
 
 namespace App\Services\Employer;
 
+use App\Models\Position;
+use App\Models\Vacancy;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use Illuminate\Support\Facades\Log;
 
 class VacanciesService
 {
@@ -67,6 +69,14 @@ class VacanciesService
                 'message' => $e->getMessage()
             ];
         }
+    }
+
+    public static function featured()
+    {
+        $vacancies = Vacancy::where('is_featured', true)
+            ->with('position')
+            ->get();
+        return $vacancies;
     }
 
     public function employerGetVacancies()
@@ -205,16 +215,16 @@ class VacanciesService
                 ];
             }
             $employer = $user->employer()->first();
-            
+
             if (!$employer) {
                 return [
                     'success' => false,
                     'message' => 'Employer not found.'
                 ];
             }
-            
+
             $vacancies = $employer->vacancies()->with('position')->get();
-            
+
             return [
                 'success' => true,
                 'data' => [
@@ -259,20 +269,41 @@ class VacanciesService
         }
     }
 
+    public static function get(Request $request)
+    {
+        $service = new self();
+        $vacancies = $service->filterVacancies($request, 10);
+        return $vacancies['data'];
+    }
 
-    public function filterVacancies(Request $request)
+    public function filterVacancies(Request $request, $perPage = 10)
     {
         $query = \App\Models\Vacancy::query();
 
-        if ($request->has('position_id')) {
-            $query->where('position_id', $request->input('position_id'));
+        if ($request->has('position')) {
+            $position = Position::where('title', '=',  $request->input('position'))->first();
+
+            if ($position) {
+                $query->where('position_id', $position->id);
+            }
         }
+
         if ($request->has('borough')) {
             $query->where('borough', 'like', '%' . $request->input('borough') . '%');
         }
-       
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $query->where(function ($q) use ($search) {
+                $q->where('borough', 'like', '%' . $search . '%')
+                    ->orWhere('address', 'like', '%' . $search . '%')
+                    ->orWhereHas('position', function ($q) use ($search) {
+                        $q->where('title', 'like', '%' . $search . '%');
+                    });
+            });
+        }
 
-        $vacancies = $query->with('position')->get();
+
+        $vacancies = $query->with('position')->paginate($perPage);
 
         return [
             'success' => true,
