@@ -15,7 +15,17 @@ const props = defineProps({
 
 const loading = ref(false);
 
-function bid() {
+
+
+function apply() {
+    if (!user.loggedIn()) {
+        snack.error('Please login to apply for this job');
+        return;
+    }
+    if(!user.get().jobSeeker) {
+        snack.error('Please complete your profile before applying for jobs');
+        return;
+    }
     console.log('Bid function called');
 }
 </script>
@@ -108,7 +118,7 @@ function bid() {
                 </div>
             </div>
             <div class="btn-wrapper">
-                <Btn class="btn" @click="bid()" :loading="loading">Apply Now</Btn>
+                <Btn class="btn" @click="apply()" :loading="loading">Apply Now</Btn>
             </div>
         </div>
     </div>
