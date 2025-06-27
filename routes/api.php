@@ -4,6 +4,7 @@
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ApplicationsController;
 use App\Http\Controllers\Content\HeroController;
+use App\Http\Controllers\Employer\EmployerController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\MailListController;
 use App\Http\Controllers\MessageController;
@@ -139,6 +140,9 @@ Route::middleware('auth:api', 'scope:admin')->group(function () {
     Route::delete('/job-seekers/{id}', [JobSeekerController::class, 'destroy'])->name('delete.jobSeeker');
     
     Route::put('/job-seeker/talent/{id}', [JobSeekerController::class, 'updateTalent'])->name('update.jobSeekerTalent');
+
+    // Filters routes
+    Route::get('/filters/employers', [EmployerController::class, 'getEmployerFilters'])->name('get.employer.filters');
 });
 
 
