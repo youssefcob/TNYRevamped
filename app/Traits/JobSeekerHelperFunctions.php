@@ -42,6 +42,7 @@ trait JobSeekerHelperFunctions
                 'gender' => 'nullable|string|in:' . implode(',', self::$allowedGenders),
                 'languages' => 'array',
                 'languages.*' => 'integer|exists:languages,id',
+                'dob' => 'nullable|date',
             ]);
             return true;
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -86,6 +87,8 @@ trait JobSeekerHelperFunctions
             'is_talent' => $request->is_talent ?? false,
             'status' => $request->status ?? 'pending',
             'gender' => $request->gender,
+            'dob' => $request->dob,
+            'shift_type' => $request->shift_type,
         ]);
     }
 
@@ -118,6 +121,7 @@ trait JobSeekerHelperFunctions
                 'languages' => 'sometimes|array',
                 'languages.*' => 'integer|exists:languages,id',
                 'name' => 'sometimes|string|max:255',
+                'dob' => 'sometimes|date',
             ]);
             return true;
         } catch (\Illuminate\Validation\ValidationException $e) {

@@ -181,7 +181,7 @@ defineExpose({
         transition: all 0.3s ease-in-out;
 
         &[disabled] {
-            background-color: $grey;
+            background-color: #959494;
         }
 
         // @media screen and (max-width: 800px) {

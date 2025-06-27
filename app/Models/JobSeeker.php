@@ -22,6 +22,7 @@ class JobSeeker extends Model
         'experience',
         'facility_type',
         'payment_type',
+        'dob',
         // 'languages',
         'preferred_location',
         'employment_status',

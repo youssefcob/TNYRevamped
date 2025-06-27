@@ -28,12 +28,14 @@ const props = defineProps({
                 <div class="form-container">
                     <div class="form-wrapper">
                         <h3>Edit Profile </h3>
+                        <br>
+                        
                         <form action="" class="form">
                             <div class="left-flex">
                                 <InputField label="Your Name" placeHolder="Enter your name" type="text"
                                     :value="user.name" />
                                 <InputField label="Email" placeHolder="Enter your email" type="email"
-                                    :value="user.email" />
+                                    :value="user.email" disabled/>
 
                                 <InputField label="Mobile Number" placeHolder="Enter your mobile number" type="tel"
                                     :value="job_seeker?.phone_number" />
@@ -61,7 +63,7 @@ const props = defineProps({
                                 <div class="split">
                                 <InputField label="Salary/Hour" placeHolder="Enter salary per hour" type="number"
                                     :value="job_seeker?.rate_per_hour?.toString()" />
-                                <InputField label="Availaiblity to start" placeHolder="days" type="number"
+                                <InputField label="Availability to start" placeHolder="days" type="number"
                                     :value="job_seeker?.availability_to_start?.toString()" />
                                 </div>
                                 <div class="split">

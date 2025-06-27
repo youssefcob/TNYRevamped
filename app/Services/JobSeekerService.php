@@ -76,7 +76,7 @@ class JobSeekerService
                 }
 
 
-                $jobSeeker = $jobSeeker->paginate($perPage);
+                $jobSeeker = $query->paginate($perPage);
             }
 
             return [

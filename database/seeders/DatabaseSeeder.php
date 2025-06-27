@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PositionsTableSeeder::class);
         $this->call(ServicesTableSeeder::class);
         $this->call(VacanciesSeeder::class);
+        $this->call(LanguagesTableSeeder::class);
 
         Artisan::call('passport:client', [
             '--personal' => true,

@@ -84,7 +84,7 @@ const profileTitle = profile.position?.title || "";
         </button>
       </div>
       <div class="dropdown-list">
-        <Link href="/profile" class="dropdown-item" style="background-color: #fff;">
+        <Link href="/profile" class="dropdown-item" >
           <svg
             width="24"
             height="25"
