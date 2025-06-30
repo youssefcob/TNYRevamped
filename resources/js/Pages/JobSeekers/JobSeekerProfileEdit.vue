@@ -36,6 +36,8 @@ const props = defineProps({
                                     :value="user.name" />
                                 <InputField label="Email" placeHolder="Enter your email" type="email"
                                     :value="user.email" disabled/>
+                                <InputField label="Date of Birth" placeHolder="00/00/0000" type="date" mask="##/##/####"
+                                    :value="job_seeker?.dob" />
 
                                 <InputField label="Mobile Number" placeHolder="Enter your mobile number" type="tel"
                                     :value="job_seeker?.phone_number" />
@@ -55,7 +57,7 @@ const props = defineProps({
                                 </div>
                                 <div class="split">
                                 <DropDownInputField label="Shift Type" placeHolder="Enter shift type" type="text"
-                                    :list="['Day', 'Night', 'Rotating']" :value="job_seeker?.shift_type" />
+                                    :list="['Hours','Full Time','Part Time','Coverage','Per Diem','Coverage','Ongoing']" :value="job_seeker?.shift_type" />
                                 <InputField label="Experience (Months)" placeHolder="Enter experience in months" type="number"
                                     :value="job_seeker?.experience.toString()" />
 

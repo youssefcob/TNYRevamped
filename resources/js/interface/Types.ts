@@ -83,6 +83,7 @@ export type JobSeeker = {
     id: number;
     availability_to_start: string;
     created_at: string;
+    dob: string;
     employment_status: string;
     experience: number;
     facility_type: string;
