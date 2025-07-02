@@ -84,13 +84,13 @@ export type JobSeeker = {
     availability_to_start: string;
     created_at: string;
     dob: string;
-    employment_status: string;
+    is_employed: boolean;
     experience: number;
     facility_type: string;
     gender: string;
     is_talent: number;
     legal_status: string;
-    licensing: string;
+    is_licensed: boolean;
     payment_type: string;
     phone_number: string;
     position_id: number;
@@ -102,6 +102,8 @@ export type JobSeeker = {
     updated_at: string;
     position: Job;
     user: User;
+    language: string;
+    work_days: string[];
 }
 
 export type Vacancy = {
