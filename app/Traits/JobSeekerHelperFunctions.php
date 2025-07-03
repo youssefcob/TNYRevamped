@@ -24,6 +24,7 @@ trait JobSeekerHelperFunctions
     private function validateJobSeekerRequest(Request $request)
     {
         try {
+            // is_talent and status should have a different validation and insertion functions, as they should not be accessible or updatable as a regular user <3
             $request->validate([
                 'phone_number' => 'required|string',
                 'position_id' => 'required|integer|exists:positions,id',
@@ -31,10 +32,10 @@ trait JobSeekerHelperFunctions
                 'facility_type' => 'required|in:' . implode(',', self::$allowedFacilityTypes),
                 'payment_type' => 'required|in:' . implode(',', self::$allowedPaymentTypes),
                 'preferred_location' => 'required|in:' . implode(',', self::$allowedPreferredLocations),
-                'employment_status' => 'required|in:' . implode(',', self::$allowedEmploymentStatuses),
+                'is_employed' => 'required|boolean',
                 'availability_to_start' => 'required|integer',
                 'rate_per_hour' => 'nullable|numeric',
-                'licensing' => 'required|boolean',
+                'is_licensed' => 'required|boolean',
                 'legal_status' => 'required|in:' . implode(',', self::$allowedLegalStatuses),
                 'resume' => 'nullable|file|mimes:pdf,doc,docx',
                 'is_talent' => 'nullable|boolean',
@@ -78,10 +79,10 @@ trait JobSeekerHelperFunctions
             'facility_type' => $request->facility_type,
             'payment_type' => $request->payment_type,
             'preferred_location' => $request->preferred_location,
-            'employment_status' => $request->employment_status,
+            'is_employed' => $request->is_employed,
             'availability_to_start' => $request->availability_to_start,
             'rate_per_hour' => $request->rate_per_hour,
-            'licensing' => $request->licensing,
+            'is_licensed' => $request->is_licensed,
             'legal_status' => $request->legal_status,
             'resume' => $resumePath,
             'is_talent' => $request->is_talent ?? false,
@@ -109,10 +110,10 @@ trait JobSeekerHelperFunctions
                 'facility_type' => 'sometimes|in:' . implode(',', self::$allowedFacilityTypes),
                 'payment_type' => 'sometimes|in:' . implode(',', self::$allowedPaymentTypes),
                 'preferred_location' => 'sometimes|in:' . implode(',', self::$allowedPreferredLocations),
-                'employment_status' => 'sometimes|in:' . implode(',', self::$allowedEmploymentStatuses),
+                'is_employed' => 'sometimes|in:' . implode(',', self::$allowedEmploymentStatuses),
                 'availability_to_start' => 'sometimes|integer',
                 'rate_per_hour' => 'sometimes|numeric|nullable',
-                'licensing' => 'sometimes|boolean',
+                'is_licensed' => 'sometimes|boolean',
                 'legal_status' => 'sometimes|in:' . implode(',', self::$allowedLegalStatuses),
                 'resume' => 'sometimes|file|mimes:pdf,doc,docx|nullable',
                 'is_talent' => 'sometimes|boolean|nullable',
@@ -137,8 +138,8 @@ trait JobSeekerHelperFunctions
     {
         $fields = [
             'phone_number', 'position_id', 'experience', 'facility_type', 'payment_type',
-            'preferred_location', 'employment_status', 'availability_to_start', 'rate_per_hour',
-            'licensing', 'legal_status', 'gender'
+            'preferred_location', 'is_employed', 'availability_to_start', 'rate_per_hour',
+            'is_licensed', 'legal_status', 'gender'
         ];
 
         // dd($request->all());

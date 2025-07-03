@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\JobSeekerController;
 use App\Http\Controllers\Views\JobSeekerViewsController;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 Route::prefix('js')->middleware(['auth:user', 'scope:job-seeker'])->group(function () {
@@ -15,13 +16,9 @@ Route::get('/vacancies', [JobSeekerViewsController::class, 'vacancies'])
 
 
 Route::prefix('job-seeker')->middleware(['auth:user', 'scope:job-seeker'])->group(function () {
-    // Route::post('/profile/update', [JobSeekerViewsController::class, 'createOrUpdateJobSeekerProfile'])->name('update.profile.jobSeeker');
-    Route::post('/profile/update', 
-    function () {
-        dd('$request->all()');
-    }
-    )->name('update.profile.jobSeeker');
-
+    Route::post('/profile/update', [JobSeekerViewsController::class, 'createOrUpdateJobSeekerProfile'])->name('update.profile.jobSeeker')->name('update.profile.jobSeeker');
 });
+
+
 
     

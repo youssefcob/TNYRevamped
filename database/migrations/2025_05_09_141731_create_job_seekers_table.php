@@ -19,12 +19,11 @@ return new class extends Migration
             $table->string('facility_type')->nullable();
             $table->string('payment_type')->nullable();
             $table->string('dob')->nullable();
-            // $table->string('languages')->nullable();
             $table->string('preferred_location')->nullable();
-            $table->string('employment_status')->nullable();
+            $table->boolean('is_employed')->nullable();
             $table->string('availability_to_start')->nullable();
             $table->decimal('rate_per_hour', 8, 2)->nullable();
-            $table->string('licensing')->nullable();
+            $table->boolean('is_licensed')->nullable();
             $table->string('legal_status')->nullable();
             $table->string('shift_type')->nullable();
             $table->string('resume')->nullable();

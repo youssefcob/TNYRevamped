@@ -4,11 +4,10 @@ import NavList from './NavList.vue';
 import NavListResponsive from './NavListResponsive.vue';
 import user from '@/mixins/user';
 import ProfileDropDown from './ProfileDropDown.vue';
+import { ref } from 'vue';
 
-const userIsLoggedIn = user.loggedIn();
-const userData = user.get();
-
-
+const userIsLoggedIn = ref(user.loggedIn());
+const userData = ref(user.get());
 </script>
 
 <template>

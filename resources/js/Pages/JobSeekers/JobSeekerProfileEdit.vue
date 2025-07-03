@@ -48,6 +48,9 @@ const form = ref({
 const resume = new FormData();
 
 const modifyForm = () => {
+
+
+
 resume.append('name', form.value.name);
 resume.append('phone_number', form.value.phone_number || '');
 resume.append('dob', form.value.dob || '');
@@ -65,6 +68,7 @@ resume.append('shift_type', form.value.shift_type || '');
 resume.append('experience', JSON.stringify(form.value.experience || 0));
 resume.append('gender', form.value.gender || '');
 resume.append('preferred_location', form.value.preferred_location || '');
+
 return resume;
 }
 
