@@ -65,4 +65,9 @@ class JobSeekerController extends Controller
         $response = $this->service->getJobSeekerProfile($userId);
         return $response['success'] ? $this->sendResponse($response) : $this->sendError($response);
     }
+    public function getJobSeekerFilters(Request $request)
+    {
+        $response = $this->service->getJobSeekerFilters($request);
+        return $response['success'] ? $this->sendResponse($response) : $this->sendError($response);
+    }
 }
