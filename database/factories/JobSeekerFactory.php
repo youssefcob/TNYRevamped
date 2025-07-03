@@ -28,7 +28,7 @@ class JobSeekerFactory extends Factory
             'facility_type' => $this->faker->randomElement(['Outpatient', 'Inpatient', 'SNF', 'Home Therapy']),
             'payment_type' => $this->faker->randomElement(['W2', '1099']),
             'preferred_location' => $this->faker->randomElement(['Manhattan', 'The Bronx', 'Brooklyn', 'Queens', 'Staten Island', 'Long Island']),
-            'is_employed' => $this->faker->randomElement(['Currently Employed', 'Unemployed']),
+            'is_employed' => $this->faker->boolean(),
             'availability_to_start' => $this->faker->numberBetween(0, 60),
             'rate_per_hour' => $this->faker->randomFloat(2, 20, 100),
             'is_licensed' => $this->faker->boolean(),
