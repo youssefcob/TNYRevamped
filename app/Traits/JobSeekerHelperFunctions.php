@@ -4,18 +4,23 @@ namespace App\Traits;
 
 use App\Models\User;
 use App\Models\JobSeeker;
+use App\Models\Position;
+use Illuminate\Database\Eloquent\Casts\Json;
 use Illuminate\Http\Request;
 
 trait JobSeekerHelperFunctions
 {
-    private static array $allowedGenders = ['male', 'female'];
+    private static array $allowedGenders = ['male', 'female','other'];
     private static array $allowedFacilityTypes = ['Outpatient', 'Inpatient', 'SNF', 'Home Therapy'];
     private static array $allowedPaymentTypes = ['W2', '1099'];
     private static array $allowedPreferredLocations = ['Manhattan', 'The Bronx', 'Brooklyn', 'Queens', 'Staten Island', 'Long Island'];
     private static array $allowedEmploymentStatuses = ['Currently Employed', 'Unemployed'];
     private static array $allowedLegalStatuses = ['US Citizen', 'Green Card Holder', 'H-1B', 'B1B2', 'F1 Student', 'other'];
     private static array $allowedStatuses = ['pending', 'approved', 'rejected'];
-
+    private static array $allowedWorkDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+    private static array $allowedShiftTypes = ['Hours', 'Full Time', 'Part Time', 'Coverage', 'Per Diem', 'Coverage', 'Ongoing'];
+    private static array $allowedBouroughs = ['Manhattan', 'Bronx', 'Brooklyn', 'Queens', 'Staten Island', 'Long Island'];
+    
     private function findUserOrFail($userId)
     {
         return User::find($userId);
@@ -25,25 +30,45 @@ trait JobSeekerHelperFunctions
     {
         try {
             // is_talent and status should have a different validation and insertion functions, as they should not be accessible or updatable as a regular user <3
+
+            
+            $request->merge([
+            //     'experience' => (int) $request->input('experience'),
+            //     'rate_per_hour' => $request->has('rate_per_hour') ? (int) $request->input('rate_per_hour') : null,
+            //     'availability_to_start' => (int) $request->input('availability_to_start'),
+                'is_employed' => $request->has('is_employed') ? (bool) $request->input('is_employed') : false,
+                'is_licensed' => $request->has('is_licensed') ? (bool) $request->input('is_licensed') : false,
+                'is_talent' => $request->has('is_talent') ? (bool) $request->input('is_talent') : false,
+
+                "work_days" => Json::decode($request->input('work_days', [])),
+                "languages" => Json::decode($request->input('languages', [])),
+                ]);
+
             $request->validate([
-                'phone_number' => 'required|string',
-                'position_id' => 'required|integer|exists:positions,id',
-                'experience' => 'required|integer',
-                'facility_type' => 'required|in:' . implode(',', self::$allowedFacilityTypes),
-                'payment_type' => 'required|in:' . implode(',', self::$allowedPaymentTypes),
-                'preferred_location' => 'required|in:' . implode(',', self::$allowedPreferredLocations),
-                'is_employed' => 'required|boolean',
-                'availability_to_start' => 'required|integer',
-                'rate_per_hour' => 'nullable|numeric',
-                'is_licensed' => 'required|boolean',
-                'legal_status' => 'required|in:' . implode(',', self::$allowedLegalStatuses),
-                'resume' => 'nullable|file|mimes:pdf,doc,docx',
-                'is_talent' => 'nullable|boolean',
-                'status' => 'nullable|string|in:' . implode(',', self::$allowedStatuses),
-                'gender' => 'nullable|string|in:' . implode(',', self::$allowedGenders),
+                'phone_number' => 'sometimes|numeric',
+                'dob' => 'sometimes|date',
+                'facility_type' => 'sometimes|in:' . implode(',', self::$allowedFacilityTypes),
+                'position_id' => 'sometimes|numeric|exists:positions,id',
+                'experience' => 'sometimes|numeric',
+                'rate_per_hour' => 'sometimes|numeric',
+                'payment_type' => 'sometimes|in:' . implode(',', self::$allowedPaymentTypes),
+                'preferred_location' => 'sometimes|in:' . implode(',', self::$allowedPreferredLocations),
+                'availability_to_start' => 'sometimes|numeric',
+                'is_licensed' => 'sometimes|boolean',
+                'is_employed' => 'sometimes|boolean',
+
+                'legal_status' => 'sometimes|in:' . implode(',', self::$allowedLegalStatuses),
+                'resume' => 'sometimes|file|mimes:pdf,doc,docx',
+                'is_talent' => 'sometimes|boolean',
+                'status' => 'sometimes|string|in:' . implode(',', self::$allowedStatuses),
+                'gender' => 'sometimes|string|in:' . implode(',', self::$allowedGenders),
                 'languages' => 'array',
                 'languages.*' => 'integer|exists:languages,id',
-                'dob' => 'nullable|date',
+                'work_days' => 'array',
+                'work_days.*' => 'string|in:'. implode(',', self::$allowedWorkDays),
+                'shift_type' => 'sometimes|string|in:' . implode(',', self::$allowedShiftTypes),
+                'name' => 'sometimes|string|max:255',
+                'bourough' => 'sometimes|string|in:' . implode(',', self::$allowedBouroughs),
             ]);
             return true;
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -90,6 +115,9 @@ trait JobSeekerHelperFunctions
             'gender' => $request->gender,
             'dob' => $request->dob,
             'shift_type' => $request->shift_type,
+            'borough' => $request->bourough,
+            'work_days' => $request->work_days,
+            
         ]);
     }
 
@@ -103,26 +131,41 @@ trait JobSeekerHelperFunctions
     private function validateUpdateJobSeekerRequest(Request $request)
     {
         try {
+                $request->merge([
+            //     'experience' => (int) $request->input('experience'),
+            //     'rate_per_hour' => $request->has('rate_per_hour') ? (int) $request->input('rate_per_hour') : null,
+            //     'availability_to_start' => (int) $request->input('availability_to_start'),
+                'is_employed' => $request->has('is_employed') ? (bool) $request->input('is_employed') : false,
+                'is_licensed' => $request->has('is_licensed') ? (bool) $request->input('is_licensed') : false,
+                'is_talent' => $request->has('is_talent') ? (bool) $request->input('is_talent') : false,
+
+                "work_days" => Json::decode($request->input('work_days', [])),
+                "languages" => Json::decode($request->input('languages', [])),
+                ]);
             $request->validate([
                 'phone_number' => 'sometimes|string',
-                'position_id' => 'sometimes|integer|exists:positions,id',
-                'experience' => 'sometimes|integer',
+                'dob' => 'nullable|date',
                 'facility_type' => 'sometimes|in:' . implode(',', self::$allowedFacilityTypes),
+                'position_id' => 'sometimes|string|exists:positions,id',
+                'experience' => 'sometimes|numeric',
+                'rate_per_hour' => 'nullable|numeric',
                 'payment_type' => 'sometimes|in:' . implode(',', self::$allowedPaymentTypes),
                 'preferred_location' => 'sometimes|in:' . implode(',', self::$allowedPreferredLocations),
-                'is_employed' => 'sometimes|in:' . implode(',', self::$allowedEmploymentStatuses),
+                'is_employed' => 'sometimes|boolean',
                 'availability_to_start' => 'sometimes|integer',
-                'rate_per_hour' => 'sometimes|numeric|nullable',
                 'is_licensed' => 'sometimes|boolean',
                 'legal_status' => 'sometimes|in:' . implode(',', self::$allowedLegalStatuses),
-                'resume' => 'sometimes|file|mimes:pdf,doc,docx|nullable',
-                'is_talent' => 'sometimes|boolean|nullable',
-                'status' => 'sometimes|string|in:' . implode(',', self::$allowedStatuses) . '|nullable',
-                'gender' => 'sometimes|string|in:' . implode(',', self::$allowedGenders) . '|nullable',
-                'languages' => 'sometimes|array',
+                'resume' => 'nullable|file|mimes:pdf,doc,docx',
+                'is_talent' => 'nullable|boolean',
+                'status' => 'nullable|string|in:' . implode(',', self::$allowedStatuses),
+                'gender' => 'nullable|string|in:' . implode(',', self::$allowedGenders),
+                'languages' => 'array',
                 'languages.*' => 'integer|exists:languages,id',
+                'work_days' => 'array',
+                'work_days.*' => 'string|in:'. implode(',', self::$allowedWorkDays),
+                'shift_type' => 'nullable|string|in:' . implode(',', self::$allowedShiftTypes),
                 'name' => 'sometimes|string|max:255',
-                'dob' => 'sometimes|date',
+                'bourough' => 'sometimes|string|in:' . implode(',', self::$allowedBouroughs),
             ]);
             return true;
         } catch (\Illuminate\Validation\ValidationException $e) {
@@ -136,10 +179,11 @@ trait JobSeekerHelperFunctions
 
     private function updateJobSeekerFields(Request $request, $jobSeeker, $resumePath = null)
     {
+
         $fields = [
             'phone_number', 'position_id', 'experience', 'facility_type', 'payment_type',
             'preferred_location', 'is_employed', 'availability_to_start', 'rate_per_hour',
-            'is_licensed', 'legal_status', 'gender'
+            'is_licensed', 'legal_status', 'gender', 'dob', 'shift_type', 'bourough','work_days'
         ];
 
         // dd($request->all());

@@ -1,3 +1,46 @@
+<script setup lang="ts">
+import { ref, watch, defineEmits, defineProps } from 'vue';
+
+const days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
+
+const props = defineProps({
+  modelValue: {
+    type: Array as () => string[],
+    default: () => [],
+  },
+  value: {
+    type: Array as () => string[],
+    default: () => [],
+  },
+});
+const emit = defineEmits(['update:modelValue']);
+
+
+
+const selected = ref<string[]>([...props.value]);
+
+watch(
+  () => props.modelValue,
+  (val) => {
+    selected.value = [...val];
+  }
+);
+
+console.log(props.value);
+
+function toggleDay(day: string) {
+  if (selected.value.includes(day)) {
+    selected.value = selected.value.filter((d) => d !== day);
+  } else {
+    selected.value.push(day);
+  }
+  console.log(selected.value);
+  emit('update:modelValue', selected.value);
+}
+</script>
+
+
+
 <template>
   <div class="workdays-container">
     <div class="workdays-label">Work Days</div>
@@ -17,37 +60,7 @@
   </div>
 </template>
 
-<script setup lang="ts">
-import { ref, watch, defineEmits, defineProps } from 'vue';
 
-const days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
-const props = defineProps({
-  modelValue: {
-    type: Array as () => string[],
-    default: () => [],
-  },
-});
-const emit = defineEmits(['update:modelValue']);
-
-const selected = ref<string[]>([...props.modelValue]);
-
-watch(
-  () => props.modelValue,
-  (val) => {
-    selected.value = [...val];
-  }
-);
-
-function toggleDay(day: string) {
-  if (selected.value.includes(day)) {
-    selected.value = selected.value.filter((d) => d !== day);
-  } else {
-    selected.value.push(day);
-  }
-  console.log(selected.value);
-  emit('update:modelValue', selected.value);
-}
-</script>
 
 <style scoped lang="scss">
 .workdays-container {

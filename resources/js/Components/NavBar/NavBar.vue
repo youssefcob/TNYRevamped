@@ -4,10 +4,25 @@ import NavList from './NavList.vue';
 import NavListResponsive from './NavListResponsive.vue';
 import user from '@/mixins/user';
 import ProfileDropDown from './ProfileDropDown.vue';
-import { ref } from 'vue';
+import { onMounted, onUnmounted, ref } from 'vue';
 
 const userIsLoggedIn = ref(user.loggedIn());
 const userData = ref(user.get());
+
+function updateUserState() {
+    userIsLoggedIn.value = user.loggedIn();
+    userData.value = user.get();
+}
+
+onMounted(() => {
+    window.addEventListener('user-updated', updateUserState);
+});
+
+onUnmounted(() => {
+    window.removeEventListener('user-updated', updateUserState);
+});
+
+
 </script>
 
 <template>
@@ -28,8 +43,10 @@ const userData = ref(user.get());
             <div class="navlist-mobile">
                 <NavListResponsive :userIsLoggedIn="userIsLoggedIn" :userData="userData" />
             </div>
-            <div v-if="userIsLoggedIn && userData" class="profile"><ProfileDropDown/></div>
-            
+            <div v-if="userIsLoggedIn && userData" class="profile">
+                <ProfileDropDown />
+            </div>
+
         </div>
 
     </nav>

@@ -35,7 +35,9 @@ class JobSeeker extends Model
         'status',
         'phone_number',
         'gender',
-        'shift_type'
+        'shift_type',
+        'borough',
+        'work_days',
     ];
 
     /**
@@ -48,7 +50,11 @@ class JobSeeker extends Model
         'experience' => 'integer',
         'created_at' => 'datetime',
         'updated_at' => 'datetime',
-        'talent' => 'boolean'
+        'talent' => 'boolean',
+        'work_days' => 'array',
+        'is_employed' => 'boolean',
+        'is_licensed' => 'boolean',
+        'is_talent' => 'boolean',
     ];
 
     /**

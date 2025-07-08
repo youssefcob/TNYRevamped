@@ -96,6 +96,7 @@ const filterList = () => {
     }
 
     emit(`input`, input.value);
+    emit(`update:modelValue`, input.value);
 
 
 }

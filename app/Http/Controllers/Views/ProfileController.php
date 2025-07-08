@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Views;
 
 use App\Http\Controllers\Controller;
+use App\Models\Language;
 use App\Models\Position;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
@@ -20,14 +21,18 @@ class ProfileController extends Controller
             $user = Auth::guard('user')->user();
             if ($user) {
                 $data['user'] = $user;
-                $data['token'] = ['access_token'=>$token, 'token_type' => 'Bearer'];
+                $data['token'] = ['access_token' => $token, 'token_type' => 'Bearer'];
 
                 if ($user->hasRole('employer')) {
                     $data['employer'] = $user->employer;
                     return Inertia::render('Employers/EmployersProfile', $data);
                 } elseif ($user->hasRole('job_seeker')) {
-                    $data['job_seeker'] = $user->jobSeeker;
-                    if(!$user->jobSeeker){
+                    $job_seeker = $user->jobSeeker;
+                    if ($job_seeker) {
+                        $job_seeker->load('languages', 'position');
+                    }
+                    $data['job_seeker'] = $job_seeker;
+                    if (!$user->jobSeeker) {
                         return redirect()->route('job-seeker.profile.edit');
                     }
                     return Inertia::render('JobSeekers/JobSeekerProfile', $data);
@@ -46,14 +51,20 @@ class ProfileController extends Controller
             $user = Auth::guard('user')->user();
             if ($user) {
                 $data['user'] = $user;
-                $data['token'] = ['access_token'=>$token, 'token_type' => 'Bearer'];
+                $data['token'] = ['access_token' => $token, 'token_type' => 'Bearer'];
             }
-            if($user->hasRole('employer')){
+            if ($user->hasRole('employer')) {
                 $data['employer'] = $user->employer;
                 return Inertia::render('Employers/EmployersProfileEdit', $data);
-            }elseif($user->hasRole('job_seeker')){
-                $data['job_seeker'] = $user->jobSeeker;
-                $data['positions'] = Position::all()->pluck('title')->toArray();
+            } elseif ($user->hasRole('job_seeker')) {
+                $job_seeker = $user->jobSeeker;
+                if ($job_seeker) {
+                    $job_seeker->load('languages', 'position');
+                }
+                $data['job_seeker'] = $job_seeker;
+                $data['positions'] = Position::all();
+                $data['languages'] = Language::all();
+
                 return Inertia::render('JobSeekers/JobSeekerProfileEdit', $data);
             }
         }

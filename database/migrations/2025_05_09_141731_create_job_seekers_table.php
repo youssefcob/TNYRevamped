@@ -31,6 +31,8 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('gender')->nullable();
+            $table->string('borough')->nullable();
+            $table->json('work_days')->nullable(); 
             $table->timestamps();
         });
     }

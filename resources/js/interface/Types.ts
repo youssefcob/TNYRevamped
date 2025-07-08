@@ -103,7 +103,15 @@ export type JobSeeker = {
     position: Job;
     user: User;
     language: string;
+    borough: string;
+    languages: Language[];
     work_days: string[];
+}
+
+export type Language = {
+    id: number;
+    name: string;
+    display_name: string;
 }
 
 export type Vacancy = {

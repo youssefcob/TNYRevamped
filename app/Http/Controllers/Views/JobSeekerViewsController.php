@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Views;
 
 use App\Http\Controllers\Controller;
+use App\Models\Language;
+use App\Models\Position;
 use App\Services\Employer\VacanciesService;
 use App\Services\JobSeekerService;
 use App\Services\PositionService;
@@ -41,8 +43,31 @@ class JobSeekerViewsController extends Controller
         if (!$userId) {
             return ['success' => false, 'message' => 'no user present'];
         };
+        // dd($request->toArray());
+
         $response = $this->service->createOrUpdateJobSeeker($request, $userId);
-        dd($response);
-        return $response['success'] ? $this->sendResponse($response) : $this->sendError($response);
+        // dd($response);
+        if (!$response['success']) {
+            $token = $request->cookie('token');
+            if ($token) {
+                $request->headers->set('Authorization', 'Bearer ' . $token);
+                /** @var \App\Models\User $user */
+                $user = Auth::guard('user')->user();
+                if (!$user) {
+                    redirect()->route('home');
+                }
+                $data['user'] = $user;
+                $data['token'] = ['access_token' => $token, 'token_type' => 'Bearer'];
+
+                $data['job_seeker'] = $user->jobSeeker;
+                $data['positions'] = Position::all();
+                $data['languages'] = Language::all();
+                $data['errors'] = $response['errors'] ?? [];
+
+
+                return Inertia::render('JobSeekers/JobSeekerProfileEdit', $data);
+            }
+        }
+        return redirect()->route('job-seeker.profile');
     }
 }

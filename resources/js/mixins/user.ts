@@ -17,13 +17,11 @@ export default {
         localStorage.setItem('token', data.access_token);
     },
     token: (() => {
-        const match = document.cookie.match(/token=([^;]+)/);
-        if (match) {
-            return match[1];
-        }
+        return localStorage.getItem('token')
     }),
     set: (data: User) => {
         localStorage.setItem('user', JSON.stringify(data))
+        window.dispatchEvent(new Event('user-updated'));
     },
     get: (() => {
         let user = localStorage.getItem('user');

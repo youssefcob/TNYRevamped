@@ -15,7 +15,8 @@ const handleChange = () => {
     emit('update:value', !props.value);
     currentValue.value = !currentValue.value;
 }
-const currentValue = ref(props.value);
+const currentValue = ref(props.value ? true : false);
+console.log(currentValue.value);
 </script>
 
 <template>

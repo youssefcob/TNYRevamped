@@ -16,7 +16,7 @@ Route::get('/vacancies', [JobSeekerViewsController::class, 'vacancies'])
 
 
 Route::prefix('job-seeker')->middleware(['auth:user', 'scope:job-seeker'])->group(function () {
-    Route::post('/profile/update', [JobSeekerViewsController::class, 'createOrUpdateJobSeekerProfile'])->name('update.profile.jobSeeker')->name('update.profile.jobSeeker');
+    Route::post('/profile/update', [JobSeekerViewsController::class, 'createOrUpdateJobSeekerProfile'])->name('update.profile.jobSeeker');
 });
 
 
