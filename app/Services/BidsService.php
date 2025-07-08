@@ -85,6 +85,7 @@ class BidsService
             $jobSeekerId = $request->input('job_seeker_id');
             $id = $request->input('id');
             $bids = $this->fetchAdminBids();
+            // dd($bids);
             if($id){
                 $bids = $bids->where('bids.id', $id)->first();
                 if (!$bids) {
@@ -159,7 +160,7 @@ class BidsService
             return [
                 'success' => true,
                 'message' => 'Bids fetched successfully',
-                'data' => $count
+                'data' => ['count' => $count]
             ];
         } catch (Exception $e) {
             return [

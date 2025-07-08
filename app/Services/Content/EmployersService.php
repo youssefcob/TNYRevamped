@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 
 class EmployersService
 {
+    const PAGINATION_LIMIT = 10;
     public static function get()
     {
         return Employer::all();
@@ -17,9 +18,10 @@ class EmployersService
     {
         try {
             //code...
+            $employers = Employer::with('user')->paginate(self::PAGINATION_LIMIT);
             return [
                 'success' => true,
-                'data' => Employer::all(),
+                'data' => $employers,
                 'message' => 'News fetched successfully',
             ];
         } catch (Exception $e) {

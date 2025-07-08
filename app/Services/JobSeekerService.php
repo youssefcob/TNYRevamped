@@ -45,10 +45,10 @@ class JobSeekerService
             ]);
 
             if ($id) {
-                $jobSeeker = JobSeeker::with(['user', 'position'])
+                $jobSeeker = JobSeeker::with(['user', 'position','languages'])
                     ->find($id);
             } else {
-                $query = JobSeeker::with(['user', 'position']);
+                $query = JobSeeker::with(['user', 'position','languages']);
                 
                 // Apply all filters to the base query
                 if($startDate){
@@ -264,6 +264,56 @@ class JobSeekerService
         } else {
             // Create
             return $this->createJobSeeker($request, $userId);
+        }
+    }
+    public function getJobSeekerProfile($userId)
+    {
+        try {
+            $jobSeeker = JobSeeker::where('user_id', $userId)
+            ->with('user', 'languages', 'position')
+            ->first();
+            return [
+                'success' => true,
+                'data' => $jobSeeker
+            ];
+        } catch (\Throwable $th) {
+            return [
+                'success' => false,
+                'message' => $th->getMessage()
+            ];
+        }
+    }
+    // public function getEmployerFilters(Request $request){
+    //     try {
+    //         $employers = \App\Models\Employer::select('employers.id as employer_id', 'users.name')
+    //             ->join('users', 'employers.user_id', '=', 'users.id')
+    //             ->get();
+
+    //         return [
+    //             'success' => true,
+    //             'data' => $employers
+    //         ];
+    //     } catch (Exception $e) {
+    //         return [
+    //             'success' => false,
+    //             'message' => $e->getMessage(),
+    //         ];
+    //     }
+    // }
+    public function getJobSeekerFilters(Request $request){
+        try {
+            $jobSeekers = JobSeeker::select('job_seekers.id as job_seeker_id', 'users.name')
+                ->join('users', 'job_seekers.user_id', '=', 'users.id')
+                ->get();
+            return [
+                'success' => true,
+                'data' => $jobSeekers
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
         }
     }
 }

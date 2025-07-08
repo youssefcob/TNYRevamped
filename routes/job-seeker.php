@@ -8,4 +8,5 @@ Route::prefix('job-seeker')->middleware(['auth:user', 'scope:job-seeker'])->grou
     // Route::post('/', [JobSeekerController::class, 'createJobSeeker'])->name('create.jobSeeker');
     // Route::post('/update', [JobSeekerController::class, 'updateJobSeeker'])->name('update.jobSeeker');
     Route::post('/profile/update', [JobSeekerController::class, 'createOrUpdateJobSeekerProfile'])->name('update.profile.jobSeeker');
+    Route::get('/profile/get', [JobSeekerController::class, 'getJobSeekerProfile'])->name('get.profile.jobSeeker');
 });

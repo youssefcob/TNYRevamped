@@ -20,4 +20,11 @@ class EmployerController extends Controller
             return $this->sendError($response);
         return $this->sendResponse($response);
     }
+    public function getEmployerFilters(Request $request)
+    {
+        $response = $this->service->getEmployerFilters($request);
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
 }
