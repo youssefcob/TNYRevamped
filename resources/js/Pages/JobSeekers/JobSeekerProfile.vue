@@ -37,11 +37,12 @@ const calculateAge = (dob: string): number => {
                 <div class="profile">
 
                     <div class="grid-wrapper">
+
                         <p>Name: <span>{{ user.name }}</span></p>
                         <p>Email: <span>{{ user.email }}</span></p>
                         <p>Position: <span>{{ job_seeker.position.title }}</span></p>
                         <p>Phone No: <span>{{ job_seeker.phone_number }}</span></p>
-                        <p>Borough: <span>{{ job_seeker.borough }}</span></p>
+                        <p>Borough: <span>{{ job_seeker.preferred_location }}</span></p>
                         <p>Shift Type: <span>{{ job_seeker.shift_type }}</span></p>
                         <p>Salary/hr: <span>{{ job_seeker.rate_per_hour }}</span></p>
                         <p>Age: <span>{{ calculateAge(job_seeker.dob) }} years</span></p>
@@ -77,16 +78,41 @@ main .container {
     // justify-content: center;
     padding: 10rem;
 
+    @media screen and (max-width: 1010px) {
+        padding: 10rem 3rem;
+
+    }
+
+    @media screen and (max-width: 500px) {
+        padding: 1rem;
+
+    }
+
     .profile {
         background-color: rgba(255, 255, 255, 0.8);
         padding: 6rem 4rem;
         border-radius: 1rem;
         border: 2px solid $navy;
 
+        @media screen and (max-width: 1010px) {
+            width: 100%;
+
+        }
+
+        @media screen and (max-width: 500px) {
+            padding: 1rem;
+            width: 100%;
+            border-radius: 0.5rem;
+        }
+
         .grid-wrapper {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 1rem;
+
+            @media screen and (max-width: 900px) {
+                grid-template-columns: 1fr;
+            }
 
             p {
                 font-size: 1.2rem;
@@ -99,7 +125,33 @@ main .container {
                     font-weight: 400;
                     color: #333;
                 }
+
+                @media screen and (max-width: 500px) {
+                    font-size: 1rem;
+
+                    span {
+                        display: block;
+                        font-size: 1rem;
+                    }
+
+                }
+
+
             }
+        }
+
+        .btn{
+            width:30%;
+            margin: 2rem;
+            margin-left:auto;
+            padding:1rem;
+
+            @media screen and (max-width: 500px) {
+                width: 100%;
+                margin: 1rem auto;
+                
+            }
+
         }
     }
 }

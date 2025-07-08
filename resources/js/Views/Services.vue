@@ -1,8 +1,8 @@
 <script setup lang="ts">
 import { serviceState } from '@/state/state';
-import SingleService from '@/Components/Services/SingleService.vue';
 import { Service } from '@/interface/Types';
 import { onMounted, ref } from 'vue';
+import SingleService from '@/Components/Home/Services/SingleService.vue';
 
 const props = defineProps({
     services: {
