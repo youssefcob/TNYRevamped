@@ -4,6 +4,7 @@
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ApplicationsController;
 use App\Http\Controllers\Content\HeroController;
+use App\Http\Controllers\Employer\EmployerController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\MailListController;
 use App\Http\Controllers\MessageController;
@@ -35,49 +36,6 @@ require __DIR__.'/applications-routes.php';
 require __DIR__ . '/job-seeker.php';
 require __DIR__ . '/bids.php';
 
-// Route::post('/new-google-drive-file', function (Request $request) {
-//     try {
-//         // Initialize GoogleDrive
-//         $client = new GoogleDrive();
-
-//         // Check if file exists in the request
-//         if (!$request->hasFile('file')) {
-//             return response()->json([
-//                 'success' => false,
-//                 'message' => 'No file provided',
-//             ], 400);
-//         }
-
-//         // Get the file
-//         $file = $request->file('file');
-
-//         // Ensure the file is valid
-//         if (!$file->isValid()) {
-//             return response()->json([
-//                 'success' => false,
-//                 'message' => 'Invalid file upload',
-//                 'error' => $file->getErrorMessage()
-//             ], 400);
-//         }
-
-//         // Upload the file
-//         // dd('s');
-//         $fileUrl = $client->upload($file);
-
-//         return response()->json([
-//             'success' => true,
-//             'message' => 'File uploaded successfully',
-//             'url' => $fileUrl
-//         ]);
-//     } catch (\Exception $e) {
-//         return response()->json([
-//             'success' => false,
-//             'message' => 'Upload failed',
-//             'error' => $e->getMessage(),
-//             'file' => $request->hasFile('file') ? $request->file('file')->getClientOriginalName() : 'No file'
-//         ], 500);
-//     }
-// });
 
 Route::post('/admin/login', [AdminAuthController::class, 'adminLogin']);
 
@@ -139,6 +97,10 @@ Route::middleware('auth:api', 'scope:admin')->group(function () {
     Route::delete('/job-seekers/{id}', [JobSeekerController::class, 'destroy'])->name('delete.jobSeeker');
     
     Route::put('/job-seeker/talent/{id}', [JobSeekerController::class, 'updateTalent'])->name('update.jobSeekerTalent');
+
+    // Filters routes
+    Route::get('/filters/employers', [EmployerController::class, 'getEmployerFilters'])->name('get.employer.filters');
+    Route::get('/filters/job-seekers', [JobSeekerController::class, 'getJobSeekerFilters'])->name('get.jobSeeker.filters');
 });
 
 

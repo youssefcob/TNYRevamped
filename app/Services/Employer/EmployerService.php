@@ -2,6 +2,7 @@
 
 namespace App\Services\Employer;
 
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,5 +34,22 @@ class EmployerService
             'user' => $employer,
         ];
 
+    }
+    public function getEmployerFilters(Request $request){
+        try {
+            $employers = \App\Models\Employer::select('employers.id as employer_id', 'users.name')
+                ->join('users', 'employers.user_id', '=', 'users.id')
+                ->get();
+
+            return [
+                'success' => true,
+                'data' => $employers
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+        }
     }
 }

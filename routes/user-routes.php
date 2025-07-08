@@ -16,9 +16,14 @@ Route::prefix('user')->group(function () {
 
     Route::post('/register', [RegisterController::class, 'ApiSubmit']);
     Route::post('/login', [LoginController::class, 'Apilogin']);
+    // Auth routes
+    
+    // Route::post('/register', [RegisterController::class, 'submit']);
+    // Route::post('/login', [LoginController::class, 'login']);
 
-   
-
+    // Protected routes
+    Route::get('/', fn() => Auth::user())->middleware('auth:user');
+    
     Route::get('hello', function () {
         return Auth::guard('user')->user();
     })->middleware(['auth:user', 'scope:job-seeker']);
