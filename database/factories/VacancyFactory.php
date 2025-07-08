@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Factories\Factory;
 class VacancyFactory extends Factory
 {
     protected $model = Vacancy::class;
+    private $allowedBouroughs = ['Manhattan', 'Bronx', 'Brooklyn', 'Queens', 'Staten Island', 'Long Island'];
 
     public function definition(): array
     {
@@ -18,7 +19,7 @@ class VacancyFactory extends Factory
         return [
             'employer_id' => $employer->id,
             'position_id' => $position->id,
-            'borough' => $this->faker->city(),
+            'borough' => $this->faker->randomElement($this->allowedBouroughs),
             'address' => $this->faker->address(),
             'shift_details' => $this->faker->randomElement(['Day Shift', 'Night Shift', 'Flexible Hours']),
             'experience' => $this->faker->numberBetween(1, 5),

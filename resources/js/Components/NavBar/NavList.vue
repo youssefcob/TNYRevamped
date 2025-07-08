@@ -26,9 +26,9 @@ const isActive = (link: string) => {
         <li role="menuitem" :class="{ active: isActive('/services') }">
             <Link href="/services">Services</Link>
         </li>
-        <li role="menuitem" :class="{ active: isActive('/employers') }">
+        <!-- <li role="menuitem" :class="{ active: isActive('/employers') }">
             <Link href="/employers">Employers</Link>
-        </li>
+        </li> -->
         <li role="menuitem" :active="isActive('#jobs')">
             <Hroute on="/" to="#jobs" :active="isActive('#jobs')">Job Seekers</Hroute>
         </li>

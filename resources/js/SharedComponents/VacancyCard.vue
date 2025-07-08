@@ -39,7 +39,6 @@ function apply() {
                 :style="{ backgroundImage: `url('https://placehold.co/600x400')`, backgroundSize: 'cover', backgroundPosition: 'center' }"
                 aria-label="Job Seeker Image"
             ></div>
-            
             <div class="info">
                 <div class="header">
                     <h2>{{ vacancy.position.title }}</h2>
@@ -74,8 +73,8 @@ function apply() {
                                 stroke="#135672" stroke-width="1.5" />
                         </svg>
 
-                        {{ vacancy.address }}
-                    </div>
+                        {{ vacancy.borough }} - {{ vacancy.address }}
+                    </div> 
                     <div class="desc-wrapper">
                         <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path

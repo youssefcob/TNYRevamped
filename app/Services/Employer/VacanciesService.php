@@ -272,6 +272,7 @@ class VacanciesService
     public static function get(Request $request)
     {
         $service = new self();
+        // dd($request->all());
         $vacancies = $service->filterVacancies($request, 10);
         return $vacancies['data'];
     }
@@ -280,12 +281,14 @@ class VacanciesService
     {
         $query = \App\Models\Vacancy::query();
 
+        // dd($request->all());
         if ($request->has('position')) {
-            $position = Position::where('title', '=',  $request->input('position'))->first();
-
+            $position = Position::where('title',  $request->input('position'))->first();
+            // dd($position);
             if ($position) {
                 $query->where('position_id', $position->id);
             }
+
         }
 
         if ($request->has('borough')) {

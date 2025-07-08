@@ -48,7 +48,8 @@ watch(
             if (newFilters.position) params.append('position', newFilters.position);
             if (newFilters.borough) params.append('borough', newFilters.borough);
             if (newFilters.search) params.append('search', newFilters.search);
-            if (newFilters.page && newFilters.page !== 1) params.append('page', String(newFilters.page));
+            // if (newFilters.page && newFilters.page !== 1) params.append('page', String(newFilters.page));
+            newFilters.page = 1; // Reset to page 1 on filter change
             router.get(`/vacancies?${params.toString()}`, {}, { preserveState: true, replace: true });
         }, 400);
     },
@@ -69,7 +70,7 @@ watch(
             </ul>
             <select class="form-select mb-4" v-model="filters.position">
                 <option value="">All Positions</option>
-                <option v-for="position in positions" :key="position.id" :value="position.id">
+                <option v-for="position in positions" :key="position.id" :value="position.title">
                     {{ position.title }}
                 </option>
             </select>
@@ -80,6 +81,7 @@ watch(
                 <option value="Queens">Queens</option>
                 <option value="Bronx">Bronx</option>
                 <option value="Staten Island">Staten Island</option>
+
             </select>
 
             <input type="text" class="form-control mb-4" placeholder="Search Vacancies" v-model="filters.search" />
