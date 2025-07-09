@@ -10,5 +10,5 @@ class Position extends Model
 {
     use HasFactory, GenericObserverTrait;
     //
-    protected $fillable = ['title', 'description', 'available' ];
+    protected $fillable = ['title', 'description', 'available', 'address'];
 }
