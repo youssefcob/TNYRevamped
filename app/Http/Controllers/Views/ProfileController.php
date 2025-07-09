@@ -25,6 +25,9 @@ class ProfileController extends Controller
 
                 if ($user->hasRole('employer')) {
                     $data['employer'] = $user->employer;
+                    if (!$user->employer) {
+                        return redirect()->route('employer.profile.edit');
+                    }
                     return Inertia::render('Employers/EmployersProfile', $data);
                 } elseif ($user->hasRole('job_seeker')) {
                     $job_seeker = $user->jobSeeker;

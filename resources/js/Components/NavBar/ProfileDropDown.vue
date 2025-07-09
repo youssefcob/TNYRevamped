@@ -41,7 +41,6 @@ const profileTitle = profile.position?.title || "";
 <template>
   <div class="profile-dropdown-wrapper" ref="dropdownRef">
     <div class="profile-trigger" @click="toggleDropdown">
-      <img :src="profileImage" class="avatar" alt="Profile" />
       <span>{{ profileName }}</span>
       <svg
         width="16"
@@ -149,7 +148,7 @@ const profileTitle = profile.position?.title || "";
     gap: 0.5rem;
     cursor: pointer;
     font-weight: 500;
-    color: $blue;
+    color: black;
     user-select: none;
     .avatar {
       width: 2.2rem;
