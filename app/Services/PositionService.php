@@ -64,9 +64,10 @@ class PositionService
                 'title' => 'sometimes|string|max:255',
                 'description' => 'sometimes|string|max:255',
                 'available' => 'sometimes|boolean',
+                'address' =>'string'
             ]);
             $position = Position::find($request->id);
-            $data = $request->only(['title', 'description', 'available']);
+            $data = $request->only(['title', 'description', 'available', 'address']);
             $position->update($data);
             $position->save();
 
@@ -97,8 +98,9 @@ class PositionService
                 'title' => 'required|string|max:255',
                 'description' => 'required|string|max:255',
                 'available' => 'boolean',
+                'address' =>'string'
             ]);
-            $data = $request->only(['title', 'description', 'available']);
+            $data = $request->only(['title', 'description', 'available', 'address']);
 
             // Set default for 'available' if not provided
             if (!array_key_exists('available', $data)) {

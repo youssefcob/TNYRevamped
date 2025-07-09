@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Mail;
 trait GenericObserverTrait
 {
     //! The function must be called "boot(name of the trait)".
+    //! Remember to:
+    //! 1. add GenericObserverTrait inside DB Model 2. add record to mail lists table 3. Run the queue 
     // To use this trait, just use the trait inside the DB Model.
 
     private $contentTables = [
