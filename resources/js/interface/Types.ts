@@ -26,10 +26,10 @@ export type Service = {
 
 export type Employer = {
     id: number;
-    title: string;
-    description: string;
-    image: string;
-    onMainPage: boolean;
+    facility_name: string;
+    phone_number: string;
+    borough: string | null;
+    user_id: number;
 }
 
 export type Job = {

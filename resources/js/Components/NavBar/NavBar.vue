@@ -37,8 +37,9 @@ onUnmounted(() => {
                 <Link href="/login" class="btn">Login</Link>
                 <Link href="/register" class="btn">Sign up</Link>
             </div>
-            <div v-if="userIsLoggedIn && userData && userData.user_type == 'job_seeker'" class="auth-btns-wrapper">
-                <Link href="/apply" class="btn">Apply Now</Link>
+            <div v-if="userIsLoggedIn && userData" class="auth-btns-wrapper">
+                <Link v-if="userData.user_type == 'job_seeker'" href="/apply" class="btn">Apply Now</Link>
+                <Link v-if="userData.user_type == 'employer'" href="/post-vacancy" class="btn">Post a Job</Link>
             </div>
             <div class="navlist-mobile">
                 <NavListResponsive :userIsLoggedIn="userIsLoggedIn" :userData="userData" />

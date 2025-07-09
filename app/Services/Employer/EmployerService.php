@@ -11,10 +11,18 @@ class EmployerService
 {
     public function updateEmployer(Request $request)
     {
-        $request->validate([
-            'facility_name' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:20',
-        ]);
+        try {
+            $validated = $request->validate([
+                'facility_name' => 'required|string|max:255',
+                'phone_number' => 'required|string|max:20',
+                'borough' => 'nullable|string|max:100',
+            ]);
+        } catch (\Illuminate\Validation\ValidationException $e) {
+            return [
+                'success' => false,
+                'errors' => $e->errors(),
+            ];
+        }
 
         /** @var \App\Models\User $user */
         $user = Auth::user();
@@ -22,6 +30,7 @@ class EmployerService
         $employerData = [
             'facility_name' => $request->input('facility_name'),
             'phone_number' => $request->input('phone_number'),
+            'borough' => $request->input('borough'),
         ];
 
         $employer = $user->employer()->updateOrCreate(
@@ -31,9 +40,7 @@ class EmployerService
 
         return [
             'success' => true,
-            'user' => $employer,
         ];
-
     }
     public function getEmployerFilters(Request $request){
         try {

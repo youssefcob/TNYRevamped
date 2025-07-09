@@ -3,40 +3,20 @@
 namespace App\Http\Controllers\Views;
 
 use App\Http\Controllers\Controller;
-use App\Models\Language;
-use App\Models\Position;
-use App\Services\Employer\VacanciesService;
-use App\Services\JobSeekerService;
-use App\Services\PositionService;
-use App\Services\ViewServices\HomeService;
+use App\Services\Employer\EmployerService;
 use Illuminate\Http\Request;
-use Inertia\Inertia;
 use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
-class JobSeekerViewsController extends Controller
+class EmployerViewsController extends Controller
 {
     protected $service;
 
-    public function __construct(JobSeekerService $service)
+    public function __construct(EmployerService $service)
     {
         $this->service = $service;
     }
-
-    // function home()
-    // {
-    //     $data = HomeService::get();
-    //     return Inertia::render('JobSeekers/JobSeekersHome', $data);
-    // }
-
-    function vacancies(Request $request)
-    {
-        $data['vacancies'] = VacanciesService::get($request);
-        $data['positions'] = PositionService::get();
-        // dd($data);
-        return Inertia::render('JobSeekers/Vacancies', $data);
-    }
-
-    public function createOrUpdateJobSeekerProfile(Request $request)
+    public function createOrUpdateEmployerProfile(Request $request)
     {
         // dd($request->all());
         $userId = Auth::guard('user')->user()->id;
@@ -45,7 +25,7 @@ class JobSeekerViewsController extends Controller
         };
         // dd($request->toArray());
 
-        $response = $this->service->createOrUpdateJobSeeker($request, $userId);
+        $response = $this->service->updateEmployer($request, $userId);
         // dd($response);
         if (!$response['success']) {
             $token = $request->cookie('token');
@@ -59,15 +39,18 @@ class JobSeekerViewsController extends Controller
                 $data['user'] = $user;
                 $data['token'] = ['access_token' => $token, 'token_type' => 'Bearer'];
 
-                $data['job_seeker'] = $user->jobSeeker;
-                $data['positions'] = Position::all();
-                $data['languages'] = Language::all();
+                $data['employer'] = $user->Employer;
                 $data['errors'] = $response['errors'] ?? [];
 
 
-                return Inertia::render('JobSeekers/JobSeekerProfileEdit', $data);
+                return Inertia::render('Employers/EmployersProfileEdit', $data);
             }
         }
         return redirect()->route('profile');
+    }
+
+    public function postVacancy()
+    {
+        return Inertia::render('Employers/PostVacancy');
     }
 }

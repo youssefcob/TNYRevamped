@@ -13,6 +13,7 @@ class Employer extends Model
     protected $fillable = [
         'facility_name',
         'phone_number',
+        'borough',
         'user_id'
     ];
     

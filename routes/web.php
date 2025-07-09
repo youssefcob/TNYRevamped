@@ -14,7 +14,7 @@ use Inertia\Inertia;
 
 require __DIR__ . '/web/auth-routes.php';
 
-// require __DIR__ . '/web/employer-web.php';
+require __DIR__ . '/web/employer-web.php';
 require __DIR__ . '/web/job-seeker-web.php';
 
 
@@ -54,11 +54,11 @@ Route::get('/talents', [HomeController::class, 'talents']);
 
 Route::get('/profile', [ProfileController::class, 'index'])
     ->middleware('auth.view:any')
-    ->name('job-seeker.profile');
+    ->name('profile');
 
 Route::get('/profile/edit', [ProfileController::class, 'editView'])
     ->middleware('auth.view:any')
-    ->name('job-seeker.profile.edit');
+    ->name('profile.edit');
 
 Route::get('/', [HomeController::class, 'view'])
 ->name('home');
