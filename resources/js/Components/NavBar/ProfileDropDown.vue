@@ -121,7 +121,7 @@ const profileTitle = profile.position?.title || "";
           
         </Link>
       </div>
-      <div class="logout-item">
+      <div class="logout-item" @click="user.logout">
         <svg
           width="20"
           height="20"
@@ -169,7 +169,7 @@ const profileTitle = profile.position?.title || "";
     min-width: 20rem;
     min-height: 24rem;
     z-index: 10;
-    padding: 0 0 1.5rem 0;
+    padding: 0 0 0 0;
     display: flex;
     flex-direction: column;
     // align-items: stretch;
@@ -251,7 +251,7 @@ const profileTitle = profile.position?.title || "";
       display: flex;
       align-items: center;
       gap: 1rem;
-      padding: 1.2rem 2rem 0.2rem 1rem;
+      padding: 1.2rem 2rem 1.2rem 1rem;
       font-size: 1.08rem;
       border-top: 1px solid #e0e0e0;
       color: #222;

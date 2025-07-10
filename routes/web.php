@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\Views\Auth\LoginController;
 use App\Http\Controllers\Views\Auth\RegisterController;
+use App\Http\Controllers\Views\DashboardController;
 use App\Http\Controllers\Views\HomeController;
 use App\Http\Controllers\Views\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -63,6 +64,8 @@ Route::get('/profile/edit', [ProfileController::class, 'editView'])
 Route::get('/', [HomeController::class, 'view'])
 ->name('home');
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')
+    ->middleware('auth.view:any');
 
 Route::get('/{any?}', [HomeController::class, 'view'])
 ->where('any', '.*');

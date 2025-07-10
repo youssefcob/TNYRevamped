@@ -4,6 +4,10 @@ import { Job, Language } from '@/interface/Types';
 import DropDownInputField from '@/SharedComponents/DropDownInputField.vue';
 import InputField from '@/SharedComponents/InputField.vue';
 import { onMounted, ref } from 'vue';
+import { router } from '@inertiajs/vue3';
+import { snack } from '@/mixins/toast';
+import WorkDays from '@/SharedComponents/workDays.vue';
+
 
 const props = defineProps({
     positions: {
@@ -14,12 +18,17 @@ const props = defineProps({
         type: Array as () => Language[],
         required: true
     },
+    errors: {
+        type: Object as () => Record<string, string[]>,
+        default: () => ({})
+    }
 });
 
 const form = {
     borough: '',
     address: '',
     shift_details: '',
+    position: '',
     experience: '',
     facility_type: '',
     payment_type: '',
@@ -27,10 +36,10 @@ const form = {
     license_required: '',
     legal_status: '',
     gender_pref: '',
-    work_days: '',
-    email: '',
+    work_days: [],
     availability_to_start: '',
     language_pref: '',
+    position_id: 0,
 
 
 }
@@ -38,6 +47,42 @@ const form = {
 const loading = ref(false);
 
 const csrfToken = ref<null | string | undefined>('');
+
+const submit = async () => {
+
+    const token = localStorage.getItem('token');
+    if (!token) {
+        snack.error('You are not authenticated. Please log in again.');
+        
+        return;
+    }
+    form.position_id = props.positions.find(p => p.title === form.position)?.id || 0;
+      router.post('/post-vacancy', form, {
+        headers: {
+            // 'Accept': 'application/json',
+            // Add other headers as needed, e.g. Authorization
+            'Authorization': `Bearer ${token}`
+        },
+        onStart: () => {
+            loading.value = true;
+        },
+        onFinish: () => {
+            loading.value = false;
+            if (props.errors && Object.keys(props.errors).length > 0) {
+                if (props.errors) {
+                    const firstError = Object.values(props.errors)[0];
+                    if (Array.isArray(firstError)) {
+                        snack.error(firstError[0]);
+                    } else if (typeof firstError === 'string') {
+                        snack.error(firstError);
+                    }
+                }
+            }
+        },
+        preserveState: true,
+        preserveScroll: true,
+    });
+}
 
 onMounted(() => {
     csrfToken.value = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
@@ -50,7 +95,7 @@ onMounted(() => {
             <div class="box-wrapper-border">
                 <h2 class="title">Welcome</h2>
 
-                <form method="POST" action="/post-vacancy">
+                <form method="POST" @submit.prevent="submit()">
                     <input type="hidden" name="_token" :value="csrfToken">
                     <InputField type="text" name="address" label="Address" placeHolder="Enter address"
                         v-model="form.address" />
@@ -59,7 +104,7 @@ onMounted(() => {
                             placeHolder="Choose Your Facility Type" v-model="form.facility_type"
                             :list="['Outpatient', 'Inpatient', 'SNF', 'Home Therapy']" />
                         <DropDownInputField label="Role" placeHolder="Enter Position" type="text"
-                            :list="positions.map(p => p.title)" name="facility_type" v-model="form.facility_type" />
+                            :list="positions.map(p => p.title)" name="position" v-model="form.position" />
 
                     </div>
                     <div class="split">
@@ -95,6 +140,7 @@ onMounted(() => {
                             :list="['US Citizen', 'Green Card Holder', 'H-1B', 'F1 CPT', 'F1 OPT', 'F1 no EAD', 'B1B2']"
                             v-model="form.legal_status" />
                     </div>
+                    <WorkDays v-model="form.work_days" />
 
                     <div class="btn-container">
                         <button type="submit" class="btn" :disabled="loading">
