@@ -31,7 +31,7 @@ class VacancyFactory extends Factory
             'status' => $this->faker->randomElement(['open', 'closed', 'pending']),
             'gender_pref' => $this->faker->randomElement(['Male','Female','Any']),
             'work_days' => $this->faker->randomElements(['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'], $this->faker->numberBetween(1, 7)),
-            'availability' => $this->faker->numberBetween(0, 60),
+            'availability_to_start' => $this->faker->numberBetween(0, 60),
             'is_featured' => $this->faker->boolean(30), 
 
         ];

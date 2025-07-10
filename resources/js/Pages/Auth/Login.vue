@@ -69,8 +69,6 @@ onMounted(() => {
             <input type="hidden" name="_token" :value="csrfToken">
             <div class="box-wrapper-border">
                 <h2 class="title">Login</h2>
-                <!-- {{ props.errors }} -->
-
 
                 <InputField type="text" name="email" label="Email" placeHolder="Enter your email"
                     value="jobSeeker@example.com" v-model="form.email" />

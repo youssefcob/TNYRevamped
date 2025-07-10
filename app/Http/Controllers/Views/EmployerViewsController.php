@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Views;
 
 use App\Http\Controllers\Controller;
+use App\Models\Language;
+use App\Models\Position;
 use App\Services\Employer\EmployerService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -51,6 +53,9 @@ class EmployerViewsController extends Controller
 
     public function postVacancy()
     {
-        return Inertia::render('Employers/PostVacancy');
+        $data = [];
+        $data['positions'] = Position::all();
+        $data['languages'] = Language::all();
+        return Inertia::render('Employers/PostVacancy',$data);
     }
 }

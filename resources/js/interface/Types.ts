@@ -130,11 +130,12 @@ export type Vacancy = {
     status: string;
     gender_pref: string;
     work_days: string;
-    availability: string;
+    availability_to_start: string;
     is_featured: boolean;
     created_at: string;
     updated_at: string;
     position: Job;
+    language_pref: string;
 }
 
 type Links = {

@@ -102,7 +102,7 @@ input,
 
 .box-wrapper-border {
     width: 100%;
-    max-width: 40vw;
+    max-width: 60vw;
     background-color: rgba(255, 255, 255, 0.8);
     padding: 2rem;
     border-radius: 10px;
@@ -124,7 +124,7 @@ input,
             }
         }
 
-    @include media-max(phone)
+    @include media-max(desktop)
     {
         // display:none;
         max-width: 90%;
