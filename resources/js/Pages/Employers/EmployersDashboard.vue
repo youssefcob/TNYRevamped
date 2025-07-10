@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import MainOverLay from '@/Components/Overlays/MainOverLay.vue';
 import { Employer, User, Vacancy } from '@/interface/Types';
+import EmployerVacancyCard from '@/SharedComponents/EmployerVacancyCard.vue';
 
 const props = defineProps({
     user: {
@@ -21,6 +22,17 @@ const props = defineProps({
 
 <template>
     <MainOverLay>
+        <div class="container">
+
+            <h1 class="title">Dashboard</h1>
+            <br>
+            <br>
+            <EmployerVacancyCard
+                v-for="vacancy in vacancies"
+                :key="vacancy.id"
+                :vacancy="vacancy"
+            ></EmployerVacancyCard>
+        </div>
 
         {{ user }}
 
@@ -34,3 +46,12 @@ const props = defineProps({
 
     </MainOverLay>
 </template>
+<style scoped lang="scss">
+
+.container {
+    display:flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top:3vh;
+}
+</style>
