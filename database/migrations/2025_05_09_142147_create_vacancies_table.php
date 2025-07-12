@@ -27,8 +27,9 @@ return new class extends Migration
             $table->string('status')->nullable();
             $table->string('gender_pref')->nullable();
             $table->string('work_days')->nullable();
-            $table->string('availability')->nullable();
+            $table->string('availability_to_start')->nullable();
             $table->boolean('is_featured')->default(false);
+            $table->string('language_pref')->nullable();
             $table->timestamps();
         });
     }

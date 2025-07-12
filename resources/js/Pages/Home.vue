@@ -77,12 +77,7 @@ import Services from '@/Components/Home/Services/Services.vue';
 import TeamComp from '@/Components/Home/Team/Team.vue';
 import Talents from '@/Components/Home/Talents/Talents.vue';
 const props = defineProps({
-    user: {
-        type: Object as () => User,
-},
-    token:{
-        type: Object as () => Token
-    },
+
     hero: {
         type: Object as () => typeHero[]
     },
@@ -132,12 +127,8 @@ onMounted(() => {
     if (props.team) {
         assignTeam(props.team);
     }
-    if( props.user) {
-        user.set(props.user);
-    }
-    if (props.token) {
-        user.setToken(props.token);
-    }
+ 
+    
     if( props.talent) {
         assignTalent(props.talent);
     }

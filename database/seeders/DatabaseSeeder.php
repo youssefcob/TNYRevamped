@@ -22,6 +22,20 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
+        User::factory()->create([
+            'name' => 'jobSeeker',
+            'email' => 'jobSeeker@example.com',
+            'password' => bcrypt('y'),
+            'user_type' => 'job_seeker',
+
+        ]);
+
+        User::factory()->create([
+            'name' => 'employer',
+            'email' => 'employer@example.com',
+            'password' => bcrypt('y'),
+            'user_type' => 'employer',
+        ]);
 
         $this->call(AdminsTableSeeder::class);
         $this->call(MailListSeeder::class);

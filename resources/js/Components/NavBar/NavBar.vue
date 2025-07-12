@@ -1,27 +1,43 @@
 <script setup lang="ts">
-import { Link } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import NavList from './NavList.vue';
 import NavListResponsive from './NavListResponsive.vue';
 import user from '@/mixins/user';
 import ProfileDropDown from './ProfileDropDown.vue';
-import { onMounted, onUnmounted, ref } from 'vue';
+import { computed,ref } from 'vue';
 
-const userIsLoggedIn = ref(user.loggedIn());
-const userData = ref(user.get());
 
-function updateUserState() {
-    userIsLoggedIn.value = user.loggedIn();
-    userData.value = user.get();
-}
+// const userIsLoggedIn = ref(user.loggedIn());
+// const userData = ref(user.get());
 
-onMounted(() => {
-    window.addEventListener('user-updated', updateUserState);
+const userIsLoggedIn = computed(() => {
+    // Check if user data exists either in page props or localStorage
+    return !!(page.props.user || user.get());
 });
 
-onUnmounted(() => {
-    window.removeEventListener('user-updated', updateUserState);
+// function updateUserState() {
+//     userIsLoggedIn = user.loggedIn();
+// }
+
+const page = usePage();
+
+// Make userData reactive
+const userData = computed(() => {
+    // First check page props (for SSR/initial load)
+    if (page.props.user) {
+        console.log('User data from page props:', page.props.user);
+        return page.props.user; 
+
+    }
+    // Then check localStorage (for client-side navigation)
+    return user.get();
 });
 
+
+defineExpose({
+    userIsLoggedIn,
+    userData
+});
 
 </script>
 
@@ -37,14 +53,15 @@ onUnmounted(() => {
                 <Link href="/login" class="btn">Login</Link>
                 <Link href="/register" class="btn">Sign up</Link>
             </div>
-            <div v-if="userIsLoggedIn && userData && userData.user_type == 'job_seeker'" class="auth-btns-wrapper">
-                <Link href="/apply" class="btn">Apply Now</Link>
+            <div v-if="userIsLoggedIn && userData" class="auth-btns-wrapper">
+                <Link v-if="userData.user_type == 'job_seeker'" href="/apply" class="btn">Apply Now</Link>
+                <Link v-if="userData.user_type == 'employer'" href="/post-vacancy" class="btn">Post a Job</Link>
             </div>
             <div class="navlist-mobile">
                 <NavListResponsive :userIsLoggedIn="userIsLoggedIn" :userData="userData" />
             </div>
             <div v-if="userIsLoggedIn && userData" class="profile">
-                <ProfileDropDown />
+                <ProfileDropDown :userData="userData"/>
             </div>
 
         </div>

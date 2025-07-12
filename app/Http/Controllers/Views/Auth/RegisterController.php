@@ -62,7 +62,10 @@ class RegisterController extends Controller
             // ]);
 
             cookie()->queue('token', $token['access_token'], 60 * 24, '/', null, true, false, false, 'strict');
-            return redirect()->route('home');
+             return redirect()->route('profile.edit')->with('snack', [
+                'type' => 'success',
+                'message' => 'Login successful. Please complete your profile.',
+            ]);
         } catch (\Illuminate\Validation\ValidationException $e) {
             return inertia('Auth/Register', [
                 'errors' => [$e->getMessage()]

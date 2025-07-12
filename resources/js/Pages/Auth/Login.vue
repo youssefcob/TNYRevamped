@@ -1,16 +1,10 @@
 <script setup lang="ts">
 import MainOverLay from '@/Components/Overlays/MainOverLay.vue';
 import { snack } from '@/mixins/toast';
-import user from '@/mixins/user';
-import Btn from '@/SharedComponents/btn.vue';
 import InputField from '@/SharedComponents/InputField.vue';
 import { Link, router } from '@inertiajs/vue3';
-import axios from 'axios';
 import { ref, onMounted, watch } from 'vue';
 
-import { usePage } from '@inertiajs/vue3'
-
-// const { errors } = usePage().props
 
 const loading = ref(false);
 const csrfToken = ref<null | string | undefined>('');
@@ -56,10 +50,6 @@ function submit() {
     });
 }
 
-// console.log(props.errors);
-onMounted(() => {
-
-});
 
 </script>
 
@@ -69,8 +59,6 @@ onMounted(() => {
             <input type="hidden" name="_token" :value="csrfToken">
             <div class="box-wrapper-border">
                 <h2 class="title">Login</h2>
-                <!-- {{ props.errors }} -->
-
 
                 <InputField type="text" name="email" label="Email" placeHolder="Enter your email"
                     value="jobSeeker@example.com" v-model="form.email" />

@@ -21,7 +21,7 @@ class JobSeekerService
     }
     public static function getTalent()
     {
-        $jobSeekers = JobSeeker::where('is_talent', '=', true)->with(['user', 'position'])->get();
+        $jobSeekers = JobSeeker::where('is_talent', true)->with(['position'])->get();
         return $jobSeekers;
     }
     public static function get(Request $request)

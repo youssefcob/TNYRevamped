@@ -51,7 +51,7 @@ class VacanciesService
             'rate_per_hour'    => $request->input('rate_per_hour'),
             'license_required' => $request->input('license_required'),
             'legal_status'     => $request->input('legal_status'),
-            'status'           => $request->input('status'),
+            'status'           => 'pending', // Default status
             'gender_pref'      => $request->input('gender_pref', null),
             'work_days'        => $request->input('work_days'),
             'availability'     => $request->input('availability')
@@ -190,6 +190,13 @@ class VacanciesService
                 'message' => 'Vacancy not found.'
             ];
         }
+        
+        if ($vacancy->status !== 'open' && $vacancy->status !== 'pending') {
+            return [
+                'success' => false,
+                'message' => 'Cannot delete a vacancy that is active.'
+            ];
+        }
         try {
             $vacancy->delete();
             return [
@@ -288,7 +295,6 @@ class VacanciesService
             if ($position) {
                 $query->where('position_id', $position->id);
             }
-
         }
 
         if ($request->has('borough')) {

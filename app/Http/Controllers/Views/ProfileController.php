@@ -26,7 +26,7 @@ class ProfileController extends Controller
                 if ($user->hasRole('employer')) {
                     $data['employer'] = $user->employer;
                     if (!$user->employer) {
-                        return redirect()->route('employer.profile.edit');
+                        return redirect()->route('profile.edit');
                     }
                     return Inertia::render('Employers/EmployersProfile', $data);
                 } elseif ($user->hasRole('job_seeker')) {
@@ -36,7 +36,7 @@ class ProfileController extends Controller
                     }
                     $data['job_seeker'] = $job_seeker;
                     if (!$user->jobSeeker) {
-                        return redirect()->route('job-seeker.profile.edit');
+                        return redirect()->route('profile.edit');
                     }
                     return Inertia::render('JobSeekers/JobSeekerProfile', $data);
                 }

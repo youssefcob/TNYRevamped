@@ -68,6 +68,13 @@ export default {
         return '';
     }),
 
+    logout: () => {
+        localStorage.removeItem('user');
+        localStorage.removeItem('token');
+        window.dispatchEvent(new Event('user-logged-out'));
+        // Optionally, redirect to login page
+        window.location.href = '/login';
+    }
 
     // user: (() => {
     //     const userStr = localStorage.getItem('user');

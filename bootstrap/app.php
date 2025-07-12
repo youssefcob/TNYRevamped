@@ -14,6 +14,10 @@ return Application::configure(basePath: dirname(__DIR__))
     )
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->append(\App\Http\Middleware\ForceJsonResponse::class);
+
+        $middleware->web(append: [
+            \App\Http\Middleware\HandleInertiaRequests::class,
+        ]);
         $middleware->alias([
             'auth.user' => UserAuthenticate::class,
             'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,

@@ -30,8 +30,9 @@ class Vacancy extends Model
         'status',
         'gender_pref',
         'work_days',
-        'availability',
+        'availability_to_start',
         'is_featured',
+        'language_pref'
     ];
 
     /**

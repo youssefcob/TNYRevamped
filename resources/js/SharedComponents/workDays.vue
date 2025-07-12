@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, defineEmits, defineProps } from 'vue';
+import { ref, watch, defineEmits, defineProps, onMounted } from 'vue';
 
 const days = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
 
@@ -26,7 +26,6 @@ watch(
   }
 );
 
-console.log(props.value);
 
 function toggleDay(day: string) {
   if (selected.value.includes(day)) {
@@ -37,6 +36,10 @@ function toggleDay(day: string) {
   console.log(selected.value);
   emit('update:modelValue', selected.value);
 }
+onMounted(()=>{
+  emit('update:modelValue', selected.value);
+
+})
 </script>
 
 

@@ -83,6 +83,9 @@ onMounted(() => {
     if (props.team) {
         assignTeam(props.team);
     }
+    if( props.talent) {
+        assignTalent(props.talent);
+    }
     if (props.user) {
         user.set(props.user);
     }

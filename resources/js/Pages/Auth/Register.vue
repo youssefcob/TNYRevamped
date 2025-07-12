@@ -1,13 +1,9 @@
 <script setup lang="ts">
 import MainOverLay from '@/Components/Overlays/MainOverLay.vue';
-import Http from '@/mixins/Http';
-import Btn from '@/SharedComponents/btn.vue';
 import InputField from '@/SharedComponents/InputField.vue';
-import { Link, router, useForm } from '@inertiajs/vue3';
-import axios from 'axios';
-import { reactive, ref } from 'vue';
+import { Link, router } from '@inertiajs/vue3';
 import { snack } from '@/mixins/toast';
-import user from '@/mixins/user';
+import { ref } from 'vue';
 
 
 const form = {

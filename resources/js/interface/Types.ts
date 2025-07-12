@@ -26,10 +26,10 @@ export type Service = {
 
 export type Employer = {
     id: number;
-    title: string;
-    description: string;
-    image: string;
-    onMainPage: boolean;
+    facility_name: string;
+    phone_number: string;
+    borough: string | null;
+    user_id: number;
 }
 
 export type Job = {
@@ -129,12 +129,14 @@ export type Vacancy = {
     legal_status: string;
     status: string;
     gender_pref: string;
-    work_days: string;
-    availability: string;
+    work_days: string[];
+    availability_to_start: string;
     is_featured: boolean;
     created_at: string;
     updated_at: string;
     position: Job;
+    language_pref: string;
+    applications_count: number;
 }
 
 type Links = {

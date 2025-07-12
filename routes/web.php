@@ -3,6 +3,7 @@
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\Views\Auth\LoginController;
 use App\Http\Controllers\Views\Auth\RegisterController;
+use App\Http\Controllers\Views\DashboardController;
 use App\Http\Controllers\Views\HomeController;
 use App\Http\Controllers\Views\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -14,7 +15,7 @@ use Inertia\Inertia;
 
 require __DIR__ . '/web/auth-routes.php';
 
-// require __DIR__ . '/web/employer-web.php';
+require __DIR__ . '/web/employer-web.php';
 require __DIR__ . '/web/job-seeker-web.php';
 
 
@@ -54,15 +55,17 @@ Route::get('/talents', [HomeController::class, 'talents']);
 
 Route::get('/profile', [ProfileController::class, 'index'])
     ->middleware('auth.view:any')
-    ->name('job-seeker.profile');
+    ->name('profile');
 
 Route::get('/profile/edit', [ProfileController::class, 'editView'])
     ->middleware('auth.view:any')
-    ->name('job-seeker.profile.edit');
+    ->name('profile.edit');
 
 Route::get('/', [HomeController::class, 'view'])
 ->name('home');
 
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')
+    ->middleware('auth.view:any');
 
 Route::get('/{any?}', [HomeController::class, 'view'])
 ->where('any', '.*');
