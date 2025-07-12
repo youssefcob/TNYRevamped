@@ -51,17 +51,5 @@ class EmployerViewsController extends Controller
         return redirect()->route('profile');
     }
 
-    public function postVacancyView()
-    {
-        $user = Auth::guard('user')->user();
-        if(!$user->employer)
-        {
-            return redirect()->route('profile.edit');
-        }
 
-        $data = [];
-        $data['positions'] = Position::all();
-        $data['languages'] = Language::all();
-        return Inertia::render('Employers/PostVacancy',$data);
-    }
 }
