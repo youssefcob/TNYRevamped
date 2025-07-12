@@ -55,7 +55,10 @@ class LoginController extends Controller
             }
 
             cookie()->queue('token', $token['access_token'], 60 * 24, '/', null, true, false, false, 'strict');
-            return redirect()->route('home');
+            return redirect()->route('profile.edit')->with('snack', [
+                'type' => 'success',
+                'message' => 'Login successful. Please complete your profile.',
+            ]);
         } catch (\Throwable $e) {
             return inertia('Auth/Login', [
                 'errors' => [$e->getMessage()]

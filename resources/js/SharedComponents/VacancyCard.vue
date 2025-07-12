@@ -3,18 +3,23 @@ import { JobSeeker, Vacancy } from '@/interface/Types';
 import Btn from './btn.vue';
 import user from '@/mixins/user';
 import { ref } from 'vue';
-import { router } from '@inertiajs/vue3';
+import { Link, router } from '@inertiajs/vue3';
 import { snack } from '@/mixins/toast';
 
 const props = defineProps({
     vacancy: {
         type: Object as () => Vacancy,
         required: true
+    },
+    employer: {
+        type: Boolean,
+        default: false
     }
 });
 
 const loading = ref(false);
 
+const emit = defineEmits(['edit', 'delete']);
 
 
 function apply() {
@@ -54,8 +59,8 @@ function apply() {
                         </svg>
                         <span>
                             {{
-                                parseInt(vacancy.availability) > 0
-                                    ? 'After ' + vacancy.availability + ' days'
+                                parseInt(vacancy.availability_to_start) > 0
+                                    ? 'After ' + vacancy.availability_to_start + ' days'
                                     : 'Immediately'
                             }}
                         </span>
@@ -116,8 +121,20 @@ function apply() {
                     </div>
                 </div>
             </div>
-            <div class="btn-wrapper">
-                <Btn class="btn" @click="apply()" :loading="loading">Apply Now</Btn>
+            <div class="btn-wrapper" v-if="!employer">
+                <Btn  class="btn" @click="apply()" :loading="loading">Apply Now</Btn>
+
+            </div>
+
+            <div class="btn-wrapper" v-else>
+                <template v-if="vacancy.status === 'pending' || vacancy.status === 'open'">
+                <Link  class="btn" :href="`vacancy/edit/${vacancy.id}`">Edit</Link>
+                <Btn  class="btn delete" @click="emit('delete',vacancy.id)" :loading="loading">Remove</Btn>
+                </template>
+                <template v-else>
+                <span class="count"> {{ vacancy.applications_count }} applicants </span>
+                    </template>
+
             </div>
         </div>
     </div>
@@ -212,6 +229,23 @@ function apply() {
 
     .btn-wrapper {
         width: 10rem;
+        display: flex;
+        flex-direction: column;
+        gap: 2rem;
+        @include media-max(phone)
+        {
+            flex-direction: row;
+            width:80%;
+        }
+        .count{
+            border: 1px solid $navy;
+            padding: 0.5rem 1rem;
+            border-radius: calc($border-radius / 3);
+            font-size: 0.9rem;
+            color:$navy;
+            font-weight: 600;
+            text-align: center;
+        }
     }
 
     @include media-max(phone) {

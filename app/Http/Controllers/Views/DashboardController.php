@@ -28,7 +28,7 @@ class DashboardController extends Controller
                         return redirect()->route('profile.edit');
                     }
                     $data['employer'] = $user->employer;
-                    $data['vacancies'] = $user->employer->vacancies()->with('position')->get();
+                    $data['vacancies'] = $user->employer->vacancies()->with('position')->withCount('applications')->get();
                     return Inertia::render('Employers/EmployersDashboard', $data);
                 } elseif ($user->hasRole('job_seeker')) {
                     $job_seeker = $user->jobSeeker;

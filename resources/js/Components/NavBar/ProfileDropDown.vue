@@ -3,9 +3,17 @@ import { ref, onMounted, onUnmounted } from "vue";
 import user from "@/mixins/user";
 import { jobSeekerProfileState } from "@/state/state";
 import { Link } from "@inertiajs/vue3";
+import { User } from "@/interface/Types";
 
 const userIsLoggedIn = user.loggedIn();
-const userData = user.get();
+// const userData = user.get();
+
+const props = defineProps({
+  userData: {
+    type: Object as ()=> User,
+    required: true,
+  },
+});
 
 const isOpen = ref(false);
 const dropdownRef = ref<HTMLElement | null>(null);
@@ -34,7 +42,7 @@ onUnmounted(() => {
 
 const profile = jobSeekerProfileState.value?.[0] || {};
 const profileImage = profile.image || "https://randomuser.me/api/portraits/men/32.jpg"; // fallback placeholder
-const profileName = userData?.name || "Profile";
+const profileName = props.userData?.name || "Profile";
 const profileTitle = profile.position?.title || "";
 </script>
 

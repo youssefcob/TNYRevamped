@@ -22,3 +22,8 @@ Route::get('/post-vacancy', [EmployerViewsController::class, 'postVacancyView'])
 Route::post('/post-vacancy', [VacancyController::class, 'postVacancy'])
     ->middleware('auth.view:employer')
     ->name('post-vacancy.submit');
+
+Route::prefix('vacancy')->middleware('auth.view:employer')->group(function () {
+    Route::get('/edit/{id}', [VacancyController::class, 'EditVacancyView'])->name('vacancies.list');
+    Route::post('/edit/{id}', [VacancyController::class, 'editVacancy'])->name('vacancies.edit');
+});
