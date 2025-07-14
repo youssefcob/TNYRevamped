@@ -23,6 +23,7 @@ return Application::configure(basePath: dirname(__DIR__))
             'scope' => \Laravel\Passport\Http\Middleware\CheckForAnyScope::class,
             'scopes' => \Laravel\Passport\Http\Middleware\CheckScopes::class,
             'auth.view' => \App\Http\Middleware\AuthView::class,
+            'complete.profile' => \App\Http\Middleware\CompleteProfile::class,
         ]);
     })
     ->withProviders([
