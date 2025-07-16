@@ -85,6 +85,7 @@ class BidsService
             $jobSeekerId = $request->input('job_seeker_id');
             $id = $request->input('id');
             $bids = $this->fetchAdminBids();
+            
             // dd($bids);
             if($id){
                 $bids = $bids->where('bids.id', $id)->first();
@@ -131,6 +132,7 @@ class BidsService
                     }
                     $bids = $filteredBids['data'];
                 }
+                
                 if($jobSeekerId){
                     $filteredBids = $this->jobSeekerIdFilter($bids, $jobSeekerId, 'bids');
                     if (!$filteredBids['success']) {
@@ -139,7 +141,9 @@ class BidsService
                     $bids = $filteredBids['data'];
                 }
                 $bids = $bids->paginate(self::PAGINATION_LIMIT);
+                // dd('s');
             }
+            // dd('s');
             return $this->adminBidsResponse($bids);
         } catch (Exception $e) {
             return [

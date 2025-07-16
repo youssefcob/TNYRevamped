@@ -4,21 +4,50 @@ namespace App\Services\Content;
 
 use App\Models\Employer;
 use App\Services\Cloudinary;
+use App\TableFiltersHelperFunctions;
 use Exception;
 use Illuminate\Http\Request;
 
 class EmployersService
 {
+    use TableFiltersHelperFunctions;
     const PAGINATION_LIMIT = 10;
     public static function get()
     {
         return Employer::all();
     }
-    public static function getWithFormattedResponse()
+    public  function getWithFormattedResponse(Request $request, $perPage = Self::PAGINATION_LIMIT)
     {
         try {
             //code...
-            $employers = Employer::with('user')->paginate(self::PAGINATION_LIMIT);
+            $startDate = $request->input('start_date');
+            $endDate = $request->input('end_date');
+            // $status = $request->input('status');
+            $query = Employer::with('user');
+            if($startDate){
+                $filteredEmployers = $this->startDateFilter($query, $startDate);
+                if (!$filteredEmployers['success']) {
+                    return $filteredEmployers;
+                }
+                $query = $filteredEmployers['data'];
+            }
+            if($endDate){
+                $filteredEmployers = $this->endDateFilter($query, $endDate);
+                if (!$filteredEmployers['success']) {
+                    return $filteredEmployers;
+                }
+                $query = $filteredEmployers['data'];
+            }
+            // if($status){
+            //     $filteredEmployers = $this->statusFilter($query, $status);
+            //     if (!$filteredEmployers['success']) {
+            //         return $filteredEmployers;
+            //     }
+            //     $query = $filteredEmployers['data'];
+            // }
+            $employers = $query->paginate($perPage);
+            // $employers = Employer::with('user')->paginate(self::PAGINATION_LIMIT);
+
             return [
                 'success' => true,
                 'data' => $employers,

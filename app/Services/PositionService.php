@@ -25,7 +25,7 @@ class PositionService
      * @return array Positions data, pagination information, or error messages.
      * @throws \Exception
      */
-    public function getPositions($request)
+    public function getPositions($request, $perPage = 10)
     {
         try {
             $id = $request->input('id');
@@ -34,7 +34,7 @@ class PositionService
                     'id' => 'required|integer|exists:positions,id',
                 ]);
             }
-            $data = $id ? Position::find($id) : Position::all();
+            $data = $id ? Position::find($id) : Position::paginate($perPage);
             return [
                 'success' => true,
                 'data' => $data,
@@ -64,7 +64,7 @@ class PositionService
                 'title' => 'sometimes|string|max:255',
                 'description' => 'sometimes|string|max:255',
                 'available' => 'sometimes|boolean',
-                'address' =>'string'
+                'address' => 'string'
             ]);
             $position = Position::find($request->id);
             $data = $request->only(['title', 'description', 'available', 'address']);
@@ -74,7 +74,7 @@ class PositionService
             return [
                 'success' => true,
                 'data' => $position,
-                'message'=>'Position updated successfully'
+                'message' => 'Position updated successfully'
             ];
         } catch (ValidationException $e) {
             return [
@@ -98,7 +98,7 @@ class PositionService
                 'title' => 'required|string|max:255',
                 'description' => 'required|string|max:255',
                 'available' => 'boolean',
-                'address' =>'string'
+                'address' => 'string'
             ]);
             $data = $request->only(['title', 'description', 'available', 'address']);
 
@@ -155,6 +155,23 @@ class PositionService
                 'success' => false,
                 'message' => 'Position could not be deleted',
                 'error' => $e->getMessage()
+            ];
+        }
+    }
+    public function getPositionFilters()
+    {
+        try {
+            //code...
+            $positions = Position::select('positions.id as position_id', 'positions.title as position_title')
+                ->get();
+            return [
+                'success' => true,
+                'data' => $positions
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
             ];
         }
     }

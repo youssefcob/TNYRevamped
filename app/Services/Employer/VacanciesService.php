@@ -4,12 +4,14 @@ namespace App\Services\Employer;
 
 use App\Models\Position;
 use App\Models\Vacancy;
+use App\TableFiltersHelperFunctions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class VacanciesService
 {
+    use TableFiltersHelperFunctions;
     public function create(Request $request)
     {
         $request->validate([
@@ -318,5 +320,79 @@ class VacanciesService
             'success' => true,
             'data' => $vacancies
         ];
+    }
+
+    public function adminGetVacancies($request, $perPage = 10)
+    {
+        try {
+            $status = $request->input('status');
+            $startDate = $request->input('start_date');
+            $endDate = $request->input('end_date');
+            $employerId = $request->input('employer_id');
+            $query = Vacancy::with([
+                'position' => function($query) {
+                    $query->select('id', 'title')
+                          ->where('available', true);
+                },
+                'employer' => function($query) {
+                    $query->join('users', 'employers.user_id', '=', 'users.id')
+                    ->select('employers.id', 'users.name', 'employers.facility_name');
+                }
+            ]);
+            // dd($query->get()->toArray());
+            
+            
+            if($startDate){
+                $filtredVacancies = $this->startDateFilter($query, $startDate);
+                if(!$filtredVacancies['success'])
+                    return $filtredVacancies;
+                $query = $filtredVacancies['data']; 
+            }
+            if($endDate){
+                $filtredVacancies = $this->endDateFilter($query, $endDate);
+                if(!$filtredVacancies['success'])
+                    return $filtredVacancies;
+                $query = $filtredVacancies['data']; 
+            }
+            if($status){
+                $filtredVacancies = $this->statusFilter($query, $status);
+                if(!$filtredVacancies['success'])
+                    return $filtredVacancies;
+                $query = $filtredVacancies['data']; 
+            }
+            if($employerId){
+                $filtredVacancies = $this->employerIdFilter($query, $employerId);
+                if(!$filtredVacancies['success'])
+                    return $filtredVacancies;
+                $query = $filtredVacancies['data']; 
+            }
+            $vacancies = $query->paginate($perPage);
+            // ->paginate($perPage);
+            return [
+                'success' => true,
+                'data' => $vacancies
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage()
+            ];
+        }
+    }
+    public function getVacancyFilters(Request $request){
+        try {
+            $vacancies = Vacancy::select('vacancies.id as vacancy_id', 'positions.title as position_title')
+                ->join('positions', 'vacancies.position_id', '=', 'positions.id')
+                ->get();
+            return [
+                'success' => true,
+                'data' => $vacancies
+            ];
+        } catch (\Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+        }
     }
 }
