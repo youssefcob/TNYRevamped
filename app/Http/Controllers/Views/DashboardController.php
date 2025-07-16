@@ -12,39 +12,18 @@ class DashboardController extends Controller
 {
     public function index(Request $request)
     {
-        // dd('hello');
-        $token = $request->cookie('token');
-        if ($token) {
-            $request->headers->set('Authorization', 'Bearer ' . $token);
-            /** @var \App\Models\User $user */
-            $user = Auth::guard('user')->user();
-            if ($user) {
-                $data['user'] = $user;
-                $data['token'] = ['access_token' => $token, 'token_type' => 'Bearer'];
+        $user = $request->attributes->get('user');
+        // dd($user->toArray());
 
-                if ($user->hasRole('employer')) {
+        if ($user->hasRole('employer')) {
 
-                    return redirect()->route('employer.vacancies');
-                    // return $this->employerVacancies($request);
-
-                    // $data['employer'] = $user->employer;
-                    // if (!$user->employer) {
-                        // return redirect()->route('profile.edit');
-                    // }
-                    // $data['vacancies'] = $user->employer->vacancies()->with('position')->withCount('applications')->get();
-                    // return Inertia::render('Employers/EmployersDashboard', $data);
-                } elseif ($user->hasRole('job_seeker')) {
-                    $job_seeker = $user->jobSeeker;
-                    $data['job_seeker'] = $job_seeker;
-                    if (!$user->jobSeeker) {
-                        return redirect()->route('profile.edit');
-                    }
-                    $data['applications'] = $job_seeker->applications()->with('vacancy.position')->get();
-                    return Inertia::render('JobSeekers/JobSeekersDashboard', $data);
-                }
-            }
+            return redirect()->route('employer.vacancies');
         }
-        return redirect()->route('login');
+        if ($user->hasRole('job_seeker')) {
+            return redirect()->route('job-seeker.dashboard.applications');
+        } 
+
+        // return redirect()->route('login');
     }
 
     public function employerVacancies(Request $request)
@@ -59,5 +38,13 @@ class DashboardController extends Controller
         $user = $request->attributes->get('user');
         $bids = $user->employer->bids()->with('position')->get();
         return Inertia::render('Employers/EmployersDashboard', ['bids' => $bids]);
+    }
+
+    public function jobSeekerApplications(Request $request)
+    {
+        // dd('jobSeekerApplications called');
+        $user = $request->attributes->get('user');
+        $applications = $user->jobSeeker->applications()->with('vacancy.position')->get();
+        return Inertia::render('JobSeekers/JobSeekersDashboard', ['applications' => $applications]);
     }
 }

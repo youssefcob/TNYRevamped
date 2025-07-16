@@ -1,10 +1,10 @@
 <script lang="ts" setup>
-import { JobSeeker, Vacancy } from '@/interface/Types';
+import {  Vacancy } from '@/interface/Types';
 import Btn from './btn.vue';
-import user from '@/mixins/user';
 import { ref } from 'vue';
 import { Link, router } from '@inertiajs/vue3';
-import { snack } from '@/mixins/toast';
+import Modal from './modal.vue';
+import user from '@/mixins/user';
 
 const props = defineProps({
     vacancy: {
@@ -14,7 +14,15 @@ const props = defineProps({
     employer: {
         type: Boolean,
         default: false
+    },
+    applied:{
+        type:Boolean,
+        default:false
+    },
+    applicationStatus:{
+        type:String
     }
+ 
 });
 
 const loading = ref(false);
@@ -22,20 +30,27 @@ const loading = ref(false);
 const emit = defineEmits(['edit', 'delete']);
 
 
+
+const applicationModal = ref<InstanceType<typeof Modal> | null>(null);
 function apply() {
-    if (!user.loggedIn()) {
-        snack.error('Please login to apply for this job');
-        return;
-    }
-    if(!user.get().jobSeeker) {
-        snack.error('Please complete your profile before applying for jobs');
-        return;
-    }
-    console.log('Bid function called');
+    // applicationModal.value?.openModal();
+    router.post(`vacancy/apply/${props.vacancy.id}`,{},{
+        onStart:() =>{
+            loading.value=true;
+        },
+        onFinish:()=>{
+            loading.value = false;
+        },
+        preserveScroll:true,
+        preserveState:true
+    })
 }
 </script>
 
 <template>
+    <!-- <Modal applicationModal ref="applicationModal" title="Apply for Vacancy" >
+        <ApplicationModal/>
+    </Modal> -->
     <div>
 
         <div class="card">
@@ -121,9 +136,9 @@ function apply() {
                     </div>
                 </div>
             </div>
-            <div class="btn-wrapper" v-if="!employer">
-                <Btn  class="btn" @click="apply()" :loading="loading">Apply Now</Btn>
-
+            <div class="btn-wrapper" v-if="user.get().user_type == 'job_seeker'">
+                <Btn  v-if="!applied" class="btn" @click="apply()" :loading="loading">Apply Now</Btn>
+                <p v-if="applicationStatus">{{ applicationStatus }}</p>
             </div>
 
             <div class="btn-wrapper" v-else>

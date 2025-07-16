@@ -30,6 +30,12 @@ export type Service = {
     onMainPage: boolean;
 }
 
+export type Application = {
+    vacancy:Vacancy;
+    status:string;
+    resume:string;
+}
+
 export type Employer = {
     id: number;
     facility_name: string;

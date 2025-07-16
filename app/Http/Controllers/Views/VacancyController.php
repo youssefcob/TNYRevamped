@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Views;
 use App\Http\Controllers\Controller;
 use App\Models\Language;
 use App\Models\Position;
+use App\Services\Applications\ApplicationsService;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Http\Request;
@@ -155,6 +156,29 @@ class VacancyController extends Controller
             'positions' => Position::all(),
             'languages' => Language::all(),
             'vacancy' => $vacancy,
+        ]);
+    }
+
+    public function jobSeekerapplications(Request $request)
+    {
+        $user = $request->attributes->get('user');
+        $applications = $user->jobSeeker()->applications()->with('vacancy.position')->get();
+        dd($applications);
+    }
+
+    public function apply(Request $request, $vacancy_id)
+    {
+        $service = new ApplicationsService();
+        $res = $service->apply($request, $vacancy_id);
+        if(!$res['success']) {
+            return redirect()->back()->with('snack', [
+                'type' => 'error',
+                'message' => $res['message'],
+            ]);
+        }
+        return redirect()->route('job-seeker.dashboard.applications')->with('snack', [
+            'type' => 'success',
+            'message' => 'Application submitted successfully.',
         ]);
     }
 }

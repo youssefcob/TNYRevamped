@@ -54,7 +54,7 @@ defineExpose({
                 <Link href="/register" class="btn">Sign up</Link>
             </div>
             <div v-if="userIsLoggedIn && userData" class="auth-btns-wrapper">
-                <Link v-if="userData.user_type == 'job_seeker'" href="/apply" class="btn">Apply Now</Link>
+                <Link v-if="userData.user_type == 'job_seeker'" href="/vacancies" class="btn">Apply Now</Link>
                 <Link v-if="userData.user_type == 'employer'" href="/post-vacancy" class="btn">Post a Job</Link>
                 <Link v-if="userData.user_type == 'employer'" href="/talents" class="btn">Find Talents</Link>
 

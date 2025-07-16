@@ -73,6 +73,7 @@ router.get(`/vacancies`, { page }, {
             <div class="paginator">
             <Paginator :current_page="vacancies.current_page" :last_page="vacancies.last_page" @page-changed="goToPage($event)"/>
             </div>
+            <div class="filters-container">
             <select class="form-select mb-4" v-model="filters.position">
                 <option value="">All Positions</option>
                 <option v-for="position in positions" :key="position.id" :value="position.title">
@@ -90,10 +91,30 @@ router.get(`/vacancies`, { page }, {
             </select>
 
             <input type="text" class="form-control mb-4" placeholder="Search Vacancies" v-model="filters.search" />
-            <!-- {{props.vacancies?.data}} -->
+             </div>
+             <div class="vacancies">
             <VacancyCard v-for="vacancy in props.vacancies.data" :key="vacancy.id" :vacancy="vacancy" />
-            
+            </div>
+              <div class="paginator">
+            <Paginator :current_page="vacancies.current_page" :last_page="vacancies.last_page" @page-changed="goToPage($event)"/>
+            </div>
         </div>
     </MainOverLay>
 
 </template>
+<style scoped lang="scss">
+.container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    @include pagePadding;
+
+    .title,
+    .paginator {
+        margin: auto;
+    }
+    .vacancies >*{
+        margin-top:2rem;
+    }
+}
+</style>
