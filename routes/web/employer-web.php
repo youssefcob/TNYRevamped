@@ -29,7 +29,7 @@ Route::prefix('vacancy')->middleware('auth.view:employer')->group(function () {
 });
 
 Route::prefix('bid')->middleware(['auth.view:employer'])->group(function () {
-    Route::post('/', [EmployerViewsController::class, 'bid'])
+    Route::post('/', [EmployerViewsController::class, 'bid'])->middleware('complete.profile')
         ->name('bid.submit');
 });
 
