@@ -5,11 +5,14 @@ namespace App\Services\Applications;
 use App\Models\Application;
 use App\Models\User;
 use App\Models\Vacancy;
+use App\TableFiltersHelperFunctions;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class ApplicationsService
 {
+    use TableFiltersHelperFunctions;
     /**
      * Apply to a vacancy.
      *
@@ -88,7 +91,7 @@ class ApplicationsService
         return $this->ApplicationsPerJobSeeker($user);
     }
 
-    public function AdminJobSeekerApplications($id)
+public function AdminJobSeekerApplications($id)
     {
         $user = User::findOrFail($id);
         return $this->ApplicationsPerJobSeeker($user);
@@ -162,29 +165,63 @@ class ApplicationsService
     }
 
 
-    public function adminFilterApplications(Request $request)
+    public function adminFilterApplications(Request $request, $perPage = 10)
     {
 
-        $query = Application::query()
-        ->join('vacancies', 'applications.vacancy_id', '=', 'vacancies.id')
-        ->join('positions', 'vacancies.position_id', '=', 'positions.id')
-        ->join('employers', 'vacancies.employer_id', '=', 'employers.id')
-        ->join('job_seekers', 'applications.job_seeker_id', '=', 'job_seekers.id')
-        ->join('users as job_seeker_users', 'job_seeker_users.id', '=', 'job_seekers.user_id')
-        ->join('users as employer_users', 'employer_users.id', '=', 'employers.user_id')
-        ->select([
-            'applications.resume as resume',
-            'applications.status as status',
-            'vacancies.*',
-            'positions.title as position_title',
-            'employer_users.name as employer_name',
-            'employer_users.email as employer_email',
-            'job_seeker_users.name as job_seeker_name',
-            'job_seeker_users.email as employer_email'
+        // $query = Application::query()
+        // ->join('vacancies', 'applications.vacancy_id', '=', 'vacancies.id')
+        // ->join('positions', 'vacancies.position_id', '=', 'positions.id')
+        // ->join('employers', 'vacancies.employer_id', '=', 'employers.id')
+        // ->join('job_seekers', 'applications.job_seeker_id', '=', 'job_seekers.id')
+        // ->join('users as job_seeker_users', 'job_seeker_users.id', '=', 'job_seekers.user_id')
+        // ->join('users as employer_users', 'employer_users.id', '=', 'employers.user_id')
+        // ->select([
+        //     'applications.resume as resume',
+        //     'applications.status as status',
+        //     'vacancies.*',
+        //     'positions.title as position_title',
+        //     'employer_users.name as employer_name',
+        //     'employer_users.email as employer_email',
+        //     'job_seeker_users.name as job_seeker_name',
+        //     'job_seeker_users.email as employer_email'
 
+        // ]);
+        $query = Application::with([
+            'vacancy' => function($query) {
+                $query->select('id', 'address', 'borough', 'position_id');
+                $query->with(['position' => function($q) {
+                    $q->select('id', 'title');
+                }]);
+            },
+            'jobSeeker' => function($query) {
+                $query->with(['user' => function($q) {
+                    $q->select('id', 'name', 'email');
+                }]);
+            }
         ]);
+        
 
-
+        if ($request->filled('status')) {
+            $filtredApplications = $this->statusFilter($query, $request->status);
+            if(!$filtredApplications['success']){
+                return $filtredApplications;
+            }
+            $query = $filtredApplications['data'];
+        }
+        if ($request->filled('start_date')) {
+            $filtredApplications = $this->startDateFilter($query, $request->start_date);
+            if(!$filtredApplications['success']){
+                return $filtredApplications;
+            }
+            $query = $filtredApplications['data'];
+        }
+        if ($request->filled('end_date')) {
+            $filtredApplications = $this->endDateFilter($query, $request->end_date);
+            if(!$filtredApplications['success']){
+                return $filtredApplications;
+            }
+            $query = $filtredApplications['data'];
+        }
         // Filter by vacancy_id (direct column in applications table)
         if ($request->filled('vacancy_id')) {
             $query->where('vacancy_id', $request->vacancy_id);
@@ -192,7 +229,9 @@ class ApplicationsService
 
         // // // Filter by position_id (direct column in vacancy table)
         if ($request->filled('position_id')) {
-            $query->where('vacancies.position_id', $request->position_id);
+            $query->whereHas('vacancy', function($q) use ($request) {
+                $q->where('position_id', $request->position_id);
+            });
         }
 
         // // Filter by employer_id (through vacancy relationship)
@@ -207,7 +246,7 @@ class ApplicationsService
             $query->where('job_seeker_id', $request->job_seeker_id);
         }
 
-        $applications = $query->orderBy('applications.created_at', 'desc')->paginate(15);
+        $applications = $query->orderBy('created_at', 'desc')->paginate($perPage);
 
 
         return [
@@ -215,5 +254,57 @@ class ApplicationsService
             'data' => $applications,
             'message' => 'Application submitted successfully.',
         ];
+    }
+
+    public function adminGetAllApplications(Request $request, $perPage = 10)
+    {
+        try {
+            //code...
+            $applications = Application::with([
+                'vacancy' => function($query) {
+                    $query->select('id', 'address', 'borough', 'position_id');
+                    $query->with(['position' => function($q) {
+                        $q->select('id', 'title');
+                    }]);
+                },
+                'jobSeeker' => function($query) {
+                    $query->with(['user' => function($q) {
+                        $q->select('id', 'name', 'email');
+                    }]);
+                }
+            ])->paginate($perPage);
+            
+            return [
+                'success' => true,
+                'data' => $applications,
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+        }
+    }
+
+    public function adminUpdateApplicationStatus( $request)
+    {
+        try {
+            $request->validate([
+                'status' => 'required|in:pending,approved,rejected,closed',
+                'id' => 'required|exists:applications,id',
+            ]);
+            $application = Application::findOrFail($request->id);
+            $application->status = $request->status;
+            $application->save();
+            return [
+                'success' => true,
+                'message' => 'Application status updated successfully.',
+            ];
+        } catch (Exception $e) {
+            return [
+                'success' => false,
+                'message' => $e->getMessage(),
+            ];
+        }
     }
 }
