@@ -102,4 +102,15 @@ trait TableFiltersHelperFunctions
             ];
         }
     }
+    public function employerIdFilter($query, $employerId, $joinedTable = '')
+    {
+        $column = $joinedTable ? $joinedTable . '.employer_id' : 'employer_id';
+        $data = $query->where($column, $employerId);
+        // dd($employerId,$data);
+        return [
+            'success' => true,
+            'message' => ' fetched successfully',
+            'data' => $data
+        ];
+    }
 }

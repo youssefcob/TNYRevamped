@@ -120,10 +120,10 @@ trait BidsHelperFunctions
                     'facility_type' => $row->facility_type,
                     'payment_type' => $row->payment_type,
                     'preferred_location' => $row->preferred_location,
-                    'employment_status' => $row->employment_status,
+                    // 'employment_status' => $row->employment_status,
                     'availability_to_start' => $row->availability_to_start,
                     'rate_per_hour' => $row->rate_per_hour,
-                    'licensing' => $row->licensing,
+                    'is_licensed' => $row->is_licensed,
                     'legal_status' => $row->legal_status,
                     'resume' => $row->resume,
                     'is_talent' => $row->is_talent,
@@ -207,17 +207,7 @@ trait BidsHelperFunctions
             'status' => 'required|string',
         ]);
     }
-    public function employerIdFilter($bids, $employerId, $joinedTable = '')
-    {
-        // $column = $joinedTable ? $joinedTable . '.employer_id' : 'employer_id';
-        $data = $bids->where('bids.employer_id', $employerId);
-        // dd($employerId,$data);
-        return [
-            'success' => true,
-            'message' => 'Bids fetched successfully',
-            'data' => $data
-        ];
-    }
+    
     public function jobSeekerIdFilter($bids, $jobSeekerId, $joinedTable = '')
     {
         // $column = $joinedTable ? $joinedTable . '.job_seeker_id' : 'job_seeker_id';
