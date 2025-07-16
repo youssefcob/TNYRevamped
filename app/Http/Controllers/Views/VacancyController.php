@@ -15,12 +15,7 @@ class VacancyController extends Controller
 
     public function postVacancy(Request $request)
     {
-        /** @var \App\Models\User $user */
-        $user = Auth::guard('user')->user();
-        if (!$user || !$user->hasRole('employer')) {
-            return redirect()->route('login');
-        }
-
+        $user = $request->attributes->get('user');
         try {
             $request->validate([
                 'address' => 'required|string|max:255',
@@ -136,18 +131,22 @@ class VacancyController extends Controller
         }
     }
 
+        public function postVacancyView()
+    {
+      
+
+        $data = [];
+        $data['positions'] = Position::all();
+        $data['languages'] = Language::all();
+        return Inertia::render('Employers/PostVacancy',$data);
+    }
+
     public function EditVacancyView(Request $request, $id)
     {
-        $token = $request->cookie('token');
-        if (!$token) return redirect()->route('login');
 
+        // i can get the user because the user is merged in the auth.view middleware
+        $user = $request->attributes->get('user');
 
-        $request->headers->set('Authorization', 'Bearer ' . $token);
-        /** @var \App\Models\User $user */
-        $user = Auth::guard('user')->user();
-        if (!$user || !$user->hasRole('employer')) {
-            return redirect()->route('login');
-        }
         $vacancy = $user->employer->vacancies()->with('position')->find($id);
         if (!$user->employer || !$vacancy) {
             return redirect()->route('dashboard');
