@@ -115,7 +115,7 @@ trait JobSeekerHelperFunctions
             'gender' => $request->gender,
             'dob' => $request->dob,
             'shift_type' => $request->shift_type,
-            'borough' => $request->bourough,
+            'borough' => $request->borough,
             'work_days' => $request->work_days,
             
         ]);

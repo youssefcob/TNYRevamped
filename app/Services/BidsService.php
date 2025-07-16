@@ -170,6 +170,14 @@ class BidsService
         }
     }
 
+    public static function bid(Request $request, $employerId)
+    {
+        $service = new self();
+        return $service->createBid($request, $employerId);
+    }
+    
+    
+
     public function createBid(Request $request, $employerId)
     {
         try {

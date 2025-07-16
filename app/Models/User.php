@@ -57,6 +57,10 @@ class User extends Authenticatable
         return $this->user_type === $role;
     }
 
+    public function profileCompleted(): bool
+    {
+        return ($this->hasRole(self::TYPE_JOB_SEEKER) && $this->jobSeeker) || ($this->hasRole(self::TYPE_EMPLOYER) && $this->employer);
+    }
     public function jobSeeker()
     {
         return $this->hasOne(JobSeeker::class);

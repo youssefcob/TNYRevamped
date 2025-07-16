@@ -3,10 +3,10 @@ import MainOverLay from '@/Components/Overlays/MainOverLay.vue';
 import { Employer, User, Vacancy } from '@/interface/Types';
 import { snack } from '@/mixins/toast';
 import Btn from '@/SharedComponents/btn.vue';
-import EmployerVacancyCard from '@/SharedComponents/EmployerVacancyCard.vue';
 import Modal from '@/SharedComponents/modal.vue';
 import VacancyCard from '@/SharedComponents/VacancyCard.vue';
-import axios, { Axios, AxiosError } from 'axios';
+import { Link } from '@inertiajs/vue3';
+import axios, { AxiosError } from 'axios';
 import { onMounted, ref } from 'vue';
 
 
@@ -24,7 +24,7 @@ const props = defineProps({
         type: Array as () => Vacancy[],
         default: () => []
     },
-        snack:{
+    snack: {
         type: Object as () => { type: string, message: string } | null,
         default: null
     },
@@ -99,6 +99,14 @@ const deleteVacancy = async (vacancyId: number | undefined) => {
             <br>
             <br>
             <br>
+            <ul class="nav">
+                <li>
+                    <Link href="/dashboard/vacancies">Vacancies</Link>
+                </li>
+                <li>
+                    <Link href="/dashboard/bids">Bids</Link>
+                </li>
+            </ul>
 
             <div class="vacancies-wrapper">
                 <VacancyCard v-for="vacancy in vacanciesState" :key="vacancy.id" :vacancy="vacancy" employer
@@ -107,9 +115,6 @@ const deleteVacancy = async (vacancyId: number | undefined) => {
         </div>
 
 
-        <br>
-
-        <br>
 
     </MainOverLay>
 </template>
@@ -120,18 +125,20 @@ const deleteVacancy = async (vacancyId: number | undefined) => {
     flex-direction: column;
     padding-top: 4vh;
     @include pagePadding();
+    min-height: 50vh;
 
     .title {
-        margin: auto;
+        margin: 0 auto;
     }
 
 }
 
 .vacancies-wrapper {
-    display:flex;
+    display: flex;
     flex-direction: column;
-    gap:1.5rem;
+    gap: 1.5rem;
 }
+
 .delete-wrapper {
     display: flex;
     flex-direction: column;

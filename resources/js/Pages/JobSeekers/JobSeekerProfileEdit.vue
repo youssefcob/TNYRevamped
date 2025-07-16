@@ -56,6 +56,12 @@ const form = ref({
 
 const resume = new FormData();
 
+const assignResume = (event: FormData) => {
+    event.forEach((value, key) => {
+        resume.append('resume', value);
+    });
+};
+
 const positionId = () => {
     const position = props.positions.find(p => p.title === form.value.position);
     return position ? position.id : null;
@@ -108,6 +114,7 @@ const modifyForm = () => {
 const loading = ref(false);
 
 const handleSubmit = async () => {
+  
     // Merge form and resume as a FormData
     const formData = modifyForm();
     const token = localStorage.getItem('token');
@@ -227,7 +234,7 @@ const handleSubmit = async () => {
                                             :value="job_seeker?.preferred_location" v-model="form.preferred_location" />
                                     </div>
                                     <FileInputField label="Resume" accept=".pdf,.doc,.docx"
-                                        placeHolder="Upload your resume" v-model="resume" />
+                                        placeHolder="Upload your resume" @input="assignResume($event)" />
 
                                     <p class="ps">Resume Must include Contact Info such as Phone/Mobile Number and
                                         Email.

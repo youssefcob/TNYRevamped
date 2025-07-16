@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\JobSeeker;
+use App\Models\Position;
 use Illuminate\Http\Request;
 use App\Services\Cloudinary;
 use App\Models\User;
@@ -27,10 +28,9 @@ class JobSeekerService
     public static function get(Request $request)
     {
         $service = new self();
-        return  $service->getJobSeekers($request,16);
-        
+        return  $service->getJobSeekers($request, 16);
     }
-    
+
 
     public function getJobSeekers(Request $request, $perPage = 10)
     {
@@ -45,34 +45,55 @@ class JobSeekerService
             ]);
 
             if ($id) {
-                $jobSeeker = JobSeeker::with(['user', 'position','languages'])
+                $jobSeeker = JobSeeker::with(['user', 'position', 'languages'])
                     ->find($id);
             } else {
-                $query = JobSeeker::with(['user', 'position','languages']);
-                
+                $query = JobSeeker::with(['user', 'position', 'languages']);
+
                 // Apply all filters to the base query
-                if($startDate){
+                if ($startDate) {
                     $filteredJobSeekers = $this->startDateFilter($query, $startDate);
                     if (!$filteredJobSeekers['success']) {
                         return $filteredJobSeekers;
                     }
                     $query = $filteredJobSeekers['data'];
                 }
-                
-                if($endDate){
+
+                if ($endDate) {
                     $filteredJobSeekers = $this->endDateFilter($query, $endDate);
                     if (!$filteredJobSeekers['success']) {
                         return $filteredJobSeekers;
                     }
                     $query = $filteredJobSeekers['data'];
                 }
-                
+
                 if ($status) {
                     $filteredJobSeekers = $this->statusFilter($query, $status);
                     if (!$filteredJobSeekers['success']) {
                         return $filteredJobSeekers;
                     }
                     $query = $filteredJobSeekers['data'];
+                }
+
+                if ($request->has('position')) {
+                    $position = Position::where('title',  $request->input('position'))->first();
+                    // dd($position);
+                    if ($position) {
+                        $query->where('position_id', $position->id);
+                    }
+                }
+
+                if ($request->has('borough')) {
+                    $query->where('preferred_location', 'like', '%' . $request->input('borough') . '%');
+                };
+                if ($request->has('search')) {
+                    $search = $request->input('search');
+                    $query->where(function ($q) use ($search) {
+                        $q->where('preferred_location', 'like', '%' . $search . '%')
+                            ->orWhereHas('position', function ($q) use ($search) {
+                                $q->where('title', 'like', '%' . $search . '%');
+                            });
+                    });
                 }
 
 
@@ -96,7 +117,7 @@ class JobSeekerService
     {
         try {
             $status = $request->query('status');
-            if($status){
+            if ($status) {
                 $status = strtolower($status);
             }
             $request->merge(['status' => $status]);
@@ -187,7 +208,6 @@ class JobSeekerService
             DB::beginTransaction();
 
             $resumePath = $this->handleResumeUpload($request);
-
             if ($this->jobSeekerExists($userId)) {
                 return ['success' => false, 'message' => 'Job seeker already exists'];
             }
@@ -270,8 +290,8 @@ class JobSeekerService
     {
         try {
             $jobSeeker = JobSeeker::where('user_id', $userId)
-            ->with('user', 'languages', 'position')
-            ->first();
+                ->with('user', 'languages', 'position')
+                ->first();
             return [
                 'success' => true,
                 'data' => $jobSeeker
@@ -300,7 +320,8 @@ class JobSeekerService
     //         ];
     //     }
     // }
-    public function getJobSeekerFilters(Request $request){
+    public function getJobSeekerFilters(Request $request)
+    {
         try {
             $jobSeekers = JobSeeker::select('job_seekers.id as job_seeker_id', 'users.name')
                 ->join('users', 'job_seekers.user_id', '=', 'users.id')
