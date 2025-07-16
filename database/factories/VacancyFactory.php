@@ -15,7 +15,8 @@ class VacancyFactory extends Factory
     public function definition(): array
     {
         $position = Position::inRandomOrder()->first() ?? Position::factory()->create();
-        $employer =  Employer::factory()->create();
+        $employer = Employer::inRandomOrder()->first() ?? Employer::factory()->create();
+        // var_dump($employer->id, $position->id);
         return [
             'employer_id' => $employer->id,
             'position_id' => $position->id,
