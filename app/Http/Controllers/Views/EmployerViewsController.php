@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Views;
 use App\Http\Controllers\Controller;
 use App\Models\Language;
 use App\Models\Position;
+use App\Services\BidsService;
 use App\Services\Employer\EmployerService;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -20,15 +21,12 @@ class EmployerViewsController extends Controller
     }
     public function createOrUpdateEmployerProfile(Request $request)
     {
-        // dd($request->all());
         $userId = Auth::guard('user')->user()->id;
         if (!$userId) {
             return ['success' => false, 'message' => 'no user present'];
         };
-        // dd($request->toArray());
 
         $response = $this->service->updateEmployer($request, $userId);
-        // dd($response);
         if (!$response['success']) {
             $token = $request->cookie('token');
             if ($token) {
@@ -51,5 +49,34 @@ class EmployerViewsController extends Controller
         return redirect()->route('profile');
     }
 
+    public function postVacancyView()
+    {
+        $user = Auth::guard('user')->user();
+        if (!$user->employer) {
+            return redirect()->route('profile.edit');
+        }
+
+        $data = [];
+        $data['positions'] = Position::all();
+        $data['languages'] = Language::all();
+        return Inertia::render('Employers/PostVacancy', $data);
+    }
+
+    public function bid(Request $request)
+    {
+        $bid = BidsService::bid($request, Auth::guard('user')->user()->employer->id);
+        if ($bid['success']) {
+            return redirect()->route('dashboard')->with('snack', [
+                'type' => 'success',
+                'message' => 'Bid created successfully.',
+            ]);
+        } else {
+            return redirect()->route('talents')->with('snack', [
+                'type' => 'error',
+                'message' => $bid['message'] ?? 'An error occurred while creating the bid.',
+                'errors' => $bid['errors'] ?? []
+            ]);
+        }
+    }
 
 }

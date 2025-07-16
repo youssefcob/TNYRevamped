@@ -8,6 +8,7 @@ import { Link } from '@inertiajs/vue3';
 import { onMounted, reactive } from 'vue';
 import { watch } from 'vue';
 import { router } from '@inertiajs/vue3';
+import Paginator from '@/SharedComponents/Paginator.vue';
 
 const props = defineProps({
     vacancies: {
@@ -56,6 +57,12 @@ watch(
     { deep: true }
 );
 
+const goToPage = (page: number) => {
+router.get(`/vacancies`, { page }, {
+    preserveState: true,
+    replace: true
+});
+};
 
 </script>
 
@@ -63,11 +70,9 @@ watch(
     <MainOverLay>
         <div class="container">
             <h2 class="title">Vacancies</h2>
-            <ul>
-                <li v-for="page in vacancies.last_page" :key="page">
-                    <Link :href="`/vacancies?page=${page}`" class="page-link">{{ page }}</Link>
-                </li>
-            </ul>
+            <div class="paginator">
+            <Paginator :current_page="vacancies.current_page" :last_page="vacancies.last_page" @page-changed="goToPage($event)"/>
+            </div>
             <select class="form-select mb-4" v-model="filters.position">
                 <option value="">All Positions</option>
                 <option v-for="position in positions" :key="position.id" :value="position.title">

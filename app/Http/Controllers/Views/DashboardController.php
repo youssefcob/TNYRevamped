@@ -43,5 +43,10 @@ class DashboardController extends Controller
         }
         return redirect()->route('login');
     }
+
+    public function vacancies(Request $request)
+    {
+        // $user = $request
+    }
         
 }

@@ -56,6 +56,8 @@ defineExpose({
             <div v-if="userIsLoggedIn && userData" class="auth-btns-wrapper">
                 <Link v-if="userData.user_type == 'job_seeker'" href="/apply" class="btn">Apply Now</Link>
                 <Link v-if="userData.user_type == 'employer'" href="/post-vacancy" class="btn">Post a Job</Link>
+                <Link v-if="userData.user_type == 'employer'" href="/talents" class="btn">Find Talents</Link>
+
             </div>
             <div class="navlist-mobile">
                 <NavListResponsive :userIsLoggedIn="userIsLoggedIn" :userData="userData" />
