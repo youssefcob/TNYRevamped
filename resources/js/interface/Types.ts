@@ -15,6 +15,12 @@ export type Hero = {
     subtitles: string;
 }
 
+export type Bid = {
+    id: number;
+    job_seeker_id: number;
+    rate_per_hour: string;
+    status: string;
+}
 export type Service = {
     id: number;
     title: string;
@@ -107,6 +113,8 @@ export type JobSeeker = {
     languages: Language[];
     work_days: string[];
 }
+
+export type JobSeekerWithBid = JobSeeker & { pivot: Bid };
 
 export type Language = {
     id: number;

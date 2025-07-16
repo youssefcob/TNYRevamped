@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { JobSeeker } from '@/interface/Types';
+import { JobSeekerWithBid } from '@/interface/Types';
 import Btn from './btn.vue';
 import user from '@/mixins/user';
 import { ref } from 'vue';
@@ -10,9 +10,10 @@ import InputField from './InputField.vue';
 
 const props = defineProps({
     jobSeeker: {
-        type: Object as () => JobSeeker,
+        type: Object as () => JobSeekerWithBid,
         required: true
-    }
+    },
+
 });
 
 const loading = ref(false);
@@ -65,9 +66,9 @@ const bidAmount = ref(null);
         </Modal>
     </div>
     <div class="card">
-        <div class="img"
+        <!-- <div class="img"
             :style="{ backgroundImage: `url('https://placehold.co/600x400')`, backgroundSize: 'cover', backgroundPosition: 'center' }"
-            aria-label="Job Seeker Image"></div>
+            aria-label="Job Seeker Image"></div> -->
 
         <div class="info">
             <div class="header">
@@ -147,7 +148,8 @@ const bidAmount = ref(null);
             </div>
         </div>
         <div class="btn-wrapper">
-            <Btn class="btn" @click="Bid()" :loading="loading">Bid Now</Btn>
+            <Btn class="btn" @click="Bid()" v-if="!jobSeeker.pivot" :loading="loading">Bid Now</Btn>
+            <p>Bid Value: ${{ jobSeeker.pivot.rate_per_hour }}</p>
         </div>
     </div>
 </template>
