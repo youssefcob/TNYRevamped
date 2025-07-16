@@ -16,7 +16,7 @@ class ApplicationsService
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
-    public function apply($request, $vacancy_id)
+    public function apply(Request $request, $vacancy_id)
     {
         // Validate the request data
         $request->validate([
@@ -31,9 +31,7 @@ class ApplicationsService
             ];
         }
 
-        // Create the application
-        /** @var \App\Models\User $user */
-        $user = Auth::user();
+        $user = $request->attributes->get('user');
         $jobSeeker = $user->jobSeeker;
         if (!$jobSeeker) {
             return [

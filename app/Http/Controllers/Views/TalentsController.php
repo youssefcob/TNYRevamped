@@ -23,4 +23,5 @@ class TalentsController extends Controller
         }
         return Inertia::render('Talents', $data);
     }
+    
 }

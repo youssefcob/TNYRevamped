@@ -89,7 +89,6 @@ watch(
                 </select>
 
                 <input type="text" class="form-control mb-4" placeholder="Search Vacancies" v-model="filters.search" />
-                <!-- {{props.vacancies?.data}} -->
             </div>
             <JobSeekerCard v-for="talent in props.job_seekers.data" :key="talent.id" :jobSeeker="talent" />
             <div class="paginator">

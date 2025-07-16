@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { JobSeekerWithBid } from '@/interface/Types';
+import { JobSeeker, JobSeekerWithBid } from '@/interface/Types';
 import Btn from './btn.vue';
 import user from '@/mixins/user';
 import { ref } from 'vue';
@@ -10,7 +10,7 @@ import InputField from './InputField.vue';
 
 const props = defineProps({
     jobSeeker: {
-        type: Object as () => JobSeekerWithBid,
+        type: Object as () => JobSeekerWithBid | JobSeeker,
         required: true
     },
 
@@ -148,8 +148,8 @@ const bidAmount = ref(null);
             </div>
         </div>
         <div class="btn-wrapper">
-            <Btn class="btn" @click="Bid()" v-if="!jobSeeker.pivot" :loading="loading">Bid Now</Btn>
-            <p>Bid Value: ${{ jobSeeker.pivot.rate_per_hour }}</p>
+            <Btn class="btn" @click="Bid()" v-if=" !(jobSeeker as JobSeekerWithBid).pivot" :loading="loading">Bid Now</Btn>
+            <p>Bid Value: ${{ (jobSeeker as JobSeekerWithBid).pivot.rate_per_hour }}</p>
         </div>
     </div>
 </template>
@@ -216,6 +216,7 @@ const bidAmount = ref(null);
             justify-content: space-between;
 
             .bubble {
+                padding: 1rem;
                 @include media-min(desktop) {
                     padding: .7rem 2rem;
                 }

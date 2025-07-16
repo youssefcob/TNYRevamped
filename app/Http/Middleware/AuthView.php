@@ -31,12 +31,11 @@ class AuthView
         // dd($user->toArray());
         if ($user->hasRole($role) || $role == 'any') {
             $request->attributes->set('user', $user);
-            // dd($user->toArray());
             return $next($request);
             
         }
 
-        return redirect()->route('login.web');
+        return redirect()->route('login');
         // return 
     }
 }
