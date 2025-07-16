@@ -33,10 +33,10 @@ Route::prefix('bid')->middleware(['auth.view:employer'])->group(function () {
         ->name('bid.submit');
 });
 
-Route::prefix('dashboard')->middlewate(['auth.view:employer'])->group(function () {
-    Route::get('/vacancies', [DashboardController::class, 'vacancies'])
+Route::prefix('dashboard')->middleware(['auth.view:employer'])->group(function () {
+    Route::get('/vacancies', [DashboardController::class, 'employerVacancies'])
         ->name('employer.vacancies');
-    Route::get('/bids', [DashboardController::class, 'bids'])
+    Route::get('/bids', [DashboardController::class, 'employerBids'])
         ->name('employer.bids');
     Route::get('/edit/{id}', [VacancyController::class, 'EditVacancyView'])
     ->middleware('complete.profile')

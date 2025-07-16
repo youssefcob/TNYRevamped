@@ -23,13 +23,16 @@ class DashboardController extends Controller
                 $data['token'] = ['access_token' => $token, 'token_type' => 'Bearer'];
 
                 if ($user->hasRole('employer')) {
-                    $data['employer'] = $user->employer;
-                    if (!$user->employer) {
-                        return redirect()->route('profile.edit');
-                    }
-                    $data['employer'] = $user->employer;
-                    $data['vacancies'] = $user->employer->vacancies()->with('position')->withCount('applications')->get();
-                    return Inertia::render('Employers/EmployersDashboard', $data);
+
+                    return redirect()->route('employer.vacancies');
+                    // return $this->employerVacancies($request);
+
+                    // $data['employer'] = $user->employer;
+                    // if (!$user->employer) {
+                        // return redirect()->route('profile.edit');
+                    // }
+                    // $data['vacancies'] = $user->employer->vacancies()->with('position')->withCount('applications')->get();
+                    // return Inertia::render('Employers/EmployersDashboard', $data);
                 } elseif ($user->hasRole('job_seeker')) {
                     $job_seeker = $user->jobSeeker;
                     $data['job_seeker'] = $job_seeker;
@@ -44,9 +47,17 @@ class DashboardController extends Controller
         return redirect()->route('login');
     }
 
-    public function vacancies(Request $request)
+    public function employerVacancies(Request $request)
     {
-        // $user = $request
+        $user = $request->attributes->get('user');
+        $vacancies = $user->employer->vacancies()->with('position')->withCount('applications')->get();
+        return Inertia::render('Employers/EmployersDashboard', ['vacancies' => $vacancies]);
     }
-        
+
+    public function employerBids(Request $request)
+    {
+        $user = $request->attributes->get('user');
+        $bids = $user->employer->bids()->with('position')->get();
+        return Inertia::render('Employers/EmployersDashboard', ['bids' => $bids]);
+    }
 }

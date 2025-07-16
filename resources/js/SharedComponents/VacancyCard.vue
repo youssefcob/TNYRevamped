@@ -39,11 +39,11 @@ function apply() {
     <div>
 
         <div class="card">
-            <div
+            <!-- <div
                 class="img"
                 :style="{ backgroundImage: `url('https://placehold.co/600x400')`, backgroundSize: 'cover', backgroundPosition: 'center' }"
                 aria-label="Job Seeker Image"
-            ></div>
+            ></div> -->
             <div class="info">
                 <div class="header">
                     <h2>{{ vacancy.position.title }}</h2>
