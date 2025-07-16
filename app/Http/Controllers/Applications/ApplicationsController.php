@@ -22,10 +22,10 @@ class ApplicationsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function apply(Request $request,$id)
+    public function apply(Request $request, $id)
     {
 
-        $response = $this->service->apply($request,$id);
+        $response = $this->service->apply($request, $id);
         if (!$response['success']) {
             return $this->sendError($response);
         }
@@ -73,10 +73,28 @@ class ApplicationsController extends Controller
 
     // admin methods
 
-        public function adminFilterApplications(Request $request)
+    public function adminFilterApplications(Request $request)
     {
-                $response = $this->service->adminFilterapplications($request);
+        $response = $this->service->adminFilterapplications($request);
 
+        if (!$response['success']) {
+            return $this->sendError($response);
+        }
+        return $this->sendResponse($response);
+    }
+
+    public function adminGetAllApplications(Request $request)
+    {
+        $response = $this->service->adminGetAllApplications($request);
+        if (!$response['success']) {
+            return $this->sendError($response);
+        }
+        return $this->sendResponse($response);
+    }
+
+    public function adminUpdateApplicationStatus(Request $request)
+    {
+        $response = $this->service->adminUpdateApplicationStatus($request);
         if (!$response['success']) {
             return $this->sendError($response);
         }

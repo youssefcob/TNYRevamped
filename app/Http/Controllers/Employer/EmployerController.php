@@ -27,4 +27,11 @@ class EmployerController extends Controller
             return $this->sendError($response);
         return $this->sendResponse($response);
     }
+    public function getWithFormattedResponse(Request $request)
+    {
+        $response = $this->service->getWithFormattedResponse($request);
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
 }

@@ -79,4 +79,21 @@ class VacanciesController extends Controller
         return $this->sendResponse($response);
     }
 
+    public function adminGetVacancies(Request $request)
+    {
+        $response = $this->service->adminGetVacancies($request);
+        if (!$response['success']) {
+            return $this->sendError($response);
+        }
+        return $this->sendResponse($response);
+    }
+
+    public function getVacancyFilters(Request $request)
+    {
+        $response = $this->service->getVacancyFilters($request);
+        if (!$response['success']) {
+            return $this->sendError($response);
+        }
+        return $this->sendResponse($response);
+    }
 }

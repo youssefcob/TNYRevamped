@@ -13,12 +13,7 @@ class EmployerController extends Controller
     {
         $this->employers = $employers;
     }
-    public function getWithFormattedResponse(){
-        $response = $this->employers->getWithFormattedResponse();
-        if (!$response['success'])
-            return $this->sendError($response);
-        return $this->sendResponse($response);
-    }
+    
     public function submit(Request $request)
     {
         $response = $this->employers->post($request);
