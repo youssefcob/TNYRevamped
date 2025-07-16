@@ -13,6 +13,8 @@ use App\Http\Controllers\Content\NewsController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Passport\Http\Controllers\ClientController;
 
+//! WE NEED TO PROTECT ALL THE ROUTES HERE BY USING THE MIDDLEWARE 'scope:admin'
+
 Route::group(['prefix' => 'hero'], function () {
     // Route::get('/', [HeroController::class, 'get']);
     Route::post('/', [HeroController::class, 'submit']);
@@ -27,7 +29,7 @@ Route::group(['prefix' => 'service'], function () {
 
 Route::group(['prefix' => 'employer'], function () {
     Route::post('/', [EmployerController::class, 'submit']);
-    Route::get('/', [EmployerController::class, 'getWithFormattedResponse']);
+    
     Route::post('/updateEmployer/{id}', [EmployerController::class, 'update']);
     Route::delete('/{id}', [EmployerController::class, 'delete']);
 });

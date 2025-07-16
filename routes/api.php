@@ -17,6 +17,7 @@ use App\Http\Controllers\JobSeekerController;
 use App\Http\Controllers\ServiceRequestController;
 use App\Http\Controllers\SystemServiceController;
 use App\Http\Controllers\UserAuthController;
+use App\Http\Controllers\Vacancies\VacanciesController;
 use App\Http\Controllers\Views\Auth\LoginController;
 use App\Http\Controllers\Views\Auth\RegisterController;
 use App\Services\GoogleDrive;
@@ -91,7 +92,7 @@ Route::middleware('auth:api', 'scope:admin')->group(function () {
     Route::get('/hero',[HeroController::class , 'getHeroSection'])->name('get.hero');
     Route::post('/editHero',[HeroController::class , 'editHeroSection'])->name('edit.hero');
 
-    //Job seekers routes
+    //Job seekers routes //TODO: Relocate to job-seeker.php
     Route::get('/job-seekers', [JobSeekerController::class, 'getJobSeekers'])->name('get.jobSeekers');
     Route::put('/job-seeker-status', [JobSeekerController::class, 'updateStatus'])->name('update.jobSeeker.status');
     Route::delete('/job-seekers/{id}', [JobSeekerController::class, 'destroy'])->name('delete.jobSeeker');
@@ -101,6 +102,8 @@ Route::middleware('auth:api', 'scope:admin')->group(function () {
     // Filters routes
     Route::get('/filters/employers', [EmployerController::class, 'getEmployerFilters'])->name('get.employer.filters');
     Route::get('/filters/job-seekers', [JobSeekerController::class, 'getJobSeekerFilters'])->name('get.jobSeeker.filters');
+    Route::get('/filters/vacancies', [VacanciesController::class, 'getVacancyFilters'])->name('get.vacancy.filters');
+    Route::get('/filters/positions', [PositionController::class, 'getPositionFilters'])->name('get.position.filters');
 });
 
 

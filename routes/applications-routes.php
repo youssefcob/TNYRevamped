@@ -23,6 +23,8 @@ Route::prefix('applications')->group(function () {
     });
 
     Route::middleware(['auth:user', 'scope:admin'])->prefix('admin')->group(function () {
+        Route::get('/', [ApplicationsController::class, 'adminGetAllApplications'])->name('admin.applications');
+        Route::get('/update-status', [ApplicationsController::class, 'adminUpdateApplicationStatus'])->name('admin.update.application.status');
         Route::get('/filter',[ApplicationsController::class,'adminFilterApplications']);
     });
 });
