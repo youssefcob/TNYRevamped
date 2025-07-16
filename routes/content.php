@@ -15,54 +15,57 @@ use Laravel\Passport\Http\Controllers\ClientController;
 
 //! WE NEED TO PROTECT ALL THE ROUTES HERE BY USING THE MIDDLEWARE 'scope:admin'
 
-Route::group(['prefix' => 'hero'], function () {
-    // Route::get('/', [HeroController::class, 'get']);
-    Route::post('/', [HeroController::class, 'submit']);
-    // Route::put('/', [HeroController::class, 'put']);
-    Route::delete('/{id}', [HeroController::class, 'delete']);
-});
-
-
-Route::group(['prefix' => 'service'], function () {
-    Route::post('/', [ContentServiceController::class, 'submit']);
-});
-
-Route::group(['prefix' => 'employer'], function () {
-    Route::post('/', [EmployerController::class, 'submit']);
+Route::group(['middleware' => ['auth:api', 'scope:admin']], function () {
+    Route::group(['prefix' => 'hero'], function () {
+        // Route::get('/', [HeroController::class, 'get']);
+        Route::post('/', [HeroController::class, 'submit']);
+        // Route::put('/', [HeroController::class, 'put']);
+        Route::delete('/{id}', [HeroController::class, 'delete']);
+    });
     
-    Route::post('/updateEmployer/{id}', [EmployerController::class, 'update']);
-    Route::delete('/{id}', [EmployerController::class, 'delete']);
+    
+    Route::group(['prefix' => 'service'], function () {
+        Route::post('/', [ContentServiceController::class, 'submit']);
+    });
+    
+    Route::group(['prefix' => 'employer'], function () {
+        Route::post('/', [EmployerController::class, 'submit']);
+        
+        Route::post('/updateEmployer/{id}', [EmployerController::class, 'update']);
+        Route::delete('/{id}', [EmployerController::class, 'delete']);
+    });
+    
+    Route::group(['prefix' => 'jobs'], function () {
+        Route::post('/', [JobsController::class, 'submit']);
+        Route::delete('/{id}', [JobsController::class, 'delete']);
+    });
+    
+    Route::group(['prefix' => 'news'], function () {
+        Route::get('/', [NewsController::class, 'getWithFormattedResponse']);
+        Route::post('/', [NewsController::class, 'submit']);
+        Route::post('/updateTestimonial/{id}', [NewsController::class, 'updateWithFormattedResponse']);
+        Route::delete('/{id}', [NewsController::class, 'delete']);
+    });
+    
+    Route::group(['prefix' => 'clients'], function () {
+        Route::get('/', [ClientsController::class, 'getWithFormattedResponse']);
+        Route::post('/', [ClientsController::class, 'submit']);
+        Route::post('/updateTestimonial/{id}', [ClientsController::class, 'updateWithFormattedResponse']);
+        Route::delete('/{id}', [ClientsController::class, 'delete']);
+    });
+    
+    Route::group(['prefix' => 'testimonials'], function () {
+        Route::get('/', [TestimonialsController::class, 'getWithFormattedResponse']);
+        Route::post('/', [TestimonialsController::class, 'submit']);
+        Route::post('/updateTestimonial/{id}', [TestimonialsController::class, 'updateWithFormattedResponse']);
+        Route::delete('/{id}', [TestimonialsController::class, 'delete']);
+    });
+    
+    Route::group(['prefix' => 'team'], function () {
+        Route::post('/', [TeamController::class, 'submit']);
+        Route::delete('/{id}', [TeamController::class, 'delete']);
+        Route::get('/', [TeamController::class, 'getWithFormattedResponse']);
+        Route::post('/updateTeamMember/{id}', [TeamController::class, 'upadteWithFormattedResponse']);
+    }); 
 });
 
-Route::group(['prefix' => 'jobs'], function () {
-    Route::post('/', [JobsController::class, 'submit']);
-    Route::delete('/{id}', [JobsController::class, 'delete']);
-});
-
-Route::group(['prefix' => 'news'], function () {
-    Route::get('/', [NewsController::class, 'getWithFormattedResponse']);
-    Route::post('/', [NewsController::class, 'submit']);
-    Route::post('/updateTestimonial/{id}', [NewsController::class, 'updateWithFormattedResponse']);
-    Route::delete('/{id}', [NewsController::class, 'delete']);
-});
-
-Route::group(['prefix' => 'clients'], function () {
-    Route::get('/', [ClientsController::class, 'getWithFormattedResponse']);
-    Route::post('/', [ClientsController::class, 'submit']);
-    Route::post('/updateTestimonial/{id}', [ClientsController::class, 'updateWithFormattedResponse']);
-    Route::delete('/{id}', [ClientsController::class, 'delete']);
-});
-
-Route::group(['prefix' => 'testimonials'], function () {
-    Route::get('/', [TestimonialsController::class, 'getWithFormattedResponse']);
-    Route::post('/', [TestimonialsController::class, 'submit']);
-    Route::post('/updateTestimonial/{id}', [TestimonialsController::class, 'updateWithFormattedResponse']);
-    Route::delete('/{id}', [TestimonialsController::class, 'delete']);
-});
-
-Route::group(['prefix' => 'team'], function () {
-    Route::post('/', [TeamController::class, 'submit']);
-    Route::delete('/{id}', [TeamController::class, 'delete']);
-    Route::get('/', [TeamController::class, 'getWithFormattedResponse']);
-    Route::post('/updateTeamMember/{id}', [TeamController::class, 'upadteWithFormattedResponse']);
-});
