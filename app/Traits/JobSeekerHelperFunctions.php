@@ -31,18 +31,14 @@ trait JobSeekerHelperFunctions
         try {
             // is_talent and status should have a different validation and insertion functions, as they should not be accessible or updatable as a regular user <3
 
-            
             $request->merge([
-            //     'experience' => (int) $request->input('experience'),
-            //     'rate_per_hour' => $request->has('rate_per_hour') ? (int) $request->input('rate_per_hour') : null,
-            //     'availability_to_start' => (int) $request->input('availability_to_start'),
                 'is_employed' => $request->has('is_employed') ? (bool) $request->input('is_employed') : false,
                 'is_licensed' => $request->has('is_licensed') ? (bool) $request->input('is_licensed') : false,
                 'is_talent' => $request->has('is_talent') ? (bool) $request->input('is_talent') : false,
-
-                "work_days" => Json::decode($request->input('work_days', [])),
-                "languages" => Json::decode($request->input('languages', [])),
-                ]);
+                
+                "work_days" => $request->input('work_days', []),
+                "languages" => $request->input('languages', []),
+            ]);
 
             $request->validate([
                 'phone_number' => 'sometimes|numeric',

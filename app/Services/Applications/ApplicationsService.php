@@ -9,6 +9,9 @@ use App\TableFiltersHelperFunctions;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Mail\NewVacancyApplication;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
 
 class ApplicationsService
 {
@@ -21,6 +24,7 @@ class ApplicationsService
      */
     public function apply(Request $request, $vacancy_id)
     {
+        // dd('s');
         // Validate the request data
         $request->validate([
             // 'vacancy_id' => 'required|exists:vacancies,id',
@@ -36,6 +40,7 @@ class ApplicationsService
 
         $user = $request->attributes->get('user');
         $jobSeeker = $user->jobSeeker;
+        // dd($jobSeeker);
         if (!$jobSeeker) {
             return [
                 'success' => false,
@@ -62,6 +67,16 @@ class ApplicationsService
             'resume' => $resumePath,
             'status' => 'pending',
         ]);
+        // dd('s');
+        // Send email notification to employer
+        try {
+            // dd($vacancy->employer->user->email);
+            Mail::to($vacancy->employer->user->email)
+                ->send(new NewVacancyApplication($application, $vacancy->employer->user->name));
+        } catch (\Exception $e) {
+            // Log the error but don't stop the application process
+            Log::error('xxx Failed to send application notification email: ' . $e->getMessage());
+        }
 
         return [
             'success' => true,

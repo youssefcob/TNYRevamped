@@ -2,12 +2,16 @@
 
 namespace App\Services;
 
+use App\Mail\NewBidReceived;
 use App\Models\Employer;
+use App\Models\JobSeeker;
 use App\TableFiltersHelperFunctions;
 use App\Traits\BidsHelperFunctions;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\ValidationException;
 
 class BidsService
@@ -185,6 +189,7 @@ class BidsService
     public function createBid(Request $request, $employerId)
     {
         try {
+            // dd('ss');
             $this->validateCreateBidRequest($request);
             // OK here we could make the employer bid on a job seeker for only once, 
             // and if the request is made again, we should update the bid.
@@ -212,7 +217,18 @@ class BidsService
                     'updated_at' => now()
                 ]);
             }
-
+            $jobSeeker = JobSeeker::where('id', $request->job_seeker_id)->first();
+            if($jobSeeker){
+                try {
+                    //code...
+                    Mail::to($jobSeeker->user->email)
+                    ->send(new NewBidReceived($jobSeeker->user->name));
+                } catch (Exception $e) {
+                    Log::error('xxx Failed to send bid received email: ' . $e->getMessage());
+                }
+                
+            }
+            // Mail::to(JobSeeker::where('id', $request->$jobSeekerId)->first()->user->email)->send(new NewBidReceived($request->job_seeker_id));
             return [
                 'success' => true,
                 'message' => 'Bid created successfully',

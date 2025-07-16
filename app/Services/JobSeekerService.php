@@ -195,16 +195,18 @@ class JobSeekerService
     public function createJobSeeker(Request $request, $userId)
     {
         try {
+            // dd('s');
             $user = $this->findUserOrFail($userId);
+
             if (!$user) {
                 return ['success' => false, 'message' => 'User not found'];
             }
-
+            
             $validationResult = $this->validateJobSeekerRequest($request);
+            // dd('ss');
             if ($validationResult !== true) {
                 return $validationResult;
             }
-
             DB::beginTransaction();
 
             $resumePath = $this->handleResumeUpload($request);

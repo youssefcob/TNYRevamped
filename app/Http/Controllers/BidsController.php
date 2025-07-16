@@ -32,6 +32,7 @@ class BidsController extends Controller
     }
     public function createBid(Request $request){
         $employerId = Auth::guard('user')->user()->employer->id;
+        // dd('s');
         $response = $this->service->createBid($request, $employerId);
         return $response['success'] ? $this->sendResponse($response) : $this->sendError($response);
     }
