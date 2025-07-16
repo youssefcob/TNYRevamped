@@ -48,17 +48,9 @@ function apply() {
 </script>
 
 <template>
-    <!-- <Modal applicationModal ref="applicationModal" title="Apply for Vacancy" >
-        <ApplicationModal/>
-    </Modal> -->
     <div>
 
         <div class="card">
-            <!-- <div
-                class="img"
-                :style="{ backgroundImage: `url('https://placehold.co/600x400')`, backgroundSize: 'cover', backgroundPosition: 'center' }"
-                aria-label="Job Seeker Image"
-            ></div> -->
             <div class="info">
                 <div class="header">
                     <h2>{{ vacancy.position.title }}</h2>
