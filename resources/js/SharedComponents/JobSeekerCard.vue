@@ -149,7 +149,7 @@ const bidAmount = ref(null);
         </div>
         <div class="btn-wrapper">
             <Btn class="btn" @click="Bid()" v-if=" !(jobSeeker as JobSeekerWithBid).pivot" :loading="loading">Bid Now</Btn>
-            <p>Bid Value: ${{ (jobSeeker as JobSeekerWithBid).pivot.rate_per_hour }}</p>
+            <p v-if="(jobSeeker as JobSeekerWithBid).pivot?.rate_per_hour">Bid Value: ${{ (jobSeeker as JobSeekerWithBid).pivot.rate_per_hour }}</p>
         </div>
     </div>
 </template>

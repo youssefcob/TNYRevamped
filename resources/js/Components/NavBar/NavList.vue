@@ -26,11 +26,11 @@ const isActive = (link: string) => {
         <li role="menuitem" :class="{ active: isActive('/services') }">
             <Link href="/services">Services</Link>
         </li>
-        <!-- <li role="menuitem" :class="{ active: isActive('/employers') }">
-            <Link href="/employers">Employers</Link>
-        </li> -->
+        <li role="menuitem" :class="{ active: isActive('/talents') }">
+            <Link href="/talents">Talents</Link>
+        </li> 
         <li role="menuitem" :active="isActive('#jobs')">
-            <Hroute on="/" to="#jobs" :active="isActive('#jobs')">Job Seekers</Hroute>
+            <Hroute on="/" to="#jobs" :active="isActive('#jobs')">Positions</Hroute>
         </li>
         <li role="menuitem" :active="isActive('#news')">
             <Hroute on="/" to="#news" :active="isActive('#news')">News</Hroute>

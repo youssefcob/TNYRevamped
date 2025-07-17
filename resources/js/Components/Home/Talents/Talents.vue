@@ -15,6 +15,7 @@ import { talentState } from '@/state/state';
         <br>
 
         <div class="job-seeker-wrapper">
+            <!-- <p v-for="talent in talentState">{{ talent }}</p> -->
             <JobSeekerCard v-for="talent in talentState" :key="talent.id" :jobSeeker="talent" />
         </div>
         <a href="talents" class="more">Show More Talents</a>
