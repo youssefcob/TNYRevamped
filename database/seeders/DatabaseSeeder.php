@@ -37,22 +37,22 @@ class DatabaseSeeder extends Seeder
             'user_type' => 'employer',
         ]);
 
-        // Employer::factory(10)->create();
+        Employer::factory(10)->create();
         $this->call(AdminsTableSeeder::class);
-        // $this->call(MailListSeeder::class);
-        // $this->call(JobSeekersTableSeeder::class);
-        // $this->call(PositionsTableSeeder::class);
+        $this->call(MailListSeeder::class);
+        $this->call(JobSeekersTableSeeder::class);
+        $this->call(PositionsTableSeeder::class);
         // $this->call(ServicesTableSeeder::class);
-        // $this->call(VacanciesSeeder::class);
-        // $this->call(LanguagesTableSeeder::class);
-        // $this->call(BidsTableSeeder::class);
+        $this->call(VacanciesSeeder::class);
+        $this->call(LanguagesTableSeeder::class);
+        $this->call(BidsTableSeeder::class);
         Artisan::call('passport:client', [
             '--personal' => true,
             '--no-interaction' => true,
         ]);
 
         // Position::factory(10)->create();
-        // Application::factory(20)->create();
+        Application::factory(20)->create();
         // Message::factory(10)->create();
         // Service::factory(10)->create();
         // ServiceRequest::factory(20)->create();
