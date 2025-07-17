@@ -71,7 +71,9 @@ watch(
                     @page-changed="goToPage($event)" />
             </div>
             <div class="filters-container">
+                <input type="text" class="form-control mb-4" placeholder="Search" v-model="filters.search" />
 
+                <div class="dropdowns">
                 <select class="form-select mb-4" v-model="filters.position">
                     <option value="">All Positions</option>
                     <option v-for="position in positions" :key="position.id" :value="position.title">
@@ -87,10 +89,12 @@ watch(
                     <option value="Staten Island">Staten Island</option>
 
                 </select>
+                </div>
 
-                <input type="text" class="form-control mb-4" placeholder="Search Vacancies" v-model="filters.search" />
             </div>
+            <div class="card">
             <JobSeekerCard v-for="talent in props.job_seekers.data" :key="talent.id" :jobSeeker="talent" />
+            </div>
             <div class="paginator">
                 <Paginator :current_page="job_seekers.current_page" :last_page="job_seekers.last_page"
                     @page-changed="goToPage($event)" />
@@ -109,6 +113,10 @@ watch(
     .title,
     .paginator {
         margin: auto;
+    }
+
+    .card > *{
+        margin-top:1rem;
     }
 }
 </style>

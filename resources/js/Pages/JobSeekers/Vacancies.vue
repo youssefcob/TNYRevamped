@@ -74,24 +74,27 @@ router.get(`/vacancies`, { page }, {
             <Paginator :current_page="vacancies.current_page" :last_page="vacancies.last_page" @page-changed="goToPage($event)"/>
             </div>
             <div class="filters-container">
-            <select class="form-select mb-4" v-model="filters.position">
-                <option value="">All Positions</option>
-                <option v-for="position in positions" :key="position.id" :value="position.title">
-                    {{ position.title }}
-                </option>
-            </select>
-            <select class="form-select mb-4" v-model="filters.borough">
-                <option value="">All Boroughs</option>
-                <option value="Manhattan">Manhattan</option>
-                <option value="Brooklyn">Brooklyn</option>
-                <option value="Queens">Queens</option>
-                <option value="Bronx">Bronx</option>
-                <option value="Staten Island">Staten Island</option>
+                <input type="text" class="form-control mb-4" placeholder="Search" v-model="filters.search" />
 
-            </select>
+                <div class="dropdowns">
+                <select class="form-select mb-4" v-model="filters.position">
+                    <option value="">All Positions</option>
+                    <option v-for="position in positions" :key="position.id" :value="position.title">
+                        {{ position.title }}
+                    </option>
+                </select>
+                <select class="form-select mb-4" v-model="filters.borough">
+                    <option value="">All Boroughs</option>
+                    <option value="Manhattan">Manhattan</option>
+                    <option value="Brooklyn">Brooklyn</option>
+                    <option value="Queens">Queens</option>
+                    <option value="Bronx">Bronx</option>
+                    <option value="Staten Island">Staten Island</option>
 
-            <input type="text" class="form-control mb-4" placeholder="Search Vacancies" v-model="filters.search" />
-             </div>
+                </select>
+                </div>
+
+            </div>
              <div class="vacancies">
             <VacancyCard v-for="vacancy in props.vacancies.data" :key="vacancy.id" :vacancy="vacancy" />
             </div>

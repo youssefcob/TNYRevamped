@@ -113,23 +113,65 @@ input,
     gap: 1rem;
 
     .btn-wrapper {
-            margin-top: 2rem;
-            width: 40%;
-            display:flex;
-            align-self: center;
-            justify-content: center;
-            // background-color: red;
-            .btn{
-                width:100%;
-            }
-        }
+        margin-top: 2rem;
+        width: 40%;
+        display: flex;
+        align-self: center;
+        justify-content: center;
 
-    @include media-max(desktop)
-    {
+        // background-color: red;
+        .btn {
+            width: 100%;
+        }
+    }
+
+    @include media-max(desktop) {
         // display:none;
         max-width: 90%;
-        .btn-wrapper{
-            width:100%;
+
+        .btn-wrapper {
+            width: 100%;
         }
+    }
+}
+
+
+
+
+
+
+
+.filters-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+
+    .dropdowns {
+        display: flex;
+        gap: 1rem;
+        flex-wrap: wrap;
+    }
+
+    .form-control {
+        height: 3rem;
+        padding: 1rem;
+        padding-left: 1.5rem;
+        background-color: $undefined-grey;
+        border: 1px solid $service-blue;
+        border-radius: 0.5rem;
+        min-width: 40%;
+    }
+
+    .form-select {
+        height: 3rem;
+        //   padding: 1rem;
+        padding: 0 1.5rem;
+        background-color: $undefined-grey;
+        border: 1px solid $service-blue;
+        border-radius: 0.5rem;
+
+
+
     }
 }
