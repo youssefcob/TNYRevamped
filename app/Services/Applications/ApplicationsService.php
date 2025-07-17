@@ -16,6 +16,18 @@ use Illuminate\Support\Facades\Log;
 class ApplicationsService
 {
     use TableFiltersHelperFunctions;
+    
+    private $statuses = [
+        'hired',
+        'rejected',
+        'pending',
+        'needs assignment',
+        'missing documents',
+        'missing preferences',
+        'in training',
+        'interview',
+        'approved',
+    ];
     /**
      * Apply to a vacancy.
      *
@@ -303,7 +315,7 @@ public function AdminJobSeekerApplications($id)
     {
         try {
             $request->validate([
-                'status' => 'required|in:pending,approved,rejected,closed',
+                'status' => 'required|in:'.implode(',',$this->statuses),
                 'id' => 'required|exists:applications,id',
             ]);
             $application = Application::findOrFail($request->id);

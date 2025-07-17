@@ -15,6 +15,14 @@ class JobSeekerService
 {
     use TableFiltersHelperFunctions;
     use JobSeekerHelperFunctions;
+    private $statuses = [
+        'hired',
+        'rejected',
+        'pending',
+        'needs assignment',
+        'missing documents',
+        'missing preferences',
+    ];
     private $cloudinary;
     public function __construct()
     {
@@ -124,7 +132,7 @@ class JobSeekerService
             // dd($status);
             $request->validate([
                 'id' => 'required|integer|exists:job_seekers,id',
-                'status' => 'required|string|in:pending,approved,rejected'
+                'status' => 'required|string|in:'.implode(',',$this->statuses)
             ]);
 
             $jobSeeker = JobSeeker::findOrFail($request->query('id'));
