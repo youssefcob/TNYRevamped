@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Traits\GeneratesToken;
 use Exception;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Inertia\Inertia;
 
@@ -212,5 +213,34 @@ class AuthService
             //     'error' => '$e->message()'
             // ]);
         }
+    }
+
+    public function updatePassword($request)
+    {
+        try {
+            //code...
+            $request->validate([
+                'password' => 'required|min:8',
+            ]);
+
+            // dd(Auth::guard('user')->user()->id);
+            $admin = Admin::find(Auth::guard('user')->user()->id);
+            $admin->tokens()->delete();
+            
+            $admin->password = Hash::make($request->password);
+            $admin->save();
+            return [
+                'success' => true,
+                'message' => 'Password updated successfully'
+            ];
+        } catch (\Throwable $th) {
+            //throw $th;
+            return [
+                'success' => false,
+                'message' => 'Something went wrong',
+                'error' => $th->getMessage()
+            ];
+        }
+        
     }
 }

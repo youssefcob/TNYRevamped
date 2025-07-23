@@ -43,6 +43,11 @@ Route::post('/admin/login', [AdminAuthController::class, 'adminLogin']);
 Route::prefix('auth')->group(function () {
     Route::post('/register', [UserAuthController::class, 'register'])->name('register.api');
     Route::post('/login', [UserAuthController::class, 'login'])->name('login.api');
+    Route::middleware('auth:api' , 'scope:admin')->group(function () {
+
+        Route::post('update-password', [AdminAuthController::class, 'updatePassword'])->name('update.password');
+
+    });
 });
 
 Route::middleware('auth:api', 'scope:admin')->group(function () {

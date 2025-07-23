@@ -22,4 +22,11 @@ class AdminAuthController extends Controller
             return $this->sendError($response);
         return $this->sendResponse($response);
     }
+    public function updatePassword(Request $request)
+    {
+        $response = $this->service->updatePassword($request);
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
 }
