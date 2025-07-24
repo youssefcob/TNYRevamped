@@ -19,10 +19,17 @@ class RequestLogger
         $response = $next($request);
         // Log::debug('Request: ' . $request->fullUrl().' - '.$response->getStatusCode());
         
-        $user = $request->user();
+        $requestData = $request->all();
+
+        $sensetiveFields = ['password', 'password_confirmation', 'token'];
+        foreach ($sensetiveFields as $field) {
+            if (isset($requestData[$field])) {
+                $requestData[$field] = '*******';
+            }
+        }
         // dd($user);
         $log = [
-            'request_payload' => $request->all(),
+            'request_payload' => $requestData,
             'request_method' => $request->method(),
             'request_url' => $request->fullUrl(),
             'stauts' => $response->getStatusCode(),
