@@ -34,7 +34,8 @@
     <ul style="list-style: none; padding: 0;">
         @foreach($record as $key => $value)
         <li style="background: #fff; padding: 10px; margin-bottom: 5px; border-radius: 4px; border: 1px solid #ddd;">
-            <strong style="color: #007bff;">{{ ucfirst($key) }}:</strong> {{ $value }}
+            <strong style="color: #007bff;">{{ ucfirst($key) }}:</strong>
+            {{ is_array($value) ? implode(', ', $value) : $value }}
         </li>
         @endforeach
     </ul>
