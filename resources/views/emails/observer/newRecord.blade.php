@@ -21,7 +21,7 @@
         This email is sent to you as you have been added to the mailing list of
         <strong>Therapy of New York (TNY)</strong>.
         <br><br>
-        As a reviewer for the <strong>{{ $form }}</strong>, and in your role as <strong>{{ $role }}</strong>, we want to notify you about a new submission in the system.
+        As a reviewer for the <strong>{{ $form }}</strong>, and in your website-role as <strong>{{ $role }}</strong>, we want to notify you about a new submission in the system.
     </p>
 
     <div style="background: #fff; padding: 15px; border-radius: 6px; box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); margin-top: 15px;">

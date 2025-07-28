@@ -23,7 +23,7 @@
             This email is sent to you as you have been added to the mailing list of 
             <strong>Therapy of New York (TNY)</strong>. 
             <br><br>
-            As a reviewer for the <strong>{{ $form }}</strong>, and in your role as <strong>{{ $role }}</strong>, we want to notify you that a record has been deleted.
+            As a reviewer for the <strong>{{ $form }}</strong>, and in your website-role as <strong>{{ $role }}</strong>, we want to notify you that a record has been deleted.
         </p>
 
         <h3 style="margin-top: 20px; color: #333; border-bottom: 2px solid #dc3545; padding-bottom: 5px;">Deleted Record Details</h3>
