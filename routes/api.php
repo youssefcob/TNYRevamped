@@ -4,6 +4,7 @@
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\ApplicationsController;
 use App\Http\Controllers\Content\HeroController;
+use App\Http\Controllers\DataMigrationController;
 use App\Http\Controllers\Employer\EmployerController;
 use App\Http\Controllers\ExportController;
 use App\Http\Controllers\MailListController;
@@ -109,6 +110,11 @@ Route::middleware('auth:api', 'scope:admin')->group(function () {
     Route::get('/filters/job-seekers', [JobSeekerController::class, 'getJobSeekerFilters'])->name('get.jobSeeker.filters');
     Route::get('/filters/vacancies', [VacanciesController::class, 'getVacancyFilters'])->name('get.vacancy.filters');
     Route::get('/filters/positions', [PositionController::class, 'getPositionFilters'])->name('get.position.filters');
+
+    // Data Migration routes
+    Route::group(['prefix' => 'data-migration'], function () {
+        Route::post('/' , [DataMigrationController::class, 'migrateData'])->name('data.migration');
+    });
 });
 
 
