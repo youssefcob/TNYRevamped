@@ -34,10 +34,10 @@
             <li>Certified Speech-Language Pathologists</li>
         </ul>
 
-        <div class="cta-buttons">
+        <!-- <div class="cta-buttons">
             <button class="btn">Apply Now</button>
             <button class="btn transparent">Request Service</button>
-        </div>
+        </div> -->
     </div>
 </template>
 
