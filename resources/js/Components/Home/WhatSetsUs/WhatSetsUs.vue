@@ -35,12 +35,12 @@ import { Link } from '@inertiajs/vue3';
                 </div>
             </div>
         </div>
-
+<!-- 
         <div class="btn-container">
             <Link href="/apply" class="btn"> <span class="btnFont">Apply Now</span></Link>
             <Link href="/requestService" class="btn secondary"> <span class="btnFont">Request Service</span></Link>
 
-        </div>
+        </div> -->
     </div>
 </template>
 
