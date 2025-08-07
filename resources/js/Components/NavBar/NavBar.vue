@@ -45,7 +45,7 @@ defineExpose({
     <nav>
         <Link href="/#home"><img src="@/Svg/logo.svg" alt=""></Link>
         <div class="navlist-desktop">
-            <NavList />
+            <NavList :userIsLoggedIn="userIsLoggedIn" :userData="userData"/>
         </div>
 
         <div class="nav-btns">

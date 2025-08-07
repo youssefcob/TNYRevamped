@@ -34,12 +34,12 @@ const Bid = async () => {
 
 
 const submitBid = async () => {
-    const form ={
+    const form = {
         job_seeker_id: props.jobSeeker.id,
         rate_per_hour: bidAmount.value
     }
 
-    router.post('/bid',form,{
+    router.post('/bid', form, {
         onStart: () => {
             loading.value = true;
         },
@@ -49,7 +49,7 @@ const submitBid = async () => {
         preserveState: true,
         preserveScroll: true,
     })
- }
+}
 
 const bidAmount = ref(null);
 </script>
@@ -148,8 +148,10 @@ const bidAmount = ref(null);
             </div>
         </div>
         <div class="btn-wrapper">
-            <Btn class="btn" @click="Bid()" v-if=" !(jobSeeker as JobSeekerWithBid).pivot" :loading="loading">Bid Now</Btn>
-            <p v-if="(jobSeeker as JobSeekerWithBid).pivot?.rate_per_hour">Bid Value: ${{ (jobSeeker as JobSeekerWithBid).pivot.rate_per_hour }}</p>
+            <Btn class="btn" @click="Bid()" v-if="!(jobSeeker as JobSeekerWithBid).pivot" :loading="loading">Bid Now
+            </Btn>
+            <p v-if="(jobSeeker as JobSeekerWithBid).pivot?.rate_per_hour">Bid Value: ${{ (jobSeeker as
+                JobSeekerWithBid).pivot.rate_per_hour }}</p>
         </div>
     </div>
 </template>
@@ -215,8 +217,16 @@ const bidAmount = ref(null);
             display: flex;
             justify-content: space-between;
 
+            // flex-direction: column;
+            @include media-max(phone) {
+                flex-direction: column;
+                gap:1rem;
+            }
+
             .bubble {
+                // display:none;
                 padding: 1rem;
+
                 @include media-min(desktop) {
                     padding: .7rem 2rem;
                 }

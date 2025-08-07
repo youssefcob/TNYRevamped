@@ -6,6 +6,17 @@ import { useRoute } from 'vue-router';
 
 const route = useRoute();
 
+const props = defineProps({
+    userIsLoggedIn: {
+        type: Boolean,
+        default: false
+    },
+    userData: {
+        type: Object,
+        default: () => ({})
+    }
+});
+
 const isActive = (link: string) => {
     return false;
     return window.location.hash === link || window.location.pathname === link;
@@ -27,7 +38,9 @@ const isActive = (link: string) => {
             <Link href="/services">Services</Link>
         </li>
         <li role="menuitem" :class="{ active: isActive('/talents') }">
-            <Link href="/talents">Talents</Link>
+            <Link href="/vacancies" v-if="userIsLoggedIn && userData && userData.user_type == 'job_seeker'">Vacancies</Link>
+
+            <Link href="/talents" v-else>Talents</Link>
         </li> 
         <li role="menuitem" :active="isActive('#jobs')">
             <Hroute on="/" to="#jobs" :active="isActive('#jobs')">Positions</Hroute>

@@ -32,7 +32,7 @@ class JobSeekerViewsController extends Controller
     {
         $data['vacancies'] = VacanciesService::get($request);
         $data['positions'] = PositionService::get();
-        // dd($data);
+        // dd($data['vacancies']->toArray(),$data['positions']->toArray());
         return Inertia::render('JobSeekers/Vacancies', $data);
     }
 

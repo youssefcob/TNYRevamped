@@ -12,9 +12,17 @@ class PositionService
     public static function get()
     {
         $service = new self();
-        $positions = $service->getPositions(request());
+        $positions = $service->nonPaginatedPositions(request());
 
         return $positions['data'] ?? [];
+    }
+    public function nonPaginatedPositions()
+    {
+        $positions = Position::all();
+        return [
+            'success' => true,
+            'data' => $positions
+        ];
     }
     // Your service logic goes here
     /**
