@@ -136,7 +136,8 @@ const handleSubmit = async () => {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding:3rem 0;
+    padding: 4rem 0;
+
 
     .form-container {
         background-color: rgba(255, 255, 255, 0.8);
@@ -144,6 +145,7 @@ const handleSubmit = async () => {
         border-radius: 1rem;
         width: 50%;
         margin: 0 auto;
+
         @include media-max(desktop) {
             width: 90%;
         }
@@ -170,11 +172,11 @@ const handleSubmit = async () => {
                 align-items: center;
                 width: 100%;
 
-             >*{
+                >* {
                     width: 100%;
                 }
 
-                
+
 
 
                 .btn-container {

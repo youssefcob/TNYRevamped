@@ -104,5 +104,12 @@ function submit() {
 
     }
 
+    .text-center {
+        text-align: center;
+        a{
+            color:blue;
+        }
+    }
+
 }
 </style>

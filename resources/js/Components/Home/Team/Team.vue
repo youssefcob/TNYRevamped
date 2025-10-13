@@ -123,7 +123,7 @@ let showMore = () => {
                 display: flex;
                 justify-content: center;
                 align-items: center;
-                border-radius: $border-radius;
+                border-radius: 20px;
                 transition: all 0.5s ease-in-out;
 
 
@@ -136,7 +136,7 @@ let showMore = () => {
 
                     background-size: cover;
                     background-repeat: no-repeat;
-                    border-radius: $border-radius;
+                    border-radius: 20px;
                     filter: grayscale(100%);
                     transition: all 0.5s ease-in-out;
 

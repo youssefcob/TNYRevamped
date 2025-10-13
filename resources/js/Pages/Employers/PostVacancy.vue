@@ -168,6 +168,7 @@ $form-gap: 1rem;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    padding: 35rem 0;
 
     .box-wrapper-border {
 
@@ -197,7 +198,7 @@ $form-gap: 1rem;
 
             .btn-container {
                 width:40%;
-                margin-left:auto;
+                margin:auto;
                 @include media-max(tablet) {
                     width: 100%;
                 }

@@ -83,8 +83,8 @@ const appendToFormData = (formData: FormData, key: any, value: any) => {
     }
 };
 const modifyForm = () => {
-
-
+    let l = [];
+    l.push(languageId());
 
     const formFields = {
         name: form.value.name,
@@ -96,11 +96,10 @@ const modifyForm = () => {
         rate_per_hour: form.value.rate_per_hour || 0,
         availability_to_start: form.value.availability_to_start || 0,
         payment_type: form.value.payment_type || '',
-        languages: form.value.language ? [languageId()] : [],
         is_licensed: form.value.is_licensed || false,
         is_employed: form.value.is_employed || false,
         legal_status: form.value.legal_status || '',
-        work_days: form.value.work_days || [],
+        // work_days: form.value.work_days || [],
         shift_type: form.value.shift_type || '',
         gender: form.value.gender?.toLowerCase() || '',
         preferred_location: form.value.preferred_location || ''
@@ -109,6 +108,16 @@ const modifyForm = () => {
     Object.entries(formFields).forEach(([key, value]) => {
         appendToFormData(resume, key, value);
     });
+
+    // Append languages array separately
+    l.forEach((languageId:any) => {
+        resume.append('languages[]', languageId);
+    });
+
+    form.value.work_days.forEach((day) => {
+        resume.append('work_days[]', day);
+    });
+
     return resume;
 }
 const loading = ref(false);
@@ -117,6 +126,7 @@ const handleSubmit = async () => {
   
     // Merge form and resume as a FormData
     const formData = modifyForm();
+    console.log(formData);
     const token = localStorage.getItem('token');
     // console.log(token);
 
@@ -266,6 +276,7 @@ const handleSubmit = async () => {
     display: flex;
     align-items: center;
     justify-content: center;
+    padding: 4rem 0;
 
     .form-container {
         background-color: rgba(255, 255, 255, 0.8);

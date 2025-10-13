@@ -29,7 +29,7 @@ const closeModal = () => {
     <footer class="container">
         <div class="up">
             <div class="logo">
-                <img src="@/Svg/logo.svg" alt="">
+                <img src="@/Svg/footerlogo.svg" alt="">
             </div>
             <div class="info-wrapper">
                 <div class="links">
@@ -125,7 +125,7 @@ const closeModal = () => {
 
 <style lang="scss" scoped>
 .container {
-    background-color: $grey;
+    background-color: #031116;
     @include pagePadding();
     display: flex;
     flex-direction: column;
@@ -231,7 +231,7 @@ const closeModal = () => {
     }
 
     .down {
-        padding: 1.5rem 0;
+        padding: 1.5rem 9rem;
         color: white;
         display: flex;
         justify-content: space-between;
@@ -240,6 +240,7 @@ const closeModal = () => {
         @include media-max(phone) {
             flex-direction: column;
             gap: 4rem;
+            padding:1.5rem 0;
         }
 
         span {

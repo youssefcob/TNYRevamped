@@ -10,7 +10,7 @@ use Illuminate\Http\Request;
 
 trait JobSeekerHelperFunctions
 {
-    private static array $allowedGenders = ['male', 'female','other'];
+    private static array $allowedGenders = ['male', 'female', 'other'];
     private static array $allowedFacilityTypes = ['Outpatient', 'Inpatient', 'SNF', 'Home Therapy'];
     private static array $allowedPaymentTypes = ['W2', '1099'];
     private static array $allowedPreferredLocations = ['Manhattan', 'The Bronx', 'Brooklyn', 'Queens', 'Staten Island', 'Long Island'];
@@ -20,7 +20,7 @@ trait JobSeekerHelperFunctions
     private static array $allowedWorkDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
     private static array $allowedShiftTypes = ['Hours', 'Full Time', 'Part Time', 'Coverage', 'Per Diem', 'Coverage', 'Ongoing'];
     private static array $allowedBouroughs = ['Manhattan', 'Bronx', 'Brooklyn', 'Queens', 'Staten Island', 'Long Island'];
-    
+
     private function findUserOrFail($userId)
     {
         return User::find($userId);
@@ -35,7 +35,7 @@ trait JobSeekerHelperFunctions
                 'is_employed' => $request->has('is_employed') ? (bool) $request->input('is_employed') : false,
                 'is_licensed' => $request->has('is_licensed') ? (bool) $request->input('is_licensed') : false,
                 'is_talent' => $request->has('is_talent') ? (bool) $request->input('is_talent') : false,
-                
+
                 "work_days" => $request->input('work_days', []),
                 "languages" => $request->input('languages', []),
             ]);
@@ -61,7 +61,7 @@ trait JobSeekerHelperFunctions
                 'languages' => 'array',
                 'languages.*' => 'integer|exists:languages,id',
                 'work_days' => 'array',
-                'work_days.*' => 'string|in:'. implode(',', self::$allowedWorkDays),
+                'work_days.*' => 'string|in:' . implode(',', self::$allowedWorkDays),
                 'shift_type' => 'sometimes|string|in:' . implode(',', self::$allowedShiftTypes),
                 'name' => 'sometimes|string|max:255',
                 'bourough' => 'sometimes|string|in:' . implode(',', self::$allowedBouroughs),
@@ -113,7 +113,7 @@ trait JobSeekerHelperFunctions
             'shift_type' => $request->shift_type,
             'borough' => $request->borough,
             'work_days' => $request->work_days,
-            
+
         ]);
     }
 
@@ -127,17 +127,20 @@ trait JobSeekerHelperFunctions
     private function validateUpdateJobSeekerRequest(Request $request)
     {
         try {
-                $request->merge([
-            //     'experience' => (int) $request->input('experience'),
-            //     'rate_per_hour' => $request->has('rate_per_hour') ? (int) $request->input('rate_per_hour') : null,
-            //     'availability_to_start' => (int) $request->input('availability_to_start'),
+            $request->merge([
+                //     'experience' => (int) $request->input('experience'),
+                //     'rate_per_hour' => $request->has('rate_per_hour') ? (int) $request->input('rate_per_hour') : null,
+                //     'availability_to_start' => (int) $request->input('availability_to_start'),
                 'is_employed' => $request->has('is_employed') ? (bool) $request->input('is_employed') : false,
                 'is_licensed' => $request->has('is_licensed') ? (bool) $request->input('is_licensed') : false,
                 'is_talent' => $request->has('is_talent') ? (bool) $request->input('is_talent') : false,
 
-                "work_days" => Json::decode($request->input('work_days', [])),
-                "languages" => Json::decode($request->input('languages', [])),
-                ]);
+                // "work_days" => Json::decode($request->input('work_days', [])),
+                // "languages" => Json::decode($request->input('languages', [])),
+
+                "work_days" => $request->input('work_days', []),
+                "languages" => $request->input('languages', []),
+            ]);
             $request->validate([
                 'phone_number' => 'sometimes|string',
                 'dob' => 'nullable|date',
@@ -158,7 +161,7 @@ trait JobSeekerHelperFunctions
                 'languages' => 'array',
                 'languages.*' => 'integer|exists:languages,id',
                 'work_days' => 'array',
-                'work_days.*' => 'string|in:'. implode(',', self::$allowedWorkDays),
+                'work_days.*' => 'string|in:' . implode(',', self::$allowedWorkDays),
                 'shift_type' => 'nullable|string|in:' . implode(',', self::$allowedShiftTypes),
                 'name' => 'sometimes|string|max:255',
                 'bourough' => 'sometimes|string|in:' . implode(',', self::$allowedBouroughs),
@@ -177,10 +180,23 @@ trait JobSeekerHelperFunctions
     {
 
         $fields = [
-            'phone_number', 'position_id', 'experience', 'facility_type', 'payment_type',
+            'phone_number',
+            'position_id',
+            'experience',
+            'facility_type',
+            'payment_type',
 
-            'preferred_location', 'is_employed', 'availability_to_start', 'rate_per_hour',
-            'is_licensed', 'legal_status', 'gender', 'dob', 'shift_type', 'bourough','work_days'
+            'preferred_location',
+            'is_employed',
+            'availability_to_start',
+            'rate_per_hour',
+            'is_licensed',
+            'legal_status',
+            'gender',
+            'dob',
+            'shift_type',
+            'bourough',
+            'work_days'
 
         ];
 
@@ -208,4 +224,4 @@ trait JobSeekerHelperFunctions
             }
         }
     }
-} 
+}

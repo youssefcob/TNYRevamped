@@ -77,7 +77,7 @@ const submit = () => {
                 </div>
                 <div class="btn-wrapper">
                     <button type="submit" class="btn" :disabled="loading">
-                        {{ loading ? 'Loading...' : 'register' }}
+                        {{ loading ? 'Loading...' : 'Register' }}
                     </button>
                 </div>
 
@@ -125,6 +125,12 @@ const submit = () => {
         }
 
 
+    }
+        .text-center {
+        text-align: center;
+        a{
+            color:blue;
+        }
     }
 
 }
