@@ -171,7 +171,7 @@ class VacancyController extends Controller
         $service = new ApplicationsService();
         $res = $service->apply($request, $vacancy_id);
         if(!$res['success']) {
-            return redirect()->back()->with('snack', [
+            return redirect()->route('job-seeker.dashboard.applications')->with('snack', [
                 'type' => 'error',
                 'message' => $res['message'],
             ]);

@@ -129,7 +129,7 @@ const submit = () => {
         .text-center {
         text-align: center;
         a{
-            color:blue;
+            color:$blue;
         }
     }
 

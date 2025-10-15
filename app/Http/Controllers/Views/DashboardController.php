@@ -44,6 +44,21 @@ class DashboardController extends Controller
     {
         // dd('jobSeekerApplications called');
         $user = $request->attributes->get('user');
+
+        if (!$user) {
+        return redirect()->route('login')->with('snack', [
+            'type' => 'error',
+            'message' => 'Please login to continue.',
+        ]);
+    }
+    
+    // Check if jobSeeker relationship exists
+    if (!$user->jobSeeker) {
+        return redirect()->route('profile.edit')->with('snack', [
+            'type' => 'error',
+            'message' => 'Please complete your profile first.',
+        ]);
+    }
         $applications = $user->jobSeeker->applications()->with('vacancy.position')->get();
         return Inertia::render('JobSeekers/JobSeekersDashboard', ['applications' => $applications]);
     }
