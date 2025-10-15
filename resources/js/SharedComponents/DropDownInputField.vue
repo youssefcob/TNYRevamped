@@ -156,7 +156,7 @@ defineExpose({
 
             <div class="required">
                 <input :name="label" :disabled="props.disabled" ref="inputField" class="input-field "
-                    @input="filterList()" @focus="showDropDown" @focusout="hideDropDown" v-model="input"
+                    @input="filterList()" @focus="showDropDown" v-model="input"
                     :style="`width:100%;$;${($props.error) ? 'border-color:red' : ''};${background ? `background-color:${background}` : 'white'}`"
                     type="text">
 
