@@ -366,7 +366,7 @@ class VacanciesService
                     return $filtredVacancies;
                 $query = $filtredVacancies['data']; 
             }
-            $vacancies = $query->paginate($perPage);
+            $vacancies = $query->orderBy('created_at', 'desc')->paginate($perPage);
             // ->paginate($perPage);
             return [
                 'success' => true,

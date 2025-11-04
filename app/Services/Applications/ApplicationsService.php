@@ -297,7 +297,7 @@ public function AdminJobSeekerApplications($id)
                         $q->select('id', 'name', 'email');
                     }]);
                 }
-            ])->paginate($perPage);
+            ])->orderBy('created_at', 'desc')->paginate($perPage);
             
             return [
                 'success' => true,

@@ -68,7 +68,7 @@ class BidsService
                     $bids = $filteredBids['data'];
                 }
                 // dd($bids);
-                $bids = $bids->paginate(self::PAGINATION_LIMIT);
+                $bids = $bids->orderBy('created_at', 'desc')->paginate(self::PAGINATION_LIMIT);
                 return $this->employerBidsResponse($bids);
             }
         } catch (Exception $e) {
@@ -144,7 +144,7 @@ class BidsService
                     }
                     $bids = $filteredBids['data'];
                 }
-                $bids = $bids->paginate(self::PAGINATION_LIMIT);
+                $bids = $bids->orderBy('created_at', 'desc')->paginate(self::PAGINATION_LIMIT);
                 // dd('s');
             }
             // dd('s');

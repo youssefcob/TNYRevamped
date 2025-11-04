@@ -105,7 +105,7 @@ class JobSeekerService
                 }
 
 
-                $jobSeeker = $query->paginate($perPage);
+                $jobSeeker = $query->orderBy('created_at', 'desc')->paginate($perPage);
             }
 
             return [
