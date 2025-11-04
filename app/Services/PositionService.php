@@ -42,7 +42,7 @@ class PositionService
                     'id' => 'required|integer|exists:positions,id',
                 ]);
             }
-            $data = $id ? Position::find($id) : Position::paginate($perPage);
+            $data = $id ? Position::find($id) : Position::orderBy('created_at', 'desc')->paginate($perPage);
             return [
                 'success' => true,
                 'data' => $data,

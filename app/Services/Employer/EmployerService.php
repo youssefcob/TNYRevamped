@@ -92,7 +92,7 @@ class EmployerService
             //     }
             //     $query = $filteredEmployers['data'];
             // }
-            $employers = $query->paginate($perPage);
+            $employers = $query->orderBy('created_at', 'desc')->paginate($perPage);
             // $employers = Employer::with('user')->paginate(self::PAGINATION_LIMIT);
 
             return [
