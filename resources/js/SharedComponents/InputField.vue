@@ -20,7 +20,11 @@ const props = defineProps({
     numbersOnly: Boolean,
     value: String,
     background: String,
-    label: String
+    label: String,
+    type: {
+        type: String,
+        default: 'text'
+    }
 });
 
 const clear = () => {
@@ -144,11 +148,11 @@ defineExpose({
         <div class="required">
             <input :disabled="$props.disabled" class="input-field" v-if="!$props.height"
                 :style="`width:100%; ${CalcHeight()};${($props.error) ? 'border-color:red' : ''};${props.background ? `background-color:${props.background}` : 'white'}`"
-                v-maska="mask" type="text" v-model="input" :name="name">
+                v-maska="mask" :type="props.type" v-model="input" :name="name">
 
             <textarea :disabled="$props.disabled" class="input-field" v-if="$props.height"
                 :style="`width:100%;resize:none; ${CalcHeight()};${($props.error) ? 'border-color:red' : ''}`"
-                type="text" v-model="input"></textarea>
+                :type="props.type" v-model="input"></textarea>
 
             <label class="asterisk" ref="asterisk" :style="`${CalcTop()};`">{{ $props.placeHolder }}<span
                     style="color:red" v-if="props.required">

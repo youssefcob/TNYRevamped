@@ -3,27 +3,27 @@
         <section id="home">
             <Hero />
         </section>
-     
+
         <section id="about">
             <AboutUs />
         </section>
         <section>
             <Numbers />
         </section>
-   <section>
+        <section>
             <Talents />
         </section>
         <section>
             <WhatSetsUs />
         </section>
-        
+
 
         <section id="services">
             <Services />
         </section>
-        <section id="jobs">
+        <!-- <section id="jobs">
             <Jobs />
-        </section>
+        </section> -->
         <section id="news">
             <NewsAndEvents />
         </section>
@@ -84,10 +84,10 @@ const props = defineProps({
     services: {
         type: Object as () => Service[]
     },
-    talent : {
+    talent: {
         type: Object as () => JobSeeker[]
     },
-    
+
     jobs: {
         type: Object as () => Job[]
     },
@@ -127,9 +127,9 @@ onMounted(() => {
     if (props.team) {
         assignTeam(props.team);
     }
- 
-    
-    if( props.talent) {
+
+
+    if (props.talent) {
         assignTalent(props.talent);
     }
 });
