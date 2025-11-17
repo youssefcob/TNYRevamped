@@ -45,7 +45,7 @@ const closeModal = () => {
                     <h3>Our Info</h3>
 
                     <!-- Map Link -->
-                    <a href="https://maps.app.goo.gl/your-actual-map-link" target="_blank" rel="noopener noreferrer"
+                    <a href="https://maps.google.com/?q=8746+20th+Avenue,+Brooklyn,+NY+11214" target="_blank" rel="noopener noreferrer"
                         class="contact-info">
                         <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
                             <path d="M34.6673 1.33301L16.334 19.6663" stroke="#21A8E0" stroke-width="2"
