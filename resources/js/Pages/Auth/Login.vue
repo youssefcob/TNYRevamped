@@ -13,6 +13,12 @@ const props = defineProps({
     errors: {
         type: Object
     },
+    type: {
+        type: String
+    },
+    message: {
+        type: String
+    }
 })
 
 
@@ -23,6 +29,9 @@ const form = {
 
 onMounted(() => {
     csrfToken.value = document.querySelector('meta[name="csrf-token"]')?.getAttribute('content');
+    if (props.type === 'success') {
+        snack.success(props.message as string);
+    }
 });
 
 
@@ -65,6 +74,12 @@ function submit() {
 
                 <InputField type="password" name="password" label="Password" placeHolder="Enter your password" value="y"
                     v-model="form.password" />
+                    <div class="text-right">
+
+                        <p>
+                            <Link href="/forget-password" class="text-blue-500 hover:underline">Forget Password</Link>
+                        </p>
+                    </div>
 
                 <div class="btn-wrapper">
                     <button type="submit" class="btn" :disabled="loading">
@@ -76,6 +91,7 @@ function submit() {
                     <p>Don't have an account?
                         <Link href="/register" class="text-blue-500 hover:underline">Register</Link>
                     </p>
+                    
                 </div>
             </div>
         </form>
@@ -110,6 +126,11 @@ function submit() {
             color:$blue;
         }
     }
-
+    .text-right {
+        text-align: right;
+        a{
+            color:$blue;
+        }
+    }
 }
 </style>

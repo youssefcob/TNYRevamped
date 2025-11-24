@@ -2,19 +2,28 @@
 
 namespace App\Services;
 
+use App\Mail\ResetPasswordMail;
 use App\Models\Admin;
 use App\Models\User;
 use App\Traits\GeneratesToken;
 use Exception;
+
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Mail;
 use Inertia\Inertia;
 
 class AuthService
 {
     use GeneratesToken;
     // Your service logic goes here
+    protected $cache;
+    public function __construct(CacheService $cache) {
+        $this->cache = $cache;
+    }
+
     /**
      * Authenticate an admin and generate an access token.
      *
@@ -203,9 +212,9 @@ class AuthService
             // $data = HomeService::get();
             // return Inertia::render('Home');
             // dd($token);
-            cookie()->queue('token', $token['access_token'], 60*24, '/', null, true, false, false, 'strict');
-        
-        return Inertia::render('Home');
+            cookie()->queue('token', $token['access_token'], 60 * 24, '/', null, true, false, false, 'strict');
+
+            return Inertia::render('Home');
         } catch (\Throwable $e) {
             //throw $th;
             dd($e->getMessage());
@@ -226,7 +235,7 @@ class AuthService
             // dd(Auth::guard('user')->user()->id);
             $admin = Admin::find(Auth::guard('user')->user()->id);
             $admin->tokens()->delete();
-            
+
             $admin->password = Hash::make($request->password);
             $admin->save();
             return [
@@ -241,6 +250,116 @@ class AuthService
                 'error' => $th->getMessage()
             ];
         }
-        
+    }
+    public function forgetPassword($request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+        ]);
+        try {
+            //code...
+            $user = User::where('email', $request->email)->first();
+            if (!$user) {
+                return [
+                    'success' => false,
+                    'message' => 'User not found',
+                    'code' => 404
+                ];
+            }
+            $resetToken = $this->generateResetToken($user->email);
+
+            Mail::to($user->email)->send(new ResetPasswordMail(
+                $resetToken['otp'],
+                $resetToken['expiresAt'],
+                $user->name,
+                $resetToken['mintues']
+            ));
+            return [
+                'success' => true,
+                'message' => 'Password reset link sent to email'
+            ];
+        } catch (\Throwable $th) {
+            //throw $th;
+            return [
+                'success' => false,
+                'message' => 'Something went wrong',
+                'error' => $th->getMessage()
+            ];
+        }
+    }
+
+    public function resetPassword($request)
+    {
+        $request->validate([
+            'email' => 'required|email',
+            'otp' => 'required',
+            'password' => 'required|min:8',
+        ]);
+        try {
+            //code...
+            $user = User::where('email', $request->email)->first();
+            if (!$user) {
+                return [
+                    'success' => false,
+                    'message' => 'User not found',
+                    'code' => 404
+                ];
+            }
+            $chaceKey = $this->cache->generateCacheKey('reset_password', $user->email);
+            $cacheData = Cache::get($chaceKey);
+            if (!$cacheData) {
+                return [
+                    'success' => false,
+                    'message' => 'OTP expired',
+                    'code' => 400
+                ];
+            }
+            if ($cacheData['otp'] != $request->otp) {
+                return [
+                    'success' => false,
+                    'message' => 'Invalid OTP',
+                    'code' => 400
+                ];
+            }
+            $user->password = Hash::make($request->password);
+            $user->save();
+            Cache::forget($chaceKey);
+            return [
+                'success' => true,
+                'message' => 'Password reset successfully'
+            ];
+        } catch (\Throwable $th) {
+            //throw $th;
+            return [
+                'success' => false,
+                'message' => 'Something went wrong',
+                'error' => $th->getMessage()
+            ];
+        }
+    }
+    private function generateResetToken($email)
+    {
+        $chaceKey = $this->cache->generateCacheKey('reset_password', $email);
+
+        if (Cache::has($chaceKey)) {
+            return [
+                'otp' => Cache::get($chaceKey)['otp'],
+                'expiresAt' => Cache::get($chaceKey)['expiresAt'],
+                'mintues' => Cache::get($chaceKey)['mintues']
+            ];
+        }
+        $otp = rand(100000, 999999);
+        $mintues = 15;
+        $expiresAt = now()->addMinutes($mintues);
+        Cache::put($chaceKey, [
+            'otp' => $otp,
+            'expiresAt' => $expiresAt,
+            'mintues' => $mintues
+        ], $expiresAt);
+        return [
+            'otp' => $otp,
+            'expiresAt' => $expiresAt,
+            'mintues' => $mintues
+        ];
     }
 }

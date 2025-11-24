@@ -55,4 +55,18 @@ class UserAuthController extends Controller
         ]);
 
     }
+    public function forgetPassword(Request $request)
+    {
+        $response = $this->service->forgetPassword($request);
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
+    public function resetPassword(Request $request)
+    {
+        $response = $this->service->resetPassword($request);
+        if (!$response['success'])
+            return $this->sendError($response);
+        return $this->sendResponse($response);
+    }
 }

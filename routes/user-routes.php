@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\JobSeekerController;
+use App\Http\Controllers\UserAuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Views\Auth\LoginController;
 use App\Http\Controllers\Views\Auth\RegisterController;
@@ -17,7 +18,8 @@ Route::prefix('user')->group(function () {
     Route::post('/register', [RegisterController::class, 'ApiSubmit']);
     Route::post('/login', [LoginController::class, 'Apilogin']);
     // Auth routes
-    
+    Route::get('/forget-password', [UserAuthController::class, 'forgetPassword']);
+    Route::post('/reset-password', [UserAuthController::class, 'resetPassword']);
     // Route::post('/register', [RegisterController::class, 'submit']);
     // Route::post('/login', [LoginController::class, 'login']);
 
