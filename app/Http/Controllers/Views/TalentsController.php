@@ -10,11 +10,13 @@ use Inertia\Inertia;
 
 class TalentsController extends Controller
 {
-      public function talents(Request $request)
+    public function talents(Request $request)
     {
         $data = [];
         $data['positions'] = Position::all();
-
+        // We need to show only approved jobseeker
+        // I hope this does no harm :)
+        $request->merge(['status' => 'approved']);
         $jobSeekers = JobSeekerService::get($request);
         if ($jobSeekers['success']) {
             $data['job_seekers'] = $jobSeekers['data'];
@@ -23,5 +25,5 @@ class TalentsController extends Controller
         }
         return Inertia::render('Talents', $data);
     }
-    
+
 }
