@@ -13,13 +13,13 @@ trait JobSeekerHelperFunctions
     private static array $allowedGenders = ['male', 'female', 'other'];
     private static array $allowedFacilityTypes = ['Outpatient', 'Inpatient', 'SNF', 'Home Therapy'];
     private static array $allowedPaymentTypes = ['W2', '1099'];
-    private static array $allowedPreferredLocations = ['Manhattan', 'The Bronx', 'Brooklyn', 'Queens', 'Staten Island', 'Long Island'];
+    private static array $allowedPreferredLocations = ['Manhattan', 'The Bronx', 'Brooklyn', 'Queens', 'Staten Island', 'Long Island', 'New Jersey', 'Jersey City'];
     private static array $allowedEmploymentStatuses = ['Currently Employed', 'Unemployed'];
     private static array $allowedLegalStatuses = ['US Citizen', 'Green Card Holder', 'H-1B', 'B1B2', 'F1 Student', 'other'];
     private static array $allowedStatuses = ['pending', 'approved', 'rejected'];
     private static array $allowedWorkDays = ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'];
     private static array $allowedShiftTypes = ['Hours', 'Full Time', 'Part Time', 'Coverage', 'Per Diem', 'Coverage', 'Ongoing'];
-    private static array $allowedBouroughs = ['Manhattan', 'Bronx', 'Brooklyn', 'Queens', 'Staten Island', 'Long Island'];
+    private static array $allowedBouroughs = ['Manhattan', 'The Bronx', 'Brooklyn', 'Queens', 'Staten Island', 'Long Island', 'New Jersey', 'Jersey City'];
 
     private function findUserOrFail($userId)
     {

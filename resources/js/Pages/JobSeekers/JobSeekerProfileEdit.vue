@@ -240,7 +240,7 @@ const handleSubmit = async () => {
                                             :list="['Male', 'Female', 'Other']" :value="job_seeker?.gender"
                                             v-model="form.gender" />
                                         <DropDownInputField label="Borough" placeHolder="Select borough" type="text"
-                                            :list="['Manhattan', 'Brooklyn', 'Queens', 'The Bronx', 'Staten Island']"
+                                            :list="['Manhattan', 'The Bronx', 'Brooklyn', 'Queens', 'Staten Island', 'Long Island', 'New Jersey', 'Jersey City']"
                                             :value="job_seeker?.preferred_location" v-model="form.preferred_location" />
                                     </div>
                                     <FileInputField label="Resume" accept=".pdf,.doc,.docx"
