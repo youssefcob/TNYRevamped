@@ -30,13 +30,14 @@ class JobSeekerService
     }
     public static function getTalent()
     {
-        $jobSeekers = JobSeeker::where('is_talent', true)->with(['position'])->get();
+        $jobSeekers = JobSeeker::where('status', 'approved')
+            ->where('is_talent', true)->with(['position'])->get();
         return $jobSeekers;
     }
     public static function get(Request $request)
     {
         $service = new self();
-        return  $service->getJobSeekers($request, 16);
+        return $service->getJobSeekers($request, 16);
     }
 
 
@@ -84,7 +85,7 @@ class JobSeekerService
                 }
 
                 if ($request->has('position')) {
-                    $position = Position::where('title',  $request->input('position'))->first();
+                    $position = Position::where('title', $request->input('position'))->first();
                     // dd($position);
                     if ($position) {
                         $query->where('position_id', $position->id);
@@ -93,7 +94,8 @@ class JobSeekerService
 
                 if ($request->has('borough')) {
                     $query->where('preferred_location', 'like', '%' . $request->input('borough') . '%');
-                };
+                }
+                ;
                 if ($request->has('search')) {
                     $search = $request->input('search');
                     $query->where(function ($q) use ($search) {
@@ -132,7 +134,7 @@ class JobSeekerService
             // dd($status);
             $request->validate([
                 'id' => 'required|integer|exists:job_seekers,id',
-                'status' => 'required|string|in:'.implode(',',$this->statuses)
+                'status' => 'required|string|in:' . implode(',', $this->statuses)
             ]);
 
             $jobSeeker = JobSeeker::findOrFail($request->query('id'));
@@ -209,7 +211,7 @@ class JobSeekerService
             if (!$user) {
                 return ['success' => false, 'message' => 'User not found'];
             }
-            
+
             $validationResult = $this->validateJobSeekerRequest($request);
             // dd('ss');
             if ($validationResult !== true) {
