@@ -51,6 +51,12 @@ const submitBid = async () => {
     })
 }
 
+function capitalize(str: string): string {
+    if (!str) return "";
+    return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+
 const bidAmount = ref(null);
 </script>
 
@@ -117,13 +123,23 @@ const bidAmount = ref(null);
                 </div>
 
                 <div class="desc-wrapper">
-                    <svg width="25" height="24" viewBox="0 0 25 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <svg v-if="jobSeeker.gender == 'male'" width="25" height="24" viewBox="0 0 25 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
                         <path
                             d="M14.1666 3V4.5H19.1061L13.3401 10.2668C12.1305 9.32692 10.6081 8.88348 9.08295 9.02673C7.55782 9.16998 6.14464 9.88914 5.13117 11.0378C4.11769 12.1864 3.58012 13.6782 3.62794 15.2093C3.67575 16.7404 4.30534 18.1957 5.38851 19.2788C6.47168 20.362 7.92698 20.9916 9.45807 21.0394C10.9892 21.0872 12.4809 20.5497 13.6296 19.5362C14.7782 18.5227 15.4974 17.1095 15.6406 15.5844C15.7839 14.0593 15.3404 12.5369 14.4006 11.3272L20.1666 5.5605V10.5H21.6666V3H14.1666ZM9.66659 19.5C8.77658 19.5 7.90655 19.2361 7.16653 18.7416C6.42651 18.2471 5.84973 17.5443 5.50914 16.7221C5.16854 15.8998 5.07943 14.995 5.25306 14.1221C5.42669 13.2492 5.85528 12.4474 6.48461 11.818C7.11395 11.1887 7.91577 10.7601 8.78869 10.5865C9.6616 10.4128 10.5664 10.5019 11.3887 10.8425C12.2109 11.1831 12.9137 11.7599 13.4082 12.4999C13.9027 13.24 14.1666 14.11 14.1666 15C14.1652 16.193 13.6907 17.3368 12.847 18.1804C12.0034 19.0241 10.8596 19.4986 9.66659 19.5Z"
                             fill="#135672" />
                     </svg>
 
-                    {{ jobSeeker.gender }}
+                    <svg v-if="jobSeeker.gender == 'female'" width="25" height="24" viewBox="0 0 24 24" fill="none"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M12 2C8.13401 2 5 5.13401 5 9C5 12.2977 7.38638 15.092 10.5 15.8056V18H8V20H10.5V22H13.5V20H16V18H13.5V15.8056C16.6136 15.092 19 12.2977 19 9C19 5.13401 15.866 2 12 2ZM12 4C14.7614 4 17 6.23858 17 9C17 11.7614 14.7614 14 12 14C9.23858 14 7 11.7614 7 9C7 6.23858 9.23858 4 12 4Z"
+                            fill="#FF69B4" />
+                    </svg>
+
+
+
+                    {{ capitalize(jobSeeker.gender) }}
                 </div>
                 <div class="desc-wrapper">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -220,7 +236,7 @@ const bidAmount = ref(null);
             // flex-direction: column;
             @include media-max(phone) {
                 flex-direction: column;
-                gap:1rem;
+                gap: 1rem;
             }
 
             .bubble {
