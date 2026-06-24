@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\News;
 use App\Services\Content\ClientsService;
 use App\Services\Content\EmployersService;
+use App\Models\Position;
 use App\Services\Content\JobsService;
 use App\Services\Content\NewsService;
 use App\Services\Content\ServicesService;
@@ -49,7 +50,7 @@ class HomeController extends Controller
         }
         $data['talent'] = JobSeekerService::getTalent();
 
-        return Inertia::render('Home', $data);
+        return Inertia::render('HomeV2', $data);
     }
 
   
@@ -78,6 +79,14 @@ class HomeController extends Controller
         return Inertia::render('Employers', $data);
     }
 
+    public function candidates()
+    {
+        $data = [];
+
+        $data['positions'] = Position::where('available', true)->orderBy('created_at', 'desc')->get();
+        return Inertia::render('Candidates', $data);
+    }
+
     public function apply($position = null)
     {
         $data = [];
@@ -95,6 +104,24 @@ class HomeController extends Controller
         $data['services'] = ServicesService::get();
         $data['service'] = $service;
         return Inertia::render('RequestService', $data);
+    }
+
+    public function solutions()
+    {
+        return Inertia::render('Solutions');
+    }
+
+    public function contact()
+    {
+        return Inertia::render('Contact');
+    }
+
+    public function resources()
+    {
+        $data = [];
+
+        $data['articles'] = News::latest()->get();
+        return Inertia::render('Resources', $data);
     }
 
     public function news($id = null)
@@ -125,5 +152,10 @@ class HomeController extends Controller
     public function jobSeekers()
     {
         return Inertia::render('JobSeekers/JobSeekersHome');
+    }
+
+    public function homeV2()
+    {
+        return Inertia::render('HomeV2');
     }
 }

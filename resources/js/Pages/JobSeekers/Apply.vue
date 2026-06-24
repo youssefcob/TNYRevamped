@@ -1,25 +1,19 @@
 <script setup lang="ts">
-import MainOverLay from '@/Components/Overlays/MainOverLay.vue';
-import { Job } from '@/interface/Types';
-import { assignJob } from '@/state/state';
-import Apply from '@/Views/Apply.vue';
+import LayoutV2 from '@/Components/HomeV2/LayoutV2.vue';
+import ApplyHeroSection from '@/Components/Apply/ApplyHeroSection.vue';
+import ApplyFormSection from '@/Components/Apply/ApplyFormSection.vue';
 
-const props = defineProps({
-    jobs: {
-        type: Object as () => Job[]
-    },
-    position: {
-        type: String,
-        default: ''
-    },
-});
-if (props.jobs) {
-    assignJob(props.jobs);
-}
+interface Job { id: number; title: string; }
+
+const props = defineProps<{
+  jobs?: Job[];
+  position?: string;
+}>();
 </script>
 
 <template>
-    <MainOverLay>
-        <Apply :position="position" />
-    </MainOverLay>
+  <LayoutV2>
+    <ApplyHeroSection />
+    <ApplyFormSection :jobs="props.jobs" :preselected="props.position ?? ''" />
+  </LayoutV2>
 </template>

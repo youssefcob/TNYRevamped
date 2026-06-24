@@ -1,0 +1,85 @@
+<template>
+  <section class="cand-hero">
+    <div class="cand-hero__inner">
+      <h1 class="cand-hero__title">
+        Find Flexible
+        <span class="cand-hero__title--blue"> Therapy Opportunities </span>
+        That Fit Your Career.
+      </h1>
+      <p class="cand-hero__subtitle">
+        Join a growing network of rehabilitation professionals working across hospitals,
+        outpatient clinics, skilled nursing facilities, schools, and home healthcare
+        settings throughout New York City.
+      </p>
+      <a href="#openings" class="cand-hero__btn">Browse Openings</a>
+    </div>
+  </section>
+</template>
+
+<style scoped lang="scss">
+.cand-hero {
+  background: linear-gradient(
+    -51.8deg,
+    rgb(214, 185, 140) 0.24%,
+    rgba(0, 33, 71, 0.9) 61%,
+    rgb(0, 33, 71) 99.76%
+  );
+  min-height: 650px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10rem 7.5rem 5rem;
+  text-align: center;
+
+  @media (max-width: 1100px) { padding: 8rem 2rem 4rem; }
+  @media (max-width: 640px)  { padding: 7rem 1.25rem 3rem; }
+
+  &__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1.5rem;
+    max-width: 49.5rem;
+  }
+
+  &__title {
+    font-family: $font-heading;
+    font-weight: $fw-bold;
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+    color: $color-white;
+
+    &--blue { color: $color-blue; }
+  }
+
+  &__subtitle {
+    font-family: $font-body;
+    font-weight: $fw-semibold;
+    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    line-height: 1.7;
+    color: $color-white;
+  }
+
+  &__btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.75rem;
+    width: 27.9375rem;
+    max-width: 100%;
+    border-radius: 80px;
+    background: $color-orange;
+    color: #0f2b3d;
+    font-family: $font-heading;
+    font-weight: $fw-semibold;
+    font-size: 1.25rem;
+    text-decoration: none;
+    transition: background 0.25s;
+    margin-top: 0.5rem;
+
+    @media (max-width: 480px) { width: 100%; }
+
+    &:hover { background: darken(#FF9B37, 8%); }
+  }
+}
+</style>

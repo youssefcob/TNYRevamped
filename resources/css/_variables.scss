@@ -1,20 +1,70 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+// ============================================================
+// OLD VARIABLES (commented out - kept for reference)
+// ============================================================
+// @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+//
+// $navy: #176688;
+// $blue: #21A8E0;
+// $light-blue: #D3EEF9;
+// $black: #000;
+// $white: #fff;
+// $grey: #54656C;
+// $off-white:#E8F3F7;
+// $service-blue:#A6DCF3;
+// $light-grey:#FAFAFA;
+// $beige:#F1F2F2;
+// $undefined-grey:#F5F5F5;
+// $border-radius:40px;
+// ============================================================
 
 
-$navy: #176688;
-$blue: #21A8E0;
-$light-blue: #D3EEF9;
-$black: #000;
-$white: #fff;
-$grey: #54656C;
-$off-white:#E8F3F7;
-$service-blue:#A6DCF3;
+// ------------------------------------------------------------
+// Fonts
+// ------------------------------------------------------------
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@400;500;600;700&display=swap');
 
-$light-grey:#FAFAFA;
+$font-heading: 'Montserrat', sans-serif;
+$font-body:    'Poppins', sans-serif;
 
-$beige:#F1F2F2;
 
-$undefined-grey:#F5F5F5;
+// ------------------------------------------------------------
+// Colors
+// ------------------------------------------------------------
+$color-navy:       #142235;
+$color-dark:       #222222;
+$color-blue:       #24A8E0;
+$color-teal:       #2F8F83;
+$color-grey-dark:  #3A3B3D;
+$color-sand:       #D6B98C;
+$color-orange:     #FF9B37;
+$color-white:      #FFFFFF;
 
-$border-radius:40px;
+// Text color aliases
+$text:             $color-dark;
+$text-body:        $color-grey-dark;
 
+
+// ------------------------------------------------------------
+// Font weights
+// ------------------------------------------------------------
+
+
+
+// Type scale lives in _typography.scss
+
+
+// ------------------------------------------------------------
+// Backward-compatible aliases (keep old code compiling)
+// ------------------------------------------------------------
+$navy:           #176688;
+$blue:           #21A8E0;
+$light-blue:     #D3EEF9;
+$black:          #000;
+$white:          #fff;
+$grey:           #54656C;
+$off-white:      #E8F3F7;
+$service-blue:   #A6DCF3;
+$light-grey:     #FAFAFA;
+$beige:          #F1F2F2;
+$undefined-grey: #F5F5F5;
+$border-radius:  40px;

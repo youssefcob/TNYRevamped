@@ -1,0 +1,126 @@
+@import 'variables';
+
+$fw-regular:   400;
+$fw-medium:    500;
+$fw-semibold:  600;
+$fw-bold:      700;
+
+// ------------------------------------------------------------
+// Type Scale Variables
+// ------------------------------------------------------------
+
+// H1 — Montserrat Bold, 60px desktop / 50px mobile
+$h1-size-desktop:  3.75rem;   // 60px (+25%)
+$h1-size-mobile:   3.125rem;  // 50px (+25%)
+$h1-weight:        700;
+$h1-line-height:   125%;
+
+// H2 — Montserrat Bold, 50px desktop / 40px mobile
+$h2-size-desktop:  3.125rem;  // 50px (+25%)
+$h2-size-mobile:   2.5rem;    // 40px (+25%)
+$h2-weight:        700;
+$h2-line-height:   125%;
+
+// H3 — Montserrat Bold, 40px desktop / 30px mobile
+$h3-size-desktop:  2.5rem;    // 40px (+25%)
+$h3-size-mobile:   1.875rem;  // 30px (+25%)
+$h3-weight:        700;
+$h3-line-height:   125%;
+
+// Large Text — Poppins Semibold, 25px desktop / 20px mobile
+$large-size-desktop: 1.5625rem; // 25px (+25%)
+$large-size-mobile:  1.25rem;   // 20px (+25%)
+$large-weight:       600;
+$large-line-height:  150%;
+
+// Body — Poppins Regular, 22.5px desktop / 20px mobile
+$body-size-desktop:  1.40625rem; // 22.5px (+25%)
+$body-size-mobile:   1.25rem;    // 20px (+25%)
+$body-weight:        400;
+$body-weight-medium: 500;
+$body-weight-bold:   700;
+$body-line-height:   135%;
+
+// Button — Poppins Semibold, 25px desktop / 20px mobile
+$btn-size:    1.5625rem; // 25px (+25%)
+$btn-weight:  600;
+
+// Caption — Poppins Regular, 20px
+$caption-size:   1.25rem;  // 20px (+25%)
+$caption-weight: 400;
+
+
+// ------------------------------------------------------------
+// Mixins
+// ------------------------------------------------------------
+
+@mixin h1-type {
+  font-family: $font-heading;
+  font-weight: $h1-weight;
+  font-size: clamp(#{$h1-size-mobile}, 4vw, #{$h1-size-desktop});
+  line-height: $h1-line-height;
+}
+
+@mixin h2-type {
+  font-family: $font-heading;
+  font-weight: $h2-weight;
+  font-size: clamp(#{$h2-size-mobile}, 3.5vw, #{$h2-size-desktop});
+  line-height: $h2-line-height;
+}
+
+@mixin h3-type {
+  font-family: $font-heading;
+  font-weight: $h3-weight;
+  font-size: clamp(#{$h3-size-mobile}, 2.5vw, #{$h3-size-desktop});
+  line-height: $h3-line-height;
+}
+
+@mixin large-text-type {
+  font-family: $font-body;
+  font-weight: $large-weight;
+  font-size: clamp(#{$large-size-mobile}, 2vw, #{$large-size-desktop});
+  line-height: $large-line-height;
+}
+
+@mixin body-type($weight: $body-weight) {
+  font-family: $font-body;
+  font-weight: $weight;
+  font-size: clamp(#{$body-size-mobile}, 1.5vw, #{$body-size-desktop});
+  line-height: $body-line-height;
+  color: $text-body;
+}
+
+@mixin btn-type($weight: $btn-weight) {
+  font-family: $font-body;
+  font-weight: $weight;
+  font-size: $btn-size;
+}
+
+@mixin caption-type {
+  font-family: $font-body;
+  font-weight: $caption-weight;
+  font-size: $caption-size;
+}
+
+
+// ------------------------------------------------------------
+// Utility Classes
+// ------------------------------------------------------------
+
+.h1        { @include h1-type; }
+.h2        { @include h2-type; }
+.h3        { @include h3-type; }
+
+.title     { @include h1-type; }
+.subtitle  { @include h2-type; }
+
+.large-text { @include large-text-type; }
+
+.body           { @include body-type($body-weight); }       // Regular
+.body--medium   { @include body-type($body-weight-medium); }// Medium
+.body--bold     { @include body-type($body-weight-bold); color: $text; } // Bold
+
+.btn-text         { @include btn-type(600); } // Semibold
+.btn-text--bold   { @include btn-type(700); } // Bold
+
+.caption { @include caption-type; }

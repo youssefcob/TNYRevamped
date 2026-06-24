@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import Navbar from '@/Components/NavBar/NavBar.vue';
+import Navbar from '@/Components/HomeV2/NavBarV2.vue';
 import Footer from '@/Components/Footer/Foot.vue';
 import type { Client, Employer, Job, News, Service, Team, Testimonial, Hero as typeHero } from '@/interface/Types.ts';
 // import { Vue3Snackbar } from "vue3-snackbar";

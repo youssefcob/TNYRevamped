@@ -31,11 +31,23 @@ Route::get('/about',[HomeController::class, 'about'])
 Route::get('/employers', [HomeController::class, 'employers'])
 ->name('employers');
 
+Route::get('/candidates', [HomeController::class, 'candidates'])
+->name('candidates');
+
 Route::get('/apply/{position?}', [HomeController::class, 'apply'])
 ->name('apply');
 
 Route::get('/requestService/{service?}', [HomeController::class, 'requestService'])
 ->name('request-service');
+
+Route::get('/solutions', [HomeController::class, 'solutions'])
+->name('solutions');
+
+Route::get('/contact', [HomeController::class, 'contact'])
+->name('contact');
+
+Route::get('/resources', [HomeController::class, 'resources'])
+->name('resources');
 
 Route::get('/news/{id?}', [HomeController::class, 'news'])
 ->name('news');
@@ -64,6 +76,9 @@ Route::get('/profile/edit', [ProfileController::class, 'editView'])
 
 Route::get('/', [HomeController::class, 'view'])
 ->name('home');
+
+Route::get('/home-v2', [HomeController::class, 'homeV2'])
+->name('home-v2');
 
 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard')
     ->middleware('auth.view:any');

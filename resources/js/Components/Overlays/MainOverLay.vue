@@ -1,16 +1,14 @@
 <script setup lang="ts">
-import NavBar from '../NavBar/NavBar.vue';
+import NavBarV2 from '../HomeV2/NavBarV2.vue';
 import Footer from '../Footer/Foot.vue';
 
 import { usePage } from '@inertiajs/vue3'
-import { onMounted, ref } from 'vue';
+import { onMounted } from 'vue';
 import { snack } from '@/mixins/toast';
 import user, { Token } from '@/mixins/user';
 import { User } from '@/interface/Types';
 
 const page = usePage();
-
-const navbar = ref<InstanceType<typeof NavBar> | null>(null);
 
 onMounted(() => {
     type FlashType = {
@@ -29,23 +27,15 @@ onMounted(() => {
 
     if (page.props.user) {
         user.set(page.props.user as User);
-        
-        if (navbar.value) {
-            navbar.value.userData = user.get();
-        }
-
     }
     if (page.props.token) {
         user.setToken(page.props.token as Token);
-
     }
 });
-
-
 </script>
 
 <template>
-    <NavBar ref="navbar"/>
+    <NavBarV2 />
     <main class="main-body">
         <slot></slot>
     </main>

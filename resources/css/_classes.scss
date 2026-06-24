@@ -1,5 +1,14 @@
 @import 'mixins';
 
+.section-label {
+  font-family: $font-body;
+  font-weight: $fw-bold;
+  font-size: 1.125rem;
+  text-transform: uppercase;
+  color: $color-orange;
+  letter-spacing: 0.05em;
+}
+
 h1 {
     @include h1;
 }
