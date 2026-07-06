@@ -5,7 +5,7 @@ import { Link } from '@inertiajs/vue3';
 const scrolled = ref(false);
 const menuOpen = ref(false);
 
-const onScroll = () => { scrolled.value = window.scrollY > 40; };
+const onScroll = () => { scrolled.value = window.scrollY > window.innerHeight * 0.6; };
 onMounted(() => window.addEventListener('scroll', onScroll));
 onUnmounted(() => window.removeEventListener('scroll', onScroll));
 </script>
@@ -40,7 +40,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
       <a href="/solutions" @click="menuOpen = false">Solutions</a>
       <a href="/employers" @click="menuOpen = false">For Employers</a>
       <a href="/candidates" @click="menuOpen = false">For Candidates</a>
-      <a href="/news" @click="menuOpen = false">Resources</a>
+      <a href="/resources" @click="menuOpen = false">Resources</a>
       <a href="/about" @click="menuOpen = false">About</a>
       <a href="/contact" @click="menuOpen = false">Contact</a>
       <div class="nav2__mobile-ctas">
@@ -59,21 +59,28 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
   width: 100%;
   z-index: 100;
   transition: background 0.3s ease;
+  font-size: 12px;
 
   &--scrolled {
-    background: rgba(#142235, 0.95);
-    backdrop-filter: blur(12px);
-    border-bottom: 1px solid rgba(255,255,255,0.08);
+    background: transparent;
+
+    .nav2__links,
+    .nav2__btn--outline {
+      background: rgba(20, 34, 53, 0.75);
+      border-color: rgba(255, 255, 255, 0.1);
+    }
   }
 
   &__inner {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    padding: 1.75rem 7.5rem;
-    gap: 1rem;
+    justify-content: space-around;
+    padding: 1.75em 0;
+    gap: 1em;
 
-    @media (max-width: 1100px) { padding: 1.25rem 2rem; }
+    @media (max-width: 1100px) { 
+      justify-content: space-between;
+      padding: 1.25em 2em; }
   }
 
   &__logo {
@@ -82,7 +89,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
     flex-shrink: 0;
 
     img {
-      height: 2.8rem;
+      height: 2.8em;
       width: auto;
     }
   }
@@ -90,17 +97,21 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
   &__links {
     display: flex;
     align-items: center;
-    gap: 0.25rem;
-    background: rgba(250,249,247,0.15);
+    gap: 0.25em;
+    background: rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 80px;
-    padding: 0.75rem 1rem;
+    padding: 0.75em 1em;
+    transition: background 0.5s ease, border-color 0.5s ease;
 
-    a {
+    >a {
       color: $color-white;
       text-decoration: none;
       font-family: $font-body;
-      font-size: $caption-size;
-      padding: 0.5rem 0.75rem;
+      font-size: 1.25em;
+      padding: 0.5em 0.75em;
       border-radius: 60px;
       transition: background 0.2s;
       white-space: nowrap;
@@ -113,7 +124,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
 
   &__ctas {
     display: flex;
-    gap: 0.5rem;
+    gap: 0.5em;
     flex-shrink: 0;
 
     @media (max-width: 1100px) { display: none; }
@@ -123,22 +134,25 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 3rem;
-    width: 9rem;
+    height: 3.75em;
+    width: 11em;
     border-radius: 80px;
     font-family: $font-heading;
-    font-size: 1rem;
+    font-size: 1.2em;
     font-weight: $fw-semibold;
     text-decoration: none;
     transition: all 0.25s;
     cursor: pointer;
 
     &--outline {
-      border: 1px solid rgba(255,255,255,0.7);
+      border: 1px solid rgba(255, 255, 255, 0.18);
       color: $color-white;
-      background: transparent;
+      background: rgba(255, 255, 255, 0.12);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      transition: background 0.5s ease, border-color 0.5s ease;
 
-      &:hover { background: rgba(255,255,255,0.1); }
+      &:hover { background: rgba(255,255,255,0.2); }
     }
 
     &--primary {
@@ -157,7 +171,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
     background: none;
     border: none;
     cursor: pointer;
-    padding: 0.5rem;
+    padding: 0.5em;
 
     span {
       display: block;
@@ -174,8 +188,8 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
   &__mobile {
     display: none;
     flex-direction: column;
-    gap: 0.5rem;
-    padding: 1rem 2rem 1.5rem;
+    gap: 0.5em;
+    padding: 1em 2em 1.5em;
     background: rgba(#142235, 0.98);
 
     &--open { display: flex; }
@@ -184,16 +198,16 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
       color: $color-white;
       text-decoration: none;
       font-family: $font-body;
-      font-size: 1rem;
-      padding: 0.75rem 0;
+      font-size: 1em;
+      padding: 0.75em 0;
       border-bottom: 1px solid rgba(255,255,255,0.08);
     }
   }
 
   &__mobile-ctas {
     display: flex;
-    gap: 0.75rem;
-    padding-top: 1rem;
+    gap: 0.75em;
+    padding-top: 1em;
   }
 }
 </style>

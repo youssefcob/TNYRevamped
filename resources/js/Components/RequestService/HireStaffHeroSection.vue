@@ -33,7 +33,7 @@
   &__title {
     font-family: $font-heading;
     font-weight: $fw-bold;
-    font-size: clamp(2.25rem, 4vw, 3rem);
+    font-size: clamp(2.3rem, 4vw, 3rem);
     color: $color-white;
     line-height: 1.2;
     margin: 0;
@@ -44,7 +44,7 @@
   &__subtitle {
     font-family: $font-body;
     font-weight: $fw-semibold;
-    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-size: clamp(1.2rem, 1.5vw, 1.25rem);
     color: $color-white;
     line-height: 1.36;
     margin: 0;

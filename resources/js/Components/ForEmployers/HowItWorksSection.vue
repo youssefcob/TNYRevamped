@@ -1,56 +1,49 @@
 <template>
   <section class="hiw">
     <div class="hiw__inner">
-      <div class="hiw__grid">
+      <div class="hiw__scene">
 
-        <!-- Top row -->
-        <div class="hiw__step hiw__step--tl">
-          <div class="hiw__step-badge hiw__step-badge--orange">01</div>
-          <h3 class="hiw__step-title">Tell Us Your Needs</h3>
-          <p class="hiw__step-body">
-            Share your staffing requirements — discipline, setting, schedule,
-            and any special qualifications you need.
-          </p>
-        </div>
-
-        <!-- Center label – spans both rows visually via absolute -->
         <div class="hiw__center">
           <div class="hiw__oval" aria-hidden="true"></div>
           <div class="hiw__header">
             <p class="hiw__label">How It Works</p>
             <h2 class="hiw__title">Staff Ready in Four Steps</h2>
             <p class="hiw__subtitle">
-              A streamlined process designed to get the right professional
-              in the right setting — fast
+              We make hiring simple, efficient, and focused on finding the right fit for your team.
             </p>
           </div>
         </div>
 
-        <div class="hiw__step hiw__step--tr">
-          <div class="hiw__step-badge hiw__step-badge--teal">02</div>
-          <h3 class="hiw__step-title">We Source Candidates</h3>
+        <div class="hiw__step hiw__step--tl">
+          <div class="hiw__step-badge hiw__step-badge--orange">01</div>
+          <h3 class="hiw__step-title">Tell Us Your Needs</h3>
           <p class="hiw__step-body">
-            Our team identifies the best-fit professionals from our active
-            talent network within hours, not days.
+            Share your staffing needs, including discipline, care setting, schedule,
+            and any specific qualifications.
           </p>
         </div>
 
-        <!-- Bottom row -->
+        <div class="hiw__step hiw__step--tr">
+          <div class="hiw__step-badge hiw__step-badge--teal">02</div>
+          <h3 class="hiw__step-title">We Find the Right Match</h3>
+          <p class="hiw__step-body">
+            Our recruiters quickly identify qualified therapy professionals from our trusted talent network.
+          </p>
+        </div>
+
         <div class="hiw__step hiw__step--bl">
           <div class="hiw__step-badge hiw__step-badge--blue">03</div>
-          <h3 class="hiw__step-title">Credentialing &amp; Onboarding</h3>
+          <h3 class="hiw__step-title">We Handle the Details</h3>
           <p class="hiw__step-body">
-            We handle the credentialing, background checks, and onboarding paperwork
-            so you don't have to.
+            From credentialing and compliance to onboarding, we take care of the paperwork so you don't have to.
           </p>
         </div>
 
         <div class="hiw__step hiw__step--br">
           <div class="hiw__step-badge hiw__step-badge--sand">04</div>
-          <h3 class="hiw__step-title">Staff Ready to Work</h3>
+          <h3 class="hiw__step-title">Ready to Make an Impact</h3>
           <p class="hiw__step-body">
-            Your matched professional arrives oriented and compliant, ready to
-            deliver care from day one.
+            Your therapist arrives prepared to integrate seamlessly into your team and start delivering care.
           </p>
         </div>
 
@@ -73,35 +66,31 @@ $step-bg: #0f2b3d;
     margin: 0 auto;
   }
 
-  &__grid {
-    display: grid;
-    grid-template-columns: 1fr auto 1fr;
-    grid-template-rows: auto auto;
-    gap: 1.5rem;
+  &__scene {
+    position: relative;
+    // vertical padding so step boxes can extend above/below the oval corners
+    padding: 4rem 0;
 
     @media (max-width: 860px) {
-      grid-template-columns: 1fr;
-      grid-template-rows: auto;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
     }
   }
 
   &__center {
-    grid-column: 2;
-    grid-row: 1 / 3;
+    // square oval centered in the scene; step boxes (26% wide) overlap its corners
+    width: 50%;
+    aspect-ratio: 1 / 1;
+    margin: 0 auto;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
-    width: 18rem;
-    padding: 0 1.5rem;
 
     @media (max-width: 860px) {
-      grid-column: 1;
-      grid-row: auto;
       width: 100%;
-      order: -1;
-      padding: 0;
     }
   }
 
@@ -109,10 +98,8 @@ $step-bg: #0f2b3d;
     position: absolute;
     inset: 0;
     border: 10px dashed rgba(#0f2b3d, 0.12);
-    border-radius: 200px;
+    border-radius: 2rem;
     pointer-events: none;
-
-    @media (max-width: 860px) { display: none; }
   }
 
   &__header {
@@ -123,6 +110,7 @@ $step-bg: #0f2b3d;
     text-align: center;
     position: relative;
     z-index: 1;
+    padding: 0 2rem;
   }
 
   &__label {
@@ -157,16 +145,26 @@ $step-bg: #0f2b3d;
     display: flex;
     flex-direction: column;
     gap: 0.75rem;
-    min-height: 18.375rem;
+    align-items: flex-start;
 
-    // top-left and bottom-right: number top-left
-    &--tl, &--bl { align-items: flex-start; }
-    // top-right and bottom-right: number top-right
-    &--tr, &--br { align-items: flex-end; text-align: right; }
+    // desktop: absolutely pinned at the four corners, overlapping the oval
+    @media (min-width: 861px) {
+      position: absolute;
+      width: 26%;
+      z-index: 1;
+    }
 
-    @media (max-width: 860px) {
-      min-height: auto;
-      &--tr, &--br { align-items: flex-start; text-align: left; }
+    &--tl {
+      @media (min-width: 861px) { top: -2rem; left: 4rem; }
+    }
+    &--tr {
+      @media (min-width: 861px) { top: -2rem; right: 4rem; align-items: flex-end; text-align: right; }
+    }
+    &--bl {
+      @media (min-width: 861px) { bottom: -2rem; left: 4rem; }
+    }
+    &--br {
+      @media (min-width: 861px) { bottom: -2rem; right: 4rem; align-items: flex-end; text-align: right; }
     }
   }
 
@@ -203,7 +201,6 @@ $step-bg: #0f2b3d;
     font-size: 0.875rem;
     line-height: 1.65;
     color: rgba($color-white, 0.75);
-    max-width: 15.25rem;
 
     @media (max-width: 860px) { max-width: 100%; }
   }

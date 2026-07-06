@@ -169,7 +169,7 @@ async function submit() {
             <!-- Row 3: City / State -->
             <div class="apply-form__field">
               <label class="apply-form__field-label">City</label>
-              <input v-model="form.city" class="apply-form__input" placeholder="New York" />
+              <input v-model="form.city" class="apply-form__input" placeholder="NewYork" />
             </div>
             <div class="apply-form__field">
               <label class="apply-form__field-label">State</label>
@@ -182,7 +182,7 @@ async function submit() {
               <div class="apply-dropdown" :class="{ 'apply-dropdown--open': openDropdown === 'profession' }">
                 <button type="button" class="apply-dropdown__trigger" @click="toggleDropdown('profession')">
                   <span :class="{ 'apply-dropdown__placeholder': !form.profession }">
-                    {{ form.profession || 'PT / PTA / OT / SLP...' }}
+                    {{ form.profession || 'PT / PTA / OT.....' }}
                   </span>
                   <svg class="apply-dropdown__chevron" viewBox="0 0 24 24" fill="none">
                     <path d="M6 9l6 6 6-6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
@@ -334,7 +334,7 @@ async function submit() {
               {{ isLoading ? 'Submitting...' : 'Submit Application' }}
             </button>
             <p class="apply-form__disclaimer">
-              By submitting the application you agree to be contacted by TNY regarding opportunities.
+              By submitting the application you agree to be contacted by TNY regarding opportunities
             </p>
           </div>
         </template>
@@ -381,7 +381,7 @@ async function submit() {
           <h3 class="apply-form__info-heading">We're Available</h3>
           <div class="apply-form__hours">
             <div class="apply-form__hours-row">
-              <span>Monday – Friday</span>
+              <span>Monday - Friday</span>
               <span>8:00 AM – 6:00 PM</span>
             </div>
             <div class="apply-form__hours-row">

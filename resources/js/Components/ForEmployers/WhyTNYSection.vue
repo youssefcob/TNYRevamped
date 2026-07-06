@@ -6,8 +6,8 @@
         <p class="why-tny__label">Why TNY</p>
         <h2 class="why-tny__title">Why Healthcare Facilities Choose TNY</h2>
         <p class="why-tny__subtitle">
-          Healthcare facilities operate in fast-moving environments where reliable staffing
-          directly impacts patient outcomes and operational performance.
+          In a fast-moving healthcare environment, the right staffing makes the difference
+          between simply keeping up and delivering exceptional care.
         </p>
       </div>
 
@@ -17,8 +17,8 @@
           <p class="why-tny__feature-label">Rapid Deployment</p>
           <h3 class="why-tny__feature-title">Fast Staffing Support<br />Without Sacrificing Quality</h3>
           <p class="why-tny__feature-body">
-            Our staffing team responds quickly to urgent operational needs while maintaining
-            rigorous screening and credential verification standards.
+            Urgent staffing doesn't mean lowering your standards. Our team delivers credentialed
+            therapy professionals with the speed your facility demands.
           </p>
           <div class="why-tny__stats">
             <div class="why-tny__stat">
@@ -31,7 +31,11 @@
             </div>
           </div>
         </div>
-        <div class="why-tny__image"></div>
+        <img
+          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
+          alt="Why healthcare facilities choose TNY"
+          class="why-tny__image"
+        />
       </div>
 
       <!-- Bottom row: 3 sand cards -->
@@ -50,15 +54,15 @@
 const cards = [
   {
     title: 'Rigorous Screening',
-    body: 'Every clinician is evaluated for licensing, experience, compliance, and role alignment.',
+    body: 'Every clinician is thoroughly vetted for credentials, compliance, experience, and clinical fit.',
   },
   {
     title: 'Specialized Talent',
-    body: 'Access highly qualified PTs, OTs, SLPs, PTAs, COTAs, and rehab aides.',
+    body: 'Access experienced PTs, OTs, SLPs, PTAs, COTAs, and rehab professionals.',
   },
   {
     title: 'Flexible Staffing',
-    body: 'Per diem, contract, temp-to-hire, and ongoing workforce support.',
+    body: 'Per diem, contract, temp-to-hire, and long-term staffing solutions.',
   },
 ];
 </script>
@@ -189,6 +193,7 @@ const cards = [
 
   &__stat-suffix {
     color: #2dbfad;
+    font-size: inherit;
   }
 
   &__stat-label {
@@ -200,9 +205,13 @@ const cards = [
 
   &__image {
     flex: 1;
+    min-width: 0;
+    max-width: 100%;
     min-height: 22rem;
     border-radius: 1.5rem;
-    background: linear-gradient(135deg, rgba($color-blue, 0.25), rgba($color-sand, 0.35));
+    background: linear-gradient(135deg, rgba($color-blue, 0.15), rgba($color-sand, 0.2));
+    object-fit: contain;
+    object-position: center;
 
     @media (max-width: 900px) { min-height: 14rem; }
   }

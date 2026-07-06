@@ -5,17 +5,16 @@
       <!-- For Employers -->
       <div class="for-card for-card--dark">
         <p class="section-label">For Employers</p>
-        <h3 class="for-card__title">Build the Team Your Patients Deserve</h3>
+        <h3 class="for-card__title">Build the Team Your Patients Count On</h3>
         <p class="for-card__body">
-          From emergency coverage to permanent placements, we source credentialed therapy
-          professionals who integrate seamlessly into your workflow.
+          Whether you need last-minute coverage or a long-term hire, we connect you with
+          credentialed therapy professionals who fit your team from day one.
         </p>
         <ul class="for-card__list">
-          <li>Temporary &amp; per diem staffing</li>
-          <li>Permanent placements</li>
-          <li>Emergency coverage</li>
-          <li>Fully credentialed professionals</li>
-          <li>Compliance &amp; onboarding support</li>
+          <li>Temporary &amp; Per Diem Staffing</li>
+          <li>Permanent Placements</li>
+          <li>Emergency Coverage</li>
+          <li>Fully Credentialed Professionals</li>
         </ul>
         <a href="/request-service" class="for-card__cta for-card__cta--orange">Request Staff</a>
 
@@ -24,17 +23,17 @@
       <!-- For Candidates -->
       <div class="for-card for-card--light">
         <p class="section-label">For Candidates</p>
-        <h3 class="for-card__title for-card__title--dark">Advance Your Therapy Career in New York</h3>
+        <h3 class="for-card__title for-card__title--dark">Build Your Future with New York's Leading Healthcare Teams</h3>
         <p class="for-card__body for-card__body--dark">
-          Whether you're seeking your next role or exploring flexible options, we connect you
-          with leading healthcare organizations across New York.
+          Explore therapy opportunities across NYC with competitive pay, career growth,
+          and the support you need to succeed.
         </p>
         <ul class="for-card__list for-card__list--dark">
-          <li>Flexible &amp; full-time opportunities</li>
-          <li>Visa sponsorship support</li>
-          <li>Career growth pathways</li>
-          <li>Competitive compensation</li>
-          <li>Credentialing assistance</li>
+          <li>Flexible &amp; Full-Time Positions</li>
+          <li>Competitive Compensation</li>
+          <li>Credentialing Assistance</li>
+          <li>Visa Sponsorship Support</li>
+          <li>Growth-Focused Opportunities</li>
         </ul>
         <a href="/apply" class="for-card__cta">Explore Jobs</a>
       </div>

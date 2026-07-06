@@ -7,9 +7,9 @@
         Exactly When You Need It
       </h1>
       <p class="emp-hero__subtitle">
-        From urgent coverage requests to long-term staffing partnerships, Therapy of New York
-        helps healthcare facilities secure rigorously vetted rehabilitation professionals
-        across all five boroughs.
+        When staffing needs can't wait, Therapy of New York delivers trusted rehabilitation
+        professionals—supporting healthcare facilities across all five boroughs with both
+        immediate coverage and long-term workforce solutions.
       </p>
       <a href="/requestService" class="emp-hero__btn">Request Staff</a>
     </div>
@@ -45,17 +45,17 @@
   &__title {
     font-family: $font-heading;
     font-weight: $fw-bold;
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(2.3rem, 4vw, 3rem);
     line-height: 1.15;
     color: $color-white;
 
-    &--blue { color: $color-blue; }
+    &--blue { color: $color-blue; font-size: inherit; line-height: inherit; }
   }
 
   &__subtitle {
     font-family: $font-body;
     font-weight: $fw-semibold;
-    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-size: clamp(1.2rem, 1.5vw, 1.25rem);
     line-height: 1.7;
     color: $color-white;
   }

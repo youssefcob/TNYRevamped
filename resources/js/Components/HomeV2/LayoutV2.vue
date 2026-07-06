@@ -18,6 +18,8 @@ import FooterV2 from './FooterV2.vue';
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  // width:100vw;
+  overflow-x: hidden;
 
   &__body {
     flex: 1;

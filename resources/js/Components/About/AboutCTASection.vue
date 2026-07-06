@@ -6,7 +6,7 @@
         <h2 class="about-cta__heading about-cta__heading--white">For Employers</h2>
         <p class="about-cta__body about-cta__body--white">
           Access qualified rehabilitation professionals and staffing support tailored
-          to your facility's needs, timeline, and care setting.
+          to your facility.
         </p>
         <a href="/requestService" class="about-cta__btn about-cta__btn--orange">Hire Staff</a>
       </div>
@@ -17,7 +17,7 @@
         <h2 class="about-cta__heading">For Candidates</h2>
         <p class="about-cta__body">
           Discover flexible opportunities across healthcare settings throughout
-          New York City — matched to your specialty, schedule, and goals.
+          New York City.
         </p>
         <a href="/apply" class="about-cta__btn about-cta__btn--white">Find Jobs</a>
       </div>

@@ -5,20 +5,24 @@
       <!-- Col 1 · Row 1: header -->
       <div class="solutions__header">
         <p class="section-label">Our Solutions</p>
-        <h2 class="solutions__title">Specialized Staffing<br />for Every Setting</h2>
+        <h2 class="solutions__title">Supporting<br />Every Care Environment</h2>
         <p class="solutions__subtitle">
-          From school-based therapy to home healthcare,
-          we have the right professionals for every environment and acuity level.
+          We match healthcare organizations with skilled therapy professionals across
+          schools, hospitals, outpatient clinics and skilled nursing facilities
         </p>
       </div>
 
       <!-- Col 1 · Row 2: SLP -->
       <div class="sol-card sol-card--image-top">
-        <div class="sol-card__image sol-card__image--placeholder"></div>
+        <img
+          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994265/Speech-Language_Pathologists_Staffing_384x156_eurdne.webp"
+          alt="Speech-Language Pathologists Staffing"
+          class="sol-card__image"
+        />
         <div class="sol-card__info sol-card__info--blue">
           <div>
             <h4 class="sol-card__title">Speech-Language Pathologists Staffing</h4>
-            <p class="sol-card__body">Licensed SLPs for school, clinic, and home settings. All specialties covered.</p>
+            <p class="sol-card__body">Licensed SLPs for inpatient, outpatient, and home settings. All specialties covered.</p>
           </div>
           <a href="/services" class="sol-card__link">Learn More <span>→</span></a>
         </div>
@@ -26,6 +30,12 @@
 
       <!-- Col 2 · Rows 1–2: PT/OT -->
       <div class="sol-card sol-card--flip">
+        <img
+          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
+          alt="Physical &amp; Occupational Therapy Staffing"
+          class="sol-card__image"
+        />
+
         <div class="sol-card__info sol-card__info--white">
           <div>
             <h4 class="sol-card__title sol-card__title--dark">Physical &amp; Occupational Therapy Staffing</h4>
@@ -33,26 +43,29 @@
           </div>
           <a href="/services" class="sol-card__link sol-card__link--dark">Learn More <span>→</span></a>
         </div>
-        <div class="sol-card__image sol-card__image--placeholder"></div>
       </div>
 
       <!-- Col 3 · Row 1: Staffing Solutions -->
       <div class="sol-card sol-card--feature">
         <h4 class="sol-card__title">Staffing Solutions Built Around Your Facility</h4>
         <p class="sol-card__body">
-          From specialized rehabilitation roles to flexible coverage models, explore staffing
-          solutions designed to support every level of patient care.
+          Discover flexible, customized therapy staffing solutions that help your team stay
+          fully supported and your patients receive the care they deserve.
         </p>
         <a href="/services" class="sol-card__btn">Explore Solutions</a>
       </div>
 
       <!-- Col 3 · Row 2: PCC -->
       <div class="sol-card sol-card--image-top">
-        <div class="sol-card__image sol-card__image--placeholder"></div>
+        <img
+          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994267/PCC_Aides_383x256_wu1rka.webp"
+          alt="OT/COTA"
+          class="sol-card__image"
+        />
         <div class="sol-card__info sol-card__info--sand">
           <div>
-            <h4 class="sol-card__title">PCC / Aides</h4>
-            <p class="sol-card__body">Certified aides for inpatient, outpatient, and home settings. All needs covered.</p>
+            <h4 class="sol-card__title">OT/COTA</h4>
+            <p class="sol-card__body">Licensed OTs and COTAs for inpatient, outpatient, and home settings. All specialties covered.</p>
           </div>
           <a href="/services" class="sol-card__link">Learn More <span>→</span></a>
         </div>
@@ -137,11 +150,11 @@ $sol-bg: radial-gradient(ellipse at center, #345683 0%, #243c5c 50%, #142235 100
 
   &__image {
     height: 16rem;
+    width: 100%;
     flex-shrink: 0;
-
-    &--placeholder {
-      background: linear-gradient(135deg, rgba($color-blue,0.3), rgba($color-sand,0.3));
-    }
+    object-fit: cover;
+    object-position: center;
+    display: block;
 
     &--tall { height: 35.5rem; }
   }

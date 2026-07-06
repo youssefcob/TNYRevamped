@@ -50,7 +50,7 @@ function excerpt(text: string | null): string {
           :class="{ 'art-section__tab--active': activeTab === 'case-studies' }"
           @click="activeTab = 'case-studies'"
         >
-          Case Studies
+          Case studies
         </button>
       </div>
     </div>

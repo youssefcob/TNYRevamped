@@ -1,10 +1,10 @@
 <template>
   <section class="emp-cta">
     <div class="emp-cta__inner">
-      <h2 class="emp-cta__title">Need Qualified Staff Quickly?</h2>
+      <h2 class="emp-cta__title">Need Qualified Therapy Professionals—Fast?</h2>
       <p class="emp-cta__body">
-        Partner with a staffing team built for modern healthcare operations
-        and dependable clinical support.
+        Partner with a trusted therapy staffing team that delivers qualified professionals
+        with speed, reliability, and confidence.
       </p>
       <div class="emp-cta__btns">
         <a href="/requestService" class="emp-cta__btn emp-cta__btn--primary">
@@ -29,7 +29,7 @@
   align-items: center;
   justify-content: center;
 
-  @media (max-width: 1100px) { padding: 3rem 2rem; }
+  @media (max-width: 1100px) { padding: 6rem 2rem; }
 
   &__inner {
     display: flex;

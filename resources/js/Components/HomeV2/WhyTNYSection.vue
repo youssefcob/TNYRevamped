@@ -2,10 +2,10 @@
   <section class="why">
     <div class="why__header">
       <p class="section-label">Why Therapy of New York</p>
-      <h2 class="why__title">Built on Trust. Delivered with Speed.</h2>
+      <h2 class="why__title">Staffing Solutions Built Around Your Facility</h2>
       <p class="why__subtitle">
-        We operate with a different model — relationship-driven, quality-first, and deeply
-        specialized in therapy staffing.
+        Discover flexible, customized therapy staffing solutions that help your team stay
+        fully supported and your patients receive the care they deserve.
       </p>
     </div>
 

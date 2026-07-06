@@ -1,7 +1,7 @@
 <template>
   <section class="sol-cta">
     <div class="sol-cta__inner">
-      <div class="sol-cta__img"></div>
+      <!-- <div class="sol-cta__img"></div> -->
       <div class="sol-cta__content">
         <p class="sol-cta__label">For Candidates</p>
         <h2 class="sol-cta__title">

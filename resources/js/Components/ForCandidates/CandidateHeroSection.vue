@@ -2,14 +2,13 @@
   <section class="cand-hero">
     <div class="cand-hero__inner">
       <h1 class="cand-hero__title">
-        Find Flexible
-        <span class="cand-hero__title--blue"> Therapy Opportunities </span>
-        That Fit Your Career.
+        The Flexible Therapy Career
+        <span class="cand-hero__title--blue"> You've Been Looking For.</span>
       </h1>
       <p class="cand-hero__subtitle">
-        Join a growing network of rehabilitation professionals working across hospitals,
-        outpatient clinics, skilled nursing facilities, schools, and home healthcare
-        settings throughout New York City.
+        Join a growing community of rehabilitation professionals working where they're needed
+        most—across hospitals, outpatient clinics, skilled nursing facilities, schools,
+        and home healthcare throughout NYC.
       </p>
       <a href="#openings" class="cand-hero__btn">Browse Openings</a>
     </div>
@@ -45,17 +44,17 @@
   &__title {
     font-family: $font-heading;
     font-weight: $fw-bold;
-    font-size: clamp(2rem, 4vw, 3rem);
+    font-size: clamp(2.3rem, 4vw, 3rem);
     line-height: 1.15;
     color: $color-white;
 
-    &--blue { color: $color-blue; }
+    &--blue { color: $color-blue; font-size: inherit; line-height: inherit; }
   }
 
   &__subtitle {
     font-family: $font-body;
     font-weight: $fw-semibold;
-    font-size: clamp(1rem, 1.5vw, 1.25rem);
+    font-size: clamp(1.2rem, 1.5vw, 1.25rem);
     line-height: 1.7;
     color: $color-white;
   }

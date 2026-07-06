@@ -2,14 +2,20 @@
   <section class="industries">
     <div class="industries__header">
       <p class="section-label">Industries</p>
-      <h2 class="industries__title">We Serve Every Healthcare Setting</h2>
+      <h2 class="industries__title">The Right Therapy Talent for Every Healthcare Setting</h2>
       <p class="industries__subtitle">
-        From major hospital systems to private practices, our professionals thrive across
-        the full continuum of care.
+        No matter your staffing needs, we connect healthcare organizations with exceptional
+        therapy professionals ready to make an immediate impact.
       </p>
     </div>
 
     <div class="industries__grid">
+      <img
+        src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994268/1_rvf4tg.webp"
+        alt=""
+        aria-hidden="true"
+        class="industries__center-img"
+      />
       <div class="industries__row" :class="`industries__row--${ri + 1}`" v-for="(row, ri) in rows" :key="ri">
         <div v-for="industry in row" :key="industry.title" class="ind-card"
              :style="{ flex: industry.flex }">
@@ -35,37 +41,37 @@ const industries: { icon: () => any; title: string; body: string; wide: boolean 
   {
     icon: icon('M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5m14 0h2M5 21H3M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'),
     title: 'Hospitals & Health Systems',
-    body: 'Acute care, inpatient rehab, and LTACH staffing for large-scale healthcare organizations with complex therapy needs.',
+    body: 'Reliable staffing solutions for acute care, inpatient rehabilitation, and LTACH facilities with complex therapy needs.',
     wide: true,
   },
   {
     icon: icon('M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z'),
     title: 'Schools & Educational Settings',
-    body: 'Public and private schools, early intervention programs, and special education sites requiring credentialed therapists.',
+    body: 'Support student success with credentialed therapists for public and private schools, early intervention programs, and special education services.',
     wide: false,
   },
   {
     icon: icon('M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'),
     title: 'Rehabilitation Centers',
-    body: 'Outpatient and inpatient rehab facilities requiring multidisciplinary therapy teams at every level of care.',
+    body: 'Strengthen your therapy team with experienced professionals for both outpatient and inpatient rehabilitation programs.',
     wide: false,
   },
   {
     icon: icon('M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'),
     title: 'Skilled Nursing Facilities',
-    body: 'Long-term care and subacute settings requiring consistent, compassionate therapy coverage.',
+    body: 'Ensure consistent, compassionate care with therapy professionals experienced in long-term care and subacute rehabilitation.',
     wide: false,
   },
   {
     icon: icon('M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2'),
     title: 'Home Healthcare Agencies',
-    body: 'Visiting therapists for homebound patients — certified, insured, and highly experienced in independent care delivery.',
+    body: 'Deliver exceptional care at home with fully credentialed therapists experienced in independent, patient-centered care.',
     wide: false,
   },
   {
     icon: icon('M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'),
     title: 'Private Practices',
-    body: 'Solo and group practices looking to expand capacity or find the right permanent addition to their clinical team.',
+    body: 'Grow your practice with skilled therapists for temporary coverage, contract assignments, or permanent placements.',
     wide: false,
   },
 ];
@@ -91,18 +97,19 @@ const rows = [
 $ind-bg: radial-gradient(ellipse at center, #345683 0%, #243c5c 50%, #142235 100%);
 
 .industries {
-  padding: 5rem 7.5rem;
+  padding: 5rem clamp(1rem, 1vw, 7.5rem);
   background: $ind-bg;
   display: flex;
   flex-direction: column;
   gap: 3rem;
 
-  @media (max-width: 1100px) { padding: 3rem 2rem; }
+  @media (max-width: 1100px) { padding-top: 3rem; padding-bottom: 3rem; }
 
   &__header {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    padding: 0rem 5rem;
   }
 
   &__title {
@@ -124,6 +131,7 @@ $ind-bg: radial-gradient(ellipse at center, #345683 0%, #243c5c 50%, #142235 100
   }
 
   &__grid {
+    position: relative;
     display: flex;
     flex-direction: column;
     gap: 7rem;
@@ -135,6 +143,24 @@ $ind-bg: radial-gradient(ellipse at center, #345683 0%, #243c5c 50%, #142235 100
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
       padding-bottom: 0.75rem;
+    }
+  }
+
+  &__center-img {
+    display: none;
+
+    @media (min-width: 901px) {
+      display: block;
+      position: absolute;
+      top: 30%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      // width: 40rem;
+      max-width: 50vw;
+      height: auto;
+      border-radius: 1.25rem;
+      z-index: 0;
+      pointer-events: none;
     }
   }
 
@@ -171,6 +197,8 @@ $ind-bg: radial-gradient(ellipse at center, #345683 0%, #243c5c 50%, #142235 100
 }
 
 .ind-card {
+  position: relative;
+  z-index: 1;
   background: rgba(255, 255, 255, 0.08);
 
   @media (max-width: 900px) {

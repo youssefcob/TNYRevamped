@@ -219,7 +219,7 @@ async function submit() {
             <div class="rs-dropdown" :class="{ 'rs-dropdown--open': urgencyOpen }">
               <div class="rs-dropdown__control" @click="urgencyOpen = !urgencyOpen">
                 <span :class="{ 'rs-dropdown__placeholder': !form.urgency }">
-                  {{ form.urgency || 'Urgent / 30 Days / Flexible' }}
+                  {{ form.urgency || '(Urgent / 30 days / Flexible' }}
                 </span>
                 <svg class="rs-dropdown__chevron" :class="{ 'rs-dropdown__chevron--open': urgencyOpen }" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M5 7.5L10 12.5L15 7.5" stroke="#222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -249,7 +249,7 @@ async function submit() {
               <span v-else>Submit Staffing Request</span>
             </button>
             <p class="rs-form__note">
-              By submitting the form you agree to be contacted by TNY regarding staffing services.
+              By submitting the application you agree to be contacted by TNY regarding staffing services
             </p>
           </div>
 
@@ -283,7 +283,7 @@ async function submit() {
           <p class="rs-info-card__label">Staffing Hours</p>
           <h3 class="rs-info-card__title">We're Available</h3>
           <ul class="rs-info-card__hours">
-            <li><span>Monday – Friday</span><span>8:00 AM – 6:00 PM</span></li>
+            <li><span>Monday - Friday</span><span>8:00 AM – 6:00 PM</span></li>
             <li><span>Saturday</span><span>9:00 AM – 2:00 PM</span></li>
             <li class="rs-info-card__hours-closed"><span>Sunday</span><span>Closed</span></li>
           </ul>

@@ -3,47 +3,54 @@ const featuredTop = {
   num: '01',
   title: 'Physical Therapy',
   subtitle: '(PTs & PTAs)',
-  desc: 'Licensed Physical Therapists and PTAs delivering care across hospitals, outpatient clinics, schools, skilled nursing facilities, and home healthcare settings throughout New York City.',
+  desc: 'Helping patients regain movement, strength, function, and confidence.',
+  img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp',
 };
 
 const gridItems = [
   {
     num: '02',
-    title: 'Occupational Therapy',
-    subtitle: '(OTs & COTAs)',
-    desc: 'Occupational Therapists and Certified OT Assistants helping patients regain independence in daily living skills across pediatric, adult, and geriatric care settings.',
+    title: 'Occupational Therapy (OT & COTA)',
+    desc: 'Supporting independence through practical, patient-centered rehabilitation.',
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994260/Physical_Therapy_PTs_PTAs_588x374_msie7z.webp',
   },
   {
     num: '03',
-    title: 'Speech-Language Pathologists',
-    desc: 'Board-certified SLPs providing evidence-based therapy for communication, language, voice, fluency, and swallowing disorders in schools, clinics, and acute care environments.',
+    title: 'Speech-Language Pathology (SLP)',
+    desc: 'Improving communication, cognition, and swallowing function.',
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994261/Speech-Language_Pathologists_Staffing_384x156_et3xr0.webp',
   },
   {
     num: '04',
-    title: 'School-Based Staffing',
-    desc: 'Specialized therapists, school psychologists, and paraprofessionals for K–12 schools, early intervention programs, and special education settings across all five boroughs.',
+    title: 'Pelvic Floor Therapists',
+    desc: 'Specialized care that improves quality of life and daily function.',
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994258/Pelvic_Floor_Rehabilitation_lovd41.webp',
   },
   {
     num: '05',
-    title: 'Home Health & Personal Care',
-    desc: 'Compassionate caregivers, home health aides, and personal care attendants supporting patients in their homes with daily living activities and health monitoring.',
+    title: 'Lymphedema Therapists',
+    desc: 'Focused treatment for swelling management and recovery support.',
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994258/lymphedema_therapist_pcmiki.webp',
   },
   {
     num: '06',
-    title: 'Per Diem & Emergency Coverage',
-    desc: 'Rapid-response staffing for last-minute coverage needs, sick-day replacements, and seasonal surge demands — skilled professionals available on short notice.',
+    title: 'Neurological Therapists',
+    desc: 'Helping patients navigate recovery and maximize functional outcomes.',
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994258/Neurological_Therapists_lw6ybl.webp',
   },
   {
     num: '07',
-    title: 'Administrative & Support Staff',
-    desc: 'Experienced medical receptionists, care coordinators, and administrative professionals to keep your front office running smoothly and your patients well-supported.',
+    title: 'Pediatric Therapists',
+    desc: 'Supporting developmental milestones and long-term functional success.',
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994259/PCC_Aides_355x256_ppkic5.webp',
   },
 ];
 
 const featuredBottom = {
   num: '08',
-  title: 'Credentialing Support',
-  desc: 'Comprehensive credentialing, compliance management, and onboarding support for your clinical staff — reducing administrative burden so your team can focus on delivering exceptional patient care.',
+  title: 'Vestibular Therapists',
+  desc: 'Restoring balance, stability, and confidence in movement.',
+  img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994259/Vestibular_Therapists_ohzpg8.webp',
 };
 </script>
 
@@ -61,7 +68,7 @@ const featuredBottom = {
 
       <!-- Featured top row: image left, content right -->
       <div class="sol-cats__featured">
-        <div class="sol-cats__featured-img"></div>
+        <img :src="featuredTop.img" :alt="featuredTop.title" class="sol-cats__featured-img" />
         <div class="sol-cats__featured-body">
           <span class="sol-cats__num">{{ featuredTop.num }}</span>
           <div class="sol-cats__featured-text">
@@ -77,7 +84,7 @@ const featuredBottom = {
       <!-- 3×2 card grid -->
       <div class="sol-cats__grid">
         <div v-for="item in gridItems" :key="item.num" class="sol-cats__card">
-          <div class="sol-cats__card-img"></div>
+          <img :src="item.img" :alt="item.title" class="sol-cats__card-img" />
           <div class="sol-cats__card-body">
             <span class="sol-cats__num">{{ item.num }}</span>
             <div class="sol-cats__card-text">
@@ -97,7 +104,7 @@ const featuredBottom = {
             <p class="sol-cats__item-desc">{{ featuredBottom.desc }}</p>
           </div>
         </div>
-        <div class="sol-cats__featured-img"></div>
+        <img :src="featuredBottom.img" :alt="featuredBottom.title" class="sol-cats__featured-img" />
       </div>
 
     </div>
@@ -105,8 +112,6 @@ const featuredBottom = {
 </template>
 
 <style scoped lang="scss">
-$hero-img-bg: linear-gradient(135deg, #b8d4e8 0%, #8ab9d4 100%);
-
 .sol-cats {
   padding: 5rem 7.5rem;
   background: $color-white;
@@ -159,14 +164,18 @@ $hero-img-bg: linear-gradient(135deg, #b8d4e8 0%, #8ab9d4 100%);
   &__featured {
     display: flex;
     gap: 1.3125rem;
-    align-items: center;
+    align-items: flex-start;
 
-    &--reversed {
-      flex-direction: row-reverse;
-    }
 
     @media (max-width: 800px) {
-      flex-direction: column !important;
+      flex-direction: column;
+    }
+
+    &--reversed {
+      @media (max-width: 800px) {
+        flex-direction: column-reverse;
+        margin-top: -3.75rem;
+      }
     }
   }
 
@@ -174,7 +183,8 @@ $hero-img-bg: linear-gradient(135deg, #b8d4e8 0%, #8ab9d4 100%);
     flex: 0 0 36.75rem;
     height: 23.375rem;
     border-radius: 1.5rem;
-    background: $hero-img-bg;
+    object-fit: cover;
+    object-position: center;
 
     @media (max-width: 1100px) { flex: 0 0 45%; }
     @media (max-width: 800px)  { flex: 0 0 auto; width: 100%; height: 16rem; }
@@ -214,7 +224,8 @@ $hero-img-bg: linear-gradient(135deg, #b8d4e8 0%, #8ab9d4 100%);
     width: 100%;
     height: 19.6875rem;
     border-radius: 1.5rem;
-    background: $hero-img-bg;
+    object-fit: cover;
+    object-position: center;
   }
 
   &__card-body {

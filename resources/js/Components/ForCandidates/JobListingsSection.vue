@@ -30,8 +30,8 @@ const filtered = computed(() => {
         <p class="listings__label">Open Positions</p>
         <h2 class="listings__title">Explore Current Opportunities</h2>
         <p class="listings__subtitle">
-          Browse therapy openings across multiple specialties, healthcare environments,
-          and boroughs throughout New York City.
+          Explore flexible therapy opportunities across specialties, healthcare environments,
+          and every NYC borough.
         </p>
       </div>
 

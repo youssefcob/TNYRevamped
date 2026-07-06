@@ -6,18 +6,14 @@
         <p class="challenges__label">Employer Challenges</p>
         <h2 class="challenges__title">Staffing Challenges Shouldn't Compromise Patient Care</h2>
         <p class="challenges__subtitle">
-          Healthcare facilities operate in fast-moving environments where reliable staffing
-          directly impacts patient outcomes and operational performance.
+          In today's fast-paced healthcare environment, reliable staffing is essential to
+          maintaining quality patient care, operational efficiency, and continuity of services.
         </p>
       </div>
 
       <div class="challenges__list">
-        <div
-          v-for="(item, i) in challenges"
-          :key="item.number"
-          class="challenge-row"
-          :class="i % 2 === 0 ? 'challenge-row--normal' : 'challenge-row--flipped'"
-        >
+        <div v-for="(item, i) in challenges" :key="item.number" class="challenge-row"
+          :class="i % 2 === 0 ? 'challenge-row--normal' : 'challenge-row--flipped'">
           <div class="challenge-row__text">
             <span class="challenge-row__number">{{ item.number }}</span>
             <div class="challenge-row__content">
@@ -25,7 +21,7 @@
               <p class="challenge-row__body">{{ item.body }}</p>
             </div>
           </div>
-          <div class="challenge-row__image"></div>
+          <img :src="item.img" :alt="item.title" class="challenge-row__image" />
         </div>
       </div>
 
@@ -38,22 +34,26 @@ const challenges = [
   {
     number: '01',
     title: 'Last-Minute Callouts',
-    body: 'Unexpected absences disrupting schedules and patient continuity.',
+    body: 'Unexpected absences that leave schedules stretched and patient care at risk.',
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1783361199/1_1_l7ffnv.webp',
   },
   {
     number: '02',
-    title: 'Specialized Roles',
-    body: 'Difficulty sourcing qualified Pelvic Floor, Lymphedema, and rehab specialists.',
+    title: 'Specialty Staffing',
+    body: 'Hard-to-fill therapy roles that demand experienced, qualified professionals.',
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1783361199/3_1_ifqfn3.webp',
   },
   {
     number: '03',
-    title: 'Administrative Burden',
-    body: 'Credentialing, onboarding, and compliance processes consume valuable time.',
+    title: 'Administrative Workload',
+    body: 'Credentialing and compliance requirements that slow down hiring.',
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1783361199/3_1_ifqfn3.webp',
   },
   {
     number: '04',
-    title: 'Inconsistent Quality',
-    body: 'Unreliable staffing partners create instability across care teams.',
+    title: 'Staffing Reliability',
+    body: 'Inconsistent staffing partners that create unnecessary gaps in care.',
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1783361199/2_1_plxab7.webp',
   },
 ];
 </script>
@@ -63,7 +63,9 @@ const challenges = [
   background: $color-white;
   padding: 5rem 7.5rem;
 
-  @media (max-width: 1100px) { padding: 3rem 2rem; }
+  @media (max-width: 1100px) {
+    padding: 3rem 2rem;
+  }
 
   &__inner {
     display: flex;
@@ -134,19 +136,32 @@ const challenges = [
     align-items: flex-start;
     gap: 3.5rem;
 
-    @media (max-width: 1100px) { flex: 1; gap: 2rem; }
-    @media (max-width: 900px)  { flex: none; width: 100%; }
+    @media (max-width: 1100px) {
+      flex: 1;
+      gap: 2rem;
+    }
+
+    @media (max-width: 900px) {
+      flex: none;
+      width: 100%;
+    }
   }
 
   &__number {
     font-family: $font-heading;
-    font-weight: 100;
     font-size: clamp(5rem, 10vw, 9.375rem);
     line-height: 0.8;
     color: #0d1f35;
-    opacity: 0.15;
+    opacity: 0.9;
     flex-shrink: 0;
     user-select: none;
+    color: #0D1F35;
+    font-family: Switzer;
+    font-size: 150px;
+    font-style: normal;
+    font-weight: 100;
+    line-height: 80%;
+    /* 120px */
   }
 
   &__content {
@@ -174,12 +189,18 @@ const challenges = [
 
   &__image {
     flex: 1;
+    min-width: 0;
+    width: 100%;
     height: 100%;
     min-height: 16rem;
     border-radius: 1.5rem;
-    background: linear-gradient(135deg, rgba($color-blue, 0.25), rgba($color-sand, 0.35));
+    object-fit: cover;
+    object-position: center;
 
-    @media (max-width: 900px) { width: 100%; min-height: 14rem; }
+    @media (max-width: 900px) {
+      width: 100%;
+      min-height: 14rem;
+    }
   }
 }
 </style>
