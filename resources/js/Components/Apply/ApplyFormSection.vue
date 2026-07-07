@@ -646,8 +646,8 @@ async function submit() {
     border-radius: 5rem;
     background: $color-white;
     font-family: $font-heading;
-    font-weight: $fw-semibold;
-    font-size: 1.25rem;
+    font-weight: $fw-medium;
+    font-size: $btn-size;
     color: #0f2b3d;
     cursor: pointer;
     transition: background 0.2s, color 0.2s;

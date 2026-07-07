@@ -53,7 +53,7 @@
 
   &__subtitle {
     font-family: $font-body;
-    font-weight: $fw-semibold;
+    font-weight: $fw-regular;
     font-size: clamp(1.2rem, 1.5vw, 1.25rem);
     line-height: 1.7;
     color: $color-white;
@@ -70,8 +70,8 @@
     background: $color-orange;
     color: #0f2b3d;
     font-family: $font-heading;
-    font-weight: $fw-semibold;
-    font-size: 1.25rem;
+    font-weight: $fw-medium;
+    font-size: $btn-size;
     text-decoration: none;
     transition: background 0.25s;
     margin-top: 0.5rem;

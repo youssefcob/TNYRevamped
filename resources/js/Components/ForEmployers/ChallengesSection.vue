@@ -124,6 +124,14 @@ const challenges = [
     flex-direction: column !important;
     height: auto;
     gap: 1.5rem;
+
+    &:first-child {
+      .challenge-row__image { order: -1; }
+    }
+
+    &:not(:first-child) {
+      .challenge-row__image { display: none; }
+    }
   }
 
   &--flipped {
@@ -148,20 +156,15 @@ const challenges = [
   }
 
   &__number {
-    font-family: $font-heading;
-    font-size: clamp(5rem, 10vw, 9.375rem);
-    line-height: 0.8;
-    color: #0d1f35;
+    font-family: $font-switzer;
+    font-size: 150px;
+    font-style: normal;
+    font-weight: 200;
+    line-height: 80%;
+    color: #0D1F35;
     opacity: 0.9;
     flex-shrink: 0;
     user-select: none;
-    color: #0D1F35;
-    font-family: Switzer;
-    font-size: 150px;
-    font-style: normal;
-    font-weight: 100;
-    line-height: 80%;
-    /* 120px */
   }
 
   &__content {

@@ -45,6 +45,7 @@ import StatsBar from './StatsBar.vue';
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-start;
   background: linear-gradient(-51.8deg,
       rgb(214, 185, 140) 0.24%,
       rgba(0, 33, 71, 0.9) 61%,
@@ -93,9 +94,10 @@ import StatsBar from './StatsBar.vue';
     position: relative;
     z-index: 1;
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: space-between;
-    gap: 3rem;
+    gap: 1rem;
+    padding-bottom:1rem;
 
     @media (max-width: 1100px) {
       flex-direction: column;
@@ -107,9 +109,14 @@ import StatsBar from './StatsBar.vue';
   &__content {
     flex: 1 1 55%;
     min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap:1rem;
+    padding-top:2rem;
+    // justify-content: space-between;
 
     @media screen and (min-width: 1100px) {
-      padding-top: 7rem;
+      // padding-top: 7rem;
     }
 
     @media screen and (max-width: 1100px) {
@@ -165,7 +172,7 @@ import StatsBar from './StatsBar.vue';
 
   &__subtitle {
     font-family: $font-body;
-    font-weight: $fw-semibold;
+    font-weight: $fw-regular;
     font-size: clamp(1.2rem, 1.5vw, 1.25rem);
     line-height: 1.7;
     color: $color-white;
@@ -175,16 +182,18 @@ import StatsBar from './StatsBar.vue';
 
   &__ctas {
     display: flex;
-    gap: 0.5rem;
+    // justify-content:space;
     flex-wrap: wrap;
+    gap:1rem;
+
   }
 
   &__btn {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 3.75rem;
-    width: 17.625rem;
+    height: 3rem;
+    width: 15.625rem;
     border-radius: 80px;
     font-family: $font-heading;
     font-size: $btn-size;
@@ -216,6 +225,12 @@ import StatsBar from './StatsBar.vue';
         background: rgba(255, 255, 255, 0.1);
       }
     }
+  }
+
+  &__stats {
+    // margin-top: 3rem;
+    width: 100%;
+    margin-bottom:2rem;
   }
 
 

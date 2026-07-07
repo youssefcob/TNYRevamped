@@ -86,7 +86,7 @@
   &__title {
     font-family: $font-heading;
     font-weight: $fw-bold;
-    font-size: clamp(1.375rem, 2.5vw, 2rem);
+    font-size: clamp(1.375rem, 2vw, 2rem);
     line-height: $h3-line-height;
     color: $color-white;
 
@@ -97,9 +97,10 @@
 
   &__body {
     font-family: $font-body;
-    font-size: clamp($body-size-mobile, 1.5vw, $body-size-desktop);
+    font-size: clamp($body-size-mobile, 1.2vw, $body-size-desktop);
     line-height: $body-line-height;
     color: $color-white;
+    font-weight: $fw-regular;
 
     &--dark {
       color: $color-dark;
@@ -114,7 +115,13 @@
     gap: 0.375rem;
     color: $color-white;
     font-family: $font-body;
-    font-size: clamp($body-size-mobile, 1.5vw, $body-size-desktop);
+    font-size: clamp($body-size-mobile, 1.2vw, $body-size-desktop);
+    font-weight: $fw-medium;
+
+    li {
+      font-family: inherit;
+      font-weight: inherit;
+    }
 
     &--dark {
       color: $color-dark;
@@ -130,7 +137,7 @@
     border-radius: 80px;
     color: #0f2b3d;
     font-family: $font-heading;
-    font-weight: $fw-semibold;
+    font-weight: $fw-medium;
     font-size: $btn-size;
     text-decoration: none;
     margin-top: auto;

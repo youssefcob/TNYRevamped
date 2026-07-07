@@ -14,7 +14,7 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
   <nav class="nav2" :class="{ 'nav2--scrolled': scrolled }">
     <div class="nav2__inner">
       <Link href="/" class="nav2__logo">
-        <img src="@/Svg/logo.svg" alt="Therapy of New York" />
+        <img src="/images/tnylogo.png" alt="Therapy of New York" />
       </Link>
 
       <div class="nav2__links">
@@ -58,17 +58,11 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
   left: 0;
   width: 100%;
   z-index: 100;
-  transition: background 0.3s ease;
+  transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 12px;
 
   &--scrolled {
-    background: transparent;
-
-    .nav2__links,
-    .nav2__btn--outline {
-      background: rgba(20, 34, 53, 0.75);
-      border-color: rgba(255, 255, 255, 0.1);
-    }
+    background: rgba(15, 43, 61, 1);
   }
 
   &__inner {

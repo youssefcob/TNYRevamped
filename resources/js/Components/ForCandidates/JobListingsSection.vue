@@ -79,7 +79,6 @@ const filtered = computed(() => {
           >
             <div class="listings__cell listings__cell--position">
               <p class="listings__pos-title">{{ pos.title }}</p>
-              <p class="listings__pos-desc">{{ pos.description }}</p>
             </div>
             <div class="listings__cell listings__cell--cols">
               <span class="listings__cell-text">New York, NY</span>
@@ -185,6 +184,8 @@ const filtered = computed(() => {
 
   &__table-wrap {
     overflow-x: auto;
+
+    @media (max-width: 900px) { overflow-x: visible; }
   }
 
   &__table {
@@ -193,14 +194,18 @@ const filtered = computed(() => {
     border-radius: 2.5rem;
     overflow: hidden;
     min-width: 50rem;
+
+    @media (max-width: 900px) { min-width: 0; background: $color-white; border: none; }
   }
 
   &__thead {
     background: #0f2b3d;
     display: flex;
     align-items: center;
-    padding: 1.5rem 0;
+    padding: 1.5rem 1.5rem 1.5rem 0;
     border-radius: 2.5rem 2.5rem 0 0;
+
+    @media (max-width: 900px) { display: none; }
   }
 
   &__th {
@@ -239,9 +244,18 @@ const filtered = computed(() => {
   &__row {
     display: flex;
     align-items: center;
+    padding-right: 1.5rem;
     border-bottom: 1px solid rgba($color-dark, 0.1);
 
     &--last { border-bottom: none; }
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+      align-items: center;
+      padding: 1.5rem;
+      gap: 1rem;
+      border-bottom: none;
+    }
   }
 
   &__cell {
@@ -250,6 +264,8 @@ const filtered = computed(() => {
     &--position {
       flex: 0 0 24rem;
       padding: 1.25rem 1rem 1.25rem 1.5rem;
+
+      @media (max-width: 900px) { flex: none; padding: 0; text-align: center; }
     }
 
     &--cols {
@@ -258,6 +274,14 @@ const filtered = computed(() => {
       gap: 1.5rem;
       align-items: center;
       padding: 1.25rem 0;
+
+      @media (max-width: 900px) {
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
+        gap: 0.75rem;
+        padding: 0;
+      }
     }
   }
 
@@ -267,6 +291,8 @@ const filtered = computed(() => {
     font-size: 1.25rem;
     color: $color-dark;
     line-height: 1.3;
+
+    @media (max-width: 900px) { font-size: 1.625rem; }
   }
 
   &__pos-desc {
@@ -285,6 +311,8 @@ const filtered = computed(() => {
     font-size: 1.125rem;
     color: $color-dark;
     text-align: center;
+
+    @media (max-width: 900px) { flex: none; }
   }
 
   &__apply-btn {
@@ -297,13 +325,15 @@ const filtered = computed(() => {
     color: $color-white;
     border-radius: 2.5rem;
     font-family: $font-heading;
-    font-weight: $fw-bold;
-    font-size: 1.25rem;
+    font-size: $btn-size;
+    font-weight: $btn-weight;
     text-decoration: none;
     transition: background 0.25s;
     max-width: 10.0625rem;
 
     &:hover { background: lighten(#0f2b3d, 10%); }
+
+    @media (max-width: 900px) { flex: none; max-width: none; width: 100%; }
   }
 }
 </style>

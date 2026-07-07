@@ -52,7 +52,7 @@
 
   &__subtitle {
     font-family: $font-body;
-    font-weight: $fw-semibold;
+    font-weight: $fw-regular;
     font-size: clamp(1.2rem, 1.5vw, 1.25rem);
     line-height: 1.7;
     color: $color-white;

@@ -24,7 +24,7 @@
             <h4 class="sol-card__title">Speech-Language Pathologists Staffing</h4>
             <p class="sol-card__body">Licensed SLPs for inpatient, outpatient, and home settings. All specialties covered.</p>
           </div>
-          <a href="/services" class="sol-card__link">Learn More <span>→</span></a>
+          <a href="/solutions" class="sol-card__link">Learn More <span>→</span></a>
         </div>
       </div>
 
@@ -41,7 +41,7 @@
             <h4 class="sol-card__title sol-card__title--dark">Physical &amp; Occupational Therapy Staffing</h4>
             <p class="sol-card__body sol-card__body--dark">Licensed PTs and PTAs for inpatient, outpatient, and home settings. All specialties covered.</p>
           </div>
-          <a href="/services" class="sol-card__link sol-card__link--dark">Learn More <span>→</span></a>
+          <a href="/solutions" class="sol-card__link sol-card__link--dark">Learn More <span>→</span></a>
         </div>
       </div>
 
@@ -52,7 +52,7 @@
           Discover flexible, customized therapy staffing solutions that help your team stay
           fully supported and your patients receive the care they deserve.
         </p>
-        <a href="/services" class="sol-card__btn">Explore Solutions</a>
+        <a href="/solutions" class="sol-card__btn">Explore Solutions</a>
       </div>
 
       <!-- Col 3 · Row 2: PCC -->
@@ -67,7 +67,7 @@
             <h4 class="sol-card__title">OT/COTA</h4>
             <p class="sol-card__body">Licensed OTs and COTAs for inpatient, outpatient, and home settings. All specialties covered.</p>
           </div>
-          <a href="/services" class="sol-card__link">Learn More <span>→</span></a>
+          <a href="/solutions" class="sol-card__link">Learn More <span>→</span></a>
         </div>
       </div>
 
@@ -87,7 +87,7 @@ $sol-bg: radial-gradient(ellipse at center, #345683 0%, #243c5c 50%, #142235 100
   &__inner {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
-    grid-template-rows: 9fr 11fr;
+    grid-template-rows: 9fr 10fr;
     gap: 1.5rem;
 
     & > *:nth-child(1) { grid-column: 1; grid-row: 1; }

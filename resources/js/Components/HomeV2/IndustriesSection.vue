@@ -88,7 +88,6 @@ const rows = [
   [
     { ...industries[3], flex: 1 },
     { ...industries[4], flex: 2 },
-    { ...industries[5], flex: 1 },
   ],
 ];
 </script>
@@ -110,6 +109,7 @@ $ind-bg: radial-gradient(ellipse at center, #345683 0%, #243c5c 50%, #142235 100
     flex-direction: column;
     gap: 1rem;
     padding: 0rem 5rem;
+    @media (max-width: 1100px) { padding: 1rem; }
   }
 
   &__title {

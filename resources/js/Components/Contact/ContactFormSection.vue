@@ -265,7 +265,7 @@ const submitForm = async () => {
     max-width: 75rem;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 0.95fr;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
     gap: 1.5rem;
     align-items: start;
 
@@ -283,6 +283,8 @@ const submitForm = async () => {
   display: flex;
   flex-direction: column;
   gap: 1.75rem;
+
+  @media (max-width: 480px) { padding: 1.5rem; }
 
   &__header {
     display: flex;
@@ -336,7 +338,8 @@ const submitForm = async () => {
 
   &__role-btn {
     height: 3.9375rem;
-    width: 10.0625rem;
+    flex: 1 1 10.0625rem;
+    min-width: 0;
     border-radius: 2.5rem;
     font-family: $font-heading;
     font-weight: $fw-bold;
@@ -434,8 +437,8 @@ const submitForm = async () => {
     border: none;
     border-radius: 5rem;
     font-family: $font-heading;
-    font-weight: $fw-semibold;
-    font-size: 1.25rem;
+    font-weight: $fw-medium;
+    font-size: $btn-size;
     cursor: pointer;
     transition: background 0.25s, opacity 0.25s;
     margin-top: 0.5rem;
@@ -509,6 +512,7 @@ const submitForm = async () => {
     color: $color-dark;
 
     svg { flex-shrink: 0; color: $color-dark; }
+    span { min-width: 0; overflow-wrap: anywhere; }
   }
 
   // Hours rows
@@ -545,8 +549,8 @@ const submitForm = async () => {
     color: #0f2b3d;
     border-radius: 5rem;
     font-family: $font-heading;
-    font-weight: $fw-semibold;
-    font-size: 1.25rem;
+    font-weight: $fw-medium;
+    font-size: $btn-size;
     text-decoration: none;
     margin-top: 0.75rem;
     transition: background 0.25s;

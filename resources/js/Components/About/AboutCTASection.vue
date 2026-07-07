@@ -81,8 +81,8 @@
     height: 3.75rem;
     border-radius: 80px;
     font-family: $font-heading;
-    font-weight: $fw-semibold;
-    font-size: 1.25rem;
+    font-weight: $fw-medium;
+    font-size: $btn-size;
     text-decoration: none;
     transition: all 0.25s;
     cursor: pointer;

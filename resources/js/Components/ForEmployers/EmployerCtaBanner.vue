@@ -71,8 +71,8 @@
     padding: 0 1.5rem;
     border-radius: 80px;
     font-family: $font-heading;
-    font-weight: $fw-semibold;
-    font-size: 1.25rem;
+   font-size: $btn-size;
+    font-weight: $btn-weight;
     text-decoration: none;
     transition: all 0.25s;
 
