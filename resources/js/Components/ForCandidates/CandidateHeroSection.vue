@@ -17,6 +17,7 @@
 
 <style scoped lang="scss">
 .cand-hero {
+  position: relative;
   background: linear-gradient(
     -51.8deg,
     rgb(214, 185, 140) 0.24%,
@@ -29,11 +30,24 @@
   justify-content: center;
   padding: 10rem 7.5rem 5rem;
   text-align: center;
+  overflow: hidden;
 
   @media (max-width: 1100px) { padding: 8rem 2rem 4rem; }
   @media (max-width: 640px)  { padding: 7rem 1.25rem 3rem; }
 
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.8;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
+
   &__inner {
+    position: relative;
+    z-index: 1;
     display: flex;
     flex-direction: column;
     align-items: center;

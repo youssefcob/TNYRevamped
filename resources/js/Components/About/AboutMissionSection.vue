@@ -4,24 +4,18 @@
 
       <!-- Row 1: image left, text right -->
       <div class="about-mission__row">
-        <div class="about-mission__img"></div>
+        <img
+          class="about-mission__img about-mission__img--about"
+          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
+          alt="Therapy of New York team"
+        />
         <div class="about-mission__copy">
           <p class="about-mission__label">About Us</p>
           <h2 class="about-mission__heading">Supporting Healthcare Across NYC</h2>
           <p class="about-mission__body">
-            Therapy of New York is a healthcare staffing agency specializing in rehabilitation and
-            support professionals. We work closely with hospitals, outpatient clinics, skilled nursing
-            facilities, schools, and home health providers to ensure they always have the qualified
-            staff they need.
-          </p>
-          <p class="about-mission__body">
-            Our rigorous screening, credential verification, and placement process means every
-            professional we place meets the highest clinical and compliance standards — giving
-            facility administrators confidence and patients the best possible care.
-          </p>
-          <p class="about-mission__body">
-            Whether you need temporary coverage, per diem staffing, or a permanent placement, we
-            move quickly and thoughtfully to match the right professional to your specific needs.
+            More than staffing. More than recruiting. We create meaningful connections between
+            rehabilitation professionals and healthcare organizations across New York City—helping
+            careers grow, teams thrive, and patient care reach its highest potential.
           </p>
         </div>
       </div>
@@ -30,22 +24,18 @@
       <div class="about-mission__row about-mission__row--reversed">
         <div class="about-mission__copy">
           <p class="about-mission__label">Coverage Area</p>
-          <h2 class="about-mission__heading">Serving All Five Boroughs</h2>
+          <h2 class="about-mission__heading">Supporting Healthcare Across NYC</h2>
           <p class="about-mission__body">
-            Our network of healthcare professionals spans every borough of New York City — Manhattan,
-            Brooklyn, Queens, The Bronx, and Staten Island — as well as select facilities in the
-            greater NYC metropolitan area.
-          </p>
-          <p class="about-mission__body">
-            From large academic medical centers to community clinics, we understand the unique
-            staffing pressures each setting faces and tailor our approach accordingly.
-          </p>
-          <p class="about-mission__body">
-            Our local roots and deep community relationships allow us to respond faster and place
-            better-matched professionals than national staffing firms.
+            Proudly serving all five boroughs of New York City—Manhattan, Brooklyn, Queens, the
+            Bronx, and Staten Island. Connecting healthcare organizations with exceptional
+            rehabilitation professionals every day.
           </p>
         </div>
-        <div class="about-mission__img about-mission__img--map"></div>
+        <img
+          class="about-mission__img about-mission__img--map"
+          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1783368351/Rectangle_53_eywewf.webp"
+          alt="Map of New York City boroughs served"
+        />
       </div>
 
     </div>
@@ -54,10 +44,11 @@
 
 <style scoped lang="scss">
 .about-mission {
-  padding: 5rem 7.5rem;
+  padding: 10rem 7.5rem 5rem;
   background: $color-white;
 
-  @media (max-width: 1100px) { padding: 3rem 2rem; }
+  @media (max-width: 1100px) { padding: 8rem 2rem 4rem; }
+  @media (max-width: 640px)  { padding: 7rem 1.25rem 3rem; }
 
   &__inner {
     max-width: 75rem;
@@ -72,7 +63,7 @@
     gap: 1.5rem;
     align-items: center;
 
-    &--reversed { flex-direction: row-reverse; }
+    // &--reversed { flex-direction: row-reverse; }
 
     @media (max-width: 800px) {
       flex-direction: column !important;
@@ -82,16 +73,24 @@
 
   &__img {
     flex: 0 0 36.75rem;
-    height: 28.5rem;
+    width: 36.75rem;
+    aspect-ratio: 588 / 277;
+    height: auto;
     border-radius: 1.5rem;
-    background: linear-gradient(135deg, #b8d4e8 0%, #8ab9d4 100%);
+    object-fit: cover;
+    object-position: center;
 
-    &--map {
-      background: linear-gradient(135deg, #c8dde8 0%, #9ac0d8 50%, #b8d4e8 100%);
+    &--about {
+      aspect-ratio: 588 / 456;
+      object-position: top;
     }
 
-    @media (max-width: 1100px) { flex: 0 0 45%; }
-    @media (max-width: 800px)  { flex: 0 0 auto; width: 100%; height: 18rem; }
+    &--map {
+      aspect-ratio: 588 / 456;
+    }
+
+    @media (max-width: 1100px) { flex: 0 0 45%; width: 45%; }
+    @media (max-width: 800px)  { flex: 0 0 auto; width: 100%; aspect-ratio: 16 / 9; }
   }
 
   &__copy {

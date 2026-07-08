@@ -1,13 +1,18 @@
 <script setup lang="ts">
-import { ref, onMounted, onUnmounted } from 'vue';
-import { Link } from '@inertiajs/vue3';
+import { ref, computed, onMounted, onUnmounted } from 'vue';
+import { Link, usePage } from '@inertiajs/vue3';
 
-const scrolled = ref(false);
+const page = usePage();
+const isAboutPage = computed(() => page.url.startsWith('/about'));
+
+const isScrolled = ref(false);
 const menuOpen = ref(false);
 
-const onScroll = () => { scrolled.value = window.scrollY > window.innerHeight * 0.6; };
+const onScroll = () => { isScrolled.value = window.scrollY > window.innerHeight * 0.6; };
 onMounted(() => window.addEventListener('scroll', onScroll));
 onUnmounted(() => window.removeEventListener('scroll', onScroll));
+
+const scrolled = computed(() => isScrolled.value || isAboutPage.value);
 </script>
 
 <template>
@@ -60,9 +65,10 @@ onUnmounted(() => window.removeEventListener('scroll', onScroll));
   z-index: 100;
   transition: background 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   font-size: 12px;
+  
 
   &--scrolled {
-    background: rgba(15, 43, 61, 1);
+    background-color: rgba(15, 43, 61, 1);
   }
 
   &__inner {

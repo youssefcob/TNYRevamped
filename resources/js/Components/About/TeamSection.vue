@@ -1,37 +1,19 @@
-<script setup lang="ts">
-const team = [
-  { name: 'Sarah Johnson', role: 'Founder & CEO' },
-  { name: 'Marcus Williams', role: 'Director of Staffing' },
-  { name: 'Priya Patel', role: 'Credentialing Manager' },
-  { name: 'James Carter', role: 'Client Relations Lead' },
-  { name: 'Aisha Thompson', role: 'Recruiter — Therapy' },
-  { name: 'David Nguyen', role: 'Compliance Specialist' },
-];
-</script>
-
 <template>
   <section class="about-team">
     <div class="about-team__inner">
       <div class="about-team__header">
-        <p class="about-team__label">The People Behind TNY</p>
-        <h2 class="about-team__heading">Meet Our Team</h2>
+        <p class="about-team__label">Grow With TNY</p>
+        <h2 class="about-team__heading">Meet our Team</h2>
         <p class="about-team__subtext">
-          Our team brings together deep healthcare knowledge, staffing expertise, and a genuine
-          commitment to the professionals and facilities we serve.
+          Meet the experts connecting exceptional talent with exceptional care.
         </p>
       </div>
 
-      <div class="about-team__photo"></div>
-
-      <div class="about-team__grid">
-        <div v-for="member in team" :key="member.name" class="about-team__card">
-          <div class="about-team__avatar"></div>
-          <div class="about-team__card-info">
-            <p class="about-team__card-name">{{ member.name }}</p>
-            <p class="about-team__card-role">{{ member.role }}</p>
-          </div>
-        </div>
-      </div>
+      <img
+        class="about-team__photo"
+        src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
+        alt="Therapy of New York team"
+      />
     </div>
   </section>
 </template>
@@ -48,14 +30,14 @@ const team = [
     margin: 0 auto;
     display: flex;
     flex-direction: column;
-    gap: 3.25rem;
+    gap: 2rem;
   }
 
   &__header {
     max-width: 36.75rem;
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
     align-self: center;
     text-align: center;
     width: 100%;
@@ -93,52 +75,10 @@ const team = [
     width: 100%;
     height: 33.6875rem;
     border-radius: 2.5rem;
-    background: linear-gradient(135deg, #b8d4e8 0%, #8ab9d4 60%, #6aa5c8 100%);
-  }
+    object-fit: cover;
+    object-position: center;
 
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(6, 1fr);
-    gap: 1.5rem;
-
-    @media (max-width: 1000px) { grid-template-columns: repeat(3, 1fr); }
-    @media (max-width: 600px)  { grid-template-columns: repeat(2, 1fr); }
-  }
-
-  &__card {
-    display: flex;
-    flex-direction: column;
-    gap: 1rem;
-  }
-
-  &__avatar {
-    width: 100%;
-    aspect-ratio: 1;
-    border-radius: 1.5rem;
-    background: linear-gradient(135deg, #c8dde8 0%, #a8c5d8 100%);
-  }
-
-  &__card-info {
-    display: flex;
-    flex-direction: column;
-    gap: 0.25rem;
-    text-align: center;
-  }
-
-  &__card-name {
-    font-family: $font-heading;
-    font-weight: $fw-bold;
-    font-size: 1.125rem;
-    color: $color-dark;
-    margin: 0;
-  }
-
-  &__card-role {
-    font-family: $font-body;
-    font-weight: $fw-regular;
-    font-size: 1rem;
-    color: $text-body;
-    margin: 0;
+    @media (max-width: 800px) { height: 20rem; }
   }
 }
 </style>

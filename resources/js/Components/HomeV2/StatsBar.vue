@@ -66,8 +66,8 @@ const stats = [
   width: 100%;
   max-width: 100rem;
   overflow: hidden;
-  padding-top: 2rem;
-  padding-bottom: 2rem;
+  padding-top: 0rem;
+  padding-bottom: 0rem;
 
   // Desktop: show static row, hide carousel
   &__static {

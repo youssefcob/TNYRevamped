@@ -1,24 +1,20 @@
 <script setup lang="ts">
 const values = [
   {
-    icon: '★',
-    title: 'Excellence in Care',
-    body: 'Every placement meets the highest clinical and compliance standards. We verify credentials, check references, and ensure each professional is truly ready to deliver.',
+    title: 'Compassion',
+    body: 'We believe every great placement begins with a genuine commitment to improving lives.',
   },
   {
-    icon: '◆',
-    title: 'Integrity First',
-    body: 'Transparent communication and honest relationships are the foundation of everything we do — with our clients, our candidates, and each other.',
+    title: 'Purpose',
+    body: 'We connect people with opportunities that create meaningful careers and better patient outcomes.',
   },
   {
-    icon: '♥',
-    title: 'Community Focus',
-    body: "We're proud to serve New York City's healthcare community, investing in the professionals and the facilities that keep it running.",
+    title: 'Excellence',
+    body: 'We never settle for "good enough." Every placement is held to the highest clinical standards.',
   },
   {
-    icon: '⚡',
-    title: 'Agility',
-    body: 'Healthcare staffing moves fast. We respond quickly, adapt readily, and always deliver — even when timelines are tight and stakes are high.',
+    title: 'Impact',
+    body: "Every therapist we place has the power to change a life. That's a responsibility we take seriously.",
   },
 ];
 </script>
@@ -28,14 +24,12 @@ const values = [
     <div class="about-values__inner">
       <div class="about-values__header">
         <p class="about-values__label">Core Values</p>
-        <h2 class="about-values__heading">What Drives Us</h2>
+        <h2 class="about-values__heading">Dream big</h2>
       </div>
 
       <div class="about-values__grid">
         <div v-for="val in values" :key="val.title" class="about-values__card">
-          <div class="about-values__icon-wrap">
-            <span class="about-values__icon">{{ val.icon }}</span>
-          </div>
+          <div class="about-values__img"></div>
           <div class="about-values__card-body">
             <h3 class="about-values__card-title">{{ val.title }}</h3>
             <p class="about-values__card-text">{{ val.body }}</p>
@@ -49,7 +43,7 @@ const values = [
 <style scoped lang="scss">
 .about-values {
   padding: 5rem 7.5rem;
-  background: rgba($color-sand, 0.08);
+  background: $color-white;
 
   @media (max-width: 1100px) { padding: 3rem 2rem; }
 
@@ -96,33 +90,24 @@ const values = [
   }
 
   &__card {
-    background: $color-white;
-    border-radius: 2.5rem;
-    padding: 2rem 1.5rem;
     display: flex;
     flex-direction: column;
     gap: 1rem;
   }
 
-  &__icon-wrap {
-    width: 3.5rem;
-    height: 3.5rem;
-    border-radius: 1rem;
-    background: rgba($color-navy, 0.06);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  &__icon {
-    font-size: 1.5rem;
-    color: $color-navy;
+  &__img {
+    width: 100%;
+    height: 13.6875rem;
+    border-radius: 2.5rem;
+    background: #d9d9d9;
   }
 
   &__card-body {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
+    padding: 0.625rem 0;
+    text-align: center;
   }
 
   &__card-title {
@@ -134,11 +119,11 @@ const values = [
   }
 
   &__card-text {
-    font-family: $font-body;
+    font-family: $font-heading;
     font-weight: $fw-regular;
-    font-size: 1rem;
-    color: $text-body;
-    line-height: 1.6;
+    font-size: 1.125rem;
+    color: $color-dark;
+    line-height: 1.4;
     margin: 0;
   }
 }

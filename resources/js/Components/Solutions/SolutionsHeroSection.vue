@@ -15,14 +15,28 @@
 
 <style scoped lang="scss">
 .sol-hero {
+  position: relative;
   min-height: 34rem;
   background: linear-gradient(-36.6deg, rgb(214,185,140) 0.24%, rgba(0,33,71,0.9) 61%, rgb(0,33,71) 99.76%);
   display: flex;
   align-items: center;
   justify-content: center;
   text-align: center;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    opacity: 0.8;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
 
   &__inner {
+    position: relative;
+    z-index: 1;
     max-width: 49.5rem;
     display: flex;
     flex-direction: column;

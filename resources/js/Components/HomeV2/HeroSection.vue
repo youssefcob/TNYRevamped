@@ -41,7 +41,7 @@ import StatsBar from './StatsBar.vue';
 <style scoped lang="scss">
 .hero2 {
   position: relative;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -50,7 +50,19 @@ import StatsBar from './StatsBar.vue';
       rgb(214, 185, 140) 0.24%,
       rgba(0, 33, 71, 0.9) 61%,
       rgb(0, 33, 71) 99.76%);
-  padding: 9rem 7.5rem 0;
+  padding: 8rem 7.5rem 0;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: url("https://res.cloudinary.com/dzilc11zf/image/upload/v1783517430/pattern_TNY_leyhl2.webp");
+    background-repeat: repeat;
+    opacity: 0.8;
+    mix-blend-mode: overlay;
+    pointer-events: none;
+  }
 
   @media (max-width: 1100px) {
     padding: 7rem 2rem 0;
@@ -128,7 +140,7 @@ import StatsBar from './StatsBar.vue';
   }
 
   &__image {
-    flex: 0 1 40%;
+    flex: 0 1 35%;
     align-self: center;
 
     img {
@@ -228,6 +240,8 @@ import StatsBar from './StatsBar.vue';
   }
 
   &__stats {
+    position: relative;
+    z-index: 1;
     // margin-top: 3rem;
     width: 100%;
     margin-bottom:2rem;
