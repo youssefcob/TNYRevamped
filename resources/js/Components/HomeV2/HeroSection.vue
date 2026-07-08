@@ -58,9 +58,9 @@ import StatsBar from './StatsBar.vue';
     position: absolute;
     inset: 0;
     background-image: url("https://res.cloudinary.com/dzilc11zf/image/upload/v1783517430/pattern_TNY_leyhl2.webp");
-    background-repeat: repeat;
-    opacity: 0.8;
-    mix-blend-mode: overlay;
+    background-repeat: cover;
+    opacity: 0.5;
+    // mix-blend-mode: overlay;
     pointer-events: none;
   }
 
