@@ -50,10 +50,10 @@
 
 <script setup lang="ts">
 const stats = [
-  { value: '500', suffix: '+', label: 'Successful Placements' },
-  // { value: '98', suffix: '%', label: 'Client Satisfaction Rate' },
-  // { value: '24', suffix: 'h', label: 'Emergency Response Time' },
-  { value: '10', suffix: '+', label: 'Years of Experience' },
+  { value: '300', suffix: '+', label: 'Hiring & Coverage Requests Fulfilled' },
+  { value: '165', suffix: '%', label: 'Year-over-Year Growth' },
+  { value: '15', suffix: '+', label: 'Active Healthcare Clients' },
+  { value: '65', suffix: '+', label: 'Locations Supported' },
 ];
 </script>
 

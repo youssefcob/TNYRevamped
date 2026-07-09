@@ -36,10 +36,10 @@
 import { h } from 'vue';
 
 const stats = [
-  { value: '500', suffix: '+', label: 'Successful Placements' },
-  // { value: '98', suffix: '%', label: 'Client Satisfaction Rate' },
-  // { value: '24', suffix: 'h', label: 'Emergency Response Time' },
-  { value: '10', suffix: '+', label: 'Years of Experience' },
+  { value: '300', suffix: '+', label: 'Hiring & Coverage Requests Fulfilled' },
+  { value: '165', suffix: '%', label: 'Year-over-Year Growth' },
+  { value: '15', suffix: '+', label: 'Active Healthcare Clients' },
+  { value: '65', suffix: '+', label: 'Locations Supported' },
 ];
 
 const BoltIcon = () => h('svg', { width: 20, height: 20, viewBox: '0 0 24 24', fill: 'none', stroke: '#222222', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
