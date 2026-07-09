@@ -10,7 +10,7 @@ import AboutCTASection from '@/Components/About/AboutCTASection.vue';
   <LayoutV2>
     <AboutMissionSection />
     <CoreValuesSection />
-    <TeamSection />
+    <!-- <TeamSection /> -->
     <AboutCTASection />
   </LayoutV2>
 </template>

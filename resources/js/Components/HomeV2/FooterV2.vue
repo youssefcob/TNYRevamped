@@ -16,22 +16,17 @@
           staffing solutions built for modern care.
         </p>
         <div class="footer2__socials">
-          <a href="#" class="footer2__social" aria-label="LinkedIn">
+          <a href="https://www.linkedin.com/company/therapy-of-new-york" target="_blank" rel="noopener noreferrer" class="footer2__social" aria-label="LinkedIn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
               <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/>
             </svg>
           </a>
-          <a href="#" class="footer2__social" aria-label="X / Twitter">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
-              <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.744l7.736-8.857L1.542 2.25h7.04l4.26 5.632L18.244 2.25z"/>
-            </svg>
-          </a>
-          <a href="#" class="footer2__social" aria-label="Facebook">
+          <a href="https://www.facebook.com/Therapyofnewyorkstaffingcompany/" target="_blank" rel="noopener noreferrer" class="footer2__social" aria-label="Facebook">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
               <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"/>
             </svg>
           </a>
-          <a href="#" class="footer2__social" aria-label="Instagram">
+          <a href="https://www.instagram.com/therapyofnewyork/" target="_blank" rel="noopener noreferrer" class="footer2__social" aria-label="Instagram">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
               <rect x="2" y="2" width="20" height="20" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r=".5" fill="white" stroke="none"/>
             </svg>
@@ -78,19 +73,19 @@
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.29 6.29l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
             </svg>
-            <span>(212) 555-0100</span>
+            <span>(347) 441-4283</span>
           </div>
           <div class="footer2__contact-item">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
             </svg>
-            <span>contact@therapyofnewyork.com</span>
+            <span>staffing@therapyofnewyork.com</span>
           </div>
           <div class="footer2__contact-item">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
             </svg>
-            <span>New York, NY 10001</span>
+            <span>575 8th Ave, 10th Floor, New York, NY 10018</span>
           </div>
         </div>
       </div>

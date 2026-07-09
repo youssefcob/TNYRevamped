@@ -266,15 +266,15 @@ async function submit() {
           <ul class="rs-info-card__list">
             <li>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 5a2 2 0 012-2h2.28a1 1 0 01.95.684l1.09 3.27a1 1 0 01-.23 1.02L7.7 9.36a11.045 11.045 0 005.63 5.63l1.385-1.385a1 1 0 011.02-.23l3.27 1.09A1 1 0 0119 15.72V18a2 2 0 01-2 2h-1C8.16 20 1 12.84 1 4V3a2 2 0 012-2h.28" stroke="#FF9B37" stroke-width="1.5" stroke-linecap="round"/></svg>
-              <span>(212) 555-0100</span>
+              <span>(347) 441-4283</span>
             </li>
             <li>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M2 5l8 5 8-5M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5z" stroke="#FF9B37" stroke-width="1.5" stroke-linecap="round"/></svg>
-              <span>contact@therapyofnewyork.com</span>
+              <span>staffing@therapyofnewyork.com</span>
             </li>
             <li>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 11a3 3 0 100-6 3 3 0 000 6z" stroke="#FF9B37" stroke-width="1.5"/><path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 11 7 11s7-5.75 7-11c0-3.87-3.13-7-7-7z" stroke="#FF9B37" stroke-width="1.5"/></svg>
-              <span>New York, NY 10001</span>
+              <span>575 8th Ave, 10th Floor, New York, NY 10018</span>
             </li>
           </ul>
         </div>
@@ -283,9 +283,8 @@ async function submit() {
           <p class="rs-info-card__label">Staffing Hours</p>
           <h3 class="rs-info-card__title">We're Available</h3>
           <ul class="rs-info-card__hours">
-            <li><span>Monday - Friday</span><span>8:00 AM – 6:00 PM</span></li>
-            <li><span>Saturday</span><span>9:00 AM – 2:00 PM</span></li>
-            <li class="rs-info-card__hours-closed"><span>Sunday</span><span>Closed</span></li>
+            <li><span>Mon - Fri</span><span>9:00 AM - 5:00 PM</span></li>
+            <li class="rs-info-card__hours-closed"><span>Sat & Sun</span><span>Closed</span></li>
           </ul>
         </div>
       </div>

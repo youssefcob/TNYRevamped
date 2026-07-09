@@ -10,7 +10,7 @@
         <a href="/requestService" class="emp-cta__btn emp-cta__btn--primary">
           Schedule Consultation →
         </a>
-        <a href="#contact" class="emp-cta__btn emp-cta__btn--outline">
+        <a href="/contact" class="emp-cta__btn emp-cta__btn--outline">
           Contact Us →
         </a>
       </div>

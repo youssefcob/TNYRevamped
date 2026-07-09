@@ -16,7 +16,7 @@
           <li>Emergency Coverage</li>
           <li>Fully Credentialed Professionals</li>
         </ul>
-        <a href="/request-service" class="for-card__cta for-card__cta--orange">Request Staff</a>
+        <a href="/employers" class="for-card__cta for-card__cta--orange">Request Staff</a>
 
       </div>
 
@@ -35,7 +35,7 @@
           <li>Visa Sponsorship Support</li>
           <li>Growth-Focused Opportunities</li>
         </ul>
-        <a href="/apply" class="for-card__cta">Explore Jobs</a>
+        <a href="/candidates" class="for-card__cta">Explore Jobs</a>
       </div>
 
     </div>

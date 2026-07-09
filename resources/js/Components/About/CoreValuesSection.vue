@@ -1,18 +1,39 @@
 <script setup lang="ts">
+import { h } from 'vue';
+
+const HeartIcon = () => h('svg', { width: 32, height: 32, viewBox: '0 0 24 24', fill: 'none', stroke: '#ee7830', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+  h('path', { d: 'M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z' }),
+]);
+const CompassIcon = () => h('svg', { width: 32, height: 32, viewBox: '0 0 24 24', fill: 'none', stroke: '#ee7830', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+  h('circle', { cx: 12, cy: 12, r: 10 }),
+  h('path', { d: 'M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z' }),
+]);
+const StarIcon = () => h('svg', { width: 32, height: 32, viewBox: '0 0 24 24', fill: 'none', stroke: '#ee7830', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+  h('path', { d: 'M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14l-5-4.87 6.91-1.01L12 2z' }),
+]);
+const RippleIcon = () => h('svg', { width: 32, height: 32, viewBox: '0 0 24 24', fill: 'none', stroke: '#ee7830', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+  h('circle', { cx: 12, cy: 12, r: 2 }),
+  h('path', { d: 'M12 5a7 7 0 010 14M12 2a10 10 0 010 20' }),
+]);
+
 const values = [
   {
+    icon: HeartIcon,
     title: 'Compassion',
     body: 'We believe every great placement begins with a genuine commitment to improving lives.',
   },
   {
+    icon: CompassIcon,
     title: 'Purpose',
     body: 'We connect people with opportunities that create meaningful careers and better patient outcomes.',
   },
   {
+    icon: StarIcon,
     title: 'Excellence',
     body: 'We never settle for "good enough." Every placement is held to the highest clinical standards.',
   },
   {
+    icon: RippleIcon,
     title: 'Impact',
     body: "Every therapist we place has the power to change a life. That's a responsibility we take seriously.",
   },
@@ -29,7 +50,9 @@ const values = [
 
       <div class="about-values__grid">
         <div v-for="val in values" :key="val.title" class="about-values__card">
-          <div class="about-values__img"></div>
+          <div class="about-values__icon-wrap">
+            <component :is="val.icon" />
+          </div>
           <div class="about-values__card-body">
             <h3 class="about-values__card-title">{{ val.title }}</h3>
             <p class="about-values__card-text">{{ val.body }}</p>
@@ -95,11 +118,15 @@ const values = [
     gap: 1rem;
   }
 
-  &__img {
-    width: 100%;
-    height: 13.6875rem;
-    border-radius: 2.5rem;
-    background: #d9d9d9;
+  &__icon-wrap {
+    width: 4.75rem;
+    height: 4.75rem;
+    border-radius: 50%;
+    background: rgba($color-orange, 0.1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
   }
 
   &__card-body {
