@@ -258,7 +258,11 @@ async function submit() {
 
       <!-- RIGHT: Image + Sidebar cards -->
       <div class="rs-sidebar">
-        <div class="rs-sidebar__img"></div>
+        <img
+          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994263/Tell_Us_About_Yourself_588x889_goum4u.webp"
+          alt="Tell us about yourself"
+          class="rs-sidebar__img"
+        />
 
         <div class="rs-info-card">
           <p class="rs-info-card__label">Contact Information</p>
@@ -611,7 +615,7 @@ async function submit() {
   width: 100%;
   height: 34rem;
   border-radius: 1.5rem;
-  background: linear-gradient(135deg, #b8d4e8 0%, #8ab9d4 60%, #6aa5c8 100%);
+  object-fit: cover;
 
   @media (max-width: 900px) { height: 20rem; }
 }

@@ -64,6 +64,7 @@
     align-items: center;
 
     // &--reversed { flex-direction: row-reverse; }
+    
 
     @media (max-width: 800px) {
       flex-direction: column !important;

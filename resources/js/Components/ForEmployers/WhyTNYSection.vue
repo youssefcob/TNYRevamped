@@ -21,14 +21,14 @@
             therapy professionals with the speed your facility demands.
           </p>
           <div class="why-tny__stats">
-            <div class="why-tny__stat">
+            <!-- <div class="why-tny__stat">
               <span class="why-tny__stat-value">98<span class="why-tny__stat-suffix">%</span></span>
               <span class="why-tny__stat-label">Client Satisfaction Rate</span>
             </div>
             <div class="why-tny__stat">
               <span class="why-tny__stat-value">24<span class="why-tny__stat-suffix">h</span></span>
               <span class="why-tny__stat-label">Emergency Response Time</span>
-            </div>
+            </div> -->
           </div>
         </div>
         <img

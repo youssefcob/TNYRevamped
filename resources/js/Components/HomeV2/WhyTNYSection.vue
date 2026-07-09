@@ -37,8 +37,8 @@ import { h } from 'vue';
 
 const stats = [
   { value: '500', suffix: '+', label: 'Successful Placements' },
-  { value: '98', suffix: '%', label: 'Client Satisfaction Rate' },
-  { value: '24', suffix: 'h', label: 'Emergency Response Time' },
+  // { value: '98', suffix: '%', label: 'Client Satisfaction Rate' },
+  // { value: '24', suffix: 'h', label: 'Emergency Response Time' },
   { value: '10', suffix: '+', label: 'Years of Experience' },
 ];
 

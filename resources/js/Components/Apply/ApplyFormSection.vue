@@ -355,7 +355,11 @@ async function submit() {
 
       <!-- Sidebar -->
       <div class="apply-form__sidebar">
-        <div class="apply-form__sidebar-image"></div>
+        <img
+          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994261/Tell_Us_About_Your_Staffing_Needs_588x889_dykgjl.webp"
+          alt="Tell us about your staffing needs"
+          class="apply-form__sidebar-image"
+        />
 
         <div class="apply-form__info-card">
           <p class="apply-form__info-label">Contact Information</p>
@@ -714,7 +718,7 @@ async function submit() {
     width: 100%;
     height: 34rem;
     border-radius: 1.5rem;
-    background: linear-gradient(135deg, #b8d4e8 0%, #8ab9d4 50%, #6a9eb8 100%);
+    object-fit: cover;
   }
 
   &__info-card {
