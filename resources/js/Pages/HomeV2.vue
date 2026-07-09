@@ -21,7 +21,7 @@ import CtaBanner from '@/Components/HomeV2/CtaBanner.vue';
     <WhyTNYSection />
     <IndustriesSection />
     <TestimonialsSection />
-    <TrustedBy />
+    <!-- <TrustedBy /> -->
     <ResourcesSection />
     <CtaBanner />
   </LayoutV2>
