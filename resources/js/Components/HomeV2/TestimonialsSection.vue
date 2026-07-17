@@ -5,21 +5,21 @@ const active = ref(0);
 
 const testimonials = [
   {
-    quote: '"Therapy of New York filled three PT positions within 48 hours when our census spiked unexpectedly. Every clinician they sent was credentialed, professional, and hit the ground running. We\'ve made them our primary staffing partner."',
+    quote: '"TNY Staffing Corporation  filled three PT positions within 48 hours when our census spiked unexpectedly. Every clinician they sent was credentialed, professional, and hit the ground running. We\'ve made them our primary staffing partner."',
     name: 'Michelle R.',
     title: 'Director of Rehab Services · Brooklyn Medical Center',
     initials: 'MR',
     color: '#1e3a4a',
   },
   {
-    quote: '"As a bilingual SLP, I struggled to find positions that valued my Spanish skills. Therapy of New York matched me with a school that specifically needed Spanish-speaking clinicians. It was the right fit from day one."',
+    quote: '"As a bilingual SLP, I struggled to find positions that valued my Spanish skills. TNY Staffing Corporation  matched me with a school that specifically needed Spanish-speaking clinicians. It was the right fit from day one."',
     name: 'Carlos M., MS CCC-SLP',
     title: 'Speech-Language Pathologist · Queens, NY',
     initials: 'CM',
     color: '#2d4a3e',
   },
   {
-    quote: '"We\'ve worked with multiple staffing agencies over the years. None have matched the responsiveness and quality of Therapy of New York. Our dedicated account manager actually understands rehab operations — that\'s a huge difference."',
+    quote: '"We\'ve worked with multiple staffing agencies over the years. None have matched the responsiveness and quality of TNY Staffing Corporation . Our dedicated account manager actually understands rehab operations — that\'s a huge difference."',
     name: 'Patricia L.',
     title: 'Administrator · Sunrise Skilled Nursing',
     initials: 'PL',

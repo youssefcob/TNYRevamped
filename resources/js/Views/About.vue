@@ -5,7 +5,7 @@
         <div class="about-content">
             <div class="about-text">
                 <p>
-                    Therapy of New York is a well-recognized leader in physical therapy staffing solutions for medical
+                    TNY Staffing Corporation  is a well-recognized leader in physical therapy staffing solutions for medical
                     facilities
                     in New York and New Jersey City. We strive to recruit highly-trained, compassionate medical
                     professionals

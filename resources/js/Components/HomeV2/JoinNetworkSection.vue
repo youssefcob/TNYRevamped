@@ -4,7 +4,7 @@
       <p class="section-label">For Healthcare Professionals</p>
       <h2 class="join__title">Join our Network</h2>
       <p class="join__body">
-        TNY Therapy of New York partners with experienced healthcare professionals seeking
+        TNY Staffing Corporation  partners with experienced healthcare professionals seeking
         flexible opportunities, supportive recruiters, and meaningful placements across
         hospitals, rehabilitation centers, clinics, and healthcare organizations.
       </p>

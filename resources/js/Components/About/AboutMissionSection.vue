@@ -7,7 +7,7 @@
         <img
           class="about-mission__img about-mission__img--about"
           src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
-          alt="Therapy of New York team"
+          alt="TNY Staffing Corporation  team"
         />
         <div class="about-mission__copy">
           <p class="about-mission__label">About Us</p>

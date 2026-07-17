@@ -7,7 +7,7 @@
         <div class="footer2__brand">
           <img src="@/Svg/logo.svg" alt="TNY" class="footer2__logo" />
           <div>
-            <p class="footer2__brand-name">Therapy of New York</p>
+            <p class="footer2__brand-name">TNY Staffing Corporation </p>
             <p class="footer2__brand-tagline">Healthcare Staffing</p>
           </div>
         </div>
@@ -52,9 +52,9 @@
         <p class="footer2__col-heading">Company</p>
         <ul class="footer2__links">
           <li><a href="/about">About Us</a></li>
-          <li><a href="#">Case Studies</a></li>
-          <li><a href="#">Testimonials</a></li>
-          <li><a href="#">Industries We Serve</a></li>
+          <!-- <li><a href="#">Case Studies</a></li> -->
+          <!-- <li><a href="#">Testimonials</a></li> -->
+          <!-- <li><a href="#">Industries We Serve</a></li> -->
           <li><a href="/news">Resources</a></li>
           <li><a href="#contact">Contact</a></li>
         </ul>
@@ -93,12 +93,12 @@
     </div>
 
     <div class="footer2__bottom">
-      <p class="footer2__copyright">© 2026 Therapy of New York. All rights reserved.</p>
+      <p class="footer2__copyright">© 2026 TNY Staffing Corporation . All rights reserved.</p>
       <div class="footer2__legal">
         <a href="#">Privacy Policy</a>
         <a href="#">Terms of Service</a>
-        <a href="#">Accessibility</a>
-        <a href="#">Sitemap</a>
+        <!-- <a href="#">Accessibility</a> -->
+        <!-- <a href="#">Sitemap</a> -->
       </div>
     </div>
   </footer>

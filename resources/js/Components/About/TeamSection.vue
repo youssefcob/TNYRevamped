@@ -12,7 +12,7 @@
       <img
         class="about-team__photo"
         src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
-        alt="Therapy of New York team"
+        alt="TNY Staffing Corporation  team"
       />
     </div>
   </section>

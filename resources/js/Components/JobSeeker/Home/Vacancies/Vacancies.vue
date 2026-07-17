@@ -8,7 +8,7 @@ import { vacanciesState } from '@/state/state';
     <div class="container" v-if="vacanciesState.length > 0">
         <h2 class="title">Vacancies</h2>
         <br>
-        <h2 class="subtitle">Therapy of New York</h2>
+        <h2 class="subtitle">TNY Staffing Corporation </h2>
         <h3>Your Gateway to Top-tier Talent and Seamless Integration</h3>
 
         <br>

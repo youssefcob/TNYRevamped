@@ -25,9 +25,9 @@ onMounted(() => {
       <div class="container">
         <h2 class="title">Services</h2>
         <br>
-        <h2 class="subtitle">Therapy of New York- redefining staffing solutions</h2>
+        <h2 class="subtitle">TNY Staffing Corporation - redefining staffing solutions</h2>
         <br>
-        <h2 class="subtitle blue">Why Therapy of New York?</h2>
+        <h2 class="subtitle blue">Why TNY Staffing Corporation ?</h2>
 
         <div class="services-wrapper">
             <SingleService v-for="service in serviceState" :key="service.id" :service="service" />

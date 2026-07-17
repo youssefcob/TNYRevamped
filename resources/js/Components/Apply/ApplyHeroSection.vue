@@ -8,7 +8,7 @@
       <p class="apply-hero__subtitle">
         Whether you're a Physical Therapist, Occupational Therapist, Speech-Language Pathologist,
         Rehab Aide, Massage Therapist, Acupuncturist, Medical Sales Representative, or Flyer Distributor,
-        Therapy of New York can help connect you with rewarding opportunities across New York City.
+        TNY Staffing Corporation  can help connect you with rewarding opportunities across New York City.
       </p>
     </div>
   </section>

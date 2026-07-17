@@ -42,11 +42,11 @@ onUnmounted(() => {
     <div class="container">
         <h2 class="title">Job Seekers</h2>
         <br>
-        <h2 class="subtitle">Therapy of New York ... Navigating Careers, Fulfilling Dreams</h2>
+        <h2 class="subtitle">TNY Staffing Corporation  ... Navigating Careers, Fulfilling Dreams</h2>
         <br>
         <br>
 
-        <p>At Therapy of New York, we prioritize your success. Access tailored opportunities and expert matching with
+        <p>At TNY Staffing Corporation , we prioritize your success. Access tailored opportunities and expert matching with
             top employers. Benefit from personalized support and prepare to excel in your physical therapy career
             journey. Partner with us for confidence in unlocking growth opportunities.</p>
         <br>

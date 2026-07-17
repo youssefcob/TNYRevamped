@@ -3,7 +3,7 @@ import { ref } from 'vue';
 
 const faqs = [
   {
-    q: 'How quickly can TNY Therapy of New York place a professional at our facility?',
+    q: 'How quickly can TNY Staffing Corporation  place a professional at our facility?',
     a: 'We can typically place qualified therapy professionals within 24–48 hours for urgent needs, and within 1–2 weeks for standard placements, depending on specialty and location requirements.',
   },
   {
@@ -47,7 +47,7 @@ const toggle = (i: number) => {
       <div class="faq__heading">
         <h2 class="faq__title">Frequently Asked Questions</h2>
         <p class="faq__subtitle">
-          Everything employers need to know about partnering with TNY Therapy of New York.
+          Everything employers need to know about partnering with TNY Staffing Corporation .
         </p>
         <div class="faq__divider" />
       </div>

@@ -19,7 +19,7 @@ const scrolled = computed(() => isScrolled.value || isAboutPage.value);
   <nav class="nav2" :class="{ 'nav2--scrolled': scrolled }">
     <div class="nav2__inner">
       <Link href="/" class="nav2__logo">
-        <img src="/images/tnylogo.png" alt="Therapy of New York" />
+        <img src="/images/tnylogo.png" alt="TNY Staffing Corporation " />
       </Link>
 
       <div class="nav2__links">

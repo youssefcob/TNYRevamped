@@ -1,7 +1,7 @@
 <template>
   <section class="why">
     <div class="why__header">
-      <p class="section-label">Why Therapy of New York</p>
+      <p class="section-label">Why TNY Staffing Corporation </p>
       <h2 class="why__title">Staffing Solutions Built Around Your Facility</h2>
       <p class="why__subtitle">
         Discover flexible, customized therapy staffing solutions that help your team stay
@@ -68,7 +68,7 @@ const HeartIcon = () => h('svg', { width: 20, height: 20, viewBox: '0 0 24 24', 
 const features = [
   { icon: BoltIcon, title: 'Fast Placements', body: 'From intake to placement in as little as 24 hours. Our network of pre-vetted professionals is always ready.' },
   { icon: GlobeIcon, title: 'Multilingual Professionals', body: 'Spanish, Mandarin, Russian, and more. We match your patient demographics with culturally competent therapists.' },
-  { icon: ShieldIcon, title: 'Compliance Support', body: 'Every professional is fully credentialed, background-checked, and compliant with Joint Commission standards.' },
+  { icon: ShieldIcon, title: 'Recruitment Support', body: 'End-to-end talent sourcing, candidate matching, and interview coordination to handle the heavy lifting of hiring so you can focus on patient care.' },
   { icon: GearIcon, title: 'Flexible Staffing Models', body: 'Per diem, part-time, full-time, and contract arrangements to match your specific operational needs.' },
   { icon: MagnifyIcon, title: 'Quality Screening', body: 'Rigorous clinical assessments, reference checks, and skills validation before any candidate is presented.' },
   { icon: HeartIcon, title: 'Dedicated Support', body: 'A dedicated account manager for every client — proactive communication, not just reactive problem-solving.' },

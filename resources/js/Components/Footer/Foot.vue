@@ -100,7 +100,7 @@ const closeModal = () => {
         <div class="down">
             <div class="policy" @click="openModal()">
                 <span>
-                    Therapy of New York ©  2023. Privacy Policy
+                    TNY Staffing Corporation  ©  2023. Privacy Policy
                 </span>
             </div>
             <div class="follow">

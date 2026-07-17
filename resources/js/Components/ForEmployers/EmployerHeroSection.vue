@@ -7,7 +7,7 @@
         Exactly When You Need It
       </h1>
       <p class="emp-hero__subtitle">
-        When staffing needs can't wait, Therapy of New York delivers trusted rehabilitation
+        When staffing needs can't wait, TNY Staffing Corporation  delivers trusted rehabilitation
         professionals—supporting healthcare facilities across all five boroughs with both
         immediate coverage and long-term workforce solutions.
       </p>

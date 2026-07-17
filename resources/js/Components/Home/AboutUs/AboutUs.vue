@@ -8,7 +8,7 @@ import { Link } from '@inertiajs/vue3';
         <h2 class="title">About us</h2>
         <div class="wrapper">
         <div class="text-wrapper">
-            <p>Therapy of New York is a well-recognized  leader in Medical staffing including Physical, Occupational & Speech therapy for medical
+            <p>TNY Staffing Corporation  is a well-recognized  leader in Medical staffing including Physical, Occupational & Speech therapy for medical
                 facilities in New York and New Jersey. We strive to recruit highly-trained, compassionate medical
                 professionals who possess exceptional skills and a strong work ethic to meet the high standards of
                 healthcare facilities. We’re dedicated to providing the highest-quality medical staffing solutions that
