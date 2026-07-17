@@ -23,7 +23,7 @@ const scrolled = computed(() => isScrolled.value || isAboutPage.value);
       </Link>
 
       <div class="nav2__links">
-        <a href="/solutions">Solutions</a>
+        <a href="/solutions">Services</a>
         <a href="/employers">For Employers</a>
         <a href="/candidates">For Candidates</a>
         <a href="/resources">Resources</a>

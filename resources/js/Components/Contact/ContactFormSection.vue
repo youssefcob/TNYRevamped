@@ -5,7 +5,7 @@ import { snack } from '@/mixins/toast';
 import DropDownInputField from '@/Components/UI/DropDownInputField.vue';
 import { vMaska } from 'maska/vue';
 
-const role = ref<'employer' | 'candidate'>('employer');
+const role = ref<'employer' | 'candidate' | null>(null);
 const isLoading = ref(false);
 const subjectRef = ref<InstanceType<typeof DropDownInputField> | null>(null);
 
@@ -90,6 +90,7 @@ const submitForm = async () => {
         </div>
 
         <!-- Role toggle -->
+        <!--
         <div class="contact-card__role">
           <p class="contact-card__role-label">I Am A...</p>
           <div class="contact-card__role-btns">
@@ -107,6 +108,7 @@ const submitForm = async () => {
             >Candidate</button>
           </div>
         </div>
+        -->
 
         <!-- Name row -->
         <div class="contact-card__grid">

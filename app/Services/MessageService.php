@@ -63,6 +63,7 @@ class MessageService
                'phone' => ['required', 'regex:/^(\+1|1)?\d{10}$/'],
                'subject' => ['required', 'string'],
                'message' => ['required', 'string'],
+               'type' => ['nullable', 'string'],
             ]);
 
             $message = Message::create([
@@ -71,6 +72,7 @@ class MessageService
                 'phone' => $request->phone,
                 'subject' => $request->subject,
                 'message' => $request->message,
+                'type' => $request->type,
             ]);
 
             $this->sendMessageSubmittedEmail($request->email,$message);
