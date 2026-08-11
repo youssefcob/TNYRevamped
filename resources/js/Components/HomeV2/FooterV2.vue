@@ -56,7 +56,7 @@
           <!-- <li><a href="#">Testimonials</a></li> -->
           <!-- <li><a href="#">Industries We Serve</a></li> -->
           <li><a href="/news">Resources</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a href="/contact">Contact</a></li>
         </ul>
       </div>
 
@@ -73,13 +73,13 @@
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.29 6.29l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
             </svg>
-            <span>(347) 441-4283</span>
+            <a href="tel:+13474414283">(347) 441-4283</a>
           </div>
           <div class="footer2__contact-item">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
             </svg>
-            <span>staffing@therapyofnewyork.com</span>
+            <a href="mailto:staffing@therapyofnewyork.com">staffing@therapyofnewyork.com</a>
           </div>
           <div class="footer2__contact-item">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
@@ -267,10 +267,16 @@
     align-items: center;
     gap: 0.625rem;
 
-    span {
+    span, a {
       font-family: $font-body;
       font-size: 0.82rem;
       color: $color-white;
+    }
+
+    a {
+      text-decoration: none;
+
+      &:hover { text-decoration: underline; }
     }
 
     svg { flex-shrink: 0; }

@@ -41,7 +41,7 @@ import StatsBar from './StatsBar.vue';
 <style scoped lang="scss">
 .hero2 {
   position: relative;
-  height: 100vh;
+  min-height: 100vh;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -51,7 +51,6 @@ import StatsBar from './StatsBar.vue';
       rgba(0, 33, 71, 0.9) 61%,
       rgb(0, 33, 71) 99.76%);
   padding: 8rem 7.5rem 0;
-  overflow: hidden;
 
   &::before {
     content: '';
@@ -66,6 +65,10 @@ import StatsBar from './StatsBar.vue';
 
   @media (max-width: 1100px) {
     padding: 7rem 2rem 0;
+  }
+
+  @media (max-height: 820px) and (min-width: 1101px) {
+    padding: 6rem 7.5rem 0;
   }
 
   @media (max-width: 640px) {

@@ -10,7 +10,7 @@
         <a href="/requestService" class="cta-banner__btn cta-banner__btn--primary">
           Schedule Consultation →
         </a>
-        <a href="#contact" class="cta-banner__btn cta-banner__btn--outline">
+        <a href="/contact" class="cta-banner__btn cta-banner__btn--outline">
           Contact Us →
         </a>
       </div>

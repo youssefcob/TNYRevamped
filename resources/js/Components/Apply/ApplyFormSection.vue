@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, reactive, onMounted, onUnmounted } from 'vue';
+import { ref, reactive, computed, onMounted, onUnmounted } from 'vue';
 import Http from '@/mixins/Http';
 import { snack } from '@/mixins/toast';
 
@@ -10,19 +10,10 @@ const props = defineProps<{
   preselected?: string;
 }>();
 
-const professions = [
-  'Physical Therapist (PT)',
-  'Physical Therapy Assistant (PTA)',
-  'Occupational Therapist (OT)',
-  'Occupational Therapy Assistant (COTA)',
-  'Speech-Language Pathologist (SLP)',
-  'Rehab Aide',
-  'Massage Therapist',
-  'Acupuncturist',
-  'Medical Sales Representative',
-  'Flyer Distributor',
-  'Other',
-];
+const professions = computed(() => {
+  const titles = (props.jobs ?? []).map(j => j.title);
+  return [...new Set(titles)];
+});
 
 const licenseOptions = ['Licensed', 'In Process', 'Student / Intern'];
 const experienceOptions = ['0–1 years', '1–3 years', '3–5 years', '5+ years'];

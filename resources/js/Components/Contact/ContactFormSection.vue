@@ -203,13 +203,13 @@ const submitForm = async () => {
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.59 3.47 2 2 0 0 1 3.56 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.08 5.08l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 14.92z"/>
               </svg>
-              <span>(347) 441-4283</span>
+              <a href="tel:+13474414283">(347) 441-4283</a>
             </div>
             <div class="info-card__row">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
               </svg>
-              <span>staffing@therapyofnewyork.com</span>
+              <a href="mailto:staffing@therapyofnewyork.com">staffing@therapyofnewyork.com</a>
             </div>
             <div class="info-card__row">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -510,7 +510,14 @@ const submitForm = async () => {
     color: $color-dark;
 
     svg { flex-shrink: 0; color: $color-dark; }
-    span { min-width: 0; overflow-wrap: anywhere; }
+    span, a { min-width: 0; overflow-wrap: anywhere; }
+
+    a {
+      color: $color-dark;
+      text-decoration: none;
+
+      &:hover { text-decoration: underline; }
+    }
   }
 
   // Hours rows

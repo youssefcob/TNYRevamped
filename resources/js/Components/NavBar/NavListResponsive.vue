@@ -73,8 +73,8 @@ onUnmounted(() => {
                 <li role="menuitem" :active="isActive('#news')">
                     <Hroute on="/" to="#news" :active="isActive('#news')">News</Hroute>
                 </li>
-                <li role="menuitem" :active="isActive('#contact')">
-                    <Hroute on="/" to="#contact" :active="isActive('#contact')">Contact Us</Hroute>
+                <li role="menuitem" :active="isActive('/contact')">
+                    <Hroute on="/" to="/contact" :active="isActive('/contact')">Contact Us</Hroute>
                 </li>
                 <div v-if="!userIsLoggedIn"  class="auth-btns-wrapper">
             <Link href="/login" class="btn">Login</Link>

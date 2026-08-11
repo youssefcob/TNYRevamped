@@ -42,7 +42,7 @@ const scrolled = computed(() => isScrolled.value || isAboutPage.value);
     </div>
 
     <div class="nav2__mobile" :class="{ 'nav2__mobile--open': menuOpen }">
-      <a href="/solutions" @click="menuOpen = false">Solutions</a>
+      <a href="/solutions" @click="menuOpen = false">Services</a>
       <a href="/employers" @click="menuOpen = false">For Employers</a>
       <a href="/candidates" @click="menuOpen = false">For Candidates</a>
       <a href="/resources" @click="menuOpen = false">Resources</a>
@@ -90,6 +90,7 @@ const scrolled = computed(() => isScrolled.value || isAboutPage.value);
 
     img {
       height: 2.8em;
+      // display:none;
       width: auto;
     }
   }
@@ -210,4 +211,6 @@ const scrolled = computed(() => isScrolled.value || isAboutPage.value);
     padding-top: 1em;
   }
 }
+
+
 </style>

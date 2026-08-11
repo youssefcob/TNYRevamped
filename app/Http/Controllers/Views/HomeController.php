@@ -7,7 +7,6 @@ use App\Models\News;
 use App\Services\Content\ClientsService;
 use App\Services\Content\EmployersService;
 use App\Models\Position;
-use App\Services\Content\JobsService;
 use App\Services\Content\NewsService;
 use App\Services\Content\ServicesService;
 use App\Services\Content\TeamService;
@@ -91,7 +90,7 @@ class HomeController extends Controller
     {
         $data = [];
 
-        $data['jobs'] = JobsService::get();
+        $data['jobs'] = Position::where('available', true)->orderBy('created_at', 'desc')->get();
         $data['position'] = $position;
         return Inertia::render('JobSeekers/Apply', $data);
     }

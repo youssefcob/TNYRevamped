@@ -1,11 +1,13 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import Modal from '@/SharedComponents/modal.vue';
 
 interface Position {
   id: number;
   title: string;
   description: string;
   available: boolean;
+  address?: string | null;
 }
 
 const props = defineProps<{ positions: Position[] }>();
@@ -19,6 +21,14 @@ const filtered = computed(() => {
     p => p.title.toLowerCase().includes(q) || p.description.toLowerCase().includes(q)
   );
 });
+
+const detailsModal = ref<InstanceType<typeof Modal> | null>(null);
+const activePosition = ref<Position | null>(null);
+
+function viewDetails(pos: Position) {
+  activePosition.value = pos;
+  detailsModal.value?.openModal();
+}
 </script>
 
 <template>
@@ -84,7 +94,10 @@ const filtered = computed(() => {
               <span class="listings__cell-text">New York, NY</span>
               <span class="listings__cell-text">Full-Time</span>
               <span class="listings__cell-text">—</span>
-              <a :href="`/apply`" class="listings__apply-btn">Apply</a>
+              <div class="listings__actions">
+                <button type="button" class="listings__view-btn" @click="viewDetails(pos)">View</button>
+                <a :href="`/apply/${encodeURIComponent(pos.title)}`" class="listings__apply-btn">Apply</a>
+              </div>
             </div>
           </div>
 
@@ -92,6 +105,17 @@ const filtered = computed(() => {
       </div>
 
     </div>
+
+    <Modal ref="detailsModal">
+      <div v-if="activePosition" class="job-details">
+        <h3>{{ activePosition.title }}</h3>
+        <p class="job-details__meta">
+          {{ activePosition.address || 'New York, NY' }} · Full-Time
+        </p>
+        <p class="job-details__desc">{{ activePosition.description }}</p>
+        <a :href="`/apply/${encodeURIComponent(activePosition.title)}`" class="listings__apply-btn job-details__apply">Apply</a>
+      </div>
+    </Modal>
   </section>
 </template>
 
@@ -315,6 +339,34 @@ const filtered = computed(() => {
     @media (max-width: 900px) { flex: none; }
   }
 
+  &__actions {
+    flex: 1;
+    display: flex;
+    gap: 0.75rem;
+    max-width: 16rem;
+
+    @media (max-width: 900px) { max-width: none; width: 100%; }
+  }
+
+  &__view-btn {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 3.9375rem;
+    background: transparent;
+    border: 1px solid #0f2b3d;
+    color: #0f2b3d;
+    border-radius: 2.5rem;
+    font-family: $font-heading;
+    font-size: $btn-size;
+    font-weight: $btn-weight;
+    cursor: pointer;
+    transition: background 0.25s, color 0.25s;
+
+    &:hover { background: #0f2b3d; color: $color-white; }
+  }
+
   &__apply-btn {
     flex: 1;
     display: flex;
@@ -333,7 +385,42 @@ const filtered = computed(() => {
 
     &:hover { background: lighten(#0f2b3d, 10%); }
 
-    @media (max-width: 900px) { flex: none; max-width: none; width: 100%; }
+    @media (max-width: 900px) { max-width: none; }
+  }
+}
+
+.job-details {
+  background: $color-white;
+  border-radius: 1.5rem;
+  padding: 2.5rem;
+  max-width: 32rem;
+
+  h3 {
+    font-family: $font-heading;
+    font-weight: $fw-bold;
+    font-size: 1.5rem;
+    color: $color-dark;
+  }
+
+  &__meta {
+    font-family: $font-body;
+    font-size: 1rem;
+    color: rgba($color-dark, 0.55);
+    margin-top: 0.5rem;
+  }
+
+  &__desc {
+    font-family: $font-body;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: $color-dark;
+    margin-top: 1.5rem;
+    white-space: pre-line;
+  }
+
+  &__apply {
+    margin-top: 2rem;
+    max-width: none;
   }
 }
 </style>

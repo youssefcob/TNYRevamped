@@ -8,6 +8,7 @@ interface Position {
   title: string;
   description: string;
   available: boolean;
+  address?: string | null;
 }
 
 defineProps<{ positions: Position[] }>();

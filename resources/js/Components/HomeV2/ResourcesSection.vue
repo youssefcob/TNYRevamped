@@ -1,5 +1,5 @@
 <template>
-  <section class="resources">
+  <section v-if="latestArticles.length > 0" class="resources">
     <div class="resources__header">
       <div class="resources__header-left">
         <p class="section-label">Resources</p>
@@ -9,21 +9,21 @@
     </div>
 
     <div class="resources__cards">
-      <article v-for="article in articles" :key="article.title" class="res-card">
-        <div class="res-card__banner" :style="{ background: article.bannerBg }">
+      <article v-for="(article, idx) in latestArticles" :key="article.id" class="res-card">
+        <div class="res-card__banner" :style="{ background: cardSchemes[idx % 3].banner }">
           <div class="res-card__icon-wrap">
-            <component :is="article.icon" />
+            <component :is="cardSchemes[idx % 3].icon" :stroke="cardSchemes[idx % 3].tagColor" />
           </div>
         </div>
         <div class="res-card__body">
-          <span class="res-card__tag" :style="{ background: article.tagBg, color: article.tagColor }">
-            {{ article.tag }}
+          <span class="res-card__tag" :style="{ background: cardSchemes[idx % 3].tagBg, color: cardSchemes[idx % 3].tagColor }">
+            {{ cardSchemes[idx % 3].category }}
           </span>
           <h4 class="res-card__title">{{ article.title }}</h4>
-          <p class="res-card__excerpt">{{ article.excerpt }}</p>
+          <p class="res-card__excerpt">{{ excerpt(article.content) }}</p>
           <div class="res-card__footer">
-            <span class="res-card__read-time">{{ article.readTime }}</span>
-            <a href="/news" class="res-card__read-more">Read more →</a>
+            <span class="res-card__read-time">{{ readTime(article.content) }}</span>
+            <a :href="`/news/${article.id}`" class="res-card__read-more">Read more →</a>
           </div>
         </div>
       </article>
@@ -32,55 +32,56 @@
 </template>
 
 <script setup lang="ts">
-import { h } from 'vue';
+import { computed, h } from 'vue';
 
-const chartIcon = () => h('svg', { width: 30, height: 30, viewBox: '0 0 24 24', fill: 'none', stroke: '#1a5c52', 'stroke-width': 2 }, [
+interface NewsItem {
+  id: number;
+  title: string;
+  image: string;
+  content: string | null;
+  created_at: string;
+}
+
+const props = defineProps<{ articles: NewsItem[] }>();
+
+const latestArticles = computed(() =>
+  [...props.articles]
+    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+    .slice(0, 3)
+);
+
+const chartIcon = (attrs: Record<string, unknown>) => h('svg', { width: 30, height: 30, viewBox: '0 0 24 24', fill: 'none', 'stroke-width': 2, ...attrs }, [
   h('polyline', { points: '22 7 13.5 15.5 8.5 10.5 2 17' }),
   h('polyline', { points: '16 7 22 7 22 13' }),
 ]);
-const stethIcon = () => h('svg', { width: 30, height: 30, viewBox: '0 0 30 30', fill: 'none', stroke: '#6D4FC2', 'stroke-width': '2.1875', 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
+const stethIcon = (attrs: Record<string, unknown>) => h('svg', { width: 30, height: 30, viewBox: '0 0 30 30', fill: 'none', 'stroke-width': '2.1875', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', ...attrs }, [
   h('path', { d: 'M13.75 2.5V5' }),
   h('path', { d: 'M6.25 2.5V5' }),
   h('path', { d: 'M6.25 3.75H5C4.33696 3.75 3.70107 4.01339 3.23223 4.48223C2.76339 4.95107 2.5 5.58696 2.5 6.25V11.25C2.5 13.2391 3.29018 15.1468 4.6967 16.5533C6.10322 17.9598 8.01088 18.75 10 18.75C11.9891 18.75 13.8968 17.9598 15.3033 16.5533C16.7098 15.1468 17.5 13.2391 17.5 11.25V6.25C17.5 5.58696 17.2366 4.95107 16.7678 4.48223C16.2989 4.01339 15.663 3.75 15 3.75H13.75' }),
   h('path', { d: 'M10 18.75C10 20.7391 10.7902 22.6468 12.1967 24.0533C13.6032 25.4598 15.5109 26.25 17.5 26.25C19.4891 26.25 21.3968 25.4598 22.8033 24.0533C24.2098 22.6468 25 20.7391 25 18.75V15' }),
   h('path', { d: 'M25 15C26.3807 15 27.5 13.8807 27.5 12.5C27.5 11.1193 26.3807 10 25 10C23.6193 10 22.5 11.1193 22.5 12.5C22.5 13.8807 23.6193 15 25 15Z' }),
 ]);
-const lightbulbIcon = () => h('svg', { width: 30, height: 30, viewBox: '0 0 24 24', fill: 'none', stroke: '#96600e', 'stroke-width': 2 }, [
+const lightbulbIcon = (attrs: Record<string, unknown>) => h('svg', { width: 30, height: 30, viewBox: '0 0 24 24', fill: 'none', 'stroke-width': 2, ...attrs }, [
   h('path', { d: 'M9 18h6M10 22h4M12 2a7 7 0 00-4 12.74V17a1 1 0 001 1h6a1 1 0 001-1v-2.26A7 7 0 0012 2z' }),
 ]);
 
-const articles = [
-  {
-    bannerBg: '#c8e8df',
-    icon: chartIcon,
-    tag: 'Staffing Trends',
-    tagBg: '#e0f2ec',
-    tagColor: '#1a5c52',
-    title: '2025 Healthcare Staffing Outlook: What NY Facilities Need to Know',
-    excerpt: 'Rising demand for therapy professionals in NYC and how forward-thinking facilities are staying ahead of the shortage.',
-    readTime: '8 min read',
-  },
-  {
-    bannerBg: '#ddd6f3',
-    icon: stethIcon,
-    tag: 'Career Tips',
-    tagBg: '#ede9fb',
-    tagColor: '#4a2fa0',
-    title: '5 Things Every New Grad Therapist Should Do Before Their First Placement',
-    excerpt: 'From credentialing to negotiating your contract, a practical guide for therapy professionals entering the New York market.',
-    readTime: '6 min read',
-  },
-  {
-    bannerBg: '#fdefc8',
-    icon: lightbulbIcon,
-    tag: 'Hiring Insights',
-    tagBg: '#fef5d8',
-    tagColor: '#96600e',
-    title: 'Why Multilingual Therapy Staff Is the New Competitive Advantage in NYC Healthcare',
-    excerpt: 'How patient outcomes and satisfaction scores improve when patients are treated by culturally and linguistically matched clinicians.',
-    readTime: '5 min read',
-  },
+const cardSchemes = [
+  { banner: '#c8e8df', tagBg: '#e0f2ec', tagColor: '#1a5c52', category: 'Staffing Trends', icon: chartIcon },
+  { banner: '#ddd6f3', tagBg: '#ede9fb', tagColor: '#4a2fa0', category: 'Career Tips', icon: stethIcon },
+  { banner: '#fdefc8', tagBg: '#fef5d8', tagColor: '#96600e', category: 'Hiring Insights', icon: lightbulbIcon },
 ];
+
+function readTime(text: string | null): string {
+  if (!text) return '3 min read';
+  const words = text.replace(/<[^>]+>/g, ' ').trim().split(/\s+/).length;
+  return `${Math.max(1, Math.round(words / 200))} min read`;
+}
+
+function excerpt(text: string | null): string {
+  if (!text) return '';
+  const stripped = text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
+  return stripped.length > 120 ? stripped.slice(0, 120).trimEnd() + '...' : stripped;
+}
 </script>
 
 <style scoped lang="scss">
