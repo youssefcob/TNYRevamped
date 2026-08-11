@@ -8,10 +8,10 @@
           <!-- <img src="@/Svg/logo.svg" alt="TNY" class="footer2__logo" /> -->
         <img src="/images/tnylogofooter.png" alt="TNY Staffing Corporation " class="footer2__logo" />
 
-          <div>
+          <!-- <div>
             <p class="footer2__brand-name">TNY Staffing Corporation </p>
             <p class="footer2__brand-tagline">Healthcare Staffing</p>
-          </div>
+          </div> -->
         </div>
         <p class="footer2__desc">
           Connecting therapy professionals with healthcare facilities across New York. Premium
