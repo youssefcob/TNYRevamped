@@ -175,7 +175,9 @@ import StatsBar from './StatsBar.vue';
   &__title {
     font-family: $font-heading;
     font-weight: $fw-bold;
-    font-size: clamp(2.3rem, 4vw, 3rem);
+    // Fluid scale from 2.3rem @375px viewport to 3rem @1920px, so it keeps
+    // scaling smoothly across normal desktop widths instead of maxing out at 1200px.
+    font-size: clamp(2.3rem, calc(2.13rem + 0.72vw), 3rem);
     line-height: 1.15;
     color: $color-white;
     margin-bottom: 1.25rem;
@@ -188,7 +190,8 @@ import StatsBar from './StatsBar.vue';
   &__subtitle {
     font-family: $font-body;
     font-weight: $fw-regular;
-    font-size: clamp(1.2rem, 1.5vw, 1.25rem);
+    // Fluid scale from 1.2rem @375px viewport to 1.25rem @1920px.
+    font-size: clamp(1.2rem, calc(1.19rem + 0.05vw), 1.25rem);
     line-height: 1.7;
     color: $color-white;
     max-width: 49rem;
