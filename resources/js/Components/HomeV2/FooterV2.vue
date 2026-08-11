@@ -5,7 +5,9 @@
       <!-- Brand column -->
       <div class="footer2__col footer2__col--brand">
         <div class="footer2__brand">
-          <img src="@/Svg/logo.svg" alt="TNY" class="footer2__logo" />
+          <!-- <img src="@/Svg/logo.svg" alt="TNY" class="footer2__logo" /> -->
+        <img src="/images/tnylogofooter.png" alt="TNY Staffing Corporation " class="footer2__logo" />
+
           <div>
             <p class="footer2__brand-name">TNY Staffing Corporation </p>
             <p class="footer2__brand-tagline">Healthcare Staffing</p>
