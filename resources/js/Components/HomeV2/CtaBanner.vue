@@ -8,7 +8,7 @@
       </p>
       <div class="cta-banner__btns">
         <a href="/requestService" class="cta-banner__btn cta-banner__btn--primary">
-          Schedule Consultation →
+          Hire Staff →
         </a>
         <a href="/contact" class="cta-banner__btn cta-banner__btn--outline">
           Contact Us →

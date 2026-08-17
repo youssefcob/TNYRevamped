@@ -39,14 +39,14 @@ const challenges = [
   },
   {
     number: '02',
-    title: 'Specialty Staffing',
+    title: 'Specialized Therapists',
     body: 'Hard-to-fill therapy roles that demand experienced, qualified professionals.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1783361199/3_1_ifqfn3.webp',
   },
   {
     number: '03',
-    title: 'Administrative Workload',
-    body: 'Credentialing and compliance requirements that slow down hiring.',
+    title: 'Administrative Staffing',
+    body: 'Front-office staffing challenges that disrupt clinic operations and daily patient management.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1783361199/3_1_ifqfn3.webp',
   },
   {

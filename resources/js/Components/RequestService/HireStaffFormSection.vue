@@ -11,9 +11,27 @@ const props = defineProps<{
   preselected?: string;
 }>();
 
-const serviceNames = computed(() => (props.services ?? []).map(s => s.title));
+const facilityTypes = computed(() => [...(props.services ?? []).map(s => s.title), 'Other']);
 
-const urgencyOptions = ['Urgent (ASAP)', 'Within 30 Days', 'Flexible'];
+const positionOptions = [
+  'Physical Therapist (PT)',
+  'Physical Therapist Assistant (PTA)',
+  'Physical Therapist – Limited Permit Holder',
+  'Occupational Therapist (OT)',
+  'Certified Occupational Therapy Assistant (COTA)',
+  'Speech-Language Pathologist (SLP)',
+  'Speech-Language Pathology Assistant (SLPA)',
+  'Licensed Acupuncturist',
+  'Licensed Massage Therapist (LMT)',
+  'School-Based Clinicians (PT, OT, SLP - IEP Compliant)',
+  'Homecare Rehabilitation Therapists',
+  '24-Hour Emergency & Rapid Response Staffing',
+  'Patient Care Coordinator / Front Desk Specialist',
+  'Rehab Aide / Therapy Assistant',
+  'Clinical Support Staff',
+];
+
+const urgencyOptions = ['Immediate Start', 'Within 30 Days', 'Flexible'];
 
 const form = reactive({
   company_name: '',
@@ -21,9 +39,9 @@ const form = reactive({
   email: '',
   phone: '',
   discipline: props.preselected ?? '',
+  requested_positions: [] as string[],
   open_roles: '',
   location: '',
-  pay_range: '',
   start_date: '',
   urgency: '',
   description: '',
@@ -36,11 +54,12 @@ const submitted = ref(false);
 // ---- Dropdown state ----
 const disciplineOpen = ref(false);
 const urgencyOpen = ref(false);
+const positionsOpen = ref(false);
 const disciplineSearch = ref('');
 const urgencySearch = ref('');
 
 const filteredDisciplines = computed(() =>
-  serviceNames.value.filter(s => s.toLowerCase().includes(disciplineSearch.value.toLowerCase()))
+  facilityTypes.value.filter(s => s.toLowerCase().includes(disciplineSearch.value.toLowerCase()))
 );
 const filteredUrgency = computed(() =>
   urgencyOptions.filter(u => u.toLowerCase().includes(urgencySearch.value.toLowerCase()))
@@ -48,14 +67,21 @@ const filteredUrgency = computed(() =>
 
 function closeDiscipline() { disciplineOpen.value = false; disciplineSearch.value = ''; }
 function closeUrgency() { urgencyOpen.value = false; urgencySearch.value = ''; }
+function closePositions() { positionsOpen.value = false; }
 function selectDiscipline(val: string) { form.discipline = val; closeDiscipline(); }
 function selectUrgency(val: string) { form.urgency = val; closeUrgency(); }
+function togglePosition(val: string) {
+  const idx = form.requested_positions.indexOf(val);
+  if (idx === -1) form.requested_positions.push(val);
+  else form.requested_positions.splice(idx, 1);
+}
 
 function onDocClick(e: MouseEvent) {
   const t = e.target as HTMLElement;
   if (!t.closest('.rs-dropdown')) {
     closeDiscipline();
     closeUrgency();
+    closePositions();
   }
 }
 onMounted(() => document.addEventListener('mousedown', onDocClick));
@@ -68,10 +94,10 @@ function fillTestData() {
     contact_name: 'Jamie Rivera',
     email: 'jamie.rivera@example.com',
     phone: '(212) 555-0100',
-    discipline: serviceNames.value[0] ?? 'Physical Therapy',
+    discipline: facilityTypes.value[0] ?? 'Hospitals',
+    requested_positions: [positionOptions[0], positionOptions[3]],
     open_roles: '3',
     location: 'Manhattan, NY',
-    pay_range: '$40-$50/hr',
     start_date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
     urgency: urgencyOptions[0],
     description: 'Looking for licensed therapists to cover an outpatient caseload starting next month.',
@@ -85,7 +111,7 @@ function validate() {
   if (!form.email.trim()) e.email = 'Email is required';
   else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email)) e.email = 'Enter a valid email';
   if (!form.phone.trim()) e.phone = 'Phone number is required';
-  if (!form.discipline) e.discipline = 'Please select a discipline';
+  if (!form.discipline) e.discipline = 'Please select a facility type';
   if (!form.location.trim()) e.location = 'Location is required';
   if (!form.description.trim()) e.description = 'Please provide a brief description';
   Object.assign(errors, e);
@@ -100,8 +126,8 @@ async function submit() {
   loading.value = true;
   try {
     const extras = [
+      form.requested_positions.length ? `Requested Positions: ${form.requested_positions.join(', ')}` : null,
       form.open_roles   ? `Open Roles: ${form.open_roles}`   : null,
-      form.pay_range    ? `Pay Range: ${form.pay_range}`      : null,
       form.start_date   ? `Start Date: ${form.start_date}`    : null,
       form.urgency      ? `Urgency: ${form.urgency}`          : null,
     ].filter(Boolean).join('\n');
@@ -182,13 +208,13 @@ async function submit() {
             </div>
           </div>
 
-          <!-- Discipline Needed -->
+          <!-- Facility Type -->
           <div class="rs-field">
-            <label class="rs-field__label">Discipline Needed</label>
+            <label class="rs-field__label">Facility Type</label>
             <div class="rs-dropdown" :class="{ 'rs-dropdown--open': disciplineOpen, 'rs-dropdown--err': errors.discipline }">
               <div class="rs-dropdown__control" @click="disciplineOpen = !disciplineOpen">
                 <span :class="{ 'rs-dropdown__placeholder': !form.discipline }">
-                  {{ form.discipline || 'PT / PTA / OT / COTA / SLP / Multiple' }}
+                  {{ form.discipline || 'Select the type of your facility' }}
                 </span>
                 <svg class="rs-dropdown__chevron" :class="{ 'rs-dropdown__chevron--open': disciplineOpen }" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M5 7.5L10 12.5L15 7.5" stroke="#222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -207,6 +233,36 @@ async function submit() {
             <span v-if="errors.discipline" class="rs-field__err">{{ errors.discipline }}</span>
           </div>
 
+          <!-- Requested Position (multi-select) -->
+          <div class="rs-field">
+            <label class="rs-field__label">Requested Position</label>
+            <div class="rs-dropdown" :class="{ 'rs-dropdown--open': positionsOpen }">
+              <div class="rs-dropdown__control" @click="positionsOpen = !positionsOpen">
+                <span :class="{ 'rs-dropdown__placeholder': !form.requested_positions.length }">
+                  {{ form.requested_positions.length ? form.requested_positions.join(', ') : 'Select one or more positions' }}
+                </span>
+                <svg class="rs-dropdown__chevron" :class="{ 'rs-dropdown__chevron--open': positionsOpen }" width="20" height="20" viewBox="0 0 20 20" fill="none">
+                  <path d="M5 7.5L10 12.5L15 7.5" stroke="#222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+              <Transition name="rs-drop">
+                <div v-if="positionsOpen" class="rs-dropdown__menu">
+                  <button
+                    v-for="opt in positionOptions"
+                    :key="opt"
+                    type="button"
+                    class="rs-dropdown__option rs-dropdown__option--checkbox"
+                    :class="{ 'rs-dropdown__option--active': form.requested_positions.includes(opt) }"
+                    @mousedown.prevent="togglePosition(opt)"
+                  >
+                    <span class="rs-dropdown__checkbox" :class="{ 'rs-dropdown__checkbox--checked': form.requested_positions.includes(opt) }"></span>
+                    {{ opt }}
+                  </button>
+                </div>
+              </Transition>
+            </div>
+          </div>
+
           <!-- Open Roles + Location -->
           <div class="rs-form__row">
             <div class="rs-field">
@@ -220,16 +276,10 @@ async function submit() {
             </div>
           </div>
 
-          <!-- Pay Range + Start Date -->
-          <div class="rs-form__row">
-            <div class="rs-field">
-              <label class="rs-field__label">Pay Range <span class="rs-field__optional">(optional)</span></label>
-              <input v-model="form.pay_range" type="text" placeholder="e.g. $35–$45/hr" class="rs-field__input" />
-            </div>
-            <div class="rs-field">
-              <label class="rs-field__label">Start Date</label>
-              <input v-model="form.start_date" type="date" class="rs-field__input" />
-            </div>
+          <!-- Start Date -->
+          <div class="rs-field">
+            <label class="rs-field__label">Start Date</label>
+            <input v-model="form.start_date" type="date" class="rs-field__input" />
           </div>
 
           <!-- Hiring Urgency -->
@@ -238,7 +288,7 @@ async function submit() {
             <div class="rs-dropdown" :class="{ 'rs-dropdown--open': urgencyOpen }">
               <div class="rs-dropdown__control" @click="urgencyOpen = !urgencyOpen">
                 <span :class="{ 'rs-dropdown__placeholder': !form.urgency }">
-                  {{ form.urgency || '(Urgent / 30 days / Flexible' }}
+                  {{ form.urgency || 'Immediate Start / 30 days / Flexible' }}
                 </span>
                 <svg class="rs-dropdown__chevron" :class="{ 'rs-dropdown__chevron--open': urgencyOpen }" width="20" height="20" viewBox="0 0 20 20" fill="none">
                   <path d="M5 7.5L10 12.5L15 7.5" stroke="#222" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -294,7 +344,7 @@ async function submit() {
             </li>
             <li>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M2 5l8 5 8-5M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5z" stroke="#FF9B37" stroke-width="1.5" stroke-linecap="round"/></svg>
-              <span>staffing@therapyofnewyork.com</span>
+              <span>recruitment@tnystaffing.com</span>
             </li>
             <li>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 11a3 3 0 100-6 3 3 0 000 6z" stroke="#FF9B37" stroke-width="1.5"/><path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 11 7 11s7-5.75 7-11c0-3.87-3.13-7-7-7z" stroke="#FF9B37" stroke-width="1.5"/></svg>
@@ -304,7 +354,7 @@ async function submit() {
         </div>
 
         <div class="rs-info-card">
-          <p class="rs-info-card__label">Staffing Hours</p>
+          <p class="rs-info-card__label">Working Hours</p>
           <h3 class="rs-info-card__title">We're Available</h3>
           <ul class="rs-info-card__hours">
             <li><span>Mon - Fri</span><span>9:00 AM - 5:00 PM</span></li>
@@ -596,6 +646,38 @@ async function submit() {
 
     &:hover { background: rgba($color-blue, 0.06); }
     &--active { background: rgba($color-blue, 0.1); color: $color-blue; font-weight: $fw-medium; }
+
+    &--checkbox {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+  }
+
+  &__checkbox {
+    flex-shrink: 0;
+    width: 1.125rem;
+    height: 1.125rem;
+    border: 1.5px solid rgba($color-dark, 0.35);
+    border-radius: 0.3rem;
+    position: relative;
+
+    &--checked {
+      background: $color-blue;
+      border-color: $color-blue;
+
+      &::after {
+        content: '';
+        position: absolute;
+        left: 0.3rem;
+        top: 0.1rem;
+        width: 0.3rem;
+        height: 0.55rem;
+        border: solid $color-white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+    }
   }
 
   &__empty {

@@ -8,7 +8,7 @@
       </p>
       <div class="emp-cta__btns">
         <a href="/requestService" class="emp-cta__btn emp-cta__btn--primary">
-          Schedule Consultation →
+          Hire Staff →
         </a>
         <a href="/contact" class="emp-cta__btn emp-cta__btn--outline">
           Contact Us →

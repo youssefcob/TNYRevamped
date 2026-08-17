@@ -14,9 +14,9 @@ defineProps<{ articles: NewsItem[] }>();
 const activeTab = ref<'articles' | 'case-studies'>('articles');
 
 const cardSchemes = [
-  { banner: '#c8e8df', tagBg: '#e0f2ec', tagText: '#1a5c52', category: 'Staffing Trends' },
-  { banner: '#ddd6f3', tagBg: '#ede9fb', tagText: '#4a2fa0', category: 'Career Tips' },
-  { banner: '#fdefc8', tagBg: '#fef5d8', tagText: '#96600e', category: 'Hiring Insights' },
+  { tagBg: '#e0f2ec', tagText: '#1a5c52', category: 'Staffing Trends' },
+  { tagBg: '#ede9fb', tagText: '#4a2fa0', category: 'Career Tips' },
+  { tagBg: '#fef5d8', tagText: '#96600e', category: 'Hiring Insights' },
 ];
 
 function readTime(text: string | null): string {
@@ -64,24 +64,8 @@ function excerpt(text: string | null): string {
             :key="article.id"
             class="art-card"
           >
-            <div class="art-card__banner" :style="{ background: cardSchemes[idx % 3].banner }">
-              <div class="art-card__icon-box">
-                <!-- Trending Up -->
-                <svg v-if="idx % 3 === 0" width="30" height="30" viewBox="0 0 24 24" fill="none" :stroke="cardSchemes[0].tagText" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/>
-                  <polyline points="16 7 22 7 22 13"/>
-                </svg>
-                <!-- Heartbeat / Medical -->
-                <svg v-else-if="idx % 3 === 1" width="30" height="30" viewBox="0 0 24 24" fill="none" :stroke="cardSchemes[1].tagText" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
-                </svg>
-                <!-- Lightbulb -->
-                <svg v-else width="30" height="30" viewBox="0 0 24 24" fill="none" :stroke="cardSchemes[2].tagText" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="9" y1="18" x2="15" y2="18"/>
-                  <line x1="10" y1="22" x2="14" y2="22"/>
-                  <path d="M15.09 14c.18-.98.65-1.74 1.41-2.5A4.65 4.65 0 0 0 18 8 6 6 0 0 0 6 8c0 1 .23 2.23 1.5 3.5A4.61 4.61 0 0 1 8.91 14"/>
-                </svg>
-              </div>
+            <div class="art-card__banner">
+              <img :src="article.image" :alt="article.title" class="art-card__image" />
             </div>
 
             <div class="art-card__body">
@@ -197,21 +181,16 @@ function excerpt(text: string | null): string {
 
   &__banner {
     height: 10rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-shrink: 0;
+    overflow: hidden;
   }
 
-  &__icon-box {
-    width: 4rem;
-    height: 4rem;
-    background: rgba($color-white, 0.55);
-    border-radius: 1rem;
-    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
   }
 
   &__body {

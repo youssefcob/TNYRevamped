@@ -9,10 +9,10 @@
         </h2>
         <p class="sol-cta__desc">
           Join a growing network of healthcare professionals working across hospitals, clinics,
-          schools, skilled nursing facilities, and home health settings throughout NYC.
+          schools, skilled nursing facilities, and home health settings throughout New York.
         </p>
         <a href="/apply" class="sol-cta__btn">
-          Apply for opening Positions
+          Apply Now
           <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
             <path d="M2.5 7.5H12.5M12.5 7.5L8.5 3.5M12.5 7.5L8.5 11.5"
               stroke="#0f2b3d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

@@ -32,7 +32,7 @@
         </div>
 
         <div class="hiw__step hiw__step--bl">
-          <div class="hiw__step-badge hiw__step-badge--blue">03</div>
+          <div class="hiw__step-badge hiw__step-badge--blue">04</div>
           <h3 class="hiw__step-title">We Handle the Details</h3>
           <p class="hiw__step-body">
             From credentialing and compliance to onboarding, we take care of the paperwork so you don't have to.
@@ -40,7 +40,7 @@
         </div>
 
         <div class="hiw__step hiw__step--br">
-          <div class="hiw__step-badge hiw__step-badge--sand">04</div>
+          <div class="hiw__step-badge hiw__step-badge--sand">03</div>
           <h3 class="hiw__step-title">Ready to Make an Impact</h3>
           <p class="hiw__step-body">
             Your therapist arrives prepared to integrate seamlessly into your team and start delivering care.

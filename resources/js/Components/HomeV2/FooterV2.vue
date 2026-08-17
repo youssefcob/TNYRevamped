@@ -45,7 +45,9 @@
           <li><a href="/services">Speech Therapy Staffing</a></li>
           <li><a href="/services">School-Based Staffing</a></li>
           <li><a href="/services">Emergency Staffing</a></li>
-          <li><a href="/services">Credentialing Support</a></li>
+          <li><a href="/services">Acupuncturist</a></li>
+          <li><a href="/services">Massage Therapist</a></li>
+          <li><a href="/services">Patient Care Coordinator "Front Desk"</a></li>
         </ul>
       </div>
 

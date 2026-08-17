@@ -25,15 +25,16 @@
         <p class="section-label">For Candidates</p>
         <h3 class="for-card__title for-card__title--dark">Build Your Future with New York's Leading Healthcare Teams</h3>
         <p class="for-card__body for-card__body--dark">
-          Explore therapy opportunities across NYC with competitive pay, career growth,
+          Explore therapy opportunities across NY with competitive pay, career growth,
           and the support you need to succeed.
         </p>
         <ul class="for-card__list for-card__list--dark">
           <li>Flexible &amp; Full-Time Positions</li>
           <li>Competitive Compensation</li>
-          <li>Credentialing Assistance</li>
+          <li>Continuing Education & Mentorship programs</li>
           <li>Visa Sponsorship Support</li>
           <li>Growth-Focused Opportunities</li>
+          <li>Gym Membership</li>
         </ul>
         <a href="/candidates" class="for-card__cta">Explore Jobs</a>
       </div>

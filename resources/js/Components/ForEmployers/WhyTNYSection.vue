@@ -58,7 +58,7 @@ const cards = [
   },
   {
     title: 'Specialized Talent',
-    body: 'Access experienced PTs, OTs, SLPs, PTAs, COTAs, and rehab professionals.',
+    body: 'Access experienced PTs & PTAs, OTs & COTAs, SLPs & SLPAs, & Neuro Therapists, Acupuncturists, LMTs, and Administrative Staff.',
   },
   {
     title: 'Flexible Staffing',

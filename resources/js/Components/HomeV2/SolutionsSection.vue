@@ -5,7 +5,7 @@
       <!-- Col 1 · Row 1: header -->
       <div class="solutions__header">
         <p class="section-label">Our Solutions</p>
-        <h2 class="solutions__title">Supporting<br />Every Care Environment</h2>
+        <h2 class="solutions__title">Supporting<br />Every Healthcare Practices</h2>
         <p class="solutions__subtitle">
           We match healthcare organizations with skilled therapy professionals across
           schools, hospitals, outpatient clinics and skilled nursing facilities
@@ -22,7 +22,7 @@
         <div class="sol-card__info sol-card__info--blue">
           <div>
             <h4 class="sol-card__title">Speech-Language Pathologists Staffing</h4>
-            <p class="sol-card__body">Licensed SLPs for inpatient, outpatient, and home settings. All specialties covered.</p>
+            <p class="sol-card__body">Licensed SLPs & SLPAs for inpatient, outpatient, SNF, and home care. All specialties covered.</p>
           </div>
           <a href="/solutions" class="sol-card__link">Learn More <span>→</span></a>
         </div>
@@ -32,14 +32,14 @@
       <div class="sol-card sol-card--flip">
         <img
           src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
-          alt="Physical &amp; Occupational Therapy Staffing"
+          alt="Physical Therapy Staffing"
           class="sol-card__image"
         />
 
         <div class="sol-card__info sol-card__info--white">
           <div>
-            <h4 class="sol-card__title sol-card__title--dark">Physical &amp; Occupational Therapy Staffing</h4>
-            <p class="sol-card__body sol-card__body--dark">Licensed PTs and PTAs for inpatient, outpatient, and home settings. All specialties covered.</p>
+            <h4 class="sol-card__title sol-card__title--dark">Physical Therapy Staffing</h4>
+            <p class="sol-card__body sol-card__body--dark">Licensed PTs, PTAs, and Limited Permit for inpatient, outpatient, SNF, and home care. All specialties covered.</p>
           </div>
           <a href="/solutions" class="sol-card__link sol-card__link--dark">Learn More <span>→</span></a>
         </div>

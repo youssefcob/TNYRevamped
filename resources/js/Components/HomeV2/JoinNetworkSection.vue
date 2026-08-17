@@ -1,3 +1,24 @@
+<script setup lang="ts">
+const features = [
+  {
+    title: 'Flexible Opportunities',
+    body: 'Access assignments that match your schedule and preferences.',
+  },
+  {
+    title: 'Competitive & Transparent Pay',
+    body: 'Clear, market-leading rates provided upfront so you always know your worth.',
+  },
+  {
+    title: 'Diverse Clinical Settings',
+    body: 'Choose your preferred environment—from outpatient and hospitals to homecare and schools.',
+  },
+  {
+    title: 'Personalized Placement Support',
+    body: 'Work 1-on-1 with dedicated recruiters who match you with roles aligned with your career goals.',
+  },
+];
+</script>
+
 <template>
   <section class="join">
     <div class="join__text">
@@ -11,31 +32,33 @@
     </div>
 
     <div class="join__visual">
-      <div class="join__card">
-        <div class="join__card-icon">
-          <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
-            <path
-              d="M7 25.6666V4.66659C7 4.04775 7.24583 3.45425 7.68342 3.01667C8.121 2.57908 8.71449 2.33325 9.33333 2.33325H18.6667C19.2855 2.33325 19.879 2.57908 20.3166 3.01667C20.7542 3.45425 21 4.04775 21 4.66659V25.6666H7Z"
-              stroke="white" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" />
-            <path
-              d="M7.00016 14H4.66683C4.04799 14 3.4545 14.2458 3.01691 14.6834C2.57933 15.121 2.3335 15.7145 2.3335 16.3333V23.3333C2.3335 23.9522 2.57933 24.5457 3.01691 24.9832C3.4545 25.4208 4.04799 25.6667 4.66683 25.6667H7.00016"
-              stroke="white" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" />
-            <path
-              d="M21 10.5H23.3333C23.9522 10.5 24.5457 10.7458 24.9832 11.1834C25.4208 11.621 25.6667 12.2145 25.6667 12.8333V23.3333C25.6667 23.9522 25.4208 24.5457 24.9832 24.9832C24.5457 25.4208 23.9522 25.6667 23.3333 25.6667H21"
-              stroke="white" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" />
-            <path d="M11.6665 7H16.3332" stroke="white" stroke-width="2.1" stroke-linecap="round"
-              stroke-linejoin="round" />
-            <path d="M11.6665 11.6667H16.3332" stroke="white" stroke-width="2.1" stroke-linecap="round"
-              stroke-linejoin="round" />
-            <path d="M11.6665 16.3333H16.3332" stroke="white" stroke-width="2.1" stroke-linecap="round"
-              stroke-linejoin="round" />
-            <path d="M11.6665 21H16.3332" stroke="white" stroke-width="2.1" stroke-linecap="round"
-              stroke-linejoin="round" />
-          </svg>
-        </div>
-        <div>
-          <h4 class="join__card-title">Flexible Opportunities</h4>
-          <p class="join__card-body">Access assignments that match your schedule and preferences.</p>
+      <div class="join__cards">
+        <div class="join__card" v-for="feature in features" :key="feature.title">
+          <div class="join__card-icon">
+            <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 28 28" fill="none">
+              <path
+                d="M7 25.6666V4.66659C7 4.04775 7.24583 3.45425 7.68342 3.01667C8.121 2.57908 8.71449 2.33325 9.33333 2.33325H18.6667C19.2855 2.33325 19.879 2.57908 20.3166 3.01667C20.7542 3.45425 21 4.04775 21 4.66659V25.6666H7Z"
+                stroke="white" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M7.00016 14H4.66683C4.04799 14 3.4545 14.2458 3.01691 14.6834C2.57933 15.121 2.3335 15.7145 2.3335 16.3333V23.3333C2.3335 23.9522 2.57933 24.5457 3.01691 24.9832C3.4545 25.4208 4.04799 25.6667 4.66683 25.6667H7.00016"
+                stroke="white" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" />
+              <path
+                d="M21 10.5H23.3333C23.9522 10.5 24.5457 10.7458 24.9832 11.1834C25.4208 11.621 25.6667 12.2145 25.6667 12.8333V23.3333C25.6667 23.9522 25.4208 24.5457 24.9832 24.9832C24.5457 25.4208 23.9522 25.6667 23.3333 25.6667H21"
+                stroke="white" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round" />
+              <path d="M11.6665 7H16.3332" stroke="white" stroke-width="2.1" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M11.6665 11.6667H16.3332" stroke="white" stroke-width="2.1" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M11.6665 16.3333H16.3332" stroke="white" stroke-width="2.1" stroke-linecap="round"
+                stroke-linejoin="round" />
+              <path d="M11.6665 21H16.3332" stroke="white" stroke-width="2.1" stroke-linecap="round"
+                stroke-linejoin="round" />
+            </svg>
+          </div>
+          <div>
+            <h4 class="join__card-title">{{ feature.title }}</h4>
+            <p class="join__card-body">{{ feature.body }}</p>
+          </div>
         </div>
       </div>
 
@@ -111,12 +134,12 @@
     flex: 1 1 0;
     width: 100%;
     position: relative;
-    min-height: 34rem;
+    min-height: 44rem;
     display: flex;
     align-items: flex-end;
 
     @media (max-width: 900px) {
-      min-height: 22rem;
+      min-height: 32rem;
     }
 
     @media (max-width: 640px) {
@@ -192,15 +215,12 @@
     }
   }
 
-  &__card {
+  &__cards {
     position: relative;
     z-index: 1;
     display: flex;
     flex-direction: column;
     gap: 1rem;
-    padding: 2.25rem;
-    background: rgba(#0f2b3d, 0.9);
-    border-radius: 1.25rem;
     width: 43%;
     margin-bottom: 4rem;
     margin-left: 0.5rem;
@@ -211,6 +231,15 @@
       width: 100%;
       margin-bottom: 2rem;
     }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1.75rem;
+    background: rgba(#0f2b3d, 0.9);
+    border-radius: 1.25rem;
   }
 
   &__card-icon {

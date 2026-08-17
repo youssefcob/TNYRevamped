@@ -10,10 +10,8 @@
 
     <div class="resources__cards">
       <article v-for="(article, idx) in latestArticles" :key="article.id" class="res-card">
-        <div class="res-card__banner" :style="{ background: cardSchemes[idx % 3].banner }">
-          <div class="res-card__icon-wrap">
-            <component :is="cardSchemes[idx % 3].icon" :stroke="cardSchemes[idx % 3].tagColor" />
-          </div>
+        <div class="res-card__banner">
+          <img :src="article.image" :alt="article.title" class="res-card__image" />
         </div>
         <div class="res-card__body">
           <span class="res-card__tag" :style="{ background: cardSchemes[idx % 3].tagBg, color: cardSchemes[idx % 3].tagColor }">
@@ -32,7 +30,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, h } from 'vue';
+import { computed } from 'vue';
 
 interface NewsItem {
   id: number;
@@ -50,25 +48,10 @@ const latestArticles = computed(() =>
     .slice(0, 3)
 );
 
-const chartIcon = (attrs: Record<string, unknown>) => h('svg', { width: 30, height: 30, viewBox: '0 0 24 24', fill: 'none', 'stroke-width': 2, ...attrs }, [
-  h('polyline', { points: '22 7 13.5 15.5 8.5 10.5 2 17' }),
-  h('polyline', { points: '16 7 22 7 22 13' }),
-]);
-const stethIcon = (attrs: Record<string, unknown>) => h('svg', { width: 30, height: 30, viewBox: '0 0 30 30', fill: 'none', 'stroke-width': '2.1875', 'stroke-linecap': 'round', 'stroke-linejoin': 'round', ...attrs }, [
-  h('path', { d: 'M13.75 2.5V5' }),
-  h('path', { d: 'M6.25 2.5V5' }),
-  h('path', { d: 'M6.25 3.75H5C4.33696 3.75 3.70107 4.01339 3.23223 4.48223C2.76339 4.95107 2.5 5.58696 2.5 6.25V11.25C2.5 13.2391 3.29018 15.1468 4.6967 16.5533C6.10322 17.9598 8.01088 18.75 10 18.75C11.9891 18.75 13.8968 17.9598 15.3033 16.5533C16.7098 15.1468 17.5 13.2391 17.5 11.25V6.25C17.5 5.58696 17.2366 4.95107 16.7678 4.48223C16.2989 4.01339 15.663 3.75 15 3.75H13.75' }),
-  h('path', { d: 'M10 18.75C10 20.7391 10.7902 22.6468 12.1967 24.0533C13.6032 25.4598 15.5109 26.25 17.5 26.25C19.4891 26.25 21.3968 25.4598 22.8033 24.0533C24.2098 22.6468 25 20.7391 25 18.75V15' }),
-  h('path', { d: 'M25 15C26.3807 15 27.5 13.8807 27.5 12.5C27.5 11.1193 26.3807 10 25 10C23.6193 10 22.5 11.1193 22.5 12.5C22.5 13.8807 23.6193 15 25 15Z' }),
-]);
-const lightbulbIcon = (attrs: Record<string, unknown>) => h('svg', { width: 30, height: 30, viewBox: '0 0 24 24', fill: 'none', 'stroke-width': 2, ...attrs }, [
-  h('path', { d: 'M9 18h6M10 22h4M12 2a7 7 0 00-4 12.74V17a1 1 0 001 1h6a1 1 0 001-1v-2.26A7 7 0 0012 2z' }),
-]);
-
 const cardSchemes = [
-  { banner: '#c8e8df', tagBg: '#e0f2ec', tagColor: '#1a5c52', category: 'Staffing Trends', icon: chartIcon },
-  { banner: '#ddd6f3', tagBg: '#ede9fb', tagColor: '#4a2fa0', category: 'Career Tips', icon: stethIcon },
-  { banner: '#fdefc8', tagBg: '#fef5d8', tagColor: '#96600e', category: 'Hiring Insights', icon: lightbulbIcon },
+  { tagBg: '#e0f2ec', tagColor: '#1a5c52', category: 'Staffing Trends' },
+  { tagBg: '#ede9fb', tagColor: '#4a2fa0', category: 'Career Tips' },
+  { tagBg: '#fef5d8', tagColor: '#96600e', category: 'Hiring Insights' },
 ];
 
 function readTime(text: string | null): string {
@@ -156,21 +139,16 @@ function excerpt(text: string | null): string {
 
   &__banner {
     height: 10rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     flex-shrink: 0;
+    overflow: hidden;
   }
 
-  &__icon-wrap {
-    width: 4rem;
-    height: 4rem;
-    background: rgba(255,255,255,0.55);
-    border-radius: 1rem;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  &__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
   }
 
   &__body {

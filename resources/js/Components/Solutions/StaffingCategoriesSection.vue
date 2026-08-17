@@ -2,56 +2,85 @@
 const featuredTop = {
   num: '01',
   title: 'Physical Therapy',
-  subtitle: '(PTs & PTAs)',
-  desc: 'Helping patients regain movement, strength, function, and confidence.',
+  subtitle: '(PTs, PTAs, & Limited Permit Holders)',
+  desc: 'Helping patients regain movement, strength, function, and confidence through evidence-based rehabilitation. We staff experienced PTs, PTAs, and Licensed Limited Permit holders who specialize in mobility restoration, pain management, and post-surgical recovery. Our flexible staffing ensures continuous patient flow, reduced waiting lists, and balanced workloads across your clinic.',
   img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp',
 };
 
 const gridItems = [
   {
     num: '02',
-    title: 'Occupational Therapy (OT & COTA)',
-    desc: 'Supporting independence through practical, patient-centered rehabilitation.',
+    title: 'Occupational Therapy (OTs & COTAs)',
+    desc: 'Supporting independence through practical, patient-centered rehabilitation tailored to daily routines. Our OTs and COTAs focus on fine motor skills, cognitive function, adaptive equipment, and environmental modifications. They empower patients in outpatient, homecare, or SNF settings to safely resume the activities that matter most.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994260/Physical_Therapy_PTs_PTAs_588x374_msie7z.webp',
   },
   {
     num: '03',
-    title: 'Speech-Language Pathology (SLP)',
-    desc: 'Improving communication, cognition, and swallowing function.',
+    title: 'Speech-Language Pathology (SLPs & SLPAs)',
+    desc: 'Improving communication, cognitive-linguistic skills, and swallowing function across diverse patient populations. Our SLPs are skilled in evaluating and treating neurological conditions, dysphagia, and speech delays. They deliver compassionate, outcome-driven care that enhances patient safety and functional recovery.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994261/Speech-Language_Pathologists_Staffing_384x156_et3xr0.webp',
   },
   {
     num: '04',
-    title: 'Pelvic Floor Therapists',
-    desc: 'Specialized care that improves quality of life and daily function.',
+    title: 'Pelvic Floor Therapy',
+    desc: 'Delivering specialized care focused on pelvic health, core stability, and daily functional quality of life. Our therapists discreetly address pelvic pain, incontinence, and pre/post-natal recovery. Adding pelvic specialists expands your practice’s care offerings and boosts patient retention.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994258/Pelvic_Floor_Rehabilitation_lovd41.webp',
   },
   {
     num: '05',
-    title: 'Lymphedema Therapists',
-    desc: 'Focused treatment for swelling management and recovery support.',
+    title: 'Lymphedema Therapy',
+    desc: 'Providing targeted treatment for effective swelling management, lymphatic drainage, and complete recovery. Certified Lymphedema Therapists (CLTs) utilize decongestive therapy and compression techniques, collaborating with oncology and vascular teams to achieve outstanding clinical outcomes.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994258/lymphedema_therapist_pcmiki.webp',
   },
   {
     num: '06',
-    title: 'Neurological Therapists',
-    desc: 'Helping patients navigate recovery and maximize functional outcomes.',
+    title: 'Neurological Rehabilitation',
+    desc: 'Guiding patients through complex neurological recovery to maximize independence and long-term function. Experienced in stroke, TBI, Parkinson’s, and spinal injuries, our clinicians apply advanced neuro-rehab strategies to rebuild motor control, balance, and daily mobility.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994258/Neurological_Therapists_lw6ybl.webp',
   },
   {
     num: '07',
-    title: 'Pediatric Therapists',
-    desc: 'Supporting developmental milestones and long-term functional success.',
+    title: 'Pediatric Therapy',
+    desc: 'Nurturing developmental milestones, motor learning, and functional success for infants and children. Our pediatric PTs, OTs, and SLPs specialize in sensory integration and early intervention, creating engaging environments that foster physical growth and family support.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994259/PCC_Aides_355x256_ppkic5.webp',
   },
+  {
+    num: '08',
+    title: 'Vestibular Rehabilitation',
+    desc: 'Restoring balance, gaze stability, and movement confidence for patients with dizziness or inner ear disorders. Our clinicians utilize specialized repositioning and balance retraining to reduce fall risks and prevent hospital readmissions.',
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994259/Vestibular_Therapists_ohzpg8.webp',
+  },
+  {
+    num: '09',
+    title: 'Acupuncturists',
+    desc: 'Integrating evidence-informed pain management and wellness solutions into your practice. Licensed acupuncturists specialize in musculoskeletal relief and post-op recovery, offering a holistic approach that complements physical rehabilitation.',
+    img: null,
+  },
+  {
+    num: '10',
+    title: 'Massage Therapists',
+    desc: 'Enhancing soft-tissue recovery, reducing muscle tension, and improving circulation. Licensed Massage Therapists provide medical massage and trigger point therapy to accelerate healing timelines and boost patient satisfaction.',
+    img: null,
+  },
+  {
+    num: '11',
+    title: 'Patient Care Coordinator / Front Desk Support',
+    desc: 'The operational engine of your practice. Our coordinators manage patient intake, scheduling, insurance verification, and front-desk communication, ensuring a seamless experience and optimal clinic schedule.',
+    img: null,
+  },
+  {
+    num: '12',
+    title: 'School-Based Staffing',
+    desc: 'Dedicated pediatric clinicians (PT, OT, SLP) qualified to support students in school settings under IEP guidelines. We ensure compliance, timely reporting, and smooth integration into educational environments.',
+    img: null,
+  },
+  {
+    num: '13',
+    title: 'Emergency & Rapid Staffing',
+    desc: 'Rapid clinical coverage designed to prevent operational downtime. Backed by our 24-hour response capability, we quickly deploy pre-screened rehab professionals for sudden leaves, sick days, or caseload surges.',
+    img: null,
+  },
 ];
-
-const featuredBottom = {
-  num: '08',
-  title: 'Vestibular Therapists',
-  desc: 'Restoring balance, stability, and confidence in movement.',
-  img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994259/Vestibular_Therapists_ohzpg8.webp',
-};
 </script>
 
 <template>
@@ -81,10 +110,10 @@ const featuredBottom = {
         </div>
       </div>
 
-      <!-- 3×2 card grid -->
+      <!-- Category grid -->
       <div class="sol-cats__grid">
-        <div v-for="item in gridItems" :key="item.num" class="sol-cats__card">
-          <img :src="item.img" :alt="item.title" class="sol-cats__card-img" />
+        <div v-for="item in gridItems" :key="item.num" class="sol-cats__card" :class="{ 'sol-cats__card--no-img': !item.img }">
+          <img v-if="item.img" :src="item.img" :alt="item.title" class="sol-cats__card-img" />
           <div class="sol-cats__card-body">
             <span class="sol-cats__num">{{ item.num }}</span>
             <div class="sol-cats__card-text">
@@ -93,18 +122,6 @@ const featuredBottom = {
             </div>
           </div>
         </div>
-      </div>
-
-      <!-- Featured bottom row: content left, image right -->
-      <div class="sol-cats__featured sol-cats__featured--reversed">
-        <div class="sol-cats__featured-body">
-          <span class="sol-cats__num">{{ featuredBottom.num }}</span>
-          <div class="sol-cats__featured-text">
-            <h3 class="sol-cats__item-title">{{ featuredBottom.title }}</h3>
-            <p class="sol-cats__item-desc">{{ featuredBottom.desc }}</p>
-          </div>
-        </div>
-        <img :src="featuredBottom.img" :alt="featuredBottom.title" class="sol-cats__featured-img" />
       </div>
 
     </div>
@@ -218,6 +235,14 @@ const featuredBottom = {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+
+    &--no-img {
+      border: 1px solid rgba($color-dark, 0.12);
+      border-radius: 1.5rem;
+      padding: 1.5rem;
+
+      .sol-cats__card-body { padding: 0; }
+    }
   }
 
   &__card-img {

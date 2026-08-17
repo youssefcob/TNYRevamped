@@ -155,6 +155,8 @@ class HomeController extends Controller
 
     public function homeV2()
     {
-        return Inertia::render('HomeV2');
+        return Inertia::render('HomeV2', [
+            'news' => News::latest()->get(),
+        ]);
     }
 }

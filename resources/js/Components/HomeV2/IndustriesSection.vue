@@ -2,7 +2,7 @@
   <section class="industries">
     <div class="industries__header">
       <p class="section-label">Industries</p>
-      <h2 class="industries__title">The Right Therapy Talent for Every Healthcare Setting</h2>
+      <h2 class="industries__title">Precision Rehab Staffing for Every Healthcare Environment</h2>
       <p class="industries__subtitle">
         No matter your staffing needs, we connect healthcare organizations with exceptional
         therapy professionals ready to make an immediate impact.
@@ -46,7 +46,7 @@ const industries: { icon: () => any; title: string; body: string; wide: boolean 
   },
   {
     icon: icon('M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z'),
-    title: 'Schools & Educational Settings',
+    title: 'Schools Settings',
     body: 'Support student success with credentialed therapists for public and private schools, early intervention programs, and special education services.',
     wide: false,
   },
