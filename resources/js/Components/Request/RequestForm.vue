@@ -11,8 +11,15 @@ import DropDownInputField from '@/SharedComponents/DropDownInputField.vue';
 import { serviceState } from '@/state/state';
 import { computed } from '@vue/reactivity';
 import { snack } from '@/mixins/toast';
+import DevFillButton from '@/SharedComponents/DevFillButton.vue';
 
 const isLoading: Ref<boolean> = ref(false);
+const name: Ref<InstanceType<typeof InputField> | null> = ref(null);
+const phone: Ref<InstanceType<typeof InputField> | null> = ref(null);
+const email: Ref<InstanceType<typeof InputField> | null> = ref(null);
+const company_name: Ref<InstanceType<typeof InputField> | null> = ref(null);
+const address: Ref<InstanceType<typeof InputField> | null> = ref(null);
+const message: Ref<InstanceType<typeof InputField> | null> = ref(null);
 // const snackbar = useSnackbar();
 
 const serviceNames = computed(() => serviceState.value.map(job => job.title));
@@ -159,6 +166,16 @@ onMounted(() => {
         serviceComp.value?.defaultValue(props.service);
     }
 })
+
+const fillTestData = () => {
+    name.value?.setValue('Jamie Rivera');
+    phone.value?.setValue('(212) 555-0100');
+    email.value?.setValue('jamie.rivera@example.com');
+    company_name.value?.setValue('Acme Rehab Group');
+    address.value?.setValue('575 8th Ave, New York, NY');
+    serviceComp.value?.defaultValue(serviceNames.value[0] ?? 'Physical Therapy');
+    message.value?.setValue('Looking for licensed therapists to cover an outpatient caseload starting next month.');
+}
 </script>
 
 <template>
@@ -189,6 +206,7 @@ onMounted(() => {
         <InputField ref="message" @input="form.requirements = $event" label="Your requirements"
             placeHolder="Enter Your requirements ..." height="12.5rem" :error="formErrors.requirements" />
         <Btn class="btn" @click="validate" :loading="isLoading">Send Email</Btn>
+        <DevFillButton @fill="fillTestData" />
     </div>
 </template>
 

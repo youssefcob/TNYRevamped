@@ -4,6 +4,7 @@ import Http from '@/mixins/Http';
 import { snack } from '@/mixins/toast';
 import DropDownInputField from '@/Components/UI/DropDownInputField.vue';
 import { vMaska } from 'maska/vue';
+import DevFillButton from '@/SharedComponents/DevFillButton.vue';
 
 const role = ref<'employer' | 'candidate' | null>(null);
 const isLoading = ref(false);
@@ -40,6 +41,17 @@ const setError = (key: keyof typeof errors, val: boolean) => {
   if (val) setTimeout(() => { errors[key] = false; }, 3000);
 };
 
+const fillTestData = () => {
+  Object.assign(form, {
+    firstName: 'Jamie',
+    lastName: 'Rivera',
+    email: 'jamie.rivera@example.com',
+    phone: '(212) 555-0100',
+    subject: subjects[0],
+    message: 'Hi, I\'d like to learn more about your staffing services.',
+  });
+};
+
 const validate = () => {
   let valid = true;
   if (!form.firstName.trim()) { setError('firstName', true); valid = false; }
@@ -67,7 +79,7 @@ const submitForm = async () => {
     Object.assign(form, { firstName: '', lastName: '', email: '', phone: '', subject: '', message: '' });
     subjectRef.value?.clear();
   } catch (e) {
-    snack.error('Something went wrong. Please try again.');
+    snack.error(e as string);
   } finally {
     isLoading.value = false;
   }
@@ -188,6 +200,7 @@ const submitForm = async () => {
         >
           {{ isLoading ? 'Sending...' : 'Send Message' }}
         </button>
+        <DevFillButton @fill="fillTestData" />
 
       </div>
 

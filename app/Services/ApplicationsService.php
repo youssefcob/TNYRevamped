@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Application;
 use App\Models\Position;
+use App\Models\PositionApplication;
 use App\TableFiltersHelperFunctions;
 use App\Traits\SendsEmail;
 use Exception;
@@ -42,15 +42,15 @@ class ApplicationsService
             $endDate = $request->input('end_date');
             $id = $request->input('id');
             $request->validate([
-                'id' => 'sometimes|integer|exists:applications,id',
+                'id' => 'sometimes|integer|exists:position_applications,id',
             ]);
-            
+
             if ($id) {
-                $application = Application::with(['position' => function ($query) {
+                $application = PositionApplication::with(['position' => function ($query) {
                     $query->select('id', 'title');
                 }])->find($id);
             } else {
-                $application = Application::with(['position' => function ($query) {
+                $application = PositionApplication::with(['position' => function ($query) {
                     $query->select('id', 'title');
                 }]);
                 // if ($submissionDate) {
@@ -113,11 +113,11 @@ class ApplicationsService
             $status = $request->input('status');
 
             $request->validate([
-                'id' => 'required|integer|exists:applications,id',
+                'id' => 'required|integer|exists:position_applications,id',
                 'status' => 'required|in:Hired,Rejected,Pending,Needs Assignment,Missing Documents,Missing Preferences,In Training,Interview',
             ]);
 
-            $application = Application::find($id);
+            $application = PositionApplication::find($id);
 
             $application->status = $status;
             $application->save();
@@ -154,10 +154,10 @@ class ApplicationsService
             $id = $request->input('id');
 
             $request->validate([
-                'id' => 'required|integer|exists:applications,id',
+                'id' => 'required|integer|exists:position_applications,id',
             ]);
 
-            $application = Application::find($id);
+            $application = PositionApplication::find($id);
             $application->delete();
 
             return [
@@ -213,7 +213,7 @@ class ApplicationsService
             $drive = new GoogleDrive;
             // dd($request->resue)
             $link = $drive->upload($request->resume);
-            $application = Application::create([
+            $application = PositionApplication::create([
                 'position_id' => $position->id,
                 'name' => $request->name,
                 'email' => $request->email,

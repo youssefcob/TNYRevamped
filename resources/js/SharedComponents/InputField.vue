@@ -31,6 +31,16 @@ const clear = () => {
     input.value = '';
     emitInput();
 }
+
+const setValue = (value: string) => {
+    input.value = value;
+    if (input.value.length > 0) {
+        asterisk.value?.classList.add('active');
+    } else {
+        asterisk.value?.classList.remove('active');
+    }
+    emitInput();
+}
 let input = ref(props.value || '');
 const emit = defineEmits([`input`, 'update:modelValue']);
 
@@ -137,7 +147,8 @@ onMounted(() => {
 })
 
 defineExpose({
-    clear
+    clear,
+    setValue
 })
 </script>
 

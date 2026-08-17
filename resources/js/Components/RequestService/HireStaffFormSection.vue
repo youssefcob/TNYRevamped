@@ -2,6 +2,7 @@
 import { reactive, ref, computed, onMounted, onUnmounted } from 'vue';
 import Http from '@/mixins/Http';
 import { snack } from '@/mixins/toast';
+import DevFillButton from '@/SharedComponents/DevFillButton.vue';
 
 interface ServiceItem { id: number; title: string; }
 
@@ -60,6 +61,23 @@ function onDocClick(e: MouseEvent) {
 onMounted(() => document.addEventListener('mousedown', onDocClick));
 onUnmounted(() => document.removeEventListener('mousedown', onDocClick));
 
+function fillTestData() {
+  Object.keys(errors).forEach(k => delete errors[k]);
+  Object.assign(form, {
+    company_name: 'Acme Rehab Group',
+    contact_name: 'Jamie Rivera',
+    email: 'jamie.rivera@example.com',
+    phone: '(212) 555-0100',
+    discipline: serviceNames.value[0] ?? 'Physical Therapy',
+    open_roles: '3',
+    location: 'Manhattan, NY',
+    pay_range: '$40-$50/hr',
+    start_date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
+    urgency: urgencyOptions[0],
+    description: 'Looking for licensed therapists to cover an outpatient caseload starting next month.',
+  });
+}
+
 function validate() {
   const e: Record<string, string> = {};
   if (!form.company_name.trim()) e.company_name = 'Company name is required';
@@ -88,7 +106,7 @@ async function submit() {
       form.urgency      ? `Urgency: ${form.urgency}`          : null,
     ].filter(Boolean).join('\n');
 
-    await Http.methods.post('request', {
+    await Http.post('request', {
       company_name: form.company_name,
       name:         form.contact_name,
       email:        form.email,
@@ -99,9 +117,10 @@ async function submit() {
     });
 
     submitted.value = true;
-    snack('success', 'Your staffing request has been submitted! We\'ll be in touch shortly.');
+    snack.success('Your staffing request has been submitted! We\'ll be in touch shortly.');
   } catch (err: any) {
-    snack('error', err || 'Something went wrong. Please try again.');
+    snack.error(err || 'Something went wrong. Please try again.');
+    console.log(err)
   } finally {
     loading.value = false;
   }
@@ -251,6 +270,7 @@ async function submit() {
             <p class="rs-form__note">
               By submitting the application you agree to be contacted by TNY regarding staffing services
             </p>
+            <DevFillButton @fill="fillTestData" />
           </div>
 
         </form>

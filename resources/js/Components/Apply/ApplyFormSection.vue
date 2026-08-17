@@ -2,6 +2,7 @@
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue';
 import Http from '@/mixins/Http';
 import { snack } from '@/mixins/toast';
+import DevFillButton from '@/SharedComponents/DevFillButton.vue';
 
 interface Job { id: number; title: string; }
 
@@ -77,6 +78,26 @@ function onDrop(e: DragEvent) {
     form.resume = file;
     resumeFileName.value = file.name;
   }
+}
+
+function fillTestData() {
+  Object.assign(form, {
+    first_name: 'Jamie',
+    last_name: 'Rivera',
+    email: 'jamie.rivera@example.com',
+    phone: '(212) 555-0100',
+    city: 'New York',
+    state: 'NY',
+    profession: professions.value[0] ?? 'Physical Therapist',
+    license_status: licenseOptions[0],
+    years_experience: experienceOptions[1],
+    preferred_setting: settingOptions[0],
+    employment_type: employmentOptions[0],
+    start_date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString().slice(0, 10),
+    message: 'Available to start as soon as needed.',
+    resume: new File(['%PDF-1.4\n%test resume content'], 'test-resume.pdf', { type: 'application/pdf' }),
+  });
+  resumeFileName.value = form.resume!.name;
 }
 
 async function submit() {
@@ -327,6 +348,7 @@ async function submit() {
             <p class="apply-form__disclaimer">
               By submitting the application you agree to be contacted by TNY regarding opportunities
             </p>
+            <DevFillButton @fill="fillTestData" />
           </div>
         </template>
 

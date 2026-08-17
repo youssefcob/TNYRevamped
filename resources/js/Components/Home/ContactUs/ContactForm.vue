@@ -5,6 +5,7 @@ import Http from '@/mixins/Http';
 import validation from '@/mixins/Validation';
 import { onMounted, reactive, ref, Ref } from 'vue';
 import { snack } from '@/mixins/toast';
+import DevFillButton from '@/SharedComponents/DevFillButton.vue';
 
 // import { toast } from 'vue3-toastify';
 // import 'vue3-toastify/dist/index.css';
@@ -75,6 +76,14 @@ const resetForm = () => {
     phone.value?.clear;
     subject.value?.clear;
     message.value?.clear;
+}
+
+const fillTestData = () => {
+    name.value?.setValue('Jamie Rivera');
+    email.value?.setValue('jamie.rivera@example.com');
+    phone.value?.setValue('(212) 555-0100');
+    subject.value?.setValue('Staffing Services');
+    message.value?.setValue('Hi, I\'d like to learn more about your staffing services.');
 }
 
 const validate = () => {
@@ -148,6 +157,7 @@ const submitForm = async () => {
     <InputField ref="message" @input="form.message = $event" label="Message" placeHolder="Enter Your Message ..."
         height="12.5rem" :error="formErrors.message" />
     <Btn class="btn" @click="validate" :loading="isLoading">Send Email</Btn>
+    <DevFillButton @fill="fillTestData" />
 </template>
 
 <style scoped lang="scss">
