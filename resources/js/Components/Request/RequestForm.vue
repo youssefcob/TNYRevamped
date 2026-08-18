@@ -10,7 +10,7 @@ import DropDownInputField from '@/SharedComponents/DropDownInputField.vue';
 // import { serviceState } from '@/state/state';
 import { serviceState } from '@/state/state';
 import { computed } from '@vue/reactivity';
-import { snack } from '@/mixins/toast';
+import { snack, missingFieldsMessage } from '@/mixins/toast';
 import DevFillButton from '@/SharedComponents/DevFillButton.vue';
 
 const isLoading: Ref<boolean> = ref(false);
@@ -94,6 +94,16 @@ const formErrors = reactive({
     service: false
 })
 
+const fieldLabels: Record<string, string> = {
+    name: 'Name',
+    email: 'Email',
+    phone: 'Mobile Number',
+    address: 'Address',
+    company_name: 'Company Name',
+    requirements: 'Your Requirements',
+    service: 'Services Available'
+}
+
 const resetForm = () => {
     // name.value?.clear;
     // email.value?.clear;
@@ -115,14 +125,9 @@ const validate = () => {
 }
 
 const handleErrors = (v: validation) => {
-    let errors = v.errors;
-    let errorsArr = Object.values(errors[0])
-    // console.log(errorsArr)
     let keys = v.keys
-    errorsArr.forEach((error) => {
-        snack.error(error);
-        
-    })
+    let labels = keys.map((key) => fieldLabels[key] ?? key)
+    snack.error(missingFieldsMessage(labels))
 
     keys.forEach((key) => {
         setTimeout(() => {

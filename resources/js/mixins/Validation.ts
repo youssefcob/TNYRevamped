@@ -244,7 +244,7 @@ class validation {
             this.key = key;
             if (this.element.rules && this.element.rules.length > 0) {
 
-                if (this.checkRules()) break;
+                this.checkRules();
 
             }
 
@@ -266,6 +266,7 @@ class validation {
     }
 
     private handleRule(rule: string | dropdown,) {
+        const errorsBefore = this.errors.length;
         if (typeof rule === 'string') {
             if (rule.includes(':')) {
                 let ruleArr = rule.split(':');
@@ -295,7 +296,7 @@ class validation {
                 }
             }
         }
-        return !(this.errors.length === 0);
+        return this.errors.length > errorsBefore;
 
     }
 

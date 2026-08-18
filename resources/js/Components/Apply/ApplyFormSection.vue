@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue';
 import Http from '@/mixins/Http';
-import { snack } from '@/mixins/toast';
+import { snack, missingFieldsMessage } from '@/mixins/toast';
 import DevFillButton from '@/SharedComponents/DevFillButton.vue';
 
 interface Job { id: number; title: string; }
@@ -100,9 +100,18 @@ function fillTestData() {
   resumeFileName.value = form.resume!.name;
 }
 
+const requiredFieldLabels: Record<string, string> = {
+  first_name: 'First Name',
+  last_name: 'Last Name',
+  email: 'Email Address',
+  phone: 'Phone Number',
+  profession: 'Profession',
+};
+
 async function submit() {
-  if (!form.first_name || !form.last_name || !form.email || !form.phone || !form.profession) {
-    snack.error('Please fill in all required fields.');
+  const missing = Object.keys(requiredFieldLabels).filter((key) => !form[key as keyof typeof form]);
+  if (missing.length) {
+    snack.error(missingFieldsMessage(missing.map((key) => requiredFieldLabels[key])));
     return;
   }
   if (!form.resume) {

@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
 import Http from '@/mixins/Http';
-import { snack } from '@/mixins/toast';
+import { snack, missingFieldsMessage } from '@/mixins/toast';
 import DropDownInputField from '@/Components/UI/DropDownInputField.vue';
 import { vMaska } from 'maska/vue';
 import DevFillButton from '@/SharedComponents/DevFillButton.vue';
@@ -52,15 +52,24 @@ const fillTestData = () => {
   });
 };
 
+const fieldLabels: Record<keyof typeof errors, string> = {
+  firstName: 'First Name',
+  lastName: 'Last Name',
+  email: 'Email Address',
+  phone: 'Phone Number',
+  subject: 'Subject',
+  message: 'Message',
+};
+
 const validate = () => {
-  let valid = true;
-  if (!form.firstName.trim()) { setError('firstName', true); valid = false; }
-  if (!form.lastName.trim())  { setError('lastName', true); valid = false; }
-  if (!form.email.trim() || !/^\S+@\S+\.\S+$/.test(form.email)) { setError('email', true); valid = false; }
-  if (!form.phone.trim())   { setError('phone', true); valid = false; }
-  if (!form.subject)        { setError('subject', true); valid = false; }
-  if (!form.message.trim()) { setError('message', true); valid = false; }
-  if (!valid) { snack.error('Please fill in all required fields.'); return; }
+  const invalid: (keyof typeof errors)[] = [];
+  if (!form.firstName.trim()) { setError('firstName', true); invalid.push('firstName'); }
+  if (!form.lastName.trim())  { setError('lastName', true); invalid.push('lastName'); }
+  if (!form.email.trim() || !/^\S+@\S+\.\S+$/.test(form.email)) { setError('email', true); invalid.push('email'); }
+  if (!form.phone.trim())   { setError('phone', true); invalid.push('phone'); }
+  if (!form.subject)        { setError('subject', true); invalid.push('subject'); }
+  if (!form.message.trim()) { setError('message', true); invalid.push('message'); }
+  if (invalid.length) { snack.error(missingFieldsMessage(invalid.map((key) => fieldLabels[key]))); return; }
   submitForm();
 };
 

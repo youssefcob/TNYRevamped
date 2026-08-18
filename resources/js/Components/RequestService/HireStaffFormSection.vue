@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { reactive, ref, computed, onMounted, onUnmounted } from 'vue';
 import Http from '@/mixins/Http';
-import { snack } from '@/mixins/toast';
+import { snack, missingFieldsMessage } from '@/mixins/toast';
 import DevFillButton from '@/SharedComponents/DevFillButton.vue';
 
 interface ServiceItem { id: number; title: string; }
@@ -104,6 +104,16 @@ function fillTestData() {
   });
 }
 
+const fieldLabels: Record<string, string> = {
+  company_name: 'Company Name',
+  contact_name: 'Contact Name',
+  email: 'Email Address',
+  phone: 'Phone Number',
+  discipline: 'Facility Type',
+  location: 'Location(s)',
+  description: 'Brief Job Description',
+};
+
 function validate() {
   const e: Record<string, string> = {};
   if (!form.company_name.trim()) e.company_name = 'Company name is required';
@@ -115,6 +125,9 @@ function validate() {
   if (!form.location.trim()) e.location = 'Location is required';
   if (!form.description.trim()) e.description = 'Please provide a brief description';
   Object.assign(errors, e);
+  if (Object.keys(e).length) {
+    snack.error(missingFieldsMessage(Object.keys(e).map((key) => fieldLabels[key] ?? key)));
+  }
   return Object.keys(e).length === 0;
 }
 

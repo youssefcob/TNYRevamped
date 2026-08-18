@@ -1,6 +1,12 @@
 import { toast } from 'vue3-toastify';
 import 'vue3-toastify/dist/index.css';
 
+export const missingFieldsMessage = (labels: string[]): string => {
+    return labels.length === 1
+        ? `Please fill in the ${labels[0]} field.`
+        : `Please fill in the following fields: ${labels.join(', ')}.`;
+}
+
 export const snack = {
 
 

@@ -4,7 +4,7 @@ import InputField from '@/SharedComponents/InputField.vue';
 import Http from '@/mixins/Http';
 import validation from '@/mixins/Validation';
 import { onMounted, reactive, ref, Ref } from 'vue';
-import { snack } from '@/mixins/toast';
+import { snack, missingFieldsMessage } from '@/mixins/toast';
 import DevFillButton from '@/SharedComponents/DevFillButton.vue';
 
 // import { toast } from 'vue3-toastify';
@@ -70,6 +70,14 @@ const formErrors = reactive({
     message: false
 })
 
+const fieldLabels: Record<string, string> = {
+    name: 'Name',
+    email: 'Email',
+    phone: 'Phone Number',
+    subject: 'Subject',
+    message: 'Message'
+}
+
 const resetForm = () => {
     name.value?.clear;
     email.value?.clear;
@@ -99,14 +107,9 @@ const validate = () => {
 }
 
 const handleErrors = (v: validation) => {
-    let errors = v.errors;
-    let errorsArr = Object.values(errors[0])
-    // console.log(errorsArr)
     let keys = v.keys
-    errorsArr.forEach((error) => {
-        snack.error(error)
-
-    })
+    let labels = keys.map((key) => fieldLabels[key] ?? key)
+    snack.error(missingFieldsMessage(labels))
 
     keys.forEach((key) => {
         setTimeout(() => {
