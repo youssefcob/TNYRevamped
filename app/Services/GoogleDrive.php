@@ -18,7 +18,16 @@ class GoogleDrive
     public function __construct()
     {
         // Set the Google application credentials path
-        putenv('GOOGLE_APPLICATION_CREDENTIALS=' . base_path(env('GOOGLE_APPLICATION_CREDENTIALS')));
+        $credentialsPath = base_path(env('GOOGLE_APPLICATION_CREDENTIALS'));
+
+        // On platforms with an ephemeral filesystem (e.g. Heroku), the credentials
+        // file won't exist on disk. Materialize it from a base64 config var instead.
+        if (!file_exists($credentialsPath) && env('GOOGLE_CREDENTIALS_BASE64')) {
+            $credentialsPath = storage_path('app/tny-service-account.json');
+            file_put_contents($credentialsPath, base64_decode(env('GOOGLE_CREDENTIALS_BASE64')));
+        }
+
+        putenv('GOOGLE_APPLICATION_CREDENTIALS=' . $credentialsPath);
 
         // Create a new Google client
         $this->client = new Client();
