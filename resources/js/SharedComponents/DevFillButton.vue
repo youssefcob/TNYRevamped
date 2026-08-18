@@ -12,7 +12,7 @@ const isDev = import.meta.env.DEV || localStorage.getItem('test') === '1';
     title="Fill form with test data (dev only, hidden in production)"
     @click="$emit('fill')"
   >
-    🧪 Fill Test Data
+     Fill Test Data
   </button>
 </template>
 
