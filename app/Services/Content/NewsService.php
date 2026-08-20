@@ -5,10 +5,24 @@ namespace App\Services\Content;
 use Illuminate\Http\Request;
 use App\Models\News;
 use App\Services\Cloudinary;
+use Illuminate\Support\Str;
 use Exception;
 
 class NewsService
 {
+    private function generateUniqueUrl(string $source, ?int $ignoreId = null): string
+    {
+        $base = Str::slug($source) ?: 'resource';
+        $url = $base;
+        $suffix = 2;
+
+        while (News::where('url', $url)->when($ignoreId, fn ($q) => $q->where('id', '!=', $ignoreId))->exists()) {
+            $url = $base . '-' . $suffix++;
+        }
+
+        return $url;
+    }
+
     public static function get()
     {
         return News::all();
@@ -36,6 +50,8 @@ class NewsService
         try {
             $request->validate([
                 'title' => ['required', 'string'],
+                'description' => ['nullable', 'string'],
+                'url' => ['nullable', 'string', 'max:255'],
                 'image' => ['file', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
                 // 'link' => ['required', 'string'],
                 'content' => ['required', 'string'],
@@ -46,8 +62,10 @@ class NewsService
 
             $news = News::create([
                 'title' => $request->title,
+                'description' => $request->description,
+                'url' => $this->generateUniqueUrl($request->filled('url') ? $request->url : $request->title),
                 'image' => $imageId,
-                
+
                 'content' => $request->content,
             ]);
 
@@ -118,6 +136,17 @@ class NewsService
             if ($request->has('title')) {
                 $request->validate(['title' => ['string']]);
                 $updateData['title'] = $request->title;
+            }
+
+            if ($request->has('description')) {
+                $request->validate(['description' => ['nullable', 'string']]);
+                $updateData['description'] = $request->description;
+            }
+
+            if ($request->has('url')) {
+                $request->validate(['url' => ['nullable', 'string', 'max:255']]);
+                $source = $request->filled('url') ? $request->url : $news->title;
+                $updateData['url'] = $this->generateUniqueUrl($source, $news->id);
             }
 
             // if ($request->has('link')) {

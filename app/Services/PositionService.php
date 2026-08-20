@@ -72,7 +72,7 @@ class PositionService
                 'title' => 'sometimes|string|max:255',
                 'description' => 'sometimes|string|max:255',
                 'available' => 'sometimes|boolean',
-                'address' => 'string'
+                'address' => 'nullable|string'
             ]);
             $position = Position::find($request->id);
             $data = $request->only(['title', 'description', 'available', 'address']);
@@ -106,7 +106,7 @@ class PositionService
                 'title' => 'required|string|max:255',
                 'description' => 'required|string|max:255',
                 'available' => 'boolean',
-                'address' => 'string'
+                'address' => 'nullable|string'
             ]);
             $data = $request->only(['title', 'description', 'available', 'address']);
 

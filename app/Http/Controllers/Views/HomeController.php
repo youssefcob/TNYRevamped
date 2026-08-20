@@ -123,11 +123,11 @@ class HomeController extends Controller
         return Inertia::render('Resources', $data);
     }
 
-    public function news($id = null)
+    public function news($url = null)
     {
         $data = [];
 
-        $data['news'] = News::findOrFail($id);
+        $data['news'] = News::where('url', $url)->firstOrFail();
         return Inertia::render('News', $data);
     }
 

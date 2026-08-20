@@ -49,7 +49,7 @@ Route::get('/contact', [HomeController::class, 'contact'])
 Route::get('/resources', [HomeController::class, 'resources'])
 ->name('resources');
 
-Route::get('/news/{id?}', [HomeController::class, 'news'])
+Route::get('/news/{url?}', [HomeController::class, 'news'])
 ->name('news');
 
 Route::post('/register', [RegisterController::class, 'submit'])

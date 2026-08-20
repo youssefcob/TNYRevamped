@@ -3,6 +3,7 @@ import { ref } from 'vue';
 
 interface NewsItem {
   id: number;
+  url: string;
   title: string;
   image: string;
   content: string | null;
@@ -69,15 +70,15 @@ function excerpt(text: string | null): string {
             </div>
 
             <div class="art-card__body">
-              <span
+              <!-- <span
                 class="art-card__tag"
                 :style="{ background: cardSchemes[idx % 3].tagBg, color: cardSchemes[idx % 3].tagText }"
-              >{{ cardSchemes[idx % 3].category }}</span>
+              >{{ cardSchemes[idx % 3].category }}</span> -->
               <h3 class="art-card__title">{{ article.title }}</h3>
               <p class="art-card__excerpt">{{ excerpt(article.content) }}</p>
               <div class="art-card__footer">
                 <span class="art-card__read-time">{{ readTime(article.content) }}</span>
-                <a :href="`/news/${article.id}`" class="art-card__link">Read more &rarr;</a>
+                <a :href="`/news/${article.url}`" class="art-card__link">Read more &rarr;</a>
               </div>
             </div>
           </div>

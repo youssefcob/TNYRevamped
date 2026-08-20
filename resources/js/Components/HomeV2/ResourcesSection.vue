@@ -14,14 +14,14 @@
           <img :src="article.image" :alt="article.title" class="res-card__image" />
         </div>
         <div class="res-card__body">
-          <span class="res-card__tag" :style="{ background: cardSchemes[idx % 3].tagBg, color: cardSchemes[idx % 3].tagColor }">
+          <!-- <span class="res-card__tag" :style="{ background: cardSchemes[idx % 3].tagBg, color: cardSchemes[idx % 3].tagColor }">
             {{ cardSchemes[idx % 3].category }}
-          </span>
+          </span> -->
           <h4 class="res-card__title">{{ article.title }}</h4>
           <p class="res-card__excerpt">{{ excerpt(article.content) }}</p>
           <div class="res-card__footer">
             <span class="res-card__read-time">{{ readTime(article.content) }}</span>
-            <a :href="`/news/${article.id}`" class="res-card__read-more">Read more →</a>
+            <a :href="`/news/${article.url}`" class="res-card__read-more">Read more →</a>
           </div>
         </div>
       </article>
@@ -34,6 +34,7 @@ import { computed } from 'vue';
 
 interface NewsItem {
   id: number;
+  url: string;
   title: string;
   image: string;
   content: string | null;
