@@ -35,19 +35,19 @@ const challenges = [
     number: '01',
     title: 'Last-Minute Callouts',
     body: 'Unexpected absences that leave schedules stretched and patient care at risk.',
-    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1783361199/1_1_l7ffnv.webp',
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1787249118/01_Last-Minute_Callouts_1_bijrjf.webp',
   },
   {
     number: '02',
     title: 'Specialized Therapists',
     body: 'Hard-to-fill therapy roles that demand experienced, qualified professionals.',
-    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1783361199/3_1_ifqfn3.webp',
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1787249118/02_Specialized_Therapists_cj6wvf.webp',
   },
   {
     number: '03',
     title: 'Administrative Staffing',
     body: 'Front-office staffing challenges that disrupt clinic operations and daily patient management.',
-    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1783361199/3_1_ifqfn3.webp',
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1787249118/02_Specialized_Therapists_cj6wvf.webp',
   },
   {
     number: '04',
