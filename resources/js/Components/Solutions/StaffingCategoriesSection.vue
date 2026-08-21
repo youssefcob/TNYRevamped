@@ -48,37 +48,37 @@ const gridItems = [
     num: '08',
     title: 'Vestibular Rehabilitation',
     desc: 'Restoring balance, gaze stability, and movement confidence for patients with dizziness or inner ear disorders. Our clinicians utilize specialized repositioning and balance retraining to reduce fall risks and prevent hospital readmissions.',
-    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994259/Vestibular_Therapists_ohzpg8.webp',
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1787249116/08_Vestibular_Rehabilitation_i1oyva.webp',
   },
   {
     num: '09',
     title: 'Acupuncturists',
     desc: 'Integrating evidence-informed pain management and wellness solutions into your practice. Licensed acupuncturists specialize in musculoskeletal relief and post-op recovery, offering a holistic approach that complements physical rehabilitation.',
-    img: null,
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1787249115/09_Acupuncturists_g0cxzf.webp',
   },
   {
     num: '10',
     title: 'Massage Therapists',
     desc: 'Enhancing soft-tissue recovery, reducing muscle tension, and improving circulation. Licensed Massage Therapists provide medical massage and trigger point therapy to accelerate healing timelines and boost patient satisfaction.',
-    img: null,
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1787249115/10_Massage_Therapists_nplz71.webp',
   },
   {
     num: '11',
     title: 'Patient Care Coordinator / Front Desk Support',
     desc: 'The operational engine of your practice. Our coordinators manage patient intake, scheduling, insurance verification, and front-desk communication, ensuring a seamless experience and optimal clinic schedule.',
-    img: null,
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1787249115/11Patient_Care_Coordinator_Front_Desk_Support_dowdut.webp',
   },
   {
     num: '12',
     title: 'School-Based Staffing',
     desc: 'Dedicated pediatric clinicians (PT, OT, SLP) qualified to support students in school settings under IEP guidelines. We ensure compliance, timely reporting, and smooth integration into educational environments.',
-    img: null,
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1787249115/12School_Based_Staffing_fudyqw.webp',
   },
   {
     num: '13',
     title: 'Emergency & Rapid Staffing',
     desc: 'Rapid clinical coverage designed to prevent operational downtime. Backed by our 24-hour response capability, we quickly deploy pre-screened rehab professionals for sudden leaves, sick days, or caseload surges.',
-    img: null,
+    img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1787249115/13_Emergency_Rapid_Staffing_s4yzu7.webp',
   },
 ];
 </script>

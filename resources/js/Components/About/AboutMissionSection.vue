@@ -33,7 +33,7 @@
         </div>
         <img
           class="about-mission__img about-mission__img--map"
-          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1783368351/Rectangle_53_eywewf.webp"
+          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1787249119/map_a5geyn.webp "
           alt="Map of New York City boroughs served"
         />
       </div>
