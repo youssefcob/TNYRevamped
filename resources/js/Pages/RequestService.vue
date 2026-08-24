@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { PageContentMap } from '@/interface/Types';
 import { Head, usePage } from '@inertiajs/vue3';
 import { provide } from 'vue';
 import LayoutV2 from '@/Components/HomeV2/LayoutV2.vue';
@@ -12,7 +13,7 @@ const props = defineProps<{
   service?: string;
 }>();
 
-provide('pageContent', (usePage().props.pageContent as Record<string, string | null>) ?? {});
+provide('pageContent', (usePage().props.pageContent as PageContentMap) ?? {});
 </script>
 
 <template>

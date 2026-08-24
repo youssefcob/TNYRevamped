@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Services\Content\PageContentService;
+use App\Services\Content\TextStyleService;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -54,6 +55,7 @@ public function share(Request $request): array
 
             return $content;
         },
+        'textStyles' => fn () => TextStyleService::all(),
     ];
 }
 }

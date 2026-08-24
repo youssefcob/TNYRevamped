@@ -90,3 +90,19 @@ const setEditMode = (enabled: boolean) => {
   editModeEnabled.value = enabled;
 }
 export { editModeEnabled, setEditMode };
+
+export interface ActiveEditableField {
+  key: string;
+  page: string;
+  styleId: number | null;
+  tag: string | null;
+  rect: { top: number; left: number };
+  setStyleId: (id: number | null) => void;
+  setTag: (tag: string | null) => void;
+}
+
+const activeEditableField: Ref<ActiveEditableField | null> = ref(null);
+const setActiveEditableField = (field: ActiveEditableField | null) => {
+  activeEditableField.value = field;
+}
+export { activeEditableField, setActiveEditableField };

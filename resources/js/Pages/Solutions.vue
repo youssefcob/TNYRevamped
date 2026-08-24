@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { PageContentMap } from '@/interface/Types';
 import { Head, usePage } from '@inertiajs/vue3';
 import { provide } from 'vue';
 import LayoutV2 from '@/Components/HomeV2/LayoutV2.vue';
@@ -8,7 +9,7 @@ import EmployersMidCTA from '@/Components/Solutions/EmployersMidCTA.vue';
 import IndustriesWeServeSection from '@/Components/Solutions/IndustriesWeServeSection.vue';
 import ForCandidatesCTA from '@/Components/Solutions/ForCandidatesCTA.vue';
 
-provide('pageContent', (usePage().props.pageContent as Record<string, string | null>) ?? {});
+provide('pageContent', (usePage().props.pageContent as PageContentMap) ?? {});
 </script>
 
 <template>

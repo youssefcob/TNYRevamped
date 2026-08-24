@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import type { PageContentMap } from '@/interface/Types';
 import { Head } from '@inertiajs/vue3';
 import { provide } from 'vue';
 import LayoutV2 from '@/Components/HomeV2/LayoutV2.vue';
@@ -21,7 +22,7 @@ interface NewsItem {
   created_at: string;
 }
 
-const props = defineProps<{ news?: NewsItem[]; pageContent?: Record<string, string | null> }>();
+const props = defineProps<{ news?: NewsItem[]; pageContent?: PageContentMap }>();
 provide('pageContent', props.pageContent ?? {});
 </script>
 

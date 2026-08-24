@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { usePage } from '@inertiajs/vue3';
+import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import { editModeEnabled, setEditMode } from '@/state/state';
 
@@ -12,18 +12,38 @@ function toggle() {
 </script>
 
 <template>
-    <button v-if="isAdmin" type="button" class="admin-edit-toggle" :class="{ 'admin-edit-toggle--active': editModeEnabled }"
-        @click="toggle">
-        {{ editModeEnabled ? 'Editing: On' : 'Edit Page' }}
-    </button>
+    <div v-if="isAdmin" class="admin-edit-toolbar">
+        <Link href="/admin/text-styles" class="admin-edit-toolbar__link">Manage Styles</Link>
+        <button type="button" class="admin-edit-toggle" :class="{ 'admin-edit-toggle--active': editModeEnabled }"
+            @click="toggle">
+            {{ editModeEnabled ? 'Editing: On' : 'Edit Page' }}
+        </button>
+    </div>
 </template>
 
 <style scoped lang="scss">
-.admin-edit-toggle {
+.admin-edit-toolbar {
     position: fixed;
     bottom: 1.5rem;
     right: 1.5rem;
     z-index: 1000;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+}
+
+.admin-edit-toolbar__link {
+    padding: 0.75rem 1.25rem;
+    border-radius: 999px;
+    background: #16344a;
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.admin-edit-toggle {
     padding: 0.75rem 1.25rem;
     border-radius: 999px;
     border: none;

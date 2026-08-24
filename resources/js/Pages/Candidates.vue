@@ -1,11 +1,12 @@
 <script setup lang="ts">
+import type { PageContentMap } from '@/interface/Types';
 import { Head, usePage } from '@inertiajs/vue3';
 import { provide } from 'vue';
 import LayoutV2 from '@/Components/HomeV2/LayoutV2.vue';
 import CandidateHeroSection from '@/Components/ForCandidates/CandidateHeroSection.vue';
 import JobListingsSection from '@/Components/ForCandidates/JobListingsSection.vue';
 
-provide('pageContent', (usePage().props.pageContent as Record<string, string | null>) ?? {});
+provide('pageContent', (usePage().props.pageContent as PageContentMap) ?? {});
 
 interface Position {
   id: number;

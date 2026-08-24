@@ -174,3 +174,25 @@ export type PaginatedResponse<T> = {
     total: number;
 }
 
+export interface TextStyle {
+    id: number;
+    name: string;
+    font_family: 'heading' | 'body' | 'switzer' | 'inherit';
+    font_weight: 400 | 500 | 600 | 700;
+    italic: boolean;
+    underline: boolean;
+    color: string | null;
+    min_font_size: number;
+    max_font_size: number;
+    font_size_vw: number;
+    line_height: number | null;
+}
+
+export type PageContentEntry = {
+    value: string | null;
+    textStyleId: number | null;
+    tag: string | null;
+};
+
+export type PageContentMap = Record<string, PageContentEntry | undefined>;
+

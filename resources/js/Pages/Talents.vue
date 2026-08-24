@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import MainOverLay from '@/Components/Overlays/MainOverLay.vue';
-import { Job, JobSeeker, PaginatedResponse } from '@/interface/Types';
+import { Job, JobSeeker, PaginatedResponse, PageContentMap } from '@/interface/Types';
 import JobSeekerCard from '@/SharedComponents/JobSeekerCard.vue';
 import Paginator from '@/SharedComponents/Paginator.vue';
 import EditableText from '@/Components/Admin/EditableText.vue';
 import { Link, router, usePage } from '@inertiajs/vue3';
 import { onMounted, provide, reactive, watch } from 'vue';
 
-provide('pageContent', (usePage().props.pageContent as Record<string, string | null>) ?? {});
+provide('pageContent', (usePage().props.pageContent as PageContentMap) ?? {});
 
 
 const props = defineProps({

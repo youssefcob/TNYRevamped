@@ -2,19 +2,20 @@
 import NavBarV2 from '../HomeV2/NavBarV2.vue';
 import Footer from '../Footer/Foot.vue';
 import AdminEditToggle from '@/Components/Admin/AdminEditToggle.vue';
+import StyleToolbarHost from '@/Components/Admin/StyleToolbarHost.vue';
 
 import { usePage } from '@inertiajs/vue3'
 import { onMounted, provide } from 'vue';
 import { snack } from '@/mixins/toast';
 import user, { Token } from '@/mixins/user';
-import { User } from '@/interface/Types';
+import { User, PageContentMap } from '@/interface/Types';
 
 const page = usePage();
 
 // NavBarV2/Footer are direct (non-slot) children here, so they need this
 // component itself to provide pageContent — a page's own provide() only
 // reaches its slotted section components, not these.
-provide('pageContent', (page.props.pageContent as Record<string, string | null>) ?? {});
+provide('pageContent', (page.props.pageContent as PageContentMap) ?? {});
 
 onMounted(() => {
     type FlashType = {
@@ -47,6 +48,7 @@ onMounted(() => {
     </main>
     <Footer />
     <AdminEditToggle />
+    <StyleToolbarHost />
 
 </template>
 
