@@ -95,6 +95,8 @@ const prev = () => { active.value = (active.value - 1 + testimonials.length) % t
         <button v-for="(_, i) in testimonials" :key="i"
           class="testimonials__dot"
           :class="{ 'testimonials__dot--active': i === active }"
+          :aria-label="`Go to testimonial ${i + 1}`"
+          :aria-current="i === active ? 'true' : undefined"
           @click="active = i" />
       </div>
       <button class="testimonials__arrow testimonials__arrow--active" @click="next" aria-label="Next">
