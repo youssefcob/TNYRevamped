@@ -4,6 +4,7 @@ import Http from '@/mixins/Http';
 import { snack, missingFieldsMessage } from '@/mixins/toast';
 import DevFillButton from '@/SharedComponents/DevFillButton.vue';
 import EditableText from '@/Components/Admin/EditableText.vue';
+import EditableImage from '@/Components/Admin/EditableImage.vue';
 
 interface ServiceItem { id: number; title: string; }
 
@@ -340,9 +341,11 @@ async function submit() {
 
       <!-- RIGHT: Image + Sidebar cards -->
       <div class="rs-sidebar">
-        <img
-          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994263/Tell_Us_About_Yourself_588x889_goum4u.webp"
-          alt="Tell us about yourself"
+        <EditableImage
+          content-key="request_service.form.image" page="request_service"
+          default-src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994263/Tell_Us_About_Yourself_588x889_goum4u.webp"
+          default-object-fit="cover"
+          default-alt="Tell us about yourself"
           class="rs-sidebar__img"
         />
 

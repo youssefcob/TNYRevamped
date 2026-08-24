@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import EditableImage from '@/Components/Admin/EditableImage.vue';
+</script>
+
 <template>
   <section class="about-team">
     <div class="about-team__inner">
@@ -9,10 +13,12 @@
         </p>
       </div>
 
-      <img
+      <EditableImage
         class="about-team__photo"
-        src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
-        alt="TNY Staffing Corporation  team"
+        content-key="about.team.image" page="about"
+        default-src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
+        default-object-fit="cover"
+        default-alt="TNY Staffing Corporation team"
       />
     </div>
   </section>

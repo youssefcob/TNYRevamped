@@ -18,8 +18,20 @@ class PageContentController extends Controller
     public function update(Request $request)
     {
         $response = $this->pageContent->upsert($request);
-        if (!$response['success'])
+        if (! $response['success']) {
             return $this->sendError($response);
+        }
+
+        return $this->sendResponse($response);
+    }
+
+    public function updateImage(Request $request)
+    {
+        $response = $this->pageContent->upsertImage($request);
+        if (! $response['success']) {
+            return $this->sendError($response);
+        }
+
         return $this->sendResponse($response);
     }
 }

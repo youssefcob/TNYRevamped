@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import EditableText from '@/Components/Admin/EditableText.vue';
+import EditableImage from '@/Components/Admin/EditableImage.vue';
 </script>
 
 <template>
@@ -10,7 +11,8 @@ import EditableText from '@/Components/Admin/EditableText.vue';
       <div class="footer2__col footer2__col--brand">
         <div class="footer2__brand">
           <!-- <img src="@/Svg/logo.svg" alt="TNY" class="footer2__logo" /> -->
-        <img src="/images/tnylogofooter.png" alt="TNY Staffing Corporation " class="footer2__logo" />
+        <EditableImage content-key="global.footer_logo" page="global" default-src="/images/tnylogofooter.png"
+          default-alt="TNY Staffing Corporation" class="footer2__logo" />
 
           <!-- <div>
             <p class="footer2__brand-name">TNY Staffing Corporation </p>

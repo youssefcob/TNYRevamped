@@ -2,7 +2,9 @@
 import Modal from '@/SharedComponents/modal.vue';
 import PrivacyPractices from './PrivacyPractices.vue';
 import EditableText from '@/Components/Admin/EditableText.vue';
+import EditableImage from '@/Components/Admin/EditableImage.vue';
 import { ref, Ref } from 'vue';
+import footerLogoUrl from '@/Svg/footerlogo.svg';
 
 function scrollToTop() {
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -30,7 +32,7 @@ const closeModal = () => {
     <footer class="container">
         <div class="up">
             <div class="logo">
-                <img src="@/Svg/footerlogo.svg" alt="">
+                <EditableImage content-key="global.footer_logo" page="global" :default-src="footerLogoUrl" default-alt="TNY Staffing Corporation" />
             </div>
             <div class="info-wrapper">
                 <div class="links">

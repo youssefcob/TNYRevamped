@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import EditableText from '@/Components/Admin/EditableText.vue';
+import EditableImage from '@/Components/Admin/EditableImage.vue';
 
 const features = [
   {
@@ -109,8 +110,10 @@ const rightFeatures = features.slice(2, 4);
         </div>
 
         <div class="join__image-bg">
-          <img src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994267/2_ylphoc.webp"
-            alt="Physical therapy professional" class="join__image" />
+          <EditableImage content-key="home.join_network.image" page="home"
+            default-src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994267/2_ylphoc.webp"
+            default-object-fit="cover"
+            default-alt="Physical therapy professional" class="join__image" />
         </div>
       </div>
 

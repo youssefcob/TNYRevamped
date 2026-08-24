@@ -2,6 +2,7 @@
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
 import EditableText from '@/Components/Admin/EditableText.vue';
+import EditableImage from '@/Components/Admin/EditableImage.vue';
 
 const page = usePage();
 const isAboutPage = computed(() => page.url.startsWith('/about'));
@@ -20,7 +21,8 @@ const scrolled = computed(() => isScrolled.value || isAboutPage.value);
   <nav class="nav2" :class="{ 'nav2--scrolled': scrolled }">
     <div class="nav2__inner">
       <Link href="/" class="nav2__logo">
-        <img src="/images/tnylogo.png" alt="TNY Staffing Corporation " />
+        <EditableImage content-key="global.logo" page="global" default-src="/images/tnylogo.png"
+          default-alt="TNY Staffing Corporation" />
       </Link>
 
       <div class="nav2__links">

@@ -8,9 +8,11 @@
     </div>
 
     <div class="industries__grid">
-      <img
-        src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994268/1_rvf4tg.webp"
-        alt=""
+      <EditableImage
+        content-key="home.industries.center_image" page="home"
+        default-src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994268/1_rvf4tg.webp"
+        default-object-fit="cover"
+        default-alt=""
         aria-hidden="true"
         class="industries__center-img"
       />
@@ -31,6 +33,7 @@
 <script setup lang="ts">
 import { h } from 'vue';
 import EditableText from '@/Components/Admin/EditableText.vue';
+import EditableImage from '@/Components/Admin/EditableImage.vue';
 
 const icon = (path: string) => () => h('svg', { width: 22, height: 22, viewBox: '0 0 24 24', fill: 'none', stroke: 'white', 'stroke-width': 1.5 }, [
   h('path', { d: path, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }),

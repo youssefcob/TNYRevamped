@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import EditableText from '@/Components/Admin/EditableText.vue';
+import EditableImage from '@/Components/Admin/EditableImage.vue';
 </script>
 
 <template>
@@ -16,9 +17,11 @@ import EditableText from '@/Components/Admin/EditableText.vue';
 
       <!-- Col 1 · Row 2: SLP -->
       <div class="sol-card sol-card--image-top">
-        <img
-          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994265/Speech-Language_Pathologists_Staffing_384x156_eurdne.webp"
-          alt="Speech-Language Pathologists Staffing"
+        <EditableImage
+          content-key="home.solutions.slp.image" page="home"
+          default-src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994265/Speech-Language_Pathologists_Staffing_384x156_eurdne.webp"
+          default-object-fit="cover"
+          default-alt="Speech-Language Pathologists Staffing"
           class="sol-card__image"
         />
         <div class="sol-card__info sol-card__info--blue">
@@ -35,9 +38,11 @@ import EditableText from '@/Components/Admin/EditableText.vue';
 
       <!-- Col 2 · Rows 1–2: PT/OT -->
       <div class="sol-card sol-card--flip">
-        <img
-          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
-          alt="Physical Therapy Staffing"
+        <EditableImage
+          content-key="home.solutions.pt.image" page="home"
+          default-src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
+          default-object-fit="cover"
+          default-alt="Physical Therapy Staffing"
           class="sol-card__image"
         />
 
@@ -65,9 +70,11 @@ import EditableText from '@/Components/Admin/EditableText.vue';
 
       <!-- Col 3 · Row 2: PCC -->
       <div class="sol-card sol-card--image-top">
-        <img
-          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994267/PCC_Aides_383x256_wu1rka.webp"
-          alt="OT/COTA"
+        <EditableImage
+          content-key="home.solutions.ot.image" page="home"
+          default-src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994267/PCC_Aides_383x256_wu1rka.webp"
+          default-object-fit="cover"
+          default-alt="OT/COTA"
           class="sol-card__image"
         />
         <div class="sol-card__info sol-card__info--sand">

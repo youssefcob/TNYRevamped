@@ -87,6 +87,7 @@ function onClick(event: MouseEvent) {
 
     const rect = fieldEl.value?.getBoundingClientRect();
     activeEditableField.value = {
+        kind: 'text',
         key: props.contentKey,
         page: props.page,
         styleId: styleId.value,

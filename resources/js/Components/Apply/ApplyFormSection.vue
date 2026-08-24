@@ -4,6 +4,7 @@ import Http from '@/mixins/Http';
 import { snack, missingFieldsMessage } from '@/mixins/toast';
 import DevFillButton from '@/SharedComponents/DevFillButton.vue';
 import EditableText from '@/Components/Admin/EditableText.vue';
+import EditableImage from '@/Components/Admin/EditableImage.vue';
 
 interface Job { id: number; title: string; }
 
@@ -374,9 +375,11 @@ async function submit() {
 
       <!-- Sidebar -->
       <div class="apply-form__sidebar">
-        <img
-          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994261/Tell_Us_About_Your_Staffing_Needs_588x889_dykgjl.webp"
-          alt="Tell us about your staffing needs"
+        <EditableImage
+          content-key="apply.form.image" page="apply"
+          default-src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994261/Tell_Us_About_Your_Staffing_Needs_588x889_dykgjl.webp"
+          default-object-fit="cover"
+          default-alt="Tell us about your staffing needs"
           class="apply-form__sidebar-image"
         />
 

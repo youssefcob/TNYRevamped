@@ -27,9 +27,11 @@
             </div> -->
           </div>
         </div>
-        <img
-          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
-          alt="Why healthcare facilities choose TNY"
+        <EditableImage
+          content-key="employers.why.image" page="employers"
+          default-src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
+          default-object-fit="cover"
+          default-alt="Why healthcare facilities choose TNY"
           class="why-tny__image"
         />
       </div>
@@ -48,6 +50,7 @@
 
 <script setup lang="ts">
 import EditableText from '@/Components/Admin/EditableText.vue';
+import EditableImage from '@/Components/Admin/EditableImage.vue';
 
 const cards = [
   {

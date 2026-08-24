@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import StatsBar from './StatsBar.vue';
 import EditableText from '@/Components/Admin/EditableText.vue';
+import EditableImage from '@/Components/Admin/EditableImage.vue';
 </script>
 
 <template>
@@ -26,9 +27,9 @@ import EditableText from '@/Components/Admin/EditableText.vue';
       </div>
 
       <div class="hero2__image">
-        <img
-          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
-          alt="Physical therapy professional" />
+        <EditableImage content-key="home.hero.image" page="home"
+          default-src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
+          default-object-fit="cover" default-alt="Physical therapy professional" />
       </div>
     </div>
 

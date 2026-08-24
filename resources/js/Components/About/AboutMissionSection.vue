@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import EditableText from '@/Components/Admin/EditableText.vue';
+import EditableImage from '@/Components/Admin/EditableImage.vue';
 </script>
 
 <template>
@@ -8,10 +9,12 @@ import EditableText from '@/Components/Admin/EditableText.vue';
 
       <!-- Row 1: image left, text right -->
       <div class="about-mission__row">
-        <img
+        <EditableImage
           class="about-mission__img about-mission__img--about"
-          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
-          alt="TNY Staffing Corporation  team"
+          content-key="about.mission.image" page="about"
+          default-src="https://res.cloudinary.com/dzilc11zf/image/upload/v1782994264/Physical_Therapy_PTs_PTAs_588x600_otilig.webp"
+          default-object-fit="cover" default-object-position="top"
+          default-alt="TNY Staffing Corporation team"
         />
         <div class="about-mission__copy">
           <EditableText tag="p" class="about-mission__label" content-key="about.mission.label" page="about" default="About Us" />
@@ -29,10 +32,12 @@ import EditableText from '@/Components/Admin/EditableText.vue';
           <EditableText tag="p" class="about-mission__body" content-key="about.coverage.body" page="about"
             default="Proudly serving all five boroughs of New York City—Manhattan, Brooklyn, Queens, the Bronx, and Staten Island. Connecting healthcare organizations with exceptional rehabilitation professionals every day." />
         </div>
-        <img
+        <EditableImage
           class="about-mission__img about-mission__img--map"
-          src="https://res.cloudinary.com/dzilc11zf/image/upload/v1787249119/map_a5geyn.webp "
-          alt="Map of New York City boroughs served"
+          content-key="about.coverage.image" page="about"
+          default-src="https://res.cloudinary.com/dzilc11zf/image/upload/v1787249119/map_a5geyn.webp"
+          default-object-fit="cover"
+          default-alt="Map of New York City boroughs served"
         />
       </div>
 

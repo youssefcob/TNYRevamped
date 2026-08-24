@@ -192,6 +192,9 @@ export type PageContentEntry = {
     value: string | null;
     textStyleId: number | null;
     tag: string | null;
+    objectFit: string | null;
+    objectPosition: string | null;
+    alt: string | null;
 };
 
 export type PageContentMap = Record<string, PageContentEntry | undefined>;

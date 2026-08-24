@@ -4,7 +4,9 @@ import NavList from './NavList.vue';
 import NavListResponsive from './NavListResponsive.vue';
 import user from '@/mixins/user';
 import ProfileDropDown from './ProfileDropDown.vue';
+import EditableImage from '@/Components/Admin/EditableImage.vue';
 import { computed,ref } from 'vue';
+import logoUrl from '@/Svg/logo.svg';
 
 
 // const userIsLoggedIn = ref(user.loggedIn());
@@ -43,7 +45,9 @@ defineExpose({
 
 <template>
     <nav>
-        <Link href="/#home"><img src="@/Svg/logo.svg" alt=""></Link>
+        <Link href="/#home">
+            <EditableImage content-key="global.logo" page="global" :default-src="logoUrl" default-alt="TNY Staffing Corporation" />
+        </Link>
         <div class="navlist-desktop">
             <NavList :userIsLoggedIn="userIsLoggedIn" :userData="userData"/>
         </div>

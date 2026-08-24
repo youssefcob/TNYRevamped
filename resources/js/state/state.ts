@@ -92,13 +92,23 @@ const setEditMode = (enabled: boolean) => {
 export { editModeEnabled, setEditMode };
 
 export interface ActiveEditableField {
+  kind: 'text' | 'image';
   key: string;
   page: string;
-  styleId: number | null;
-  tag: string | null;
   rect: { top: number; left: number };
-  setStyleId: (id: number | null) => void;
-  setTag: (tag: string | null) => void;
+  // text
+  styleId?: number | null;
+  tag?: string | null;
+  setStyleId?: (id: number | null) => void;
+  setTag?: (tag: string | null) => void;
+  // image
+  objectFit?: string | null;
+  objectPosition?: string | null;
+  alt?: string | null;
+  setObjectFit?: (value: string | null) => void;
+  setObjectPosition?: (value: string | null) => void;
+  setAlt?: (value: string | null) => void;
+  setImageFile?: (file: File) => void;
 }
 
 const activeEditableField: Ref<ActiveEditableField | null> = ref(null);

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import EditableText from '@/Components/Admin/EditableText.vue';
+import EditableImage from '@/Components/Admin/EditableImage.vue';
 
 const featuredTop = {
   num: '01',
@@ -97,7 +98,8 @@ const gridItems = [
 
       <!-- Featured top row: image left, content right -->
       <div class="sol-cats__featured">
-        <img :src="featuredTop.img" :alt="featuredTop.title" class="sol-cats__featured-img" />
+        <EditableImage content-key="solutions.categories.featured_image" page="solutions" :default-src="featuredTop.img"
+          default-object-fit="cover" :default-alt="featuredTop.title" class="sol-cats__featured-img" />
         <div class="sol-cats__featured-body">
           <span class="sol-cats__num">{{ featuredTop.num }}</span>
           <div class="sol-cats__featured-text">
@@ -113,7 +115,8 @@ const gridItems = [
       <!-- Category grid -->
       <div class="sol-cats__grid">
         <div v-for="item in gridItems" :key="item.num" class="sol-cats__card" :class="{ 'sol-cats__card--no-img': !item.img }">
-          <img v-if="item.img" :src="item.img" :alt="item.title" class="sol-cats__card-img" />
+          <EditableImage v-if="item.img" :content-key="`solutions.categories.item.${item.num}.image`" page="solutions"
+            :default-src="item.img" default-object-fit="cover" :default-alt="item.title" class="sol-cats__card-img" />
           <div class="sol-cats__card-body">
             <span class="sol-cats__num">{{ item.num }}</span>
             <div class="sol-cats__card-text">
