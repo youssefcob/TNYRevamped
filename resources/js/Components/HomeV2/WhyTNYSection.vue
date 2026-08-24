@@ -1,31 +1,31 @@
 <template>
   <section class="why">
     <div class="why__header">
-      <p class="section-label">Why TNY Staffing Corporation </p>
-      <h2 class="why__title">Staffing Solutions Built Around Your Facility</h2>
-      <p class="why__subtitle">
-        Discover flexible, customized therapy staffing solutions that help your team stay
-        fully supported and your patients receive the care they deserve.
-      </p>
+      <EditableText tag="p" class="section-label" content-key="home.why.label" page="home" default="Why TNY Staffing Corporation" />
+      <EditableText tag="h2" class="why__title" content-key="home.why.title" page="home" default="Staffing Solutions Built Around Your Facility" />
+      <EditableText tag="p" class="why__subtitle" content-key="home.why.subtitle" page="home"
+        default="Discover flexible, customized therapy staffing solutions that help your team stay fully supported and your patients receive the care they deserve." />
     </div>
 
     <div class="why__stats_grid_wrapper">
       <!-- Stats strip -->
       <div class="why__stats">
-        <div v-for="stat in stats" :key="stat.label" class="why__stat">
-          <span class="why__stat-value">{{ stat.value }}<span class="why__stat-suffix">{{ stat.suffix }}</span></span>
-          <span class="why__stat-label">{{ stat.label }}</span>
+        <div v-for="(stat, idx) in stats" :key="stat.label" class="why__stat">
+          <span class="why__stat-value">
+            <EditableText tag="span" :content-key="`home.stats.${idx}.value`" page="home" :default="stat.value" /><span class="why__stat-suffix"><EditableText tag="span" :content-key="`home.stats.${idx}.suffix`" page="home" :default="stat.suffix" /></span>
+          </span>
+          <span class="why__stat-label"><EditableText tag="span" :content-key="`home.stats.${idx}.label`" page="home" :default="stat.label" /></span>
         </div>
       </div>
 
       <!-- Feature grid -->
       <div class="why__grid">
-        <div v-for="feat in features" :key="feat.title" class="why__feature">
+        <div v-for="(feat, idx) in features" :key="feat.title" class="why__feature">
           <div class="why__icon-box">
             <component :is="feat.icon" />
           </div>
-          <h4 class="why__feat-title">{{ feat.title }}</h4>
-          <p class="why__feat-body">{{ feat.body }}</p>
+          <EditableText tag="h4" class="why__feat-title" :content-key="`home.why.feature.${idx}.title`" page="home" :default="feat.title" />
+          <EditableText tag="p" class="why__feat-body" :content-key="`home.why.feature.${idx}.body`" page="home" :default="feat.body" />
         </div>
       </div>
     </div>
@@ -34,6 +34,7 @@
 
 <script setup lang="ts">
 import { h } from 'vue';
+import EditableText from '@/Components/Admin/EditableText.vue';
 
 const stats = [
   { value: '300', suffix: '+', label: 'Hiring & Coverage Requests Fulfilled' },

@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
+import { provide } from 'vue';
 import LayoutV2 from '@/Components/HomeV2/LayoutV2.vue';
 import ApplyHeroSection from '@/Components/Apply/ApplyHeroSection.vue';
 import ApplyFormSection from '@/Components/Apply/ApplyFormSection.vue';
@@ -10,6 +11,8 @@ const props = defineProps<{
   jobs?: Job[];
   position?: string;
 }>();
+
+provide('pageContent', (usePage().props.pageContent as Record<string, string | null>) ?? {});
 </script>
 
 <template>

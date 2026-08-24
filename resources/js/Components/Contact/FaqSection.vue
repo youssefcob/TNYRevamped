@@ -1,32 +1,40 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import EditableText from '@/Components/Admin/EditableText.vue';
 
 const faqs = [
   {
+    id: 0,
     q: 'How quickly can TNY Staffing Corporation  place a professional at our facility?',
     a: 'We can typically place qualified therapy professionals within 24–48 hours for urgent needs, and within 1–2 weeks for standard placements, depending on specialty and location requirements.',
   },
   {
+    id: 1,
     q: 'What clinical specialties and disciplines does TNY cover?',
     a: 'TNY covers Physical Therapy (PT), Occupational Therapy (OT), Speech-Language Pathology (SLP), and related rehabilitation disciplines, including CFY-level and fully licensed clinicians.',
   },
   {
+    id: 2,
     q: 'How does TNY handle credentialing and compliance verification?',
     a: 'All professionals undergo thorough background checks, license verification, and compliance screening before any placement. We maintain up-to-date records for every clinician in our network.',
   },
   {
+    id: 3,
     q: 'What types of staffing arrangements do you offer employers?',
     a: 'We offer per diem, short-term contract, long-term contract, and permanent placement options to accommodate your facility\'s scheduling needs and budget requirements.',
   },
   {
+    id: 4,
     q: 'Does TNY operate outside of New York State?',
     a: 'TNY primarily serves healthcare facilities throughout New York City and the surrounding tri-state area, with select placements available in neighboring states upon request.',
   },
   {
+    id: 5,
     q: 'What happens if a placed professional is not the right fit for our facility?',
     a: 'We stand behind every placement. If a professional isn\'t the right fit, we\'ll work quickly to find a replacement at no additional cost during the initial placement period.',
   },
   {
+    id: 6,
     q: 'Can TNY support multi-site or enterprise-level staffing programs?',
     a: 'Yes. We work with multi-site healthcare networks to provide coordinated staffing solutions across multiple locations, with a dedicated account manager for each enterprise partner.',
   },
@@ -45,10 +53,9 @@ const toggle = (i: number) => {
 
       <!-- Left: heading -->
       <div class="faq__heading">
-        <h2 class="faq__title">Frequently Asked Questions</h2>
-        <p class="faq__subtitle">
-          Everything employers need to know about partnering with TNY Staffing Corporation .
-        </p>
+        <EditableText tag="h2" class="faq__title" content-key="contact.faq.title" page="contact" default="Frequently Asked Questions" />
+        <EditableText tag="p" class="faq__subtitle" content-key="contact.faq.subtitle" page="contact"
+          default="Everything employers need to know about partnering with TNY Staffing Corporation." />
         <div class="faq__divider" />
       </div>
 
@@ -61,7 +68,7 @@ const toggle = (i: number) => {
           :class="{ 'faq__item--open': openIndex === i }"
         >
           <button class="faq__question" @click="toggle(i)" type="button">
-            <span class="faq__question-text">{{ item.q }}</span>
+            <EditableText tag="span" class="faq__question-text" :content-key="`contact.faq.item.${item.id}.q`" page="contact" :default="item.q" />
             <span class="faq__toggle" :class="{ 'faq__toggle--open': openIndex === i }">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
                 <line v-if="openIndex !== i" x1="12" y1="5" x2="12" y2="19"/>
@@ -72,7 +79,7 @@ const toggle = (i: number) => {
 
           <Transition name="faq-ans">
             <div v-if="openIndex === i" class="faq__answer">
-              <p>{{ item.a }}</p>
+              <EditableText tag="p" :content-key="`contact.faq.item.${item.id}.a`" page="contact" :default="item.a" />
             </div>
           </Transition>
         </div>

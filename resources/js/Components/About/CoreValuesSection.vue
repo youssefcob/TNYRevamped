@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { h } from 'vue';
+import EditableText from '@/Components/Admin/EditableText.vue';
 
 const HeartIcon = () => h('svg', { width: 32, height: 32, viewBox: '0 0 24 24', fill: 'none', stroke: '#ee7830', 'stroke-width': 2, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, [
   h('path', { d: 'M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z' }),
@@ -18,21 +19,25 @@ const RippleIcon = () => h('svg', { width: 32, height: 32, viewBox: '0 0 24 24',
 
 const values = [
   {
+    id: 0,
     icon: HeartIcon,
     title: 'Compassion',
     body: 'We believe every great placement begins with a genuine commitment to improving lives.',
   },
   {
+    id: 1,
     icon: CompassIcon,
     title: 'Purpose',
     body: 'We connect people with opportunities that create meaningful careers and better patient outcomes.',
   },
   {
+    id: 2,
     icon: StarIcon,
     title: 'Excellence',
     body: 'We never settle for "good enough." Every placement is held to the highest clinical standards.',
   },
   {
+    id: 3,
     icon: RippleIcon,
     title: 'Impact',
     body: "Every therapist we place has the power to change a life. That's a responsibility we take seriously.",
@@ -44,8 +49,8 @@ const values = [
   <section class="about-values">
     <div class="about-values__inner">
       <div class="about-values__header">
-        <p class="about-values__label">Core Values</p>
-        <h2 class="about-values__heading">Dream big</h2>
+        <EditableText tag="p" class="about-values__label" content-key="about.values.label" page="about" default="Core Values" />
+        <EditableText tag="h2" class="about-values__heading" content-key="about.values.heading" page="about" default="Dream big" />
       </div>
 
       <div class="about-values__grid">
@@ -54,8 +59,8 @@ const values = [
             <component :is="val.icon" />
           </div>
           <div class="about-values__card-body">
-            <h3 class="about-values__card-title">{{ val.title }}</h3>
-            <p class="about-values__card-text">{{ val.body }}</p>
+            <EditableText tag="h3" class="about-values__card-title" :content-key="`about.values.item.${val.id}.title`" page="about" :default="val.title" />
+            <EditableText tag="p" class="about-values__card-text" :content-key="`about.values.item.${val.id}.body`" page="about" :default="val.body" />
           </div>
         </div>
       </div>

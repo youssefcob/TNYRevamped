@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import EditableText from '@/Components/Admin/EditableText.vue';
 
 interface NewsItem {
   id: number;
@@ -44,7 +45,7 @@ function excerpt(text: string | null): string {
           :class="{ 'art-section__tab--active': activeTab === 'articles' }"
           @click="activeTab = 'articles'"
         >
-          Articles
+          <EditableText tag="span" content-key="resources.tabs.articles" page="resources" default="Articles" />
         </button>
         <!-- <button
           class="art-section__tab"

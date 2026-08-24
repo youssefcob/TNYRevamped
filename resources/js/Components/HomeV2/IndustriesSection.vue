@@ -1,12 +1,10 @@
 <template>
   <section class="industries">
     <div class="industries__header">
-      <p class="section-label">Industries</p>
-      <h2 class="industries__title">Precision Rehab Staffing for Every Healthcare Environment</h2>
-      <p class="industries__subtitle">
-        No matter your staffing needs, we connect healthcare organizations with exceptional
-        therapy professionals ready to make an immediate impact.
-      </p>
+      <EditableText tag="p" class="section-label" content-key="home.industries.label" page="home" default="Industries" />
+      <EditableText tag="h2" class="industries__title" content-key="home.industries.title" page="home" default="Precision Rehab Staffing for Every Healthcare Environment" />
+      <EditableText tag="p" class="industries__subtitle" content-key="home.industries.subtitle" page="home"
+        default="No matter your staffing needs, we connect healthcare organizations with exceptional therapy professionals ready to make an immediate impact." />
     </div>
 
     <div class="industries__grid">
@@ -22,8 +20,8 @@
           <div class="ind-card__icon-box">
             <component :is="industry.icon" />
           </div>
-          <h4 class="ind-card__title">{{ industry.title }}</h4>
-          <p class="ind-card__body">{{ industry.body }}</p>
+          <EditableText tag="h4" class="ind-card__title" :content-key="`home.industries.item.${industry.id}.title`" page="home" :default="industry.title" />
+          <EditableText tag="p" class="ind-card__body" :content-key="`home.industries.item.${industry.id}.body`" page="home" :default="industry.body" />
         </div>
       </div>
     </div>
@@ -32,43 +30,50 @@
 
 <script setup lang="ts">
 import { h } from 'vue';
+import EditableText from '@/Components/Admin/EditableText.vue';
 
 const icon = (path: string) => () => h('svg', { width: 22, height: 22, viewBox: '0 0 24 24', fill: 'none', stroke: 'white', 'stroke-width': 1.5 }, [
   h('path', { d: path, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }),
 ]);
 
-const industries: { icon: () => any; title: string; body: string; wide: boolean }[] = [
+const industries: { id: number; icon: () => any; title: string; body: string; wide: boolean }[] = [
   {
+    id: 0,
     icon: icon('M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0H5m14 0h2M5 21H3M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4'),
     title: 'Hospitals & Health Systems',
     body: 'Reliable staffing solutions for acute care, inpatient rehabilitation, and LTACH facilities with complex therapy needs.',
     wide: true,
   },
   {
+    id: 1,
     icon: icon('M12 14l9-5-9-5-9 5 9 5zm0 0l6.16-3.422a12.083 12.083 0 01.665 6.479A11.952 11.952 0 0012 20.055a11.952 11.952 0 00-6.824-2.998 12.078 12.078 0 01.665-6.479L12 14z'),
     title: 'Schools Settings',
     body: 'Support student success with credentialed therapists for public and private schools, early intervention programs, and special education services.',
     wide: false,
   },
   {
+    id: 2,
     icon: icon('M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z'),
     title: 'Rehabilitation Centers',
     body: 'Strengthen your therapy team with experienced professionals for both outpatient and inpatient rehabilitation programs.',
     wide: false,
   },
   {
+    id: 3,
     icon: icon('M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6'),
     title: 'Skilled Nursing Facilities',
     body: 'Ensure consistent, compassionate care with therapy professionals experienced in long-term care and subacute rehabilitation.',
     wide: false,
   },
   {
+    id: 4,
     icon: icon('M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2'),
     title: 'Home Healthcare Agencies',
     body: 'Deliver exceptional care at home with fully credentialed therapists experienced in independent, patient-centered care.',
     wide: false,
   },
   {
+    id: 5,
     icon: icon('M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z'),
     title: 'Private Practices',
     body: 'Grow your practice with skilled therapists for temporary coverage, contract assignments, or permanent placements.',

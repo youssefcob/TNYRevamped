@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import NavBarV2 from '../HomeV2/NavBarV2.vue';
 import Footer from '../Footer/Foot.vue';
+import AdminEditToggle from '@/Components/Admin/AdminEditToggle.vue';
 
 import { usePage } from '@inertiajs/vue3'
 import { onMounted } from 'vue';
@@ -40,6 +41,7 @@ onMounted(() => {
         <slot></slot>
     </main>
     <Footer />
+    <AdminEditToggle />
 
 </template>
 

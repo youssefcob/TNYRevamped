@@ -1,16 +1,16 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <section class="cand-hero">
     <div class="cand-hero__inner">
-      <h1 class="cand-hero__title">
-        The Flexible Therapy Career
-        <span class="cand-hero__title--blue"> You've Been Looking For.</span>
-      </h1>
-      <p class="cand-hero__subtitle">
-        Join a growing community of rehabilitation professionals working where they're needed
-        most—across hospitals, outpatient clinics, skilled nursing facilities, schools,
-        and home healthcare throughout NYC.
-      </p>
-      <a href="#openings" class="cand-hero__btn">Browse Openings</a>
+      <EditableText tag="h1" class="cand-hero__title" content-key="candidates.hero.title" page="candidates" default="The Flexible Therapy Career You've Been Looking For." />
+      <EditableText tag="p" class="cand-hero__subtitle" content-key="candidates.hero.subtitle" page="candidates"
+        default="Join a growing community of rehabilitation professionals working where they're needed most—across hospitals, outpatient clinics, skilled nursing facilities, schools, and home healthcare throughout NYC." />
+      <a href="#openings" class="cand-hero__btn">
+        <EditableText tag="span" content-key="candidates.hero.cta" page="candidates" default="Browse Openings" />
+      </a>
     </div>
   </section>
 </template>

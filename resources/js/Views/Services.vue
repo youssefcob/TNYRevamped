@@ -3,6 +3,7 @@ import { serviceState } from '@/state/state';
 import { Service } from '@/interface/Types';
 import { onMounted, ref } from 'vue';
 import SingleService from '@/Components/Home/Services/SingleService.vue';
+import EditableText from '@/Components/Admin/EditableText.vue';
 
 const props = defineProps({
     services: {
@@ -23,11 +24,11 @@ onMounted(() => {
 
 <template>
       <div class="container">
-        <h2 class="title">Services</h2>
+        <EditableText tag="h2" class="title" content-key="services.title" page="services" default="Services" />
         <br>
-        <h2 class="subtitle">TNY Staffing Corporation - redefining staffing solutions</h2>
+        <EditableText tag="h2" class="subtitle" content-key="services.subtitle" page="services" default="TNY Staffing Corporation - redefining staffing solutions" />
         <br>
-        <h2 class="subtitle blue">Why TNY Staffing Corporation ?</h2>
+        <EditableText tag="h2" class="subtitle blue" content-key="services.why_title" page="services" default="Why TNY Staffing Corporation?" />
 
         <div class="services-wrapper">
             <SingleService v-for="service in serviceState" :key="service.id" :service="service" />

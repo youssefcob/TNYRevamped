@@ -3,6 +3,7 @@ import { ref, reactive, computed, onMounted, onUnmounted } from 'vue';
 import Http from '@/mixins/Http';
 import { snack, missingFieldsMessage } from '@/mixins/toast';
 import DevFillButton from '@/SharedComponents/DevFillButton.vue';
+import EditableText from '@/Components/Admin/EditableText.vue';
 
 interface Job { id: number; title: string; }
 
@@ -158,12 +159,10 @@ async function submit() {
       <div class="apply-form__card">
         <template v-if="!submitted">
           <div class="apply-form__card-header">
-            <p class="apply-form__label">APPLY TODAY</p>
-            <h2 class="apply-form__heading">Tell Us About Yourself</h2>
-            <p class="apply-form__desc">
-              Complete the form below and our recruitment team will review your experience,
-              credentials, and career goals to match you with opportunities that fit your skills and preferences.
-            </p>
+            <EditableText tag="p" class="apply-form__label" content-key="apply.form.label" page="apply" default="APPLY TODAY" />
+            <EditableText tag="h2" class="apply-form__heading" content-key="apply.form.heading" page="apply" default="Tell Us About Yourself" />
+            <EditableText tag="p" class="apply-form__desc" content-key="apply.form.desc" page="apply"
+              default="Complete the form below and our recruitment team will review your experience, credentials, and career goals to match you with opportunities that fit your skills and preferences." />
           </div>
 
           <div class="apply-form__grid">
@@ -352,11 +351,11 @@ async function submit() {
               :disabled="isLoading"
               @click="submit"
             >
-              {{ isLoading ? 'Submitting...' : 'Submit Application' }}
+              <span v-if="isLoading">Submitting...</span>
+              <EditableText v-else tag="span" content-key="apply.form.submit_label" page="apply" default="Submit Application" />
             </button>
-            <p class="apply-form__disclaimer">
-              By submitting the application you agree to be contacted by TNY regarding opportunities
-            </p>
+            <EditableText tag="p" class="apply-form__disclaimer" content-key="apply.form.disclaimer" page="apply"
+              default="By submitting the application you agree to be contacted by TNY regarding opportunities" />
             <DevFillButton @fill="fillTestData" />
           </div>
         </template>
@@ -367,11 +366,9 @@ async function submit() {
             <circle cx="40" cy="40" r="39" stroke="#2F8F83" stroke-width="2"/>
             <path d="M24 40l12 12 20-24" stroke="#2F8F83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <h3 class="apply-form__success-title">Application Received!</h3>
-          <p class="apply-form__success-text">
-            Thank you for applying. Our recruitment team will review your profile
-            and reach out within 1–2 business days.
-          </p>
+          <EditableText tag="h3" class="apply-form__success-title" content-key="apply.form.success_title" page="apply" default="Application Received!" />
+          <EditableText tag="p" class="apply-form__success-text" content-key="apply.form.success_text" page="apply"
+            default="Thank you for applying. Our recruitment team will review your profile and reach out within 1–2 business days." />
         </div>
       </div>
 
@@ -384,35 +381,35 @@ async function submit() {
         />
 
         <div class="apply-form__info-card">
-          <p class="apply-form__info-label">Contact Information</p>
-          <h3 class="apply-form__info-heading">Talk To Our<br>Recruitment Team</h3>
+          <EditableText tag="p" class="apply-form__info-label" content-key="apply.info.label" page="apply" default="Contact Information" />
+          <EditableText tag="h3" class="apply-form__info-heading" content-key="apply.info.heading" page="apply" default="Talk To Our Recruitment Team" />
           <div class="apply-form__contacts">
             <div class="apply-form__contact-row">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="#222"/></svg>
-              <span>(347) 441-4283</span>
+              <EditableText tag="span" content-key="apply.info.phone" page="apply" default="(347) 441-4283" />
             </div>
             <div class="apply-form__contact-row">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="#222"/></svg>
-              <span>staffing@therapyofnewyork.com</span>
+              <EditableText tag="span" content-key="apply.info.email" page="apply" default="staffing@therapyofnewyork.com" />
             </div>
             <div class="apply-form__contact-row">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z" fill="#222"/></svg>
-              <span>575 8th Ave, 10th Floor, New York, NY 10018</span>
+              <EditableText tag="span" content-key="apply.info.address" page="apply" default="575 8th Ave, 10th Floor, New York, NY 10018" />
             </div>
           </div>
         </div>
 
         <div class="apply-form__info-card">
-          <p class="apply-form__info-label">RECRUITMENT HOURS</p>
-          <h3 class="apply-form__info-heading">We're Available</h3>
+          <EditableText tag="p" class="apply-form__info-label" content-key="apply.hours.label" page="apply" default="RECRUITMENT HOURS" />
+          <EditableText tag="h3" class="apply-form__info-heading" content-key="apply.hours.heading" page="apply" default="We're Available" />
           <div class="apply-form__hours">
             <div class="apply-form__hours-row">
               <span>Mon - Fri</span>
-              <span>9:00 AM - 5:00 PM</span>
+              <EditableText tag="span" content-key="apply.hours.weekday" page="apply" default="9:00 AM - 5:00 PM" />
             </div>
             <div class="apply-form__hours-row">
               <span>Sat & Sun</span>
-              <span>Closed</span>
+              <EditableText tag="span" content-key="apply.hours.weekend" page="apply" default="Closed" />
             </div>
           </div>
         </div>

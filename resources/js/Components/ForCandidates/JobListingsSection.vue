@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed } from 'vue';
 import Modal from '@/SharedComponents/modal.vue';
+import EditableText from '@/Components/Admin/EditableText.vue';
 
 interface Position {
   id: number;
@@ -37,12 +38,10 @@ function viewDetails(pos: Position) {
 
       <!-- Header -->
       <div class="listings__header">
-        <p class="listings__label">Open Positions</p>
-        <h2 class="listings__title">Explore Current Opportunities</h2>
-        <p class="listings__subtitle">
-          Explore flexible therapy opportunities across specialties, healthcare environments,
-          and every NYC borough.
-        </p>
+        <EditableText tag="p" class="listings__label" content-key="candidates.listings.label" page="candidates" default="Open Positions" />
+        <EditableText tag="h2" class="listings__title" content-key="candidates.listings.title" page="candidates" default="Explore Current Opportunities" />
+        <EditableText tag="p" class="listings__subtitle" content-key="candidates.listings.subtitle" page="candidates"
+          default="Explore flexible therapy opportunities across specialties, healthcare environments, and every NYC borough." />
       </div>
 
       <!-- Search bar -->

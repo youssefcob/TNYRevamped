@@ -3,23 +3,19 @@
     <div class="why-tny__inner">
 
       <div class="why-tny__header">
-        <p class="why-tny__label">Why TNY</p>
-        <h2 class="why-tny__title">Why Healthcare Facilities Choose TNY</h2>
-        <p class="why-tny__subtitle">
-          In a fast-moving healthcare environment, the right staffing makes the difference
-          between simply keeping up and delivering exceptional care.
-        </p>
+        <EditableText tag="p" class="why-tny__label" content-key="employers.why.label" page="employers" default="Why TNY" />
+        <EditableText tag="h2" class="why-tny__title" content-key="employers.why.title" page="employers" default="Why Healthcare Facilities Choose TNY" />
+        <EditableText tag="p" class="why-tny__subtitle" content-key="employers.why.subtitle" page="employers"
+          default="In a fast-moving healthcare environment, the right staffing makes the difference between simply keeping up and delivering exceptional care." />
       </div>
 
       <!-- Top row: dark feature card + image -->
       <div class="why-tny__top-row">
         <div class="why-tny__feature-card">
-          <p class="why-tny__feature-label">Rapid Deployment</p>
-          <h3 class="why-tny__feature-title">Fast Staffing Support<br />Without Sacrificing Quality</h3>
-          <p class="why-tny__feature-body">
-            Urgent staffing doesn't mean lowering your standards. Our team delivers credentialed
-            therapy professionals with the speed your facility demands.
-          </p>
+          <EditableText tag="p" class="why-tny__feature-label" content-key="employers.why.feature.label" page="employers" default="Rapid Deployment" />
+          <EditableText tag="h3" class="why-tny__feature-title" content-key="employers.why.feature.title" page="employers" default="Fast Staffing Support Without Sacrificing Quality" />
+          <EditableText tag="p" class="why-tny__feature-body" content-key="employers.why.feature.body" page="employers"
+            default="Urgent staffing doesn't mean lowering your standards. Our team delivers credentialed therapy professionals with the speed your facility demands." />
           <div class="why-tny__stats">
             <!-- <div class="why-tny__stat">
               <span class="why-tny__stat-value">98<span class="why-tny__stat-suffix">%</span></span>
@@ -41,8 +37,8 @@
       <!-- Bottom row: 3 sand cards -->
       <div class="why-tny__cards">
         <div v-for="card in cards" :key="card.title" class="why-tny__card">
-          <h3 class="why-tny__card-title">{{ card.title }}</h3>
-          <p class="why-tny__card-body">{{ card.body }}</p>
+          <EditableText tag="h3" class="why-tny__card-title" :content-key="`employers.why.card.${card.id}.title`" page="employers" :default="card.title" />
+          <EditableText tag="p" class="why-tny__card-body" :content-key="`employers.why.card.${card.id}.body`" page="employers" :default="card.body" />
         </div>
       </div>
 
@@ -51,16 +47,21 @@
 </template>
 
 <script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+
 const cards = [
   {
+    id: 0,
     title: 'Rigorous Screening',
     body: 'Every clinician is thoroughly vetted for credentials, compliance, experience, and clinical fit.',
   },
   {
+    id: 1,
     title: 'Specialized Talent',
     body: 'Access experienced PTs & PTAs, OTs & COTAs, SLPs & SLPAs, & Neuro Therapists, Acupuncturists, LMTs, and Administrative Staff.',
   },
   {
+    id: 2,
     title: 'Flexible Staffing',
     body: 'Per diem, contract, temp-to-hire, and long-term staffing solutions.',
   },

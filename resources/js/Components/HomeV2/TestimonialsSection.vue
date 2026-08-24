@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref } from 'vue';
+import EditableText from '@/Components/Admin/EditableText.vue';
 
 const active = ref(0);
 
@@ -34,11 +35,10 @@ const prev = () => { active.value = (active.value - 1 + testimonials.length) % t
 <template>
   <section class="testimonials">
     <div class="testimonials__header">
-      <p class="section-label">Testimonials</p>
-      <h2 class="testimonials__title">What Our Partners Say</h2>
-      <p class="testimonials__subtitle">
-        From the facilities we staff to the therapists we place — real voices, real results.
-      </p>
+      <EditableText tag="p" class="section-label" content-key="home.testimonials.label" page="home" default="Testimonials" />
+      <EditableText tag="h2" class="testimonials__title" content-key="home.testimonials.title" page="home" default="What Our Partners Say" />
+      <EditableText tag="p" class="testimonials__subtitle" content-key="home.testimonials.subtitle" page="home"
+        default="From the facilities we staff to the therapists we place — real voices, real results." />
     </div>
 
     <!-- Featured quote -->
@@ -47,14 +47,14 @@ const prev = () => { active.value = (active.value - 1 + testimonials.length) % t
         <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/>
         <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/>
       </svg>
-      <p class="testimonials__featured-quote">{{ testimonials[active].quote }}</p>
+      <EditableText tag="p" class="testimonials__featured-quote" :content-key="`home.testimonials.${active}.quote`" page="home" :default="testimonials[active].quote" />
       <div class="testimonials__featured-author">
         <div class="testimonials__avatar" :style="{ background: testimonials[active].color }">
           {{ testimonials[active].initials }}
         </div>
         <div>
-          <p class="testimonials__author-name">{{ testimonials[active].name }}</p>
-          <p class="testimonials__author-role">{{ testimonials[active].title }}</p>
+          <EditableText tag="p" class="testimonials__author-name" :content-key="`home.testimonials.${active}.name`" page="home" :default="testimonials[active].name" />
+          <EditableText tag="p" class="testimonials__author-role" :content-key="`home.testimonials.${active}.title`" page="home" :default="testimonials[active].title" />
           <div class="testimonials__stars">
             <span v-for="n in 5" :key="n">★</span>
           </div>
@@ -68,14 +68,14 @@ const prev = () => { active.value = (active.value - 1 + testimonials.length) % t
         <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="#FF9B37" stroke-width="1.5">
           <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1zM15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/>
         </svg>
-        <p class="test-card__quote">{{ t.quote }}</p>
+        <EditableText tag="p" class="test-card__quote" :content-key="`home.testimonials.${i}.quote`" page="home" :default="t.quote" />
         <div class="test-card__author">
           <div class="testimonials__avatar testimonials__avatar--sm" :style="{ background: t.color }">
             {{ t.initials }}
           </div>
           <div>
-            <p class="test-card__name">{{ t.name }}</p>
-            <p class="test-card__role">{{ t.title }}</p>
+            <EditableText tag="p" class="test-card__name" :content-key="`home.testimonials.${i}.name`" page="home" :default="t.name" />
+            <EditableText tag="p" class="test-card__role" :content-key="`home.testimonials.${i}.title`" page="home" :default="t.title" />
             <div class="testimonials__stars testimonials__stars--sm">
               <span v-for="n in 5" :key="n">★</span>
             </div>

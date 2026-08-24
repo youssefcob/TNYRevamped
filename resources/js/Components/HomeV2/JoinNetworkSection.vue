@@ -1,18 +1,24 @@
 <script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+
 const features = [
   {
+    id: 0,
     title: 'Flexible Opportunities',
     body: 'Access assignments that match your schedule and preferences.',
   },
   {
+    id: 1,
     title: 'Competitive & Transparent Pay',
     body: 'Clear, market-leading rates provided upfront so you always know your worth.',
   },
   {
+    id: 2,
     title: 'Diverse Clinical Settings',
     body: 'Choose your preferred environment—from outpatient and hospitals to homecare and schools.',
   },
   {
+    id: 3,
     title: 'Personalized Placement Support',
     body: 'Work 1-on-1 with dedicated recruiters who match you with roles aligned with your career goals.',
   },
@@ -25,13 +31,10 @@ const rightFeatures = features.slice(2, 4);
 <template>
   <section class="join">
     <div class="join__text">
-      <p class="section-label">For Healthcare Professionals</p>
-      <h2 class="join__title">Join our Network</h2>
-      <p class="join__body">
-        TNY Staffing Corporation partners with experienced healthcare professionals seeking
-        flexible opportunities, supportive recruiters, and meaningful placements across
-        hospitals, rehabilitation centers, clinics, and healthcare organizations.
-      </p>
+      <EditableText tag="p" class="section-label" content-key="home.join_network.label" page="home" default="For Healthcare Professionals" />
+      <EditableText tag="h2" class="join__title" content-key="home.join_network.title" page="home" default="Join our Network" />
+      <EditableText tag="p" class="join__body" content-key="home.join_network.body" page="home"
+        default="TNY Staffing Corporation partners with experienced healthcare professionals seeking flexible opportunities, supportive recruiters, and meaningful placements across hospitals, rehabilitation centers, clinics, and healthcare organizations." />
     </div>
 
     <div class="join__visual">
@@ -60,8 +63,8 @@ const rightFeatures = features.slice(2, 4);
               </svg>
             </div>
             <div>
-              <h4 class="join__card-title">{{ feature.title }}</h4>
-              <p class="join__card-body">{{ feature.body }}</p>
+              <EditableText tag="h4" class="join__card-title" :content-key="`home.join_network.feature.${feature.id}.title`" page="home" :default="feature.title" />
+              <EditableText tag="p" class="join__card-body" :content-key="`home.join_network.feature.${feature.id}.body`" page="home" :default="feature.body" />
             </div>
           </div>
         </div>
@@ -90,8 +93,8 @@ const rightFeatures = features.slice(2, 4);
               </svg>
             </div>
             <div>
-              <h4 class="join__card-title">{{ feature.title }}</h4>
-              <p class="join__card-body">{{ feature.body }}</p>
+              <EditableText tag="h4" class="join__card-title" :content-key="`home.join_network.feature.${feature.id}.title`" page="home" :default="feature.title" />
+              <EditableText tag="p" class="join__card-body" :content-key="`home.join_network.feature.${feature.id}.body`" page="home" :default="feature.body" />
             </div>
           </div>
         </div>
@@ -111,7 +114,9 @@ const rightFeatures = features.slice(2, 4);
         </div>
       </div>
 
-      <a href="/apply" class="join__cta">Explore Jobs</a>
+      <a href="/apply" class="join__cta">
+        <EditableText tag="span" content-key="home.join_network.cta" page="home" default="Explore Jobs" />
+      </a>
     </div>
   </section>
 </template>

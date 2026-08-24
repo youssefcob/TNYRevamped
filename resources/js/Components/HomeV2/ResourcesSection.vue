@@ -2,10 +2,12 @@
   <section v-if="latestArticles.length > 0" class="resources">
     <div class="resources__header">
       <div class="resources__header-left">
-        <p class="section-label">Resources</p>
-        <h2 class="resources__title">Insights for Healthcare Leaders</h2>
+        <EditableText tag="p" class="section-label" content-key="home.resources.label" page="home" default="Resources" />
+        <EditableText tag="h2" class="resources__title" content-key="home.resources.title" page="home" default="Insights for Healthcare Leaders" />
       </div>
-      <a href="/news" class="resources__view-all">View All Resources</a>
+      <a href="/news" class="resources__view-all">
+        <EditableText tag="span" content-key="home.resources.cta" page="home" default="View All Resources" />
+      </a>
     </div>
 
     <div class="resources__cards">
@@ -31,6 +33,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue';
+import EditableText from '@/Components/Admin/EditableText.vue';
 
 interface NewsItem {
   id: number;

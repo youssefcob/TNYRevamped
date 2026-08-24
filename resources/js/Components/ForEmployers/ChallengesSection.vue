@@ -3,12 +3,10 @@
     <div class="challenges__inner">
 
       <div class="challenges__header">
-        <p class="challenges__label">Employer Challenges</p>
-        <h2 class="challenges__title">Staffing Challenges Shouldn't Compromise Patient Care</h2>
-        <p class="challenges__subtitle">
-          In today's fast-paced healthcare environment, reliable staffing is essential to
-          maintaining quality patient care, operational efficiency, and continuity of services.
-        </p>
+        <EditableText tag="p" class="challenges__label" content-key="employers.challenges.label" page="employers" default="Employer Challenges" />
+        <EditableText tag="h2" class="challenges__title" content-key="employers.challenges.title" page="employers" default="Staffing Challenges Shouldn't Compromise Patient Care" />
+        <EditableText tag="p" class="challenges__subtitle" content-key="employers.challenges.subtitle" page="employers"
+          default="In today's fast-paced healthcare environment, reliable staffing is essential to maintaining quality patient care, operational efficiency, and continuity of services." />
       </div>
 
       <div class="challenges__list">
@@ -17,8 +15,8 @@
           <div class="challenge-row__text">
             <span class="challenge-row__number">{{ item.number }}</span>
             <div class="challenge-row__content">
-              <h3 class="challenge-row__title">{{ item.title }}</h3>
-              <p class="challenge-row__body">{{ item.body }}</p>
+              <EditableText tag="h3" class="challenge-row__title" :content-key="`employers.challenges.item.${item.number}.title`" page="employers" :default="item.title" />
+              <EditableText tag="p" class="challenge-row__body" :content-key="`employers.challenges.item.${item.number}.body`" page="employers" :default="item.body" />
             </div>
           </div>
           <img :src="item.img" :alt="item.title" class="challenge-row__image" />
@@ -30,6 +28,8 @@
 </template>
 
 <script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+
 const challenges = [
   {
     number: '01',

@@ -1,15 +1,13 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <section class="res-hero">
     <div class="res-hero__inner">
-      <h1 class="res-hero__title">
-        Resources For Modern
-        <span class="res-hero__title--blue"> Healthcare Teams.</span>
-      </h1>
-      <p class="res-hero__subtitle">
-        Explore educational articles, staffing insights, rehabilitation trends,<br>
-        and real-world case studies designed for<br>
-        healthcare employers and therapy professionals.
-      </p>
+      <EditableText tag="h1" class="res-hero__title" content-key="resources.hero.title" page="resources" default="Resources For Modern Healthcare Teams." />
+      <EditableText tag="p" class="res-hero__subtitle" content-key="resources.hero.subtitle" page="resources"
+        default="Explore educational articles, staffing insights, rehabilitation trends, and real-world case studies designed for healthcare employers and therapy professionals." />
     </div>
   </section>
 </template>

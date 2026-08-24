@@ -1,9 +1,12 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
+import { provide } from 'vue';
 import LayoutV2 from '@/Components/HomeV2/LayoutV2.vue';
 import ContactHeroSection from '@/Components/Contact/ContactHeroSection.vue';
 import ContactFormSection from '@/Components/Contact/ContactFormSection.vue';
 import FaqSection from '@/Components/Contact/FaqSection.vue';
+
+provide('pageContent', (usePage().props.pageContent as Record<string, string | null>) ?? {});
 </script>
 
 <template>

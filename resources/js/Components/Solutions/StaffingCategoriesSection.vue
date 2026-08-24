@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+
 const featuredTop = {
   num: '01',
   title: 'Physical Therapy',
@@ -89,10 +91,8 @@ const gridItems = [
 
       <!-- Section header -->
       <div class="sol-cats__header">
-        <p class="sol-cats__label">For Employers</p>
-        <h2 class="sol-cats__heading">
-          Staffing Categories<br>We Support
-        </h2>
+        <EditableText tag="p" class="sol-cats__label" content-key="solutions.categories.label" page="solutions" default="For Employers" />
+        <EditableText tag="h2" class="sol-cats__heading" content-key="solutions.categories.heading" page="solutions" default="Staffing Categories We Support" />
       </div>
 
       <!-- Featured top row: image left, content right -->
@@ -102,10 +102,10 @@ const gridItems = [
           <span class="sol-cats__num">{{ featuredTop.num }}</span>
           <div class="sol-cats__featured-text">
             <h3 class="sol-cats__item-title">
-              {{ featuredTop.title }}<br>
-              <span class="sol-cats__item-sub">{{ featuredTop.subtitle }}</span>
+              <EditableText tag="span" :content-key="`solutions.categories.item.${featuredTop.num}.title`" page="solutions" :default="featuredTop.title" /><br>
+              <EditableText tag="span" class="sol-cats__item-sub" :content-key="`solutions.categories.item.${featuredTop.num}.subtitle`" page="solutions" :default="featuredTop.subtitle" />
             </h3>
-            <p class="sol-cats__item-desc">{{ featuredTop.desc }}</p>
+            <EditableText tag="p" class="sol-cats__item-desc" :content-key="`solutions.categories.item.${featuredTop.num}.desc`" page="solutions" :default="featuredTop.desc" />
           </div>
         </div>
       </div>
@@ -117,8 +117,8 @@ const gridItems = [
           <div class="sol-cats__card-body">
             <span class="sol-cats__num">{{ item.num }}</span>
             <div class="sol-cats__card-text">
-              <h3 class="sol-cats__item-title sol-cats__item-title--sm">{{ item.title }}</h3>
-              <p class="sol-cats__item-desc sol-cats__item-desc--sm">{{ item.desc }}</p>
+              <EditableText tag="h3" class="sol-cats__item-title sol-cats__item-title--sm" :content-key="`solutions.categories.item.${item.num}.title`" page="solutions" :default="item.title" />
+              <EditableText tag="p" class="sol-cats__item-desc sol-cats__item-desc--sm" :content-key="`solutions.categories.item.${item.num}.desc`" page="solutions" :default="item.desc" />
             </div>
           </div>
         </div>

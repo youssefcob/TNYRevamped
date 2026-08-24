@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <section class="about-mission">
     <div class="about-mission__inner">
@@ -10,26 +14,20 @@
           alt="TNY Staffing Corporation  team"
         />
         <div class="about-mission__copy">
-          <p class="about-mission__label">About Us</p>
-          <h2 class="about-mission__heading">Supporting Healthcare Across NYC</h2>
-          <p class="about-mission__body">
-            More than staffing. More than recruiting. We create meaningful connections between
-            rehabilitation professionals and healthcare organizations across New York City—helping
-            careers grow, teams thrive, and patient care reach its highest potential.
-          </p>
+          <EditableText tag="p" class="about-mission__label" content-key="about.mission.label" page="about" default="About Us" />
+          <EditableText tag="h2" class="about-mission__heading" content-key="about.mission.heading" page="about" default="Supporting Healthcare Across NYC" />
+          <EditableText tag="p" class="about-mission__body" content-key="about.mission.body" page="about"
+            default="More than staffing. More than recruiting. We create meaningful connections between rehabilitation professionals and healthcare organizations across New York City—helping careers grow, teams thrive, and patient care reach its highest potential." />
         </div>
       </div>
 
       <!-- Row 2: text left, map right -->
       <div class="about-mission__row about-mission__row--reversed">
         <div class="about-mission__copy">
-          <p class="about-mission__label">Coverage Area</p>
-          <h2 class="about-mission__heading">Supporting Healthcare Across NYC</h2>
-          <p class="about-mission__body">
-            Proudly serving all five boroughs of New York City—Manhattan, Brooklyn, Queens, the
-            Bronx, and Staten Island. Connecting healthcare organizations with exceptional
-            rehabilitation professionals every day.
-          </p>
+          <EditableText tag="p" class="about-mission__label" content-key="about.coverage.label" page="about" default="Coverage Area" />
+          <EditableText tag="h2" class="about-mission__heading" content-key="about.coverage.heading" page="about" default="Supporting Healthcare Across NYC" />
+          <EditableText tag="p" class="about-mission__body" content-key="about.coverage.body" page="about"
+            default="Proudly serving all five boroughs of New York City—Manhattan, Brooklyn, Queens, the Bronx, and Staten Island. Connecting healthcare organizations with exceptional rehabilitation professionals every day." />
         </div>
         <img
           class="about-mission__img about-mission__img--map"

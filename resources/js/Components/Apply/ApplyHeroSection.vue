@@ -1,15 +1,13 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <section class="apply-hero">
     <div class="apply-hero__inner">
-      <h1 class="apply-hero__title">
-        Find Your Next
-        <span class="apply-hero__title--blue"> Healthcare Opportunity</span>
-      </h1>
-      <p class="apply-hero__subtitle">
-        Whether you're a Physical Therapist, Occupational Therapist, Speech-Language Pathologist,
-        Rehab Aide, Massage Therapist, Acupuncturist, Medical Sales Representative, or Flyer Distributor,
-        TNY Staffing Corporation  can help connect you with rewarding opportunities across New York City.
-      </p>
+      <EditableText tag="h1" class="apply-hero__title" content-key="apply.hero.title" page="apply" default="Find Your Next Healthcare Opportunity" />
+      <EditableText tag="p" class="apply-hero__subtitle" content-key="apply.hero.subtitle" page="apply"
+        default="Whether you're a Physical Therapist, Occupational Therapist, Speech-Language Pathologist, Rehab Aide, Massage Therapist, Acupuncturist, Medical Sales Representative, or Flyer Distributor, TNY Staffing Corporation can help connect you with rewarding opportunities across New York City." />
     </div>
   </section>
 </template>

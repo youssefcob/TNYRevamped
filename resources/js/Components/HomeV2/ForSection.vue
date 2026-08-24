@@ -1,42 +1,47 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <section class="for-section">
     <div class="for-section__inner">
 
       <!-- For Employers -->
       <div class="for-card for-card--dark">
-        <p class="section-label">For Employers</p>
-        <h3 class="for-card__title">Build the Team Your Patients Count On</h3>
-        <p class="for-card__body">
-          Whether you need last-minute coverage or a long-term hire, we connect you with
-          credentialed therapy professionals who fit your team from day one.
-        </p>
+        <EditableText tag="p" class="section-label" content-key="home.for.employers.label" page="home" default="For Employers" />
+        <EditableText tag="h3" class="for-card__title" content-key="home.for.employers.title" page="home" default="Build the Team Your Patients Count On" />
+        <EditableText tag="p" class="for-card__body" content-key="home.for.employers.body" page="home"
+          default="Whether you need last-minute coverage or a long-term hire, we connect you with credentialed therapy professionals who fit your team from day one." />
         <ul class="for-card__list">
-          <li>Temporary &amp; Per Diem Staffing</li>
-          <li>Permanent Placements</li>
-          <li>Emergency Coverage</li>
-          <li>Fully Credentialed Professionals</li>
+          <li><EditableText tag="span" content-key="home.for.employers.list.0" page="home" default="Temporary &amp; Per Diem Staffing" /></li>
+          <li><EditableText tag="span" content-key="home.for.employers.list.1" page="home" default="Permanent Placements" /></li>
+          <li><EditableText tag="span" content-key="home.for.employers.list.2" page="home" default="Emergency Coverage" /></li>
+          <li><EditableText tag="span" content-key="home.for.employers.list.3" page="home" default="Fully Credentialed Professionals" /></li>
         </ul>
-        <a href="/employers" class="for-card__cta for-card__cta--orange">Request Staff</a>
+        <a href="/employers" class="for-card__cta for-card__cta--orange">
+          <EditableText tag="span" content-key="home.for.employers.cta" page="home" default="Request Staff" />
+        </a>
 
       </div>
 
       <!-- For Candidates -->
       <div class="for-card for-card--light">
-        <p class="section-label">For Candidates</p>
-        <h3 class="for-card__title for-card__title--dark">Build Your Future with New York's Leading Healthcare Teams</h3>
-        <p class="for-card__body for-card__body--dark">
-          Explore therapy opportunities across NY with competitive pay, career growth,
-          and the support you need to succeed.
-        </p>
+        <EditableText tag="p" class="section-label" content-key="home.for.candidates.label" page="home" default="For Candidates" />
+        <EditableText tag="h3" class="for-card__title for-card__title--dark" content-key="home.for.candidates.title" page="home"
+          default="Build Your Future with New York's Leading Healthcare Teams" />
+        <EditableText tag="p" class="for-card__body for-card__body--dark" content-key="home.for.candidates.body" page="home"
+          default="Explore therapy opportunities across NY with competitive pay, career growth, and the support you need to succeed." />
         <ul class="for-card__list for-card__list--dark">
-          <li>Flexible &amp; Full-Time Positions</li>
-          <li>Competitive Compensation</li>
-          <li>Continuing Education & Mentorship programs</li>
-          <li>Visa Sponsorship Support</li>
-          <li>Growth-Focused Opportunities</li>
-          <li>Gym Membership</li>
+          <li><EditableText tag="span" content-key="home.for.candidates.list.0" page="home" default="Flexible &amp; Full-Time Positions" /></li>
+          <li><EditableText tag="span" content-key="home.for.candidates.list.1" page="home" default="Competitive Compensation" /></li>
+          <li><EditableText tag="span" content-key="home.for.candidates.list.2" page="home" default="Continuing Education &amp; Mentorship programs" /></li>
+          <li><EditableText tag="span" content-key="home.for.candidates.list.3" page="home" default="Visa Sponsorship Support" /></li>
+          <li><EditableText tag="span" content-key="home.for.candidates.list.4" page="home" default="Growth-Focused Opportunities" /></li>
+          <li><EditableText tag="span" content-key="home.for.candidates.list.5" page="home" default="Gym Membership" /></li>
         </ul>
-        <a href="/candidates" class="for-card__cta">Explore Jobs</a>
+        <a href="/candidates" class="for-card__cta">
+          <EditableText tag="span" content-key="home.for.candidates.cta" page="home" default="Explore Jobs" />
+        </a>
       </div>
 
     </div>

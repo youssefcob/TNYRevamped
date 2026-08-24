@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Views\Auth\AdminLoginController;
 use App\Http\Controllers\Views\Auth\ForgetPasswordController;
 use App\Http\Controllers\Views\Auth\LoginController;
 use App\Http\Controllers\Views\Auth\RegisterController;
@@ -10,6 +11,15 @@ Route::get('/login', [LoginController::class, 'index'])
 
 Route::post('/login', [LoginController::class, 'login'])
 ->name('login.submit');
+
+Route::get('/admin/login', [AdminLoginController::class, 'index'])
+->name('admin.login');
+
+Route::post('/admin/login', [AdminLoginController::class, 'login'])
+->name('admin.login.submit');
+
+Route::post('/admin/logout', [AdminLoginController::class, 'logout'])
+->name('admin.logout');
 
 Route::get('/register', [RegisterController::class, 'index'])
 ->name('register');

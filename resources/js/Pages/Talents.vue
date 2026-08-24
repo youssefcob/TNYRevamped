@@ -3,8 +3,11 @@ import MainOverLay from '@/Components/Overlays/MainOverLay.vue';
 import { Job, JobSeeker, PaginatedResponse } from '@/interface/Types';
 import JobSeekerCard from '@/SharedComponents/JobSeekerCard.vue';
 import Paginator from '@/SharedComponents/Paginator.vue';
-import { Link, router } from '@inertiajs/vue3';
-import { onMounted, reactive, watch } from 'vue';
+import EditableText from '@/Components/Admin/EditableText.vue';
+import { Link, router, usePage } from '@inertiajs/vue3';
+import { onMounted, provide, reactive, watch } from 'vue';
+
+provide('pageContent', (usePage().props.pageContent as Record<string, string | null>) ?? {});
 
 
 const props = defineProps({
@@ -63,7 +66,7 @@ watch(
 <template>
     <MainOverLay>
         <div class="container">
-            <h2 class="title">Talents</h2>
+            <EditableText tag="h2" class="title" content-key="talents.title" page="talents" default="Talents" />
             <br>
 
             <div class="paginator">

@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <section class="hiw">
     <div class="hiw__inner">
@@ -6,45 +10,39 @@
         <div class="hiw__center">
           <div class="hiw__oval" aria-hidden="true"></div>
           <div class="hiw__header">
-            <p class="hiw__label">How It Works</p>
-            <h2 class="hiw__title">Staff Ready in Four Steps</h2>
-            <p class="hiw__subtitle">
-              We make hiring simple, efficient, and focused on finding the right fit for your team.
-            </p>
+            <EditableText tag="p" class="hiw__label" content-key="employers.how.label" page="employers" default="How It Works" />
+            <EditableText tag="h2" class="hiw__title" content-key="employers.how.title" page="employers" default="Staff Ready in Four Steps" />
+            <EditableText tag="p" class="hiw__subtitle" content-key="employers.how.subtitle" page="employers"
+              default="We make hiring simple, efficient, and focused on finding the right fit for your team." />
           </div>
         </div>
 
         <div class="hiw__step hiw__step--tl">
           <div class="hiw__step-badge hiw__step-badge--orange">01</div>
-          <h3 class="hiw__step-title">Tell Us Your Needs</h3>
-          <p class="hiw__step-body">
-            Share your staffing needs, including discipline, care setting, schedule,
-            and any specific qualifications.
-          </p>
+          <EditableText tag="h3" class="hiw__step-title" content-key="employers.how.step.tl.title" page="employers" default="Tell Us Your Needs" />
+          <EditableText tag="p" class="hiw__step-body" content-key="employers.how.step.tl.body" page="employers"
+            default="Share your staffing needs, including discipline, care setting, schedule, and any specific qualifications." />
         </div>
 
         <div class="hiw__step hiw__step--tr">
           <div class="hiw__step-badge hiw__step-badge--teal">02</div>
-          <h3 class="hiw__step-title">We Find the Right Match</h3>
-          <p class="hiw__step-body">
-            Our recruiters quickly identify qualified therapy professionals from our trusted talent network.
-          </p>
+          <EditableText tag="h3" class="hiw__step-title" content-key="employers.how.step.tr.title" page="employers" default="We Find the Right Match" />
+          <EditableText tag="p" class="hiw__step-body" content-key="employers.how.step.tr.body" page="employers"
+            default="Our recruiters quickly identify qualified therapy professionals from our trusted talent network." />
         </div>
 
         <div class="hiw__step hiw__step--bl">
           <div class="hiw__step-badge hiw__step-badge--blue">04</div>
-          <h3 class="hiw__step-title">We Handle the Details</h3>
-          <p class="hiw__step-body">
-            From credentialing and compliance to onboarding, we take care of the paperwork so you don't have to.
-          </p>
+          <EditableText tag="h3" class="hiw__step-title" content-key="employers.how.step.bl.title" page="employers" default="We Handle the Details" />
+          <EditableText tag="p" class="hiw__step-body" content-key="employers.how.step.bl.body" page="employers"
+            default="From credentialing and compliance to onboarding, we take care of the paperwork so you don't have to." />
         </div>
 
         <div class="hiw__step hiw__step--br">
           <div class="hiw__step-badge hiw__step-badge--sand">03</div>
-          <h3 class="hiw__step-title">Ready to Make an Impact</h3>
-          <p class="hiw__step-body">
-            Your therapist arrives prepared to integrate seamlessly into your team and start delivering care.
-          </p>
+          <EditableText tag="h3" class="hiw__step-title" content-key="employers.how.step.br.title" page="employers" default="Ready to Make an Impact" />
+          <EditableText tag="p" class="hiw__step-body" content-key="employers.how.step.br.body" page="employers"
+            default="Your therapist arrives prepared to integrate seamlessly into your team and start delivering care." />
         </div>
 
       </div>

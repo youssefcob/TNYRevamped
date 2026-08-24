@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import StatsBar from './StatsBar.vue';
+import EditableText from '@/Components/Admin/EditableText.vue';
 </script>
 
 <template>
@@ -10,18 +11,17 @@ import StatsBar from './StatsBar.vue';
 
     <div class="hero2__main">
       <div class="hero2__content">
-        <h1 class="hero2__title">
-          Building Stronger Healthcare Teams
-          <span class="hero2__title accent"> Through Trusted</span>
-          <br />Therapy Staffing Solutions
-        </h1>
-        <p class="hero2__subtitle">
-          Connecting healthcare facilities with qualified therapy professionals across New York.
-          Fast, credentialed, and built for today's healthcare demands.
-        </p>
+        <EditableText tag="h1" class="hero2__title" content-key="home.hero.title" page="home"
+          default="Building Stronger Healthcare Teams Through Trusted Therapy Staffing Solutions" />
+        <EditableText tag="p" class="hero2__subtitle" content-key="home.hero.subtitle" page="home"
+          default="Connecting healthcare facilities with qualified therapy professionals across New York. Fast, credentialed, and built for today's healthcare demands." />
         <div class="hero2__ctas">
-          <a href="/requestService" class="hero2__btn hero2__btn--primary">Hire Staff</a>
-          <a href="/apply" class="hero2__btn hero2__btn--outline">Find Jobs</a>
+          <a href="/requestService" class="hero2__btn hero2__btn--primary">
+            <EditableText tag="span" content-key="home.hero.cta_primary_label" page="home" default="Hire Staff" />
+          </a>
+          <a href="/apply" class="hero2__btn hero2__btn--outline">
+            <EditableText tag="span" content-key="home.hero.cta_secondary_label" page="home" default="Find Jobs" />
+          </a>
         </div>
       </div>
 

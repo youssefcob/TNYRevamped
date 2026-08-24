@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
+import { provide } from 'vue';
 import LayoutV2 from '@/Components/HomeV2/LayoutV2.vue';
 import ResourcesHeroSection from '@/Components/Resources/ResourcesHeroSection.vue';
 import ArticleGridSection from '@/Components/Resources/ArticleGridSection.vue';
@@ -13,6 +14,8 @@ interface NewsItem {
 }
 
 defineProps<{ articles: NewsItem[] }>();
+
+provide('pageContent', (usePage().props.pageContent as Record<string, string | null>) ?? {});
 </script>
 
 <template>

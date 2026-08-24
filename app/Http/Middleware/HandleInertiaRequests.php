@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App\Services\Content\PageContentService;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
 
@@ -40,6 +41,17 @@ public function share(Request $request): array
         'flash' => [
             'snack' => $request->session()->get('snack'),
         ],
+        'auth' => [
+            'admin' => optional($request->user('web'))->only(['id', 'name', 'email']),
+        ],
+        'pageContent' => function () use ($request) {
+            $routeName = $request->route()?->getName();
+            if (! $routeName) {
+                return [];
+            }
+
+            return PageContentService::getForPage(str_replace('-', '_', $routeName));
+        },
     ];
 }
 }

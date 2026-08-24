@@ -1,22 +1,23 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <section class="emp-cta">
     <div class="emp-cta__inner">
-      <h2 class="emp-cta__title">Need Qualified Therapy Professionals—Fast?</h2>
-      <p class="emp-cta__body">
-        Partner with a trusted therapy staffing team that delivers qualified professionals
-        with speed, reliability, and confidence.
-      </p>
+      <EditableText tag="h2" class="emp-cta__title" content-key="employers.cta.title" page="employers" default="Need Qualified Therapy Professionals—Fast?" />
+      <EditableText tag="p" class="emp-cta__body" content-key="employers.cta.body" page="employers"
+        default="Partner with a trusted therapy staffing team that delivers qualified professionals with speed, reliability, and confidence." />
       <div class="emp-cta__btns">
         <a href="/requestService" class="emp-cta__btn emp-cta__btn--primary">
-          Hire Staff →
+          <EditableText tag="span" content-key="employers.cta.primary_cta" page="employers" default="Hire Staff →" />
         </a>
         <a href="/contact" class="emp-cta__btn emp-cta__btn--outline">
-          Contact Us →
+          <EditableText tag="span" content-key="employers.cta.secondary_cta" page="employers" default="Contact Us →" />
         </a>
       </div>
-      <p class="emp-cta__footnote">
-        No commitment required · Response within 24 hours · Serving all of New York
-      </p>
+      <EditableText tag="p" class="emp-cta__footnote" content-key="employers.cta.footnote" page="employers"
+        default="No commitment required · Response within 24 hours · Serving all of New York" />
     </div>
   </section>
 </template>

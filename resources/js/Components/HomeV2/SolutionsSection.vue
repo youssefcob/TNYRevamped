@@ -1,15 +1,17 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <section class="solutions">
     <div class="solutions__inner">
 
       <!-- Col 1 · Row 1: header -->
       <div class="solutions__header">
-        <p class="section-label">Our Solutions</p>
-        <h2 class="solutions__title">Supporting<br />Every Healthcare Practices</h2>
-        <p class="solutions__subtitle">
-          We match healthcare organizations with skilled therapy professionals across
-          schools, hospitals, outpatient clinics and skilled nursing facilities
-        </p>
+        <EditableText tag="p" class="section-label" content-key="home.solutions.label" page="home" default="Our Solutions" />
+        <EditableText tag="h2" class="solutions__title" content-key="home.solutions.title" page="home" default="Supporting Every Healthcare Practices" />
+        <EditableText tag="p" class="solutions__subtitle" content-key="home.solutions.subtitle" page="home"
+          default="We match healthcare organizations with skilled therapy professionals across schools, hospitals, outpatient clinics and skilled nursing facilities" />
       </div>
 
       <!-- Col 1 · Row 2: SLP -->
@@ -21,10 +23,13 @@
         />
         <div class="sol-card__info sol-card__info--blue">
           <div>
-            <h4 class="sol-card__title">Speech-Language Pathologists Staffing</h4>
-            <p class="sol-card__body">Licensed SLPs & SLPAs for inpatient, outpatient, SNF, and home care. All specialties covered.</p>
+            <EditableText tag="h4" class="sol-card__title" content-key="home.solutions.slp.title" page="home" default="Speech-Language Pathologists Staffing" />
+            <EditableText tag="p" class="sol-card__body" content-key="home.solutions.slp.body" page="home"
+              default="Licensed SLPs &amp; SLPAs for inpatient, outpatient, SNF, and home care. All specialties covered." />
           </div>
-          <a href="/solutions" class="sol-card__link">Learn More <span>→</span></a>
+          <a href="/solutions" class="sol-card__link">
+            <EditableText tag="span" content-key="home.solutions.slp.link" page="home" default="Learn More" /> <span>→</span>
+          </a>
         </div>
       </div>
 
@@ -38,21 +43,24 @@
 
         <div class="sol-card__info sol-card__info--white">
           <div>
-            <h4 class="sol-card__title sol-card__title--dark">Physical Therapy Staffing</h4>
-            <p class="sol-card__body sol-card__body--dark">Licensed PTs, PTAs, and Limited Permit for inpatient, outpatient, SNF, and home care. All specialties covered.</p>
+            <EditableText tag="h4" class="sol-card__title sol-card__title--dark" content-key="home.solutions.pt.title" page="home" default="Physical Therapy Staffing" />
+            <EditableText tag="p" class="sol-card__body sol-card__body--dark" content-key="home.solutions.pt.body" page="home"
+              default="Licensed PTs, PTAs, and Limited Permit for inpatient, outpatient, SNF, and home care. All specialties covered." />
           </div>
-          <a href="/solutions" class="sol-card__link sol-card__link--dark">Learn More <span>→</span></a>
+          <a href="/solutions" class="sol-card__link sol-card__link--dark">
+            <EditableText tag="span" content-key="home.solutions.pt.link" page="home" default="Learn More" /> <span>→</span>
+          </a>
         </div>
       </div>
 
       <!-- Col 3 · Row 1: Staffing Solutions -->
       <div class="sol-card sol-card--feature">
-        <h4 class="sol-card__title">Staffing Solutions Built Around Your Facility</h4>
-        <p class="sol-card__body">
-          Discover flexible, customized therapy staffing solutions that help your team stay
-          fully supported and your patients receive the care they deserve.
-        </p>
-        <a href="/solutions" class="sol-card__btn">Explore Solutions</a>
+        <EditableText tag="h4" class="sol-card__title" content-key="home.solutions.feature.title" page="home" default="Staffing Solutions Built Around Your Facility" />
+        <EditableText tag="p" class="sol-card__body" content-key="home.solutions.feature.body" page="home"
+          default="Discover flexible, customized therapy staffing solutions that help your team stay fully supported and your patients receive the care they deserve." />
+        <a href="/solutions" class="sol-card__btn">
+          <EditableText tag="span" content-key="home.solutions.feature.cta" page="home" default="Explore Solutions" />
+        </a>
       </div>
 
       <!-- Col 3 · Row 2: PCC -->
@@ -64,10 +72,13 @@
         />
         <div class="sol-card__info sol-card__info--sand">
           <div>
-            <h4 class="sol-card__title">OT/COTA</h4>
-            <p class="sol-card__body">Licensed OTs and COTAs for inpatient, outpatient, and home settings. All specialties covered.</p>
+            <EditableText tag="h4" class="sol-card__title" content-key="home.solutions.ot.title" page="home" default="OT/COTA" />
+            <EditableText tag="p" class="sol-card__body" content-key="home.solutions.ot.body" page="home"
+              default="Licensed OTs and COTAs for inpatient, outpatient, and home settings. All specialties covered." />
           </div>
-          <a href="/solutions" class="sol-card__link">Learn More <span>→</span></a>
+          <a href="/solutions" class="sol-card__link">
+            <EditableText tag="span" content-key="home.solutions.ot.link" page="home" default="Learn More" /> <span>→</span>
+          </a>
         </div>
       </div>
 

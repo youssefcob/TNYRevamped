@@ -1,26 +1,34 @@
 <script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+
 const industries = [
   {
+    id: 0,
     title: 'Outpatient Rehabilitation Clinics',
     desc: 'High-volume settings needing fast-paced, highly skilled clinicians.',
   },
   {
+    id: 1,
     title: 'Hospitals & Health Systems',
     desc: 'Acute/sub-acute settings requiring fast onboarding and specialized expertise.',
   },
   {
+    id: 2,
     title: 'Skilled Nursing Facilities (SNFs)',
     desc: 'Long-term care facilities needing dedicated geriatric rehab professionals.',
   },
   {
+    id: 3,
     title: 'Home Health Care Rehab Agencies',
     desc: 'Flexible clinicians delivering 1-on-1 care across all 5 NYC boroughs.',
   },
   {
+    id: 4,
     title: 'K-12 Schools & Educational Institutions',
     desc: 'Specialized therapists managing IEP requirements and student growth.',
   },
   {
+    id: 5,
     title: 'Private Practices',
     desc: 'Customized staffing models that align with niche specialties and business expansion.',
   },
@@ -31,18 +39,16 @@ const industries = [
   <section class="ind-serve">
     <div class="ind-serve__container">
       <div class="ind-serve__header">
-        <p class="ind-serve__label">Industries We Serve</p>
-        <h2 class="ind-serve__heading">Tailored Staffing for Every Healthcare Environment</h2>
-        <p class="ind-serve__subtitle">
-          Every healthcare setting operates differently. We match top clinical talent to the
-          specific operational flow, patient population, and compliance standards of your facility.
-        </p>
+        <EditableText tag="p" class="ind-serve__label" content-key="solutions.industries.label" page="solutions" default="Industries We Serve" />
+        <EditableText tag="h2" class="ind-serve__heading" content-key="solutions.industries.heading" page="solutions" default="Tailored Staffing for Every Healthcare Environment" />
+        <EditableText tag="p" class="ind-serve__subtitle" content-key="solutions.industries.subtitle" page="solutions"
+          default="Every healthcare setting operates differently. We match top clinical talent to the specific operational flow, patient population, and compliance standards of your facility." />
       </div>
 
       <div class="ind-serve__grid">
         <div v-for="industry in industries" :key="industry.title" class="ind-serve__card">
-          <h3 class="ind-serve__card-title">{{ industry.title }}</h3>
-          <p class="ind-serve__card-desc">{{ industry.desc }}</p>
+          <EditableText tag="h3" class="ind-serve__card-title" :content-key="`solutions.industries.item.${industry.id}.title`" page="solutions" :default="industry.title" />
+          <EditableText tag="p" class="ind-serve__card-desc" :content-key="`solutions.industries.item.${industry.id}.desc`" page="solutions" :default="industry.desc" />
         </div>
       </div>
     </div>

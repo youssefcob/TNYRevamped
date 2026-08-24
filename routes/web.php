@@ -18,6 +18,7 @@ require __DIR__ . '/web/auth-routes.php';
 
 require __DIR__ . '/web/employer-web.php';
 require __DIR__ . '/web/job-seeker-web.php';
+require __DIR__ . '/web/content-routes.php';
 
 
 

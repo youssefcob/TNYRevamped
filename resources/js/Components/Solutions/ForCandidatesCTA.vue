@@ -1,18 +1,18 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <section class="sol-cta">
     <div class="sol-cta__inner">
       <!-- <div class="sol-cta__img"></div> -->
       <div class="sol-cta__content">
-        <p class="sol-cta__label">For Candidates</p>
-        <h2 class="sol-cta__title">
-          Find Your Next<br>Healthcare Opportunity
-        </h2>
-        <p class="sol-cta__desc">
-          Join a growing network of healthcare professionals working across hospitals, clinics,
-          schools, skilled nursing facilities, and home health settings throughout New York.
-        </p>
+        <EditableText tag="p" class="sol-cta__label" content-key="solutions.candidates_cta.label" page="solutions" default="For Candidates" />
+        <EditableText tag="h2" class="sol-cta__title" content-key="solutions.candidates_cta.title" page="solutions" default="Find Your Next Healthcare Opportunity" />
+        <EditableText tag="p" class="sol-cta__desc" content-key="solutions.candidates_cta.desc" page="solutions"
+          default="Join a growing network of healthcare professionals working across hospitals, clinics, schools, skilled nursing facilities, and home health settings throughout New York." />
         <a href="/apply" class="sol-cta__btn">
-          Apply Now
+          <EditableText tag="span" content-key="solutions.candidates_cta.cta" page="solutions" default="Apply Now" />
           <svg width="15" height="15" viewBox="0 0 15 15" fill="none" aria-hidden="true">
             <path d="M2.5 7.5H12.5M12.5 7.5L8.5 3.5M12.5 7.5L8.5 11.5"
               stroke="#0f2b3d" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>

@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Head } from '@inertiajs/vue3';
+import { provide } from 'vue';
 import LayoutV2 from '@/Components/HomeV2/LayoutV2.vue';
 import HeroSection from '@/Components/HomeV2/HeroSection.vue';
 import ForSection from '@/Components/HomeV2/ForSection.vue';
@@ -20,7 +21,8 @@ interface NewsItem {
   created_at: string;
 }
 
-defineProps<{ news?: NewsItem[] }>();
+const props = defineProps<{ news?: NewsItem[]; pageContent?: Record<string, string | null> }>();
+provide('pageContent', props.pageContent ?? {});
 </script>
 
 <template>

@@ -1,14 +1,13 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <section class="sol-hero">
     <div class="sol-hero__inner">
-      <h1 class="sol-hero__title">
-        Healthcare
-        <span class="sol-hero__title--blue"> Staffing Solutions</span>
-      </h1>
-      <p class="sol-hero__subtitle">
-        Connecting healthcare facilities with highly qualified rehabilitation professionals
-        and support staff across New York City.
-      </p>
+      <EditableText tag="h1" class="sol-hero__title" content-key="solutions.hero.title" page="solutions" default="Healthcare Staffing Solutions" />
+      <EditableText tag="p" class="sol-hero__subtitle" content-key="solutions.hero.subtitle" page="solutions"
+        default="Connecting healthcare facilities with highly qualified rehabilitation professionals and support staff across New York City." />
     </div>
   </section>
 </template>

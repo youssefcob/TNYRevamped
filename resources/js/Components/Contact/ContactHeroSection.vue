@@ -1,14 +1,13 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <section class="contact-hero">
     <div class="contact-hero__inner">
-      <h1 class="contact-hero__title">
-        Let's Start
-        <span class="contact-hero__title--blue"> The Conversation.</span>
-      </h1>
-      <p class="contact-hero__subtitle">
-        Whether you're looking to hire qualified rehabilitation professionals or explore<br>
-        new career opportunities, our team is here to help.
-      </p>
+      <EditableText tag="h1" class="contact-hero__title" content-key="contact.hero.title" page="contact" default="Let's Start The Conversation." />
+      <EditableText tag="p" class="contact-hero__subtitle" content-key="contact.hero.subtitle" page="contact"
+        default="Whether you're looking to hire qualified rehabilitation professionals or explore new career opportunities, our team is here to help." />
     </div>
   </section>
 </template>

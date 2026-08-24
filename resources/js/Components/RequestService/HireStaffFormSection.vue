@@ -3,6 +3,7 @@ import { reactive, ref, computed, onMounted, onUnmounted } from 'vue';
 import Http from '@/mixins/Http';
 import { snack, missingFieldsMessage } from '@/mixins/toast';
 import DevFillButton from '@/SharedComponents/DevFillButton.vue';
+import EditableText from '@/Components/Admin/EditableText.vue';
 
 interface ServiceItem { id: number; title: string; }
 
@@ -173,12 +174,10 @@ async function submit() {
       <!-- LEFT: Form card -->
       <div class="rs-card">
         <div class="rs-card__header">
-          <p class="rs-card__label">Request Staff</p>
-          <h2 class="rs-card__title">Tell Us About<br>Your Staffing Needs</h2>
-          <p class="rs-card__desc">
-            Complete the form below and our staffing specialists will review your requirements
-            and connect you with qualified professionals tailored to your facility, setting, and timeline.
-          </p>
+          <EditableText tag="p" class="rs-card__label" content-key="request_service.form.label" page="request_service" default="Request Staff" />
+          <EditableText tag="h2" class="rs-card__title" content-key="request_service.form.title" page="request_service" default="Tell Us About Your Staffing Needs" />
+          <EditableText tag="p" class="rs-card__desc" content-key="request_service.form.desc" page="request_service"
+            default="Complete the form below and our staffing specialists will review your requirements and connect you with qualified professionals tailored to your facility, setting, and timeline." />
         </div>
 
         <!-- Success state -->
@@ -187,8 +186,9 @@ async function submit() {
             <circle cx="24" cy="24" r="24" fill="#22c55e" opacity="0.12"/>
             <path d="M14 24L21 31L34 17" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
-          <h3>Request Submitted!</h3>
-          <p>Our staffing team will review your requirements and reach out within one business day.</p>
+          <EditableText tag="h3" content-key="request_service.form.success_title" page="request_service" default="Request Submitted!" />
+          <EditableText tag="p" content-key="request_service.form.success_body" page="request_service"
+            default="Our staffing team will review your requirements and reach out within one business day." />
         </div>
 
         <form v-else class="rs-form" @submit.prevent="submit" novalidate>
@@ -328,11 +328,10 @@ async function submit() {
           <div class="rs-form__actions">
             <button type="submit" class="rs-form__submit" :disabled="loading">
               <span v-if="loading">Submitting…</span>
-              <span v-else>Submit Staffing Request</span>
+              <EditableText v-else tag="span" content-key="request_service.form.submit_label" page="request_service" default="Submit Staffing Request" />
             </button>
-            <p class="rs-form__note">
-              By submitting the application you agree to be contacted by TNY regarding staffing services
-            </p>
+            <EditableText tag="p" class="rs-form__note" content-key="request_service.form.note" page="request_service"
+              default="By submitting the application you agree to be contacted by TNY regarding staffing services" />
             <DevFillButton @fill="fillTestData" />
           </div>
 
@@ -348,30 +347,30 @@ async function submit() {
         />
 
         <div class="rs-info-card">
-          <p class="rs-info-card__label">Contact Information</p>
-          <h3 class="rs-info-card__title">Talk To Our Staffing Team</h3>
+          <EditableText tag="p" class="rs-info-card__label" content-key="request_service.info.label" page="request_service" default="Contact Information" />
+          <EditableText tag="h3" class="rs-info-card__title" content-key="request_service.info.title" page="request_service" default="Talk To Our Staffing Team" />
           <ul class="rs-info-card__list">
             <li>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M3 5a2 2 0 012-2h2.28a1 1 0 01.95.684l1.09 3.27a1 1 0 01-.23 1.02L7.7 9.36a11.045 11.045 0 005.63 5.63l1.385-1.385a1 1 0 011.02-.23l3.27 1.09A1 1 0 0119 15.72V18a2 2 0 01-2 2h-1C8.16 20 1 12.84 1 4V3a2 2 0 012-2h.28" stroke="#FF9B37" stroke-width="1.5" stroke-linecap="round"/></svg>
-              <span>(347) 441-4283</span>
+              <EditableText tag="span" content-key="request_service.info.phone" page="request_service" default="(347) 441-4283" />
             </li>
             <li>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M2 5l8 5 8-5M2 5a2 2 0 012-2h12a2 2 0 012 2v10a2 2 0 01-2 2H4a2 2 0 01-2-2V5z" stroke="#FF9B37" stroke-width="1.5" stroke-linecap="round"/></svg>
-              <span>recruitment@tnystaffing.com</span>
+              <EditableText tag="span" content-key="request_service.info.email" page="request_service" default="recruitment@tnystaffing.com" />
             </li>
             <li>
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M10 11a3 3 0 100-6 3 3 0 000 6z" stroke="#FF9B37" stroke-width="1.5"/><path d="M10 2C6.13 2 3 5.13 3 9c0 5.25 7 11 7 11s7-5.75 7-11c0-3.87-3.13-7-7-7z" stroke="#FF9B37" stroke-width="1.5"/></svg>
-              <span>575 8th Ave, 10th Floor, New York, NY 10018</span>
+              <EditableText tag="span" content-key="request_service.info.address" page="request_service" default="575 8th Ave, 10th Floor, New York, NY 10018" />
             </li>
           </ul>
         </div>
 
         <div class="rs-info-card">
-          <p class="rs-info-card__label">Working Hours</p>
-          <h3 class="rs-info-card__title">We're Available</h3>
+          <EditableText tag="p" class="rs-info-card__label" content-key="request_service.hours.label" page="request_service" default="Working Hours" />
+          <EditableText tag="h3" class="rs-info-card__title" content-key="request_service.hours.title" page="request_service" default="We're Available" />
           <ul class="rs-info-card__hours">
-            <li><span>Mon - Fri</span><span>9:00 AM - 5:00 PM</span></li>
-            <li class="rs-info-card__hours-closed"><span>Sat & Sun</span><span>Closed</span></li>
+            <li><span>Mon - Fri</span><EditableText tag="span" content-key="request_service.hours.weekday" page="request_service" default="9:00 AM - 5:00 PM" /></li>
+            <li class="rs-info-card__hours-closed"><span>Sat & Sun</span><EditableText tag="span" content-key="request_service.hours.weekend" page="request_service" default="Closed" /></li>
           </ul>
         </div>
       </div>

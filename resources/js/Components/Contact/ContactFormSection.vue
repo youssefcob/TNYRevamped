@@ -5,6 +5,7 @@ import { snack, missingFieldsMessage } from '@/mixins/toast';
 import DropDownInputField from '@/Components/UI/DropDownInputField.vue';
 import { vMaska } from 'maska/vue';
 import DevFillButton from '@/SharedComponents/DevFillButton.vue';
+import EditableText from '@/Components/Admin/EditableText.vue';
 
 const role = ref<'employer' | 'candidate' | null>(null);
 const isLoading = ref(false);
@@ -103,11 +104,10 @@ const submitForm = async () => {
       <div class="contact-card">
 
         <div class="contact-card__header">
-          <p class="contact-card__label">Send A Message</p>
-          <h2 class="contact-card__title">How Can We Help?</h2>
-          <p class="contact-card__subtitle">
-            Complete the form below and a member of our team will get back to you shortly.
-          </p>
+          <EditableText tag="p" class="contact-card__label" content-key="contact.form.label" page="contact" default="Send A Message" />
+          <EditableText tag="h2" class="contact-card__title" content-key="contact.form.title" page="contact" default="How Can We Help?" />
+          <EditableText tag="p" class="contact-card__subtitle" content-key="contact.form.subtitle" page="contact"
+            default="Complete the form below and a member of our team will get back to you shortly." />
         </div>
 
         <!-- Role toggle -->
@@ -218,54 +218,59 @@ const submitForm = async () => {
 
         <!-- Contact Info -->
         <div class="info-card">
-          <p class="info-card__label">Contact Information</p>
-          <h3 class="info-card__title">Reach Out Anytime</h3>
+          <EditableText tag="p" class="info-card__label" content-key="contact.info.label" page="contact" default="Contact Information" />
+          <EditableText tag="h3" class="info-card__title" content-key="contact.info.title" page="contact" default="Reach Out Anytime" />
           <div class="info-card__rows">
             <div class="info-card__row">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.59 3.47 2 2 0 0 1 3.56 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 8.91a16 16 0 0 0 5.08 5.08l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 14.92z"/>
               </svg>
-              <a href="tel:+13474414283">(347) 441-4283</a>
+              <a href="tel:+13474414283">
+                <EditableText tag="span" content-key="contact.info.phone" page="contact" default="(347) 441-4283" />
+              </a>
             </div>
             <div class="info-card__row">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
               </svg>
-              <a href="mailto:staffing@therapyofnewyork.com">staffing@therapyofnewyork.com</a>
+              <a href="mailto:staffing@therapyofnewyork.com">
+                <EditableText tag="span" content-key="contact.info.email" page="contact" default="staffing@therapyofnewyork.com" />
+              </a>
             </div>
             <div class="info-card__row">
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
               </svg>
-              <span>575 8th Ave, 10th Floor, New York, NY 10018</span>
+              <EditableText tag="span" content-key="contact.info.address" page="contact" default="575 8th Ave, 10th Floor, New York, NY 10018" />
             </div>
           </div>
         </div>
 
         <!-- Opening Hours -->
         <div class="info-card">
-          <p class="info-card__label">Opening Hours</p>
-          <h3 class="info-card__title">We're Available</h3>
+          <EditableText tag="p" class="info-card__label" content-key="contact.hours.label" page="contact" default="Opening Hours" />
+          <EditableText tag="h3" class="info-card__title" content-key="contact.hours.title" page="contact" default="We're Available" />
           <div class="info-card__hours">
             <div class="info-card__hour-row">
               <span>Mon - Fri</span>
-              <span>9:00 AM - 5:00 PM</span>
+              <EditableText tag="span" content-key="contact.hours.weekday" page="contact" default="9:00 AM - 5:00 PM" />
             </div>
             <div class="info-card__hour-row">
               <span>Sat & Sun</span>
-              <span class="info-card__closed">Closed</span>
+              <EditableText tag="span" class="info-card__closed" content-key="contact.hours.weekend" page="contact" default="Closed" />
             </div>
           </div>
         </div>
 
         <!-- Quick Support -->
         <div class="info-card info-card--dark">
-          <p class="info-card__label">Quick Support</p>
-          <h3 class="info-card__title">Need Urgent Staffing Assistance?</h3>
-          <p class="info-card__body">
-            Our team can help healthcare facilities with urgent therapist coverage requests.
-          </p>
-          <a href="/requestService" class="info-card__cta">Request Staff</a>
+          <EditableText tag="p" class="info-card__label" content-key="contact.support.label" page="contact" default="Quick Support" />
+          <EditableText tag="h3" class="info-card__title" content-key="contact.support.title" page="contact" default="Need Urgent Staffing Assistance?" />
+          <EditableText tag="p" class="info-card__body" content-key="contact.support.body" page="contact"
+            default="Our team can help healthcare facilities with urgent therapist coverage requests." />
+          <a href="/requestService" class="info-card__cta">
+            <EditableText tag="span" content-key="contact.support.cta" page="contact" default="Request Staff" />
+          </a>
         </div>
 
       </div>

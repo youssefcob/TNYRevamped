@@ -1,17 +1,16 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <section class="emp-hero">
     <div class="emp-hero__inner">
-      <h1 class="emp-hero__title">
-        Reliable
-        <span class="emp-hero__title--blue"> Healthcare Staffing </span>
-        Exactly When You Need It
-      </h1>
-      <p class="emp-hero__subtitle">
-        When staffing needs can't wait, TNY Staffing Corporation  delivers trusted rehabilitation
-        professionals—supporting healthcare facilities across all five boroughs with both
-        immediate coverage and long-term workforce solutions.
-      </p>
-      <a href="/requestService" class="emp-hero__btn">Request Staff</a>
+      <EditableText tag="h1" class="emp-hero__title" content-key="employers.hero.title" page="employers" default="Reliable Healthcare Staffing Exactly When You Need It" />
+      <EditableText tag="p" class="emp-hero__subtitle" content-key="employers.hero.subtitle" page="employers"
+        default="When staffing needs can't wait, TNY Staffing Corporation delivers trusted rehabilitation professionals—supporting healthcare facilities across all five boroughs with both immediate coverage and long-term workforce solutions." />
+      <a href="/requestService" class="emp-hero__btn">
+        <EditableText tag="span" content-key="employers.hero.cta" page="employers" default="Request Staff" />
+      </a>
     </div>
   </section>
 </template>

@@ -1,22 +1,23 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <section class="cta-banner">
     <div class="cta-banner__inner">
-      <h2 class="cta-banner__title">Need Healthcare Staff Fast?</h2>
-      <p class="cta-banner__body">
-        Whether it's an emergency gap or a planned expansion,<br />
-        we're ready to respond. Get your first candidate profile within 24 hours.
-      </p>
+      <EditableText tag="h2" class="cta-banner__title" content-key="home.cta_banner.title" page="home" default="Need Healthcare Staff Fast?" />
+      <EditableText tag="p" class="cta-banner__body" content-key="home.cta_banner.body" page="home"
+        default="Whether it's an emergency gap or a planned expansion, we're ready to respond. Get your first candidate profile within 24 hours." />
       <div class="cta-banner__btns">
         <a href="/requestService" class="cta-banner__btn cta-banner__btn--primary">
-          Hire Staff →
+          <EditableText tag="span" content-key="home.cta_banner.primary_cta" page="home" default="Hire Staff →" />
         </a>
         <a href="/contact" class="cta-banner__btn cta-banner__btn--outline">
-          Contact Us →
+          <EditableText tag="span" content-key="home.cta_banner.secondary_cta" page="home" default="Contact Us →" />
         </a>
       </div>
-      <p class="cta-banner__footnote">
-        No commitment required · Response within 24 hours · Serving all of New York
-      </p>
+      <EditableText tag="p" class="cta-banner__footnote" content-key="home.cta_banner.footnote" page="home"
+        default="No commitment required · Response within 24 hours · Serving all of New York" />
     </div>
   </section>
 </template>

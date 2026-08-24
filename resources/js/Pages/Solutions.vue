@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
+import { provide } from 'vue';
 import LayoutV2 from '@/Components/HomeV2/LayoutV2.vue';
 import SolutionsHeroSection from '@/Components/Solutions/SolutionsHeroSection.vue';
 import StaffingCategoriesSection from '@/Components/Solutions/StaffingCategoriesSection.vue';
 import EmployersMidCTA from '@/Components/Solutions/EmployersMidCTA.vue';
 import IndustriesWeServeSection from '@/Components/Solutions/IndustriesWeServeSection.vue';
 import ForCandidatesCTA from '@/Components/Solutions/ForCandidatesCTA.vue';
+
+provide('pageContent', (usePage().props.pageContent as Record<string, string | null>) ?? {});
 </script>
 
 <template>

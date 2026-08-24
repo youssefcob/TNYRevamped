@@ -1,11 +1,14 @@
 <script setup lang="ts">
-import { Head } from '@inertiajs/vue3';
+import { Head, usePage } from '@inertiajs/vue3';
+import { provide } from 'vue';
 import LayoutV2 from '@/Components/HomeV2/LayoutV2.vue';
 import EmployerHeroSection from '@/Components/ForEmployers/EmployerHeroSection.vue';
 import ChallengesSection from '@/Components/ForEmployers/ChallengesSection.vue';
 import WhyTNYSection from '@/Components/ForEmployers/WhyTNYSection.vue';
 import HowItWorksSection from '@/Components/ForEmployers/HowItWorksSection.vue';
 import EmployerCtaBanner from '@/Components/ForEmployers/EmployerCtaBanner.vue';
+
+provide('pageContent', (usePage().props.pageContent as Record<string, string | null>) ?? {});
 </script>
 
 <template>

@@ -1,14 +1,13 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <section class="rs-hero">
     <div class="rs-hero__inner">
-      <h1 class="rs-hero__title">
-        Request Qualified
-        <span class="rs-hero__title--blue"> Healthcare Staff</span>
-      </h1>
-      <p class="rs-hero__subtitle">
-        Whether you need immediate coverage, specialized rehabilitation professionals, or long-term
-        staffing support, our team is ready to help you find the right talent for your facility.
-      </p>
+      <EditableText tag="h1" class="rs-hero__title" content-key="request_service.hero.title" page="request_service" default="Request Qualified Healthcare Staff" />
+      <EditableText tag="p" class="rs-hero__subtitle" content-key="request_service.hero.subtitle" page="request_service"
+        default="Whether you need immediate coverage, specialized rehabilitation professionals, or long-term staffing support, our team is ready to help you find the right talent for your facility." />
     </div>
   </section>
 </template>

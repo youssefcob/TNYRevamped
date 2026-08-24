@@ -1,25 +1,29 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <section class="about-cta">
 
     <div class="about-cta__half about-cta__half--dark">
       <div class="about-cta__content">
-        <h2 class="about-cta__heading about-cta__heading--white">For Employers</h2>
-        <p class="about-cta__body about-cta__body--white">
-          Access qualified rehabilitation professionals and staffing support tailored
-          to your facility.
-        </p>
-        <a href="/requestService" class="about-cta__btn about-cta__btn--orange">Hire Staff</a>
+        <EditableText tag="h2" class="about-cta__heading about-cta__heading--white" content-key="about.cta.employers.heading" page="about" default="For Employers" />
+        <EditableText tag="p" class="about-cta__body about-cta__body--white" content-key="about.cta.employers.body" page="about"
+          default="Access qualified rehabilitation professionals and staffing support tailored to your facility." />
+        <a href="/requestService" class="about-cta__btn about-cta__btn--orange">
+          <EditableText tag="span" content-key="about.cta.employers.cta" page="about" default="Hire Staff" />
+        </a>
       </div>
     </div>
 
     <div class="about-cta__half about-cta__half--sand">
       <div class="about-cta__content">
-        <h2 class="about-cta__heading">For Candidates</h2>
-        <p class="about-cta__body">
-          Discover flexible opportunities across healthcare settings throughout
-          New York City.
-        </p>
-        <a href="/apply" class="about-cta__btn about-cta__btn--white">Find Jobs</a>
+        <EditableText tag="h2" class="about-cta__heading" content-key="about.cta.candidates.heading" page="about" default="For Candidates" />
+        <EditableText tag="p" class="about-cta__body" content-key="about.cta.candidates.body" page="about"
+          default="Discover flexible opportunities across healthcare settings throughout New York City." />
+        <a href="/apply" class="about-cta__btn about-cta__btn--white">
+          <EditableText tag="span" content-key="about.cta.candidates.cta" page="about" default="Find Jobs" />
+        </a>
       </div>
     </div>
 

@@ -84,3 +84,9 @@ const assignJobSeekerProfile = (profile:any) => {
   jobSeekerProfileState.value = profile;
 }
 export { jobSeekerProfileState, assignJobSeekerProfile };
+
+const editModeEnabled: Ref<boolean> = ref(false);
+const setEditMode = (enabled: boolean) => {
+  editModeEnabled.value = enabled;
+}
+export { editModeEnabled, setEditMode };
