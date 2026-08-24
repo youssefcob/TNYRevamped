@@ -1,7 +1,14 @@
 <script setup lang="ts">
+import { provide } from 'vue';
+import { usePage } from '@inertiajs/vue3';
 import NavBarV2 from './NavBarV2.vue';
 import FooterV2 from './FooterV2.vue';
 import AdminEditToggle from '@/Components/Admin/AdminEditToggle.vue';
+
+// NavBarV2/FooterV2 are direct (non-slot) children here, so they need this
+// component itself to provide pageContent — a page's own provide() only
+// reaches its slotted section components, not these.
+provide('pageContent', (usePage().props.pageContent as Record<string, string | null>) ?? {});
 </script>
 
 <template>

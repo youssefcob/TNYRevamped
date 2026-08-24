@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import Modal from '@/SharedComponents/modal.vue';
 import PrivacyPractices from './PrivacyPractices.vue';
+import EditableText from '@/Components/Admin/EditableText.vue';
 import { ref, Ref } from 'vue';
 
 function scrollToTop() {
@@ -33,16 +34,16 @@ const closeModal = () => {
             </div>
             <div class="info-wrapper">
                 <div class="links">
-                    <h3>Quick Link</h3>
+                    <EditableText tag="h3" content-key="global.footer_legacy.links_heading" page="global" default="Quick Link" />
                     <ul>
-                        <li>About TNY</li>
-                        <li>Job Seekers</li>
-                        <li>Employers</li>
-                        <li>TNY News</li>
+                        <li><EditableText tag="span" content-key="global.footer_legacy.link.0" page="global" default="About TNY" /></li>
+                        <li><EditableText tag="span" content-key="global.footer_legacy.link.1" page="global" default="Job Seekers" /></li>
+                        <li><EditableText tag="span" content-key="global.footer_legacy.link.2" page="global" default="Employers" /></li>
+                        <li><EditableText tag="span" content-key="global.footer_legacy.link.3" page="global" default="TNY News" /></li>
                     </ul>
                 </div>
                 <div class="contact-wrapper">
-                    <h3>Our Info</h3>
+                    <EditableText tag="h3" content-key="global.footer_legacy.info_heading" page="global" default="Our Info" />
 
                     <!-- Map Link -->
                     <a href="https://maps.google.com/?q=8746+20th+Avenue,+Brooklyn,+NY+11214" target="_blank" rel="noopener noreferrer"
@@ -53,7 +54,7 @@ const closeModal = () => {
                             <path d="M34.6673 1.33301L23.0007 34.6663L16.334 19.6663L1.33398 12.9997L34.6673 1.33301Z"
                                 stroke="#21A8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-                        <span class="text">View on Google Maps</span>
+                        <EditableText tag="span" class="text" content-key="global.footer_legacy.map_label" page="global" default="View on Google Maps" />
                     </a>
 
                     <!-- Address Link -->
@@ -67,7 +68,7 @@ const closeModal = () => {
                                 d="M16 21.667C18.7614 21.667 21 19.4284 21 16.667C21 13.9056 18.7614 11.667 16 11.667C13.2386 11.667 11 13.9056 11 16.667C11 19.4284 13.2386 21.667 16 21.667Z"
                                 stroke="#21A8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-                        <span class="text">8746 20th Avenue, Brooklyn, NY 11214</span>
+                        <EditableText tag="span" class="text" content-key="global.footer_legacy.address" page="global" default="8746 20th Avenue, Brooklyn, NY 11214" />
                     </a>
 
                     <!-- Phone Numbers Links -->
@@ -78,8 +79,7 @@ const closeModal = () => {
                                 stroke="#21A8E0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
                         <span class="text">
-                            <a href="tel:+13474414283">(347) 441-4283</a> – <a href="tel:+19179858327">(917)
-                                985-8327</a>
+                            <a href="tel:+13474414283"><EditableText tag="span" content-key="global.footer_legacy.phone_1" page="global" default="(347) 441-4283" /></a> – <a href="tel:+19179858327"><EditableText tag="span" content-key="global.footer_legacy.phone_2" page="global" default="(917) 985-8327" /></a>
                         </span>
                     </div>
 
@@ -92,19 +92,17 @@ const closeModal = () => {
                             <path d="M34.6673 5L18.0007 16.6667L1.33398 5" stroke="#21A8E0" stroke-width="2"
                                 stroke-linecap="round" stroke-linejoin="round" />
                         </svg>
-                        <span class="text">staffing@therapyofnewyork.com</span>
+                        <EditableText tag="span" class="text" content-key="global.footer_legacy.email" page="global" default="staffing@therapyofnewyork.com" />
                     </a>
                 </div>
             </div>
         </div>
         <div class="down">
             <div class="policy" @click="openModal()">
-                <span>
-                    TNY Staffing Corporation  ©  2023. Privacy Policy
-                </span>
+                <EditableText tag="span" content-key="global.footer_legacy.policy" page="global" default="TNY Staffing Corporation © 2026. Privacy Policy" />
             </div>
             <div class="follow">
-                <span>Follow us:</span>
+                <EditableText tag="span" content-key="global.footer_legacy.follow_label" page="global" default="Follow us:" />
 
                 <div class="socials">
                     <div class="socials">

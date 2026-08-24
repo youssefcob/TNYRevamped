@@ -1,3 +1,7 @@
+<script setup lang="ts">
+import EditableText from '@/Components/Admin/EditableText.vue';
+</script>
+
 <template>
   <footer class="footer2" id="contact">
     <div class="footer2__main">
@@ -13,10 +17,8 @@
             <p class="footer2__brand-tagline">Healthcare Staffing</p>
           </div> -->
         </div>
-        <p class="footer2__desc">
-          Connecting therapy professionals with healthcare facilities across New York. Premium
-          staffing solutions built for modern care.
-        </p>
+        <EditableText tag="p" class="footer2__desc" content-key="global.footer.desc" page="global"
+          default="Connecting therapy professionals with healthcare facilities across New York. Premium staffing solutions built for modern care." />
         <div class="footer2__socials">
           <a href="https://www.linkedin.com/company/therapy-of-new-york" target="_blank" rel="noopener noreferrer" class="footer2__social" aria-label="LinkedIn">
             <svg width="14" height="14" viewBox="0 0 24 24" fill="white">
@@ -38,36 +40,34 @@
 
       <!-- Solutions -->
       <div class="footer2__col">
-        <p class="footer2__col-heading">Solutions</p>
+        <EditableText tag="p" class="footer2__col-heading" content-key="global.footer.solutions.heading" page="global" default="Solutions" />
         <ul class="footer2__links">
-          <li><a href="/services">Physical Therapy Staffing</a></li>
-          <li><a href="/services">Occupational Therapy Staffing</a></li>
-          <li><a href="/services">Speech Therapy Staffing</a></li>
-          <li><a href="/services">School-Based Staffing</a></li>
-          <li><a href="/services">Emergency Staffing</a></li>
-          <li><a href="/services">Acupuncturist</a></li>
-          <li><a href="/services">Massage Therapist</a></li>
-          <li><a href="/services">Patient Care Coordinator "Front Desk"</a></li>
+          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.0" page="global" default="Physical Therapy Staffing" /></a></li>
+          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.1" page="global" default="Occupational Therapy Staffing" /></a></li>
+          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.2" page="global" default="Speech Therapy Staffing" /></a></li>
+          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.3" page="global" default="School-Based Staffing" /></a></li>
+          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.4" page="global" default="Emergency Staffing" /></a></li>
+          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.5" page="global" default="Acupuncturist" /></a></li>
+          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.6" page="global" default="Massage Therapist" /></a></li>
+          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.7" page="global" default="Patient Care Coordinator &quot;Front Desk&quot;" /></a></li>
         </ul>
       </div>
 
       <!-- Company -->
       <div class="footer2__col">
-        <p class="footer2__col-heading">Company</p>
+        <EditableText tag="p" class="footer2__col-heading" content-key="global.footer.company.heading" page="global" default="Company" />
         <ul class="footer2__links">
-          <li><a href="/about">About Us</a></li>
-          <!-- <li><a href="#">Case Studies</a></li> -->
-          <!-- <li><a href="#">Testimonials</a></li> -->
-          <!-- <li><a href="#">Industries We Serve</a></li> -->
-          <li><a href="/news">Resources</a></li>
-          <li><a href="/contact">Contact</a></li>
+          <li><a href="/about"><EditableText tag="span" content-key="global.footer.company.link.0" page="global" default="About Us" /></a></li>
+          <li><a href="/news"><EditableText tag="span" content-key="global.footer.company.link.1" page="global" default="Resources" /></a></li>
+          <li><a href="/contact"><EditableText tag="span" content-key="global.footer.company.link.2" page="global" default="Contact" /></a></li>
         </ul>
       </div>
 
       <!-- Stay Informed -->
       <div class="footer2__col">
-        <p class="footer2__col-heading">Stay Informed</p>
-        <p class="footer2__stay-desc">Staffing insights and healthcare workforce updates, direct to your inbox.</p>
+        <EditableText tag="p" class="footer2__col-heading" content-key="global.footer.stay_informed.heading" page="global" default="Stay Informed" />
+        <EditableText tag="p" class="footer2__stay-desc" content-key="global.footer.stay_informed.desc" page="global"
+          default="Staffing insights and healthcare workforce updates, direct to your inbox." />
         <div class="footer2__newsletter">
           <input type="email" placeholder="Your email address" class="footer2__email-input" />
           <button class="footer2__email-btn" aria-label="Subscribe">→</button>
@@ -77,19 +77,19 @@
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
               <path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 10.8a19.79 19.79 0 01-3.07-8.68A2 2 0 012 2h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 9.91a16 16 0 006.29 6.29l1.28-1.28a2 2 0 012.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0122 16.92z"/>
             </svg>
-            <a href="tel:+13474414283">(347) 441-4283</a>
+            <a href="tel:+13474414283"><EditableText tag="span" content-key="global.footer.phone" page="global" default="(347) 441-4283" /></a>
           </div>
           <div class="footer2__contact-item">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
               <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>
             </svg>
-            <a href="mailto:staffing@therapyofnewyork.com">staffing@therapyofnewyork.com</a>
+            <a href="mailto:staffing@therapyofnewyork.com"><EditableText tag="span" content-key="global.footer.email" page="global" default="staffing@therapyofnewyork.com" /></a>
           </div>
           <div class="footer2__contact-item">
             <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2">
               <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
             </svg>
-            <span>575 8th Ave, 10th Floor, New York, NY 10018</span>
+            <EditableText tag="span" content-key="global.footer.address" page="global" default="575 8th Ave, 10th Floor, New York, NY 10018" />
           </div>
         </div>
       </div>
@@ -97,12 +97,10 @@
     </div>
 
     <div class="footer2__bottom">
-      <p class="footer2__copyright">© 2026 TNY Staffing Corporation . All rights reserved.</p>
+      <EditableText tag="p" class="footer2__copyright" content-key="global.footer.copyright" page="global" default="© 2026 TNY Staffing Corporation. All rights reserved." />
       <div class="footer2__legal">
-        <a href="#">Privacy Policy</a>
-        <a href="#">Terms of Service</a>
-        <!-- <a href="#">Accessibility</a> -->
-        <!-- <a href="#">Sitemap</a> -->
+        <a href="#"><EditableText tag="span" content-key="global.footer.legal.privacy" page="global" default="Privacy Policy" /></a>
+        <a href="#"><EditableText tag="span" content-key="global.footer.legal.terms" page="global" default="Terms of Service" /></a>
       </div>
     </div>
   </footer>

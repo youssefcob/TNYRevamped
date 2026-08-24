@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue';
 import { Link, usePage } from '@inertiajs/vue3';
+import EditableText from '@/Components/Admin/EditableText.vue';
 
 const page = usePage();
 const isAboutPage = computed(() => page.url.startsWith('/about'));
@@ -23,17 +24,21 @@ const scrolled = computed(() => isScrolled.value || isAboutPage.value);
       </Link>
 
       <div class="nav2__links">
-        <a href="/solutions">Services</a>
-        <a href="/employers">For Employers</a>
-        <a href="/candidates">For Candidates</a>
-        <a href="/resources">Resources</a>
-        <a href="/about">About</a>
-        <a href="/contact">Contact</a>
+        <a href="/solutions"><EditableText tag="span" content-key="global.navbar.link_services" page="global" default="Services" /></a>
+        <a href="/employers"><EditableText tag="span" content-key="global.navbar.link_employers" page="global" default="For Employers" /></a>
+        <a href="/candidates"><EditableText tag="span" content-key="global.navbar.link_candidates" page="global" default="For Candidates" /></a>
+        <a href="/resources"><EditableText tag="span" content-key="global.navbar.link_resources" page="global" default="Resources" /></a>
+        <a href="/about"><EditableText tag="span" content-key="global.navbar.link_about" page="global" default="About" /></a>
+        <a href="/contact"><EditableText tag="span" content-key="global.navbar.link_contact" page="global" default="Contact" /></a>
       </div>
 
       <div class="nav2__ctas">
-        <Link href="/apply" class="nav2__btn nav2__btn--outline">Find Jobs</Link>
-        <Link href="/requestService" class="nav2__btn nav2__btn--primary">Hire Staff</Link>
+        <Link href="/apply" class="nav2__btn nav2__btn--outline">
+          <EditableText tag="span" content-key="global.navbar.cta_jobs" page="global" default="Find Jobs" />
+        </Link>
+        <Link href="/requestService" class="nav2__btn nav2__btn--primary">
+          <EditableText tag="span" content-key="global.navbar.cta_hire" page="global" default="Hire Staff" />
+        </Link>
       </div>
 
       <button class="nav2__hamburger" @click="menuOpen = !menuOpen" aria-label="Toggle menu">
@@ -42,15 +47,19 @@ const scrolled = computed(() => isScrolled.value || isAboutPage.value);
     </div>
 
     <div class="nav2__mobile" :class="{ 'nav2__mobile--open': menuOpen }">
-      <a href="/solutions" @click="menuOpen = false">Services</a>
-      <a href="/employers" @click="menuOpen = false">For Employers</a>
-      <a href="/candidates" @click="menuOpen = false">For Candidates</a>
-      <a href="/resources" @click="menuOpen = false">Resources</a>
-      <a href="/about" @click="menuOpen = false">About</a>
-      <a href="/contact" @click="menuOpen = false">Contact</a>
+      <a href="/solutions" @click="menuOpen = false"><EditableText tag="span" content-key="global.navbar.link_services" page="global" default="Services" /></a>
+      <a href="/employers" @click="menuOpen = false"><EditableText tag="span" content-key="global.navbar.link_employers" page="global" default="For Employers" /></a>
+      <a href="/candidates" @click="menuOpen = false"><EditableText tag="span" content-key="global.navbar.link_candidates" page="global" default="For Candidates" /></a>
+      <a href="/resources" @click="menuOpen = false"><EditableText tag="span" content-key="global.navbar.link_resources" page="global" default="Resources" /></a>
+      <a href="/about" @click="menuOpen = false"><EditableText tag="span" content-key="global.navbar.link_about" page="global" default="About" /></a>
+      <a href="/contact" @click="menuOpen = false"><EditableText tag="span" content-key="global.navbar.link_contact" page="global" default="Contact" /></a>
       <div class="nav2__mobile-ctas">
-        <Link href="/apply" class="nav2__btn nav2__btn--outline">Find Jobs</Link>
-        <Link href="/requestService" class="nav2__btn nav2__btn--primary">Hire Staff</Link>
+        <Link href="/apply" class="nav2__btn nav2__btn--outline">
+          <EditableText tag="span" content-key="global.navbar.cta_jobs" page="global" default="Find Jobs" />
+        </Link>
+        <Link href="/requestService" class="nav2__btn nav2__btn--primary">
+          <EditableText tag="span" content-key="global.navbar.cta_hire" page="global" default="Hire Staff" />
+        </Link>
       </div>
     </div>
   </nav>

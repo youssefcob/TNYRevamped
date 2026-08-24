@@ -45,12 +45,14 @@ public function share(Request $request): array
             'admin' => optional($request->user('web'))->only(['id', 'name', 'email']),
         ],
         'pageContent' => function () use ($request) {
+            $content = PageContentService::getForPage('global');
+
             $routeName = $request->route()?->getName();
-            if (! $routeName) {
-                return [];
+            if ($routeName) {
+                $content = array_merge($content, PageContentService::getForPage(str_replace('-', '_', $routeName)));
             }
 
-            return PageContentService::getForPage(str_replace('-', '_', $routeName));
+            return $content;
         },
     ];
 }
