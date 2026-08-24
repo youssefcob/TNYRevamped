@@ -31,7 +31,7 @@ class MessageService
                 ]);
             }
 
-            $data = $id ? Message::find($id)->toArray() : Message::paginate(10);
+            $data = $id ? Message::find($id)->toArray() : Message::latest()->paginate(10);
             return [
                 'success' => true,
                 'data' => $data,

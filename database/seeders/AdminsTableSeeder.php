@@ -21,7 +21,10 @@ class AdminsTableSeeder extends Seeder
             ]
         ];
         foreach ($admins as $admin) {
-            \App\Models\Admin::create($admin);
+            \App\Models\Admin::updateOrCreate(
+                ['email' => $admin['email']],
+                $admin
+            );
         }
     }
 }

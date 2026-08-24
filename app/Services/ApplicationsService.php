@@ -84,7 +84,7 @@ class ApplicationsService
                     $application = $filteredApplications['data'];
                 }
                 
-                $application = $application->paginate(10);
+                $application = $application->latest()->paginate(10);
             }
 
             return [

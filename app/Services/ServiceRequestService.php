@@ -63,7 +63,7 @@ class ServiceRequestService
                     $serviceRequest = $filteredServiceRequests['data'];
                 }
                
-                $serviceRequest = $serviceRequest->paginate(10);
+                $serviceRequest = $serviceRequest->latest()->paginate(10);
             }
 
             return [
