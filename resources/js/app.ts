@@ -11,7 +11,7 @@ import router from './router'
 // const ZiggyVue = require("ziggy"); //works
 
   
-const appName = window.document.getElementsByTagName('title')[0]?.innerText || 'Laravel';
+const appName = 'TNY';
 
 createInertiaApp({
     title: (title) => title || appName,

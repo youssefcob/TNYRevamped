@@ -1,7 +1,7 @@
 <script setup lang="ts">
 defineEmits<{ fill: [] }>();
 
-const isDev = import.meta.env.DEV || localStorage.getItem('test') === '1';
+const isDev = import.meta.env.DEV || (typeof localStorage !== 'undefined' && localStorage.getItem('test') === '1');
 </script>
 
 <template>

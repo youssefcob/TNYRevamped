@@ -7,11 +7,12 @@ import path from 'path';
 export default defineConfig({  
     "plugins":[  
         laravel({  
-            "input": [  
-                // "resources/css/app.scss",  
-                "resources/js/app.ts"  
-            ],  
-            "refresh": true  
+            "input": [
+                // "resources/css/app.scss",
+                "resources/js/app.ts"
+            ],
+            "ssr": "resources/js/ssr.ts",
+            "refresh": true
         }),
         
         vue({  

@@ -14,7 +14,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, type Ref } from 'vue';
+import { onMounted, ref, type Ref } from 'vue';
 
 const modal: Ref<HTMLDialogElement | null> = ref(null);
 
@@ -35,12 +35,14 @@ const closeModal = () => {
 
 }
 
-document.addEventListener("click", (e) => {
+onMounted(() => {
+    document.addEventListener("click", (e) => {
 
-    if (modalState.value == true && !container.value?.contains(e.target as Node)) {
-        modalState.value = false;
-        closeModal();
-    }
+        if (modalState.value == true && !container.value?.contains(e.target as Node)) {
+            modalState.value = false;
+            closeModal();
+        }
+    });
 });
 defineExpose({
     openModal,
