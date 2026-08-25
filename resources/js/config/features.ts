@@ -12,9 +12,9 @@
  */
 export const FEATURES = {
     textEditing: true,
-    textStyles: false,
-    imageEditing: false,
-    metaTags: false,
+    textStyles: true,
+    imageEditing: true,
+    metaTags: true,
 } as const;
 
 export type FeatureFlag = keyof typeof FEATURES;

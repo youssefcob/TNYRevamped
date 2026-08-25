@@ -195,6 +195,8 @@ export type PageContentEntry = {
     objectFit: string | null;
     objectPosition: string | null;
     alt: string | null;
+    href: string | null;
+    target: string | null;
 };
 
 export type CustomMetaTagEntry = {

@@ -99,8 +99,12 @@ export interface ActiveEditableField {
   // text
   styleId?: number | null;
   tag?: string | null;
+  href?: string | null;
+  target?: string | null;
   setStyleId?: (id: number | null) => void;
   setTag?: (tag: string | null) => void;
+  setHref?: (href: string | null) => void;
+  setTarget?: (target: string | null) => void;
   // image
   objectFit?: string | null;
   objectPosition?: string | null;

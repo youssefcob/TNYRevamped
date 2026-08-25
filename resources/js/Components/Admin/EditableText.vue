@@ -26,6 +26,8 @@ const pageContent = inject<PageContentMap>('pageContent', {});
 const text = ref(pageContent[props.contentKey]?.value ?? props.default);
 const styleId = ref<number | null>(pageContent[props.contentKey]?.textStyleId ?? null);
 const tagOverride = ref<string | null>(pageContent[props.contentKey]?.tag ?? null);
+const href = ref<string | null>(pageContent[props.contentKey]?.href ?? null);
+const target = ref<string | null>(pageContent[props.contentKey]?.target ?? null);
 
 // contentKey/default can change at runtime when a parent reuses the same
 // EditableText instance for a different underlying field (e.g. a carousel
@@ -35,6 +37,8 @@ watch(() => props.contentKey, () => {
     text.value = entry?.value ?? props.default;
     styleId.value = entry?.textStyleId ?? null;
     tagOverride.value = entry?.tag ?? null;
+    href.value = entry?.href ?? null;
+    target.value = entry?.target ?? null;
 });
 
 const inertiaPage = usePage();
@@ -60,6 +64,7 @@ const resolvedStyle = computed(() => {
 });
 
 const effectiveTag = computed(() => tagOverride.value || props.tag);
+const isLink = computed(() => effectiveTag.value === 'a');
 
 const saving = ref(false);
 
@@ -72,6 +77,8 @@ async function saveField() {
             value: text.value,
             text_style_id: styleId.value,
             tag: tagOverride.value,
+            href: href.value,
+            target: target.value,
         });
         snack.success('Saved.');
     } catch (e) {
@@ -94,6 +101,8 @@ function onClick(event: MouseEvent) {
         page: props.page,
         styleId: styleId.value,
         tag: tagOverride.value,
+        href: href.value,
+        target: target.value,
         rect: rect ? { top: rect.top, left: rect.left } : { top: 0, left: 0 },
         setStyleId: (id) => {
             styleId.value = id;
@@ -103,6 +112,16 @@ function onClick(event: MouseEvent) {
         setTag: (t) => {
             tagOverride.value = t;
             if (activeEditableField.value) activeEditableField.value.tag = t;
+            saveField();
+        },
+        setHref: (value) => {
+            href.value = value;
+            if (activeEditableField.value) activeEditableField.value.href = value;
+            saveField();
+        },
+        setTarget: (value) => {
+            target.value = value;
+            if (activeEditableField.value) activeEditableField.value.target = value;
             saveField();
         },
     };
@@ -121,6 +140,8 @@ async function onBlur(event: FocusEvent) {
 
 <template>
     <component :is="effectiveTag" ref="fieldEl" v-bind="$attrs" :contenteditable="canEdit"
+        :href="isLink ? (href || undefined) : undefined" :target="isLink ? (target || undefined) : undefined"
+        :rel="isLink && target === '_blank' ? 'noopener noreferrer' : undefined"
         :class="{ 'editable-text': canEdit }" :style="resolvedStyle" @blur="onBlur" @click="onClick">{{ text }}</component>
 </template>
 

@@ -17,6 +17,8 @@ class PageContent extends Model
         'object_fit',
         'object_position',
         'alt',
+        'href',
+        'target',
     ];
 
     public function textStyle()

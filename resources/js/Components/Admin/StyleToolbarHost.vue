@@ -5,7 +5,8 @@ import { activeEditableField, setActiveEditableField } from '@/state/state';
 import { FEATURES } from '@/config/features';
 import type { TextStyle } from '@/interface/Types';
 
-const TAG_OPTIONS = ['h1', 'h2', 'h3', 'h4', 'p', 'span'];
+const TAG_OPTIONS = ['h1', 'h2', 'h3', 'h4', 'p', 'span', 'a'];
+const TAG_LABELS: Record<string, string> = { a: 'Link' };
 const OBJECT_FIT_OPTIONS = ['cover', 'contain', 'fill', 'none'];
 const POSITION_GRID = [
     { value: 'left top', label: '↖' },
@@ -41,6 +42,16 @@ function onTagChange(e: Event) {
     activeEditableField.value?.setTag?.(val || null);
 }
 
+function onHrefChange(e: Event) {
+    const val = (e.target as HTMLInputElement).value;
+    activeEditableField.value?.setHref?.(val || null);
+}
+
+function onTargetChange(e: Event) {
+    const val = (e.target as HTMLSelectElement).value;
+    activeEditableField.value?.setTarget?.(val || null);
+}
+
 function onObjectFitChange(e: Event) {
     const val = (e.target as HTMLSelectElement).value;
     activeEditableField.value?.setObjectFit?.(val || null);
@@ -67,7 +78,7 @@ function onFileChange(e: Event) {
     (e.target as HTMLInputElement).value = '';
 }
 
-function onDocMouseDown(e: MouseEvent) {
+function onDocClick(e: MouseEvent) {
     const target = e.target as HTMLElement;
     // A click on any editable field is handled by that field's own click
     // handler (it may be opening a different field, or re-opening this one)
@@ -77,8 +88,14 @@ function onDocMouseDown(e: MouseEvent) {
     setActiveEditableField(null);
 }
 
-onMounted(() => document.addEventListener('mousedown', onDocMouseDown));
-onUnmounted(() => document.removeEventListener('mousedown', onDocMouseDown));
+// Listens on 'click' rather than 'mousedown': clicking outside the toolbar
+// also blurs whatever toolbar input was focused (e.g. the href field), and
+// that blur's 'change' handler must run before we null out
+// activeEditableField, or the pending edit is silently dropped. Blur/change
+// fire as part of the mousedown's default focus shift — before 'click' — so
+// 'click' is the first point where it's safe to close.
+onMounted(() => document.addEventListener('click', onDocClick));
+onUnmounted(() => document.removeEventListener('click', onDocClick));
 </script>
 
 <template>
@@ -90,8 +107,20 @@ onUnmounted(() => document.removeEventListener('mousedown', onDocMouseDown));
             </select>
             <select class="style-toolbar-host__select" :value="activeEditableField.tag ?? ''" @change="onTagChange">
                 <option value="">Default tag</option>
-                <option v-for="t in TAG_OPTIONS" :key="t" :value="t">{{ t.toUpperCase() }}</option>
+                <option v-for="t in TAG_OPTIONS" :key="t" :value="t">{{ TAG_LABELS[t] ?? t.toUpperCase() }}</option>
             </select>
+
+            <template v-if="activeEditableField.tag === 'a'">
+                <label class="style-toolbar-host__alt">
+                    Link URL
+                    <input type="text" placeholder="https://... or /apply" :value="activeEditableField.href ?? ''"
+                        @change="onHrefChange" />
+                </label>
+                <select class="style-toolbar-host__select" :value="activeEditableField.target ?? ''" @change="onTargetChange">
+                    <option value="">Same tab</option>
+                    <option value="_blank">New tab</option>
+                </select>
+            </template>
         </template>
 
         <template v-else>

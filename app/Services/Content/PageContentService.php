@@ -20,6 +20,8 @@ class PageContentService
                 'objectFit' => $row->object_fit,
                 'objectPosition' => $row->object_position,
                 'alt' => $row->alt,
+                'href' => $row->href,
+                'target' => $row->target,
             ])
             ->toArray();
     }
@@ -32,10 +34,12 @@ class PageContentService
                 'page' => ['required', 'string', 'max:255'],
                 'value' => ['nullable', 'string', 'max:5000'],
                 'text_style_id' => ['nullable', 'integer', 'exists:text_styles,id'],
-                'tag' => ['nullable', 'string', Rule::in(['h1', 'h2', 'h3', 'h4', 'p', 'span'])],
+                'tag' => ['nullable', 'string', Rule::in(['h1', 'h2', 'h3', 'h4', 'p', 'span', 'a'])],
                 'object_fit' => ['nullable', 'string', Rule::in(['cover', 'contain', 'fill', 'none'])],
                 'object_position' => ['nullable', 'string', 'max:20'],
                 'alt' => ['nullable', 'string', 'max:255'],
+                'href' => ['nullable', 'string', 'max:2048'],
+                'target' => ['nullable', 'string', Rule::in(['_self', '_blank'])],
             ]);
 
             $content = PageContent::updateOrCreate(
@@ -48,6 +52,8 @@ class PageContentService
                     'object_fit' => $request->object_fit,
                     'object_position' => $request->object_position,
                     'alt' => $request->alt,
+                    'href' => $request->href,
+                    'target' => $request->target,
                 ]
             );
 
