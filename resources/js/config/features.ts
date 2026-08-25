@@ -9,12 +9,15 @@
  * - `metaTags` — the "Manage Meta Tags" panel and its effect on page
  *   <title>/description/canonical/OG tags. When off, every page falls back
  *   to its hardcoded defaults.
+ * - `sitemap` — the "Manage Sitemap" panel for adjusting priority,
+ *   change frequency, and inclusion of pages in /sitemap.xml.
  */
 export const FEATURES = {
     textEditing: true,
     textStyles: false,
     imageEditing: false,
     metaTags: false,
+    sitemap: false,
 } as const;
 
 export type FeatureFlag = keyof typeof FEATURES;

@@ -233,3 +233,13 @@ export interface PageMeta {
 
 export type PageContentMap = Record<string, PageContentEntry | undefined>;
 
+export interface SitemapEntry {
+    id: number | null;
+    url: string;
+    source: 'auto' | 'manual';
+    priority: number | null;
+    changefreq: string | null;
+    excluded: boolean;
+    lastmod: string | null;
+}
+

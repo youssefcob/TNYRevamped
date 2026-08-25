@@ -17,6 +17,7 @@ function toggle() {
     <div v-if="isAdmin" class="admin-edit-toolbar">
         <Link v-if="FEATURES.textStyles" href="/admin/text-styles" class="admin-edit-toolbar__link">Manage Styles</Link>
         <Link v-if="FEATURES.metaTags" href="/admin/meta-tags" class="admin-edit-toolbar__link">Manage Meta Tags</Link>
+        <Link v-if="FEATURES.sitemap" href="/admin/sitemap" class="admin-edit-toolbar__link">Manage Sitemap</Link>
         <button v-if="canToggleEditMode" type="button" class="admin-edit-toggle" :class="{ 'admin-edit-toggle--active': editModeEnabled }"
             @click="toggle">
             {{ editModeEnabled ? 'Editing: On' : 'Edit Page' }}

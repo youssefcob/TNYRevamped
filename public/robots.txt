@@ -1,2 +1,24 @@
 User-agent: *
-Disallow:
+Allow: /
+
+# AI and LLM crawlers
+User-agent: GPTBot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Google-Extended
+Allow: /
+
+User-agent: Bard
+Allow: /
+
+# Canonical sitemap reference
+Sitemap: https://tnystaffingco.com/sitemap.xml

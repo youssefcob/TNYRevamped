@@ -19,6 +19,7 @@ use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
 
 
 class HomeController extends Controller
@@ -91,7 +92,15 @@ class HomeController extends Controller
         $data = [];
 
         $data['jobs'] = Position::where('available', true)->orderBy('created_at', 'desc')->get();
-        $data['position'] = $position;
+
+        // The URL segment is a dash-separated slug (SEO-friendly), not the
+        // literal title, so resolve it back by comparing slugs rather than
+        // trying to reverse the dashes into spaces — titles can contain
+        // their own hyphens (e.g. "Set-Up"), which makes that ambiguous.
+        $data['position'] = $position
+            ? optional($data['jobs']->first(fn ($job) => Str::slug($job->title) === $position))->title
+            : null;
+
         return Inertia::render('JobSeekers/Apply', $data);
     }
 

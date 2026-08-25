@@ -2,6 +2,7 @@
 import { ref, computed } from 'vue';
 import Modal from '@/SharedComponents/modal.vue';
 import EditableText from '@/Components/Admin/EditableText.vue';
+import { slugify } from '@/mixins/slug';
 
 interface Position {
   id: number;
@@ -95,7 +96,7 @@ function viewDetails(pos: Position) {
               <span class="listings__cell-text">—</span>
               <div class="listings__actions">
                 <button type="button" class="listings__view-btn" @click="viewDetails(pos)">View</button>
-                <a :href="`/apply/${encodeURIComponent(pos.title)}`" class="listings__apply-btn">Apply</a>
+                <a :href="`/apply/${slugify(pos.title)}`" class="listings__apply-btn">Apply</a>
               </div>
             </div>
           </div>
@@ -112,7 +113,7 @@ function viewDetails(pos: Position) {
           {{ activePosition.address || 'New York, NY' }} · Full-Time
         </p>
         <p class="job-details__desc">{{ activePosition.description }}</p>
-        <a :href="`/apply/${encodeURIComponent(activePosition.title)}`" class="listings__apply-btn job-details__apply">Apply</a>
+        <a :href="`/apply/${slugify(activePosition.title)}`" class="listings__apply-btn job-details__apply">Apply</a>
       </div>
     </Modal>
   </section>

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Content\SitemapController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\Views\Auth\LoginController;
 use App\Http\Controllers\Views\Auth\RegisterController;
@@ -19,6 +20,10 @@ require __DIR__.'/web/job-seeker-web.php';
 require __DIR__.'/web/content-routes.php';
 require __DIR__.'/web/text-style-routes.php';
 require __DIR__.'/web/meta-tag-routes.php';
+require __DIR__.'/web/sitemap-routes.php';
+
+Route::get('/sitemap.xml', [SitemapController::class, 'index'])
+    ->name('sitemap');
 
 Route::get('/services', [HomeController::class, 'services'])
     ->name('services');
