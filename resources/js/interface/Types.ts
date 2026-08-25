@@ -54,6 +54,7 @@ export type Job = {
 export type News = {
     id: number;
     title: string;
+    url: string;
     image: string;
     link: string;
     content:string;

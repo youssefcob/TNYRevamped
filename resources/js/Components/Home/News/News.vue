@@ -39,7 +39,7 @@ onUnmounted(() => {
     <div class="carousel-container">
         <Carousel ref="carousel" snap :numberOfItems="numberOfCarouselItems">
             <template v-for="news in newsState" :key="news.id">
-            <Link :href="`/news/${news.id}`" class="news-card">
+            <Link :href="`/news/${news.url}`" class="news-card">
                 <NewsCard :news="news" />
             </Link>
             </template>

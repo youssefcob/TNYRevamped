@@ -87,8 +87,17 @@ class HomeController extends Controller
         return Inertia::render('Candidates', $data);
     }
 
-    public function apply($position = null)
+    public function apply(Request $request, $position = null)
     {
+        // Canonicalize any non-slug URL (raw title, spaces, %20, mixed case)
+        // to its dash-slug form permanently, so search engines consolidate
+        // link equity on one URL instead of indexing every raw variant.
+        if ($position !== null && ($slug = Str::slug($position)) !== $position) {
+            $query = $request->getQueryString();
+
+            return redirect('/apply/'.$slug.($query ? '?'.$query : ''), 301);
+        }
+
         $data = [];
 
         $data['jobs'] = Position::where('available', true)->orderBy('created_at', 'desc')->get();
@@ -132,8 +141,17 @@ class HomeController extends Controller
         return Inertia::render('Resources', $data);
     }
 
-    public function news($url = null)
+    public function news(Request $request, $url = null)
     {
+        // Same canonicalization as apply(): permanently redirect any
+        // non-slug URL (raw title, spaces, %20, mixed case) to its dash-slug
+        // form so search engines consolidate on one URL.
+        if ($url !== null && ($slug = Str::slug($url)) !== $url) {
+            $query = $request->getQueryString();
+
+            return redirect('/news/'.$slug.($query ? '?'.$query : ''), 301);
+        }
+
         $data = [];
 
         $data['news'] = News::where('url', $url)->firstOrFail();
