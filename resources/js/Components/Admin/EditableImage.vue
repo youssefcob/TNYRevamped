@@ -3,6 +3,7 @@ import { usePage } from '@inertiajs/vue3';
 import { computed, inject, ref, watch, type CSSProperties } from 'vue';
 import { activeEditableField, editModeEnabled } from '@/state/state';
 import { snack } from '@/mixins/toast';
+import { FEATURES } from '@/config/features';
 import type { PageContentMap } from '@/interface/Types';
 
 defineOptions({ inheritAttrs: false });
@@ -36,7 +37,7 @@ watch(() => props.contentKey, () => {
 
 const inertiaPage = usePage();
 const isAdmin = computed(() => !!(inertiaPage.props.auth as any)?.admin);
-const canEdit = computed(() => isAdmin.value && editModeEnabled.value);
+const canEdit = computed(() => isAdmin.value && editModeEnabled.value && FEATURES.imageEditing);
 
 const computedStyle = computed<CSSProperties>(() => ({
     objectFit: (objectFit.value || undefined) as CSSProperties['objectFit'],

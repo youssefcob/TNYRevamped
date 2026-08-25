@@ -2,6 +2,7 @@
 import { usePage } from '@inertiajs/vue3';
 import { computed, onMounted, onUnmounted, ref } from 'vue';
 import { activeEditableField, setActiveEditableField } from '@/state/state';
+import { FEATURES } from '@/config/features';
 import type { TextStyle } from '@/interface/Types';
 
 const TAG_OPTIONS = ['h1', 'h2', 'h3', 'h4', 'p', 'span'];
@@ -83,7 +84,7 @@ onUnmounted(() => document.removeEventListener('mousedown', onDocMouseDown));
 <template>
     <div v-if="activeEditableField" class="style-toolbar-host" :style="pos">
         <template v-if="activeEditableField.kind === 'text'">
-            <select class="style-toolbar-host__select" :value="activeEditableField.styleId ?? ''" @change="onStyleChange">
+            <select v-if="FEATURES.textStyles" class="style-toolbar-host__select" :value="activeEditableField.styleId ?? ''" @change="onStyleChange">
                 <option value="">Default style</option>
                 <option v-for="s in textStyles" :key="s.id" :value="s.id">{{ s.name }}</option>
             </select>

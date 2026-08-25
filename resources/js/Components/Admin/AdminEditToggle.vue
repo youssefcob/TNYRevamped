@@ -2,9 +2,11 @@
 import { Link, usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 import { editModeEnabled, setEditMode } from '@/state/state';
+import { FEATURES } from '@/config/features';
 
 const page = usePage();
 const isAdmin = computed(() => !!(page.props.auth as any)?.admin);
+const canToggleEditMode = computed(() => FEATURES.textEditing || FEATURES.imageEditing);
 
 function toggle() {
     setEditMode(!editModeEnabled.value);
@@ -13,8 +15,9 @@ function toggle() {
 
 <template>
     <div v-if="isAdmin" class="admin-edit-toolbar">
-        <Link href="/admin/text-styles" class="admin-edit-toolbar__link">Manage Styles</Link>
-        <button type="button" class="admin-edit-toggle" :class="{ 'admin-edit-toggle--active': editModeEnabled }"
+        <Link v-if="FEATURES.textStyles" href="/admin/text-styles" class="admin-edit-toolbar__link">Manage Styles</Link>
+        <Link v-if="FEATURES.metaTags" href="/admin/meta-tags" class="admin-edit-toolbar__link">Manage Meta Tags</Link>
+        <button v-if="canToggleEditMode" type="button" class="admin-edit-toggle" :class="{ 'admin-edit-toggle--active': editModeEnabled }"
             @click="toggle">
             {{ editModeEnabled ? 'Editing: On' : 'Edit Page' }}
         </button>

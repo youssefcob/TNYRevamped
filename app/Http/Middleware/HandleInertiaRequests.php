@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use App\Services\Content\PageContentService;
+use App\Services\Content\PageMetaService;
 use App\Services\Content\TextStyleService;
 use Illuminate\Http\Request;
 use Inertia\Middleware;
@@ -35,27 +36,32 @@ class HandleInertiaRequests extends Middleware
      *
      * @return array<string, mixed>
      */
-public function share(Request $request): array
-{
-    return [
-        ...parent::share($request),
-        'flash' => [
-            'snack' => $request->session()->get('snack'),
-        ],
-        'auth' => [
-            'admin' => optional($request->user('web'))->only(['id', 'name', 'email']),
-        ],
-        'pageContent' => function () use ($request) {
-            $content = PageContentService::getForPage('global');
+    public function share(Request $request): array
+    {
+        return [
+            ...parent::share($request),
+            'flash' => [
+                'snack' => $request->session()->get('snack'),
+            ],
+            'auth' => [
+                'admin' => optional($request->user('web'))->only(['id', 'name', 'email']),
+            ],
+            'pageContent' => function () use ($request) {
+                $content = PageContentService::getForPage('global');
 
-            $routeName = $request->route()?->getName();
-            if ($routeName) {
-                $content = array_merge($content, PageContentService::getForPage(str_replace('-', '_', $routeName)));
-            }
+                $routeName = $request->route()?->getName();
+                if ($routeName) {
+                    $content = array_merge($content, PageContentService::getForPage(str_replace('-', '_', $routeName)));
+                }
 
-            return $content;
-        },
-        'textStyles' => fn () => TextStyleService::all(),
-    ];
-}
+                return $content;
+            },
+            'textStyles' => fn () => TextStyleService::all(),
+            'pageMeta' => function () use ($request) {
+                $routeName = $request->route()?->getName();
+
+                return $routeName ? PageMetaService::getForPage(str_replace('-', '_', $routeName)) : null;
+            },
+        ];
+    }
 }

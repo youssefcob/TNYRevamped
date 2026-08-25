@@ -197,5 +197,37 @@ export type PageContentEntry = {
     alt: string | null;
 };
 
+export type CustomMetaTagEntry = {
+    attribute: 'name' | 'property';
+    meta_key: string;
+    content: string;
+};
+
+export type PageMetaEntry = {
+    title: string | null;
+    description: string | null;
+    canonical: string | null;
+    ogImage: string | null;
+    customTags: CustomMetaTagEntry[];
+};
+
+export interface PageMetaTag {
+    id: number;
+    page: string;
+    attribute: 'name' | 'property';
+    meta_key: string;
+    content: string;
+}
+
+export interface PageMeta {
+    id: number;
+    page: string;
+    title: string | null;
+    description: string | null;
+    canonical: string | null;
+    og_image: string | null;
+    og_image_public_id: string | null;
+}
+
 export type PageContentMap = Record<string, PageContentEntry | undefined>;
 
