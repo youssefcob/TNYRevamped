@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Admin;
 use Illuminate\Database\Seeder;
 
 class AdminsTableSeeder extends Seeder
@@ -18,10 +18,11 @@ class AdminsTableSeeder extends Seeder
                 'name' => 'Admin',
                 'email' => 'admin@tny.com',
                 'password' => bcrypt('123456'),
-            ]
+                'role' => 'super_admin',
+            ],
         ];
         foreach ($admins as $admin) {
-            \App\Models\Admin::updateOrCreate(
+            Admin::updateOrCreate(
                 ['email' => $admin['email']],
                 $admin
             );

@@ -5,7 +5,6 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use Laravel\Passport\Passport;
 
-
 class AuthenticationServiceProvider extends ServiceProvider
 {
     /**
@@ -21,10 +20,11 @@ class AuthenticationServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-         Passport::tokensCan([
+        Passport::tokensCan([
             'job-seeker' => 'Seek Jobs',
             'employer' => 'Employ',
             'admin' => 'Manage System',
+            'super-admin' => 'Manage Admins',
         ]);
     }
 }

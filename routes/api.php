@@ -2,49 +2,43 @@
 
 // use App\Http\Controllers\AdminAtuhController;
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminManagementController;
 use App\Http\Controllers\ApplicationsController;
 use App\Http\Controllers\Content\HeroController;
 use App\Http\Controllers\DataMigrationController;
 use App\Http\Controllers\Employer\EmployerController;
 use App\Http\Controllers\ExportController;
+use App\Http\Controllers\InsightsController;
+use App\Http\Controllers\JobSeekerController;
 use App\Http\Controllers\MailListController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\PositionController;
 use App\Http\Controllers\ServiceController;
-
-use App\Http\Controllers\InsightsController;
-use App\Http\Controllers\JobSeekerController;
 // use App\Http\Controllers\InsightsController;
 use App\Http\Controllers\ServiceRequestController;
-use App\Http\Controllers\SystemServiceController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\Vacancies\VacanciesController;
-use App\Http\Controllers\Views\Auth\LoginController;
-use App\Http\Controllers\Views\Auth\RegisterController;
-use App\Services\GoogleDrive;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use Illuminate\Support\Facades\Validator;
 
 Route::get('/user', function (Request $request) {
     return Auth::user();
 })->middleware('auth:api');
 
-require __DIR__ . '/content.php';
-require __DIR__ . '/user-routes.php';
-require __DIR__ . '/employer/employer-routes.php';
+require __DIR__.'/content.php';
+require __DIR__.'/user-routes.php';
+require __DIR__.'/employer/employer-routes.php';
 require __DIR__.'/applications-routes.php';
-require __DIR__ . '/job-seeker.php';
-require __DIR__ . '/bids.php';
-
+require __DIR__.'/job-seeker.php';
+require __DIR__.'/bids.php';
 
 Route::post('/admin/login', [AdminAuthController::class, 'adminLogin']);
 
 Route::prefix('auth')->group(function () {
     Route::post('/register', [UserAuthController::class, 'register'])->name('register.api');
     Route::post('/login', [UserAuthController::class, 'login'])->name('login.api');
-    Route::middleware('auth:api' , 'scope:admin')->group(function () {
+    Route::middleware('auth:api', 'scope:admin')->group(function () {
 
         Route::post('update-password', [AdminAuthController::class, 'updatePassword'])->name('update.password');
 
@@ -52,34 +46,32 @@ Route::prefix('auth')->group(function () {
 });
 
 Route::middleware('auth:api', 'scope:admin')->group(function () {
-    //Applications routes
+    // Applications routes
     Route::get('/applications', [ApplicationsController::class, 'getApplications'])->name('get.applications');
-    //TODO: When delete application make sure to delete the application's files from Cloudinary.
+    // TODO: When delete application make sure to delete the application's files from Cloudinary.
     Route::put('/applicationStatus', [ApplicationsController::class, 'updateApplicationStatus'])->name('update.application.status');
     Route::delete('/application', [ApplicationsController::class, 'deleteApplication'])->name('delete.application');
 
-    //Positions routes
+    // Positions routes
     Route::prefix('/positions')->group(function () {
         Route::get('/', [PositionController::class, 'getPositions'])->name('get.positions');
         Route::put('/', [PositionController::class, 'updatePosition'])->name('update.positions');
         Route::delete('/', [PositionController::class, 'deletePosition'])->name('delete.positions');
         Route::post('/', [PositionController::class, 'createPosition'])->name('create.positions');
     });
-    
 
-    //Messages routes 
+    // Messages routes
     Route::get('/messages', [MessageController::class, 'getMessages'])->name('get.messages');
 
-    //Mail list routes
+    // Mail list routes
     Route::get('/mailList', [MailListController::class, 'getMailList'])->name('get.mailList');
     Route::put('/mailList', [MailListController::class, 'updateMailList'])->name('update.mailList');
     Route::delete('/mailList', [MailListController::class, 'deleteMailList'])->name('delete.mailList');
     Route::post('/mailList', [MailListController::class, 'createMailList'])->name('create.mailList');
 
-
     // System services routes
     // Route::get('/')
-    Route::get('/system-services', [ServiceController::class, 'getSystemServices'])->name('get.systemServices');;
+    Route::get('/system-services', [ServiceController::class, 'getSystemServices'])->name('get.systemServices');
     Route::post('/system-services', [ServiceController::class, 'createSystemService'])->name('create.systemServices');
     Route::post('/update-system-services', [ServiceController::class, 'updateSystemService'])->name('update.systemServices');
     Route::delete('/system-services', [ServiceController::class, 'deleteSystemService'])->name('delete.systemServices');
@@ -90,19 +82,19 @@ Route::middleware('auth:api', 'scope:admin')->group(function () {
     Route::delete('/service-requests', [ServiceRequestController::class, 'deleteServiceRequest'])->name('delete.service_requests');
     // Route::post('/service-requests', [ServiceRequestController::class , 'createServiceRequest'])->name('create.service_requests');
 
-    Route::get('/insights/main-metrics',[InsightsController::class , 'getMainMetrics'] )->name('get.insights');
-    Route::get('/insights/applications-by-postion',[InsightsController::class, 'getPositionsCount'])->name('get.positions.count');
+    Route::get('/insights/main-metrics', [InsightsController::class, 'getMainMetrics'])->name('get.insights');
+    Route::get('/insights/applications-by-postion', [InsightsController::class, 'getPositionsCount'])->name('get.positions.count');
 
-    Route::get('/export-table', [ExportController::class , 'toCSV'])->name('export.toCSV');
+    Route::get('/export-table', [ExportController::class, 'toCSV'])->name('export.toCSV');
 
-    Route::get('/hero',[HeroController::class , 'getHeroSection'])->name('get.hero');
-    Route::post('/editHero',[HeroController::class , 'editHeroSection'])->name('edit.hero');
+    Route::get('/hero', [HeroController::class, 'getHeroSection'])->name('get.hero');
+    Route::post('/editHero', [HeroController::class, 'editHeroSection'])->name('edit.hero');
 
-    //Job seekers routes //TODO: Relocate to job-seeker.php
+    // Job seekers routes //TODO: Relocate to job-seeker.php
     Route::get('/job-seekers', [JobSeekerController::class, 'getJobSeekers'])->name('get.jobSeekers');
     Route::put('/job-seeker-status', [JobSeekerController::class, 'updateStatus'])->name('update.jobSeeker.status');
     Route::delete('/job-seekers/{id}', [JobSeekerController::class, 'destroy'])->name('delete.jobSeeker');
-    
+
     Route::put('/job-seeker/talent/{id}', [JobSeekerController::class, 'updateTalent'])->name('update.jobSeekerTalent');
 
     // Filters routes
@@ -113,12 +105,17 @@ Route::middleware('auth:api', 'scope:admin')->group(function () {
 
     // Data Migration routes
     Route::group(['prefix' => 'data-migration'], function () {
-        Route::post('/' , [DataMigrationController::class, 'migrateData'])->name('data.migration');
+        Route::post('/', [DataMigrationController::class, 'migrateData'])->name('data.migration');
     });
 });
 
-
-
+// Admin management routes — super admins only.
+Route::middleware('auth:api', 'scope:super-admin')->prefix('admin-management')->group(function () {
+    Route::get('/admins', [AdminManagementController::class, 'getAdmins'])->name('get.admins');
+    Route::post('/admins', [AdminManagementController::class, 'createAdmin'])->name('create.admin');
+    Route::put('/admins/{id}', [AdminManagementController::class, 'updateAdmin'])->name('update.admin');
+    Route::delete('/admins/{id}', [AdminManagementController::class, 'deleteAdmin'])->name('delete.admin');
+});
 
 Route::group(['prefix' => 'message'], function () {
     Route::post('/', [MessageController::class, 'submit']);
@@ -131,5 +128,3 @@ Route::group(['prefix' => 'application'], function () {
 Route::group(['prefix' => 'request'], function () {
     Route::post('/', [ServiceRequestController::class, 'submit']);
 });
-
-

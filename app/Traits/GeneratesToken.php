@@ -7,11 +7,10 @@ use App\Models\User;
 
 trait GeneratesToken
 {
-
     public function generateJobSeekerToken(User $user)
     {
         // For Passport - scopes must be pre-defined
-        $token = $user->createToken('JobSeeker-' . $user->id, ['job-seeker']);
+        $token = $user->createToken('JobSeeker-'.$user->id, ['job-seeker']);
 
         // Set custom expiration
         $tokenModel = $token->token;
@@ -22,14 +21,14 @@ trait GeneratesToken
             'access_token' => $token->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => $tokenModel->expires_at,
-            'scopes' => ['job-seeker']
+            'scopes' => ['job-seeker'],
         ];
     }
 
     public function generateEmployerToken(User $user)
     {
 
-        $token = $user->createToken('Employer-' . $user->id, ['employer']);
+        $token = $user->createToken('Employer-'.$user->id, ['employer']);
 
         $tokenModel = $token->token;
         $tokenModel->expires_at = now()->addDays(30);
@@ -39,13 +38,18 @@ trait GeneratesToken
             'access_token' => $token->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => $tokenModel->expires_at,
-            'scopes' => ['employer']
+            'scopes' => ['employer'],
         ];
     }
 
     public function generateAdminToken(Admin $admin)
     {
-        $token = $admin->createToken('Admin-' . $admin->id, ['admin']);
+        $scopes = ['admin'];
+        if ($admin->isSuperAdmin()) {
+            $scopes[] = 'super-admin';
+        }
+
+        $token = $admin->createToken('Admin-'.$admin->id, $scopes);
 
         $tokenModel = $token->token;
         $tokenModel->expires_at = now()->addDays(30);
@@ -55,7 +59,7 @@ trait GeneratesToken
             'access_token' => $token->accessToken,
             'token_type' => 'Bearer',
             'expires_at' => $tokenModel->expires_at,
-            'scopes' => ['admin']
+            'scopes' => $scopes,
         ];
     }
 }
