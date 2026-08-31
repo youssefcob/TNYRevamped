@@ -16,7 +16,7 @@ export const FEATURES = {
     textEditing: false,
     textStyles: false,
     imageEditing: false,
-    metaTags: false,
+    metaTags: true,
     sitemap: true,
 } as const;
 
