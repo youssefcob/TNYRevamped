@@ -13,9 +13,9 @@
  *   change frequency, and inclusion of pages in /sitemap.xml.
  */
 export const FEATURES = {
-    textEditing: false,
-    textStyles: false,
-    imageEditing: false,
+    textEditing: true,
+    textStyles: true,
+    imageEditing: true,
     metaTags: true,
     sitemap: true,
 } as const;
