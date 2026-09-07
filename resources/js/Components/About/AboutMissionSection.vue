@@ -24,6 +24,21 @@ import EditableImage from '@/Components/Admin/EditableImage.vue';
         </div>
       </div>
 
+      <!-- Vision / Mission cards -->
+      <div class="about-mission__cards">
+        <div class="about-mission__card about-mission__card--vision">
+          <EditableText tag="p" class="about-mission__card-label" content-key="about.vision.label" page="about" default="Our Vision" />
+          <EditableText tag="p" class="about-mission__card-body" content-key="about.vision.body" page="about"
+            default="To be the most trusted specialized rehabilitation staffing partner, setting the standard for clinical excellence and patient care." />
+        </div>
+
+        <div class="about-mission__card about-mission__card--mission">
+          <EditableText tag="p" class="about-mission__card-label" content-key="about.mission.card.label" page="about" default="Our Mission" />
+          <EditableText tag="p" class="about-mission__card-body" content-key="about.mission.card.body" page="about"
+            default="To elevate patient care by connecting healthcare organizations with top rehab talent, while empowering clinicians with rewarding career opportunities." />
+        </div>
+      </div>
+
       <!-- Row 2: text left, map right -->
       <div class="about-mission__row about-mission__row--reversed">
         <div class="about-mission__copy">
@@ -131,6 +146,70 @@ import EditableImage from '@/Components/Admin/EditableImage.vue';
     color: $color-dark;
     line-height: 1.7;
     margin: 0;
+  }
+
+  &__cards {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+
+    @media (max-width: 800px) {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: 1.25rem;
+    padding: 2.25rem 2rem;
+    border-radius: 1.25rem;
+
+    &--vision {
+      background: rgba($color-orange, 0.12);
+    }
+
+    &--mission {
+      background: $color-navy;
+    }
+  }
+
+  &__card-label {
+    display: flex;
+    align-items: center;
+    gap: 0.625rem;
+    font-family: $font-body;
+    font-weight: $fw-medium;
+    font-size: 1.125rem;
+    color: $color-orange;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+
+    &::before {
+      content: '';
+      flex: 0 0 auto;
+      width: 0.5rem;
+      height: 0.5rem;
+      border-radius: 50%;
+      background: $color-orange;
+    }
+  }
+
+  &__card-body {
+    font-family: $font-body;
+    font-weight: $fw-regular;
+    font-size: clamp(0.9375rem, 1.2vw, 1.0625rem);
+    line-height: 1.7;
+    margin: 0;
+
+    .about-mission__card--vision & {
+      color: $color-dark;
+    }
+
+    .about-mission__card--mission & {
+      color: $color-white;
+    }
   }
 }
 </style>
