@@ -4,6 +4,7 @@ use App\Http\Middleware\AuthView;
 use App\Http\Middleware\CompleteProfile;
 use App\Http\Middleware\ForceJsonResponse;
 use App\Http\Middleware\HandleInertiaRequests;
+use App\Http\Middleware\HandleRedirects;
 use App\Http\Middleware\RequestLogger;
 use App\Http\Middleware\UserAuthenticate;
 use App\Providers\AuthenticationServiceProvider;
@@ -23,6 +24,9 @@ return Application::configure(basePath: dirname(__DIR__))
     ->withMiddleware(function (Middleware $middleware) {
         $middleware->append(ForceJsonResponse::class);
         $middleware->append(RequestLogger::class);
+        $middleware->web(prepend: [
+            HandleRedirects::class,
+        ]);
         $middleware->web(append: [
             HandleInertiaRequests::class,
         ]);

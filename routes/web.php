@@ -21,6 +21,7 @@ require __DIR__.'/web/content-routes.php';
 require __DIR__.'/web/text-style-routes.php';
 require __DIR__.'/web/meta-tag-routes.php';
 require __DIR__.'/web/sitemap-routes.php';
+require __DIR__.'/web/redirect-routes.php';
 
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])
     ->name('sitemap');

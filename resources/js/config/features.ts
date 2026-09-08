@@ -11,6 +11,8 @@
  *   to its hardcoded defaults.
  * - `sitemap` — the "Manage Sitemap" panel for adjusting priority,
  *   change frequency, and inclusion of pages in /sitemap.xml.
+ * - `redirects` — the "Manage Redirects" panel for pointing old paths at
+ *   new ones with a 301 or 302 response.
  */
 export const FEATURES = {
     textEditing: true,
@@ -18,6 +20,7 @@ export const FEATURES = {
     imageEditing: true,
     metaTags: true,
     sitemap: true,
+    redirects: true,
 } as const;
 
 export type FeatureFlag = keyof typeof FEATURES;

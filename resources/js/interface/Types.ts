@@ -244,3 +244,12 @@ export interface SitemapEntry {
     lastmod: string | null;
 }
 
+export interface Redirect {
+    id: number | null;
+    source: string;
+    destination: string;
+    status_code: number;
+    enabled: boolean;
+    hits: number;
+}
+
