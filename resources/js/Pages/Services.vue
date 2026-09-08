@@ -20,7 +20,7 @@ provide('pageContent', (usePage().props.pageContent as PageContentMap) ?? {});
 </script>
 
 <template>
-    <PageMeta page="services" path="/services"
+    <PageMeta page="services" path="/solutions"
         default-title="Our Services | TNY Staffing Corporation"
         default-description="Explore TNY Staffing Corporation's healthcare staffing services, connecting NYC facilities with credentialed therapy professionals." />
 

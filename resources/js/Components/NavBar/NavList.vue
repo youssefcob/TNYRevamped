@@ -35,7 +35,7 @@ const isActive = (link: string) => {
 
         </li>
         <li role="menuitem" :class="{ active: isActive('/services') }">
-            <Link href="/services">Services</Link>
+            <Link href="/solutions">Services</Link>
         </li>
         <li role="menuitem" :class="{ active: isActive('/talents') }">
             <Link href="/vacancies" v-if="userIsLoggedIn && userData && userData.user_type == 'job_seeker'">Vacancies</Link>

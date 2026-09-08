@@ -253,3 +253,34 @@ export interface Redirect {
     hits: number;
 }
 
+export interface SolutionRole {
+    title: string;
+    blurb: string;
+}
+
+export interface SolutionSetting {
+    title: string;
+    desc: string;
+}
+
+export interface SolutionWhy {
+    title: string;
+    desc: string;
+}
+
+export interface SolutionDetail {
+    slug: string;
+    name: string;
+    eyebrow: string;
+    title: string;
+    intro: string;
+    image: string;
+    meta_title: string;
+    meta_description: string;
+    overview: string[];
+    roles: SolutionRole[];
+    focus: string[];
+    settings: SolutionSetting[];
+    why: SolutionWhy[];
+}
+

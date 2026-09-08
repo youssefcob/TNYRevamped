@@ -4,12 +4,18 @@ import MainOverLay from '@/Components/Overlays/MainOverLay.vue';
 import { snack } from '@/mixins/toast';
 import type { PageMeta, PageMetaTag } from '@/interface/Types';
 
-const props = defineProps<{ metas: Record<string, PageMeta>; customTags: Record<string, PageMetaTag[]> }>();
+type PageEntry = { page: string; label: string; path: string; defaultTitle: string; defaultDescription: string };
+
+const props = defineProps<{
+    metas: Record<string, PageMeta>;
+    customTags: Record<string, PageMetaTag[]>;
+    solutionPages?: PageEntry[];
+}>();
 
 const metas = reactive<Record<string, PageMeta>>({ ...props.metas });
 const customTagsByPage = reactive<Record<string, PageMetaTag[]>>({ ...props.customTags });
 
-const PAGES: { page: string; label: string; path: string; defaultTitle: string; defaultDescription: string }[] = [
+const SITE_PAGES: PageEntry[] = [
     { page: 'home', label: 'Home', path: '/', defaultTitle: 'Therapy Staffing Agency in NYC | TNY Staffing Corporation', defaultDescription: 'TNY Staffing connects NY healthcare facilities with credentialed therapy professionals (PT, OT, SLP). Fast 24h placements for hospitals, schools, and clinics.' },
     { page: 'about', label: 'About', path: '/about', defaultTitle: 'About TNY Staffing | NYC Therapy Staffing Agency', defaultDescription: 'Learn how TNY Staffing creates meaningful connections between rehab professionals and NYC healthcare organizations. Proudly serving all five boroughs.' },
     { page: 'solutions', label: 'Solutions', path: '/solutions', defaultTitle: 'Healthcare Staffing Solutions in NYC | TNY Staffing', defaultDescription: 'Explore specialized healthcare staffing solutions in NYC. We connect facilities with qualified PTs, OTs, SLPs, and specialized therapists for per diem and permanent roles.' },
@@ -19,11 +25,23 @@ const PAGES: { page: string; label: string; path: string; defaultTitle: string; 
     { page: 'request_service', label: 'Request Service', path: '/requestService', defaultTitle: 'Request Qualified Healthcare Staff | TNY Staffing', defaultDescription: 'Need immediate coverage or long-term rehab staff? Submit your staffing request to TNY Staffing and get matched with qualified PTs, OTs, and SLPs in NYC.' },
     { page: 'contact', label: 'Contact', path: '/contact', defaultTitle: 'Contact TNY Staffing | NYC Therapy Staffing Agency', defaultDescription: 'Contact TNY Staffing today. Call (347) 441-4283 to hire rehab professionals or find therapy jobs in NYC. Urgent staffing support available.' },
     { page: 'resources', label: 'Resources', path: '/resources', defaultTitle: 'Healthcare Staffing Resources & Insights | TNY Staffing', defaultDescription: 'Explore educational articles, staffing insights, and rehabilitation trends designed for healthcare employers and therapy professionals in New York.' },
-    { page: 'services', label: 'Services (legacy)', path: '/services', defaultTitle: 'Our Services | TNY Staffing Corporation', defaultDescription: "Explore TNY Staffing Corporation's healthcare staffing services, connecting NYC facilities with credentialed therapy professionals." },
+    // { page: 'services', label: 'Services (legacy)', path: '/services', defaultTitle: 'Our Services | TNY Staffing Corporation', defaultDescription: "Explore TNY Staffing Corporation's healthcare staffing services, connecting NYC facilities with credentialed therapy professionals." },
 ];
 
-const selectedPage = ref(PAGES[0].page);
-const selected = computed(() => PAGES.find((p) => p.page === selectedPage.value)!);
+const solutionPages = computed<PageEntry[]>(() => props.solutionPages ?? []);
+const PAGES = computed<PageEntry[]>(() => [...SITE_PAGES, ...solutionPages.value]);
+
+const selectedPage = ref(SITE_PAGES[0].page);
+const selected = computed(() => PAGES.value.find((p) => p.page === selectedPage.value) ?? SITE_PAGES[0]);
+
+function isCustomized(page: string): boolean {
+    return !!(
+        metas[page]?.title ||
+        metas[page]?.description ||
+        metas[page]?.canonical ||
+        customTagsByPage[page]?.length
+    );
+}
 
 type FormState = { title: string; description: string; canonical: string };
 
@@ -159,12 +177,21 @@ async function removeCustomTag(tag: PageMetaTag) {
 
             <div class="meta-tags__layout">
                 <div class="meta-tags__pages">
-                    <button v-for="p in PAGES" :key="p.page" type="button" class="meta-tags__page-btn"
+                    <p class="meta-tags__group-label">Site Pages</p>
+                    <button v-for="p in SITE_PAGES" :key="p.page" type="button" class="meta-tags__page-btn"
                         :class="{ 'meta-tags__page-btn--active': p.page === selectedPage }" @click="selectPage(p.page)">
                         <span>{{ p.label }}</span>
-                        <span v-if="metas[p.page]?.title || metas[p.page]?.description || metas[p.page]?.canonical || customTagsByPage[p.page]?.length"
-                            class="meta-tags__badge">Customized</span>
+                        <span v-if="isCustomized(p.page)" class="meta-tags__badge">Customized</span>
                     </button>
+
+                    <template v-if="solutionPages.length">
+                        <p class="meta-tags__group-label">Solution Pages</p>
+                        <button v-for="p in solutionPages" :key="p.page" type="button" class="meta-tags__page-btn"
+                            :class="{ 'meta-tags__page-btn--active': p.page === selectedPage }" @click="selectPage(p.page)">
+                            <span>{{ p.label }}</span>
+                            <span v-if="isCustomized(p.page)" class="meta-tags__badge">Customized</span>
+                        </button>
+                    </template>
                 </div>
 
                 <div class="meta-tags__main">
@@ -292,6 +319,19 @@ async function removeCustomTag(tag: PageMetaTag) {
         display: flex;
         flex-direction: column;
         gap: 0.375rem;
+    }
+
+    &__group-label {
+        font-size: 0.7rem;
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+        color: #9ca3af;
+        font-weight: 700;
+        margin: 0.75rem 0 0.125rem;
+
+        &:first-child {
+            margin-top: 0;
+        }
     }
 
     &__page-btn {

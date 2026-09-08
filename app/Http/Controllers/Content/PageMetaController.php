@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Content;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Views\SolutionsController;
 use App\Models\PageMetaTag;
 use App\Services\Content\PageMetaService;
 use Illuminate\Http\Request;
@@ -21,6 +22,7 @@ class PageMetaController extends Controller
         return inertia('Admin/MetaTags', [
             'metas' => PageMetaService::all(),
             'customTags' => PageMetaService::allCustomTags(),
+            'solutionPages' => SolutionsController::metaPages(),
         ]);
     }
 

@@ -20,7 +20,7 @@ export const FEATURES = {
     imageEditing: true,
     metaTags: true,
     sitemap: true,
-    redirects: true,
+    redirects: false,
 } as const;
 
 export type FeatureFlag = keyof typeof FEATURES;

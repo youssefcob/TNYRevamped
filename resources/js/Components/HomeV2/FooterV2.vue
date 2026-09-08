@@ -43,17 +43,33 @@ import EditableImage from '@/Components/Admin/EditableImage.vue';
       <!-- Solutions -->
       <div class="footer2__col">
         <EditableText tag="p" class="footer2__col-heading" content-key="global.footer.solutions.heading" page="global" default="Solutions" />
-        <ul class="footer2__links">
-          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.0" page="global" default="Physical Therapy Staffing" /></a></li>
-          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.1" page="global" default="Occupational Therapy Staffing" /></a></li>
-          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.2" page="global" default="Speech Therapy Staffing" /></a></li>
-          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.3" page="global" default="School-Based Staffing" /></a></li>
-          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.4" page="global" default="Emergency Staffing" /></a></li>
-          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.5" page="global" default="Acupuncturist" /></a></li>
-          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.6" page="global" default="Massage Therapist" /></a></li>
-          <li><a href="/services"><EditableText tag="span" content-key="global.footer.solutions.link.7" page="global" default="Patient Care Coordinator &quot;Front Desk&quot;" /></a></li>
+        <!-- <ul class="footer2__links">
+          <li><a href="/solutions"><EditableText tag="span" content-key="global.footer.solutions.link.0" page="global" default="Physical Therapy Staffing" /></a></li>
+          <li><a href="/solutions"><EditableText tag="span" content-key="global.footer.solutions.link.1" page="global" default="Occupational Therapy Staffing" /></a></li>
+          <li><a href="/solutions"><EditableText tag="span" content-key="global.footer.solutions.link.2" page="global" default="Speech Therapy Staffing" /></a></li>
+          <li><a href="/solutions"><EditableText tag="span" content-key="global.footer.solutions.link.3" page="global" default="School-Based Staffing" /></a></li>
+          <li><a href="/solutions"><EditableText tag="span" content-key="global.footer.solutions.link.4" page="global" default="Emergency Staffing" /></a></li>
+          <li><a href="/solutions"><EditableText tag="span" content-key="global.footer.solutions.link.5" page="global" default="Acupuncturist" /></a></li>
+          <li><a href="/solutions"><EditableText tag="span" content-key="global.footer.solutions.link.6" page="global" default="Massage Therapist" /></a></li>
+          <li><a href="/solutions"><EditableText tag="span" content-key="global.footer.solutions.link.7" page="global" default="Patient Care Coordinator &quot;Front Desk&quot;" /></a></li>
+        </ul> -->
+           <ul class="footer2__links">
+          <li><a href="/solutions/physical-therapy"><EditableText tag="span" content-key="global.footer.solutions.link.0" page="global" default="Physical Therapy Staffing" /></a></li>
+          <li><a href="/solutions/occupational-therapy"><EditableText tag="span" content-key="global.footer.solutions.link.1" page="global" default="Occupational Therapy Staffing" /></a></li>
+          <li><a href="/solutions/speech-language-pathology"><EditableText tag="span" content-key="global.footer.solutions.link.2" page="global" default="Speech Therapy Staffing" /></a></li>
+          <li><a href="/solutions/school-based-staffing"><EditableText tag="span" content-key="global.footer.solutions.link.3" page="global" default="School-Based Staffing" /></a></li>
+          <li><a href="/solutions/emergency-rapid-staffing"><EditableText tag="span" content-key="global.footer.solutions.link.4" page="global" default="Emergency Staffing" /></a></li>
+          <li><a href="/solutions/acupuncture"><EditableText tag="span" content-key="global.footer.solutions.link.5" page="global" default="Acupuncturist" /></a></li>
+          <li><a href="/solutions/massage-therapy"><EditableText tag="span" content-key="global.footer.solutions.link.6" page="global" default="Massage Therapist" /></a></li>
+          <li><a href="/solutions/patient-care-coordination"><EditableText tag="span" content-key="global.footer.solutions.link.7" page="global" default="Patient Care Coordinator &quot;Front Desk&quot;" /></a></li>
+          <li><a href="/solutions/pelvic-floor-therapy"><EditableText tag="span" content-key="global.footer.solutions.link.8" page="global" default="Pelvic Floor Therapy Staffing" /></a></li>
+          <li><a href="/solutions/lymphedema-therapy"><EditableText tag="span" content-key="global.footer.solutions.link.9" page="global" default="Lymphedema Therapy Staffing" /></a></li>
+          <li><a href="/solutions/neurological-rehabilitation"><EditableText tag="span" content-key="global.footer.solutions.link.10" page="global" default="Neurological Rehabilitation Staffing" /></a></li>
+          <li><a href="/solutions/pediatric-therapy"><EditableText tag="span" content-key="global.footer.solutions.link.11" page="global" default="Pediatric Therapy Staffing" /></a></li>
+          <li><a href="/solutions/vestibular-rehabilitation"><EditableText tag="span" content-key="global.footer.solutions.link.12" page="global" default="Vestibular Rehabilitation Staffing" /></a></li>
         </ul>
       </div>
+   
 
       <!-- Company -->
       <div class="footer2__col">

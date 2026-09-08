@@ -1,0 +1,96 @@
+<script setup lang="ts">
+import type { SolutionDetail } from '@/interface/Types';
+import EditableText from '@/Components/Admin/EditableText.vue';
+import EditableImage from '@/Components/Admin/EditableImage.vue';
+
+const props = defineProps<{ solution: SolutionDetail; pageKey: string }>();
+</script>
+
+<template>
+  <section class="sd-overview">
+    <div class="sd-overview__inner">
+      <EditableImage class="sd-overview__img" content-key="overview.image" :page="props.pageKey"
+        :default-src="props.solution.image" default-object-fit="cover" default-object-position="center"
+        :default-alt="props.solution.name" />
+
+      <div class="sd-overview__copy">
+        <EditableText tag="p" class="sd-overview__label" content-key="overview.label" :page="props.pageKey"
+          default="Overview" />
+        <EditableText tag="h2" class="sd-overview__heading" content-key="overview.heading" :page="props.pageKey"
+          :default="`What TNY delivers with ${props.solution.name}`" />
+        <EditableText v-for="(para, i) in props.solution.overview" :key="i" tag="p" class="sd-overview__body"
+          :content-key="`overview.p.${i}`" :page="props.pageKey" :default="para" />
+      </div>
+    </div>
+  </section>
+</template>
+
+<style scoped lang="scss">
+.sd-overview {
+  padding: 6rem 7.5rem 4rem;
+  background: $color-white;
+
+  @media (max-width: 1100px) { padding: 4rem 2rem 3rem; }
+
+  &__inner {
+    max-width: 75rem;
+    margin: 0 auto;
+    display: flex;
+    gap: 4rem;
+    align-items: center;
+
+    @media (max-width: 900px) {
+      flex-direction: column;
+      gap: 2.5rem;
+      align-items: stretch;
+    }
+  }
+
+  &__img {
+    flex: 0 0 34rem;
+    width: 34rem;
+    aspect-ratio: 588 / 440;
+    height: auto;
+    border-radius: 1.5rem;
+    object-fit: cover;
+
+    @media (max-width: 1100px) { flex: 0 0 44%; width: 44%; }
+    @media (max-width: 900px)  { flex: 0 0 auto; width: 100%; aspect-ratio: 16 / 10; }
+  }
+
+  &__copy {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  &__label {
+    font-family: $font-body;
+    font-weight: $fw-medium;
+    font-size: 1.125rem;
+    color: $color-orange;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    margin: 0;
+  }
+
+  &__heading {
+    font-family: $font-heading;
+    font-weight: $fw-bold;
+    font-size: clamp(1.875rem, 3vw, 2.5rem);
+    color: $color-dark;
+    line-height: 1.25;
+    margin: 0 0 0.5rem;
+  }
+
+  &__body {
+    font-family: $font-body;
+    font-weight: $fw-regular;
+    font-size: clamp(1rem, 1.2vw, 1.125rem);
+    color: rgba($color-dark, 0.8);
+    line-height: 1.7;
+    margin: 0;
+  }
+}
+</style>

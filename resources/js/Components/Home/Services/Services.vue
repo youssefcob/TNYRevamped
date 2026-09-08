@@ -23,7 +23,7 @@ import { Link } from '@inertiajs/vue3';
                 <SingleService v-if="service.onMainPage" :service="service" />
             </template>
         </div>
-        <Link href="/services" class="more">Read More</Link>
+        <Link href="/solutions" class="more">Read More</Link>
 
     </div>
 </template>

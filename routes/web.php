@@ -7,6 +7,7 @@ use App\Http\Controllers\Views\Auth\RegisterController;
 use App\Http\Controllers\Views\DashboardController;
 use App\Http\Controllers\Views\HomeController;
 use App\Http\Controllers\Views\ProfileController;
+use App\Http\Controllers\Views\SolutionsController;
 use App\Http\Controllers\Views\TalentsController;
 use Illuminate\Support\Facades\Route;
 
@@ -26,7 +27,7 @@ require __DIR__.'/web/redirect-routes.php';
 Route::get('/sitemap.xml', [SitemapController::class, 'index'])
     ->name('sitemap');
 
-Route::get('/services', [HomeController::class, 'services'])
+Route::get('/services', [HomeController::class, 'solutions'])
     ->name('services');
 
 Route::get('/about', [HomeController::class, 'about'])
@@ -46,6 +47,10 @@ Route::get('/requestService/{service?}', [HomeController::class, 'requestService
 
 Route::get('/solutions', [HomeController::class, 'solutions'])
     ->name('solutions');
+
+// Standalone per-solution detail pages (not linked from anywhere yet).
+Route::get('/solutions/{slug}', [SolutionsController::class, 'show'])
+    ->name('solution');
 
 Route::get('/contact', [HomeController::class, 'contact'])
     ->name('contact');
