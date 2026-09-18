@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue';
+import { router } from '@inertiajs/vue3';
 import Http from '@/mixins/Http';
 import { snack, missingFieldsMessage } from '@/mixins/toast';
 import DevFillButton from '@/SharedComponents/DevFillButton.vue';
@@ -43,7 +44,6 @@ const form = reactive({
 const openDropdown = ref<string | null>(null);
 const resumeFileName = ref('');
 const isDragging = ref(false);
-const submitted = ref(false);
 const isLoading = ref(false);
 
 function toggleDropdown(name: string) {
@@ -142,8 +142,7 @@ async function submit() {
     fd.append('resume', form.resume);
 
     await Http.post('application', fd);
-    snack.success('Application submitted! Our recruitment team will be in touch.');
-    submitted.value = true;
+    router.visit('/thank-you/apply');
   } catch (e) {
     snack.error(e as string);
   } finally {
@@ -158,8 +157,7 @@ async function submit() {
 
       <!-- Form Card -->
       <div class="apply-form__card">
-        <template v-if="!submitted">
-          <div class="apply-form__card-header">
+        <div class="apply-form__card-header">
             <EditableText tag="p" class="apply-form__label" content-key="apply.form.label" page="apply" default="APPLY TODAY" />
             <EditableText tag="h2" class="apply-form__heading" content-key="apply.form.heading" page="apply" default="Tell Us About Yourself" />
             <EditableText tag="p" class="apply-form__desc" content-key="apply.form.desc" page="apply"
@@ -359,18 +357,6 @@ async function submit() {
               default="By submitting the application you agree to be contacted by TNY regarding opportunities" />
             <DevFillButton @fill="fillTestData" />
           </div>
-        </template>
-
-        <!-- Success State -->
-        <div v-else class="apply-form__success">
-          <svg class="apply-form__success-icon" viewBox="0 0 80 80" fill="none">
-            <circle cx="40" cy="40" r="39" stroke="#2F8F83" stroke-width="2"/>
-            <path d="M24 40l12 12 20-24" stroke="#2F8F83" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <EditableText tag="h3" class="apply-form__success-title" content-key="apply.form.success_title" page="apply" default="Application Received!" />
-          <EditableText tag="p" class="apply-form__success-text" content-key="apply.form.success_text" page="apply"
-            default="Thank you for applying. Our recruitment team will review your profile and reach out within 1–2 business days." />
-        </div>
       </div>
 
       <!-- Sidebar -->
@@ -694,39 +680,6 @@ async function submit() {
     text-align: center;
     margin: 0;
     line-height: 1.5;
-  }
-
-  // Success State
-  &__success {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 1.25rem;
-    padding: 3rem 1rem;
-    text-align: center;
-  }
-
-  &__success-icon {
-    width: 5rem;
-    height: 5rem;
-  }
-
-  &__success-title {
-    font-family: $font-heading;
-    font-weight: $fw-bold;
-    font-size: 1.75rem;
-    color: $color-dark;
-    margin: 0;
-  }
-
-  &__success-text {
-    font-family: $font-body;
-    font-weight: $fw-regular;
-    font-size: 1.125rem;
-    color: rgba($color-dark, 0.75);
-    line-height: 1.6;
-    max-width: 28rem;
-    margin: 0;
   }
 
   // Sidebar

@@ -55,6 +55,10 @@ Route::get('/solutions/{slug}', [SolutionsController::class, 'show'])
 Route::get('/contact', [HomeController::class, 'contact'])
     ->name('contact');
 
+Route::get('/thank-you/{type}', [HomeController::class, 'thankYou'])
+    ->where('type', 'contact|apply|request-service')
+    ->name('thank-you');
+
 Route::get('/resources', [HomeController::class, 'resources'])
     ->name('resources');
 

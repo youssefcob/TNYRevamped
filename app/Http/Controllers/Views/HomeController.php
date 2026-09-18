@@ -133,6 +133,11 @@ class HomeController extends Controller
         return Inertia::render('Contact');
     }
 
+    public function thankYou($type)
+    {
+        return Inertia::render('ThankYou', ['type' => $type]);
+    }
+
     public function resources()
     {
         $data = [];

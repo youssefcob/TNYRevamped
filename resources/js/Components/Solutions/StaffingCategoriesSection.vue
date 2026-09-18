@@ -4,6 +4,7 @@ import EditableImage from '@/Components/Admin/EditableImage.vue';
 
 const featuredTop = {
   num: '01',
+  slug: 'physical-therapy',
   title: 'Physical Therapy',
   subtitle: '(PTs, PTAs, & Limited Permit Holders)',
   desc: 'Helping patients regain movement, strength, function, and confidence through evidence-based rehabilitation. We staff experienced PTs, PTAs, and Licensed Limited Permit holders who specialize in mobility restoration, pain management, and post-surgical recovery. Our flexible staffing ensures continuous patient flow, reduced waiting lists, and balanced workloads across your clinic.',
@@ -13,72 +14,84 @@ const featuredTop = {
 const gridItems = [
   {
     num: '02',
+    slug: 'occupational-therapy',
     title: 'Occupational Therapy (OTs & COTAs)',
     desc: 'Supporting independence through practical, patient-centered rehabilitation tailored to daily routines. Our OTs and COTAs focus on fine motor skills, cognitive function, adaptive equipment, and environmental modifications. They empower patients in outpatient, homecare, or SNF settings to safely resume the activities that matter most.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994260/Physical_Therapy_PTs_PTAs_588x374_msie7z.webp',
   },
   {
     num: '03',
+    slug: 'speech-language-pathology',
     title: 'Speech-Language Pathology (SLPs & SLPAs)',
     desc: 'Improving communication, cognitive-linguistic skills, and swallowing function across diverse patient populations. Our SLPs are skilled in evaluating and treating neurological conditions, dysphagia, and speech delays. They deliver compassionate, outcome-driven care that enhances patient safety and functional recovery.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994261/Speech-Language_Pathologists_Staffing_384x156_et3xr0.webp',
   },
   {
     num: '04',
+    slug: 'pelvic-floor-therapy',
     title: 'Pelvic Floor Therapy',
     desc: 'Delivering specialized care focused on pelvic health, core stability, and daily functional quality of life. Our therapists discreetly address pelvic pain, incontinence, and pre/post-natal recovery. Adding pelvic specialists expands your practice’s care offerings and boosts patient retention.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994258/Pelvic_Floor_Rehabilitation_lovd41.webp',
   },
   {
     num: '05',
+    slug: 'lymphedema-therapy',
     title: 'Lymphedema Therapy',
     desc: 'Providing targeted treatment for effective swelling management, lymphatic drainage, and complete recovery. Certified Lymphedema Therapists (CLTs) utilize decongestive therapy and compression techniques, collaborating with oncology and vascular teams to achieve outstanding clinical outcomes.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994258/lymphedema_therapist_pcmiki.webp',
   },
   {
     num: '06',
+    slug: 'neurological-rehabilitation',
     title: 'Neurological Rehabilitation',
     desc: 'Guiding patients through complex neurological recovery to maximize independence and long-term function. Experienced in stroke, TBI, Parkinson’s, and spinal injuries, our clinicians apply advanced neuro-rehab strategies to rebuild motor control, balance, and daily mobility.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994258/Neurological_Therapists_lw6ybl.webp',
   },
   {
     num: '07',
+    slug: 'pediatric-therapy',
     title: 'Pediatric Therapy',
     desc: 'Nurturing developmental milestones, motor learning, and functional success for infants and children. Our pediatric PTs, OTs, and SLPs specialize in sensory integration and early intervention, creating engaging environments that foster physical growth and family support.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1782994259/PCC_Aides_355x256_ppkic5.webp',
   },
   {
     num: '08',
+    slug: 'vestibular-rehabilitation',
     title: 'Vestibular Rehabilitation',
     desc: 'Restoring balance, gaze stability, and movement confidence for patients with dizziness or inner ear disorders. Our clinicians utilize specialized repositioning and balance retraining to reduce fall risks and prevent hospital readmissions.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1787249116/08_Vestibular_Rehabilitation_i1oyva.webp',
   },
   {
     num: '09',
+    slug: 'acupuncture',
     title: 'Acupuncturists',
     desc: 'Integrating evidence-informed pain management and wellness solutions into your practice. Licensed acupuncturists specialize in musculoskeletal relief and post-op recovery, offering a holistic approach that complements physical rehabilitation.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1787249115/09_Acupuncturists_g0cxzf.webp',
   },
   {
     num: '10',
+    slug: 'massage-therapy',
     title: 'Massage Therapists',
     desc: 'Enhancing soft-tissue recovery, reducing muscle tension, and improving circulation. Licensed Massage Therapists provide medical massage and trigger point therapy to accelerate healing timelines and boost patient satisfaction.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1787249115/10_Massage_Therapists_nplz71.webp',
   },
   {
     num: '11',
+    slug: 'patient-care-coordination',
     title: 'Patient Care Coordinator / Front Desk Support',
     desc: 'The operational engine of your practice. Our coordinators manage patient intake, scheduling, insurance verification, and front-desk communication, ensuring a seamless experience and optimal clinic schedule.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1787249115/11Patient_Care_Coordinator_Front_Desk_Support_dowdut.webp',
   },
   {
     num: '12',
+    slug: 'school-based-staffing',
     title: 'School-Based Staffing',
     desc: 'Dedicated pediatric clinicians (PT, OT, SLP) qualified to support students in school settings under IEP guidelines. We ensure compliance, timely reporting, and smooth integration into educational environments.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1787249115/12School_Based_Staffing_fudyqw.webp',
   },
   {
     num: '13',
+    slug: 'emergency-rapid-staffing',
     title: 'Emergency & Rapid Staffing',
     desc: 'Rapid clinical coverage designed to prevent operational downtime. Backed by our 24-hour response capability, we quickly deploy pre-screened rehab professionals for sudden leaves, sick days, or caseload surges.',
     img: 'https://res.cloudinary.com/dzilc11zf/image/upload/v1787249115/13_Emergency_Rapid_Staffing_s4yzu7.webp',
@@ -108,6 +121,7 @@ const gridItems = [
               <EditableText tag="span" class="sol-cats__item-sub" :content-key="`solutions.categories.item.${featuredTop.num}.subtitle`" page="solutions" :default="featuredTop.subtitle" />
             </h3>
             <EditableText tag="p" class="sol-cats__item-desc" :content-key="`solutions.categories.item.${featuredTop.num}.desc`" page="solutions" :default="featuredTop.desc" />
+            <a :href="`/solutions/${featuredTop.slug}`" class="sol-cats__link">Learn More <span>→</span></a>
           </div>
         </div>
       </div>
@@ -122,6 +136,7 @@ const gridItems = [
             <div class="sol-cats__card-text">
               <EditableText tag="h3" class="sol-cats__item-title sol-cats__item-title--sm" :content-key="`solutions.categories.item.${item.num}.title`" page="solutions" :default="item.title" />
               <EditableText tag="p" class="sol-cats__item-desc sol-cats__item-desc--sm" :content-key="`solutions.categories.item.${item.num}.desc`" page="solutions" :default="item.desc" />
+              <a :href="`/solutions/${item.slug}`" class="sol-cats__link">Learn More <span>→</span></a>
             </div>
           </div>
         </div>
@@ -294,6 +309,20 @@ const gridItems = [
     margin: 0;
 
     &--sm { font-size: 1rem; }
+  }
+
+  &__link {
+    font-family: $font-body;
+    font-weight: $fw-bold;
+    font-size: 1.0625rem;
+    color: $color-blue;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-top: 0.25rem;
+
+    &:hover { opacity: 0.7; }
   }
 }
 </style>

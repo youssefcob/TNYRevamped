@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { reactive, ref } from 'vue';
+import { router } from '@inertiajs/vue3';
 import Http from '@/mixins/Http';
 import { snack, missingFieldsMessage } from '@/mixins/toast';
 import DropDownInputField from '@/Components/UI/DropDownInputField.vue';
@@ -85,9 +86,7 @@ const submitForm = async () => {
       message: form.message,
       type: role.value,
     });
-    snack.success('Message sent! We\'ll be in touch shortly.');
-    Object.assign(form, { firstName: '', lastName: '', email: '', phone: '', subject: '', message: '' });
-    subjectRef.value?.clear();
+    router.visit('/thank-you/contact');
   } catch (e) {
     snack.error(e as string);
   } finally {

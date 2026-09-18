@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { reactive, ref, computed, onMounted, onUnmounted } from 'vue';
+import { router } from '@inertiajs/vue3';
 import Http from '@/mixins/Http';
 import { snack, missingFieldsMessage } from '@/mixins/toast';
 import DevFillButton from '@/SharedComponents/DevFillButton.vue';
@@ -51,7 +52,6 @@ const form = reactive({
 
 const errors = reactive<Record<string, string>>({});
 const loading = ref(false);
-const submitted = ref(false);
 
 // ---- Dropdown state ----
 const disciplineOpen = ref(false);
@@ -157,8 +157,7 @@ async function submit() {
       requirements: extras ? `${form.description}\n\n${extras}` : form.description,
     });
 
-    submitted.value = true;
-    snack.success('Your staffing request has been submitted! We\'ll be in touch shortly.');
+    router.visit('/thank-you/request-service');
   } catch (err: any) {
     snack.error(err || 'Something went wrong. Please try again.');
     console.log(err)
@@ -181,18 +180,7 @@ async function submit() {
             default="Complete the form below and our staffing specialists will review your requirements and connect you with qualified professionals tailored to your facility, setting, and timeline." />
         </div>
 
-        <!-- Success state -->
-        <div v-if="submitted" class="rs-card__success">
-          <svg width="48" height="48" viewBox="0 0 48 48" fill="none" aria-hidden="true">
-            <circle cx="24" cy="24" r="24" fill="#22c55e" opacity="0.12"/>
-            <path d="M14 24L21 31L34 17" stroke="#22c55e" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <EditableText tag="h3" content-key="request_service.form.success_title" page="request_service" default="Request Submitted!" />
-          <EditableText tag="p" content-key="request_service.form.success_body" page="request_service"
-            default="Our staffing team will review your requirements and reach out within one business day." />
-        </div>
-
-        <form v-else class="rs-form" @submit.prevent="submit" novalidate>
+        <form class="rs-form" @submit.prevent="submit" novalidate>
 
           <!-- Company Name -->
           <div class="rs-field">
@@ -447,29 +435,6 @@ async function submit() {
     margin: 0;
   }
 
-  &__success {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1rem;
-    padding: 3rem 1rem;
-
-    h3 {
-      font-family: $font-heading;
-      font-weight: $fw-bold;
-      font-size: 1.5rem;
-      color: $color-dark;
-      margin: 0;
-    }
-
-    p {
-      font-family: $font-body;
-      font-size: 1rem;
-      color: $text-body;
-      margin: 0;
-    }
-  }
 }
 
 // ---- Form ----
