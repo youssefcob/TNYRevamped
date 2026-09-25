@@ -27,6 +27,7 @@
       gtag('js', new Date());
 
       gtag('config', 'G-E4R86VWSS5');
+      gtag('config', 'AW-18458031207');
     </script>
 
     <!-- Google Tag Manager -->
