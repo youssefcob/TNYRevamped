@@ -5,6 +5,10 @@
 
     RewriteEngine On
 
+    # Permanently move the old domain to the new one, keeping path and query string
+    RewriteCond %{HTTP_HOST} ^(www\.)?tnystaffing\.com$ [NC]
+    RewriteRule ^ https://www.tnystaffingco.com%{REQUEST_URI} [L,R=301]
+
     # Handle Authorization Header
     RewriteCond %{HTTP:Authorization} .
     RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
