@@ -5,11 +5,11 @@ namespace App\Services;
 use App\Models\Application;
 use App\Models\Employer;
 use App\Models\JobSeeker;
+use App\Models\PositionApplication;
 use App\Models\ServiceRequest;
 use App\TableFiltersHelperFunctions;
 use Exception;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Storage;
 
 class ExportService
 {
@@ -20,7 +20,7 @@ class ExportService
     {
         try {
             $request->validate([
-                'table' => 'required|in:job_seekers,employers,bids',
+                'table' => 'required|in:job_seekers,employers,bids,position_applications,service_requests',
             ]);
 
             $startDate = $request->input('start_date');
@@ -60,6 +60,16 @@ class ExportService
                     $q->select('id', 'name', 'email');
                 }]);
             }
+            else if($table === 'position_applications'){
+                $query = PositionApplication::with(['position' => function ($q) {
+                    $q->select('id', 'title');
+                }])->latest();
+            }
+            else if($table === 'service_requests'){
+                $query = ServiceRequest::with(['service' => function ($q) {
+                    $q->select('id', 'title');
+                }])->latest();
+            }
 
             // dd($query);
             
@@ -94,14 +104,8 @@ class ExportService
                 ];
             }
             
-            // Generate filename
-            $filename = $table . '_' . now()->format('Ymd_His') . '_'  . '.csv';
-            $path = '/' . $filename;
-            
-            // Create CSV
-            $csvContent = '';
-            $headersWritten = false;
-            
+            $rows = [];
+
             foreach ($data as $row) {
                 if ($table !== 'bids') {
                     $row = $row->toArray();
@@ -126,38 +130,47 @@ class ExportService
                     unset($row['user']);
                 }
             
-                if ($table === 'service_requests' && isset($row['service'])) {
-                    $row['service'] = $row['service']['title'];
-                    unset($row['service_id']);
+                if ($table === 'position_applications') {
+                    $row = [
+                        'id' => $row['id'],
+                        'name' => $row['name'],
+                        'email' => $row['email'],
+                        'phone' => $row['phone'],
+                        'zip' => $row['zip'],
+                        'position' => $row['position']['title'] ?? '',
+                        'status' => $row['status'],
+                        'message' => $row['message'],
+                        'resume' => $row['resume'],
+                        'created_at' => $row['created_at'],
+                    ];
                 }
-            
-                if (!$headersWritten) {
-                    $csvContent .= implode(',', array_keys($row)) . "\n";
-                    $headersWritten = true;
-                }
-            
-                $csvContent .= implode(',', array_map(function ($value) {
-                    // Handle array values by converting to JSON string
-                    if (is_array($value)) {
-                        $value = json_encode($value);
-                    }
-                    // Handle null values
-                    if ($value === null) {
-                        $value = '';
-                    }
-                    return '"' . str_replace('"', '""', $value) . '"';
-                }, array_values($row))) . "\n";
-            }
-            
-            // Store file
-            // Storage::disk('public')->put($path, $csvContent);
-            file_put_contents(public_path($path), $csvContent);
 
-            // Return download URL
+                if ($table === 'service_requests') {
+                    $row = [
+                        'id' => $row['id'],
+                        'name' => $row['name'],
+                        'email' => $row['email'],
+                        'phone' => $row['phone'],
+                        'address' => $row['address'],
+                        'company_name' => $row['company_name'],
+                        'service' => $row['service']['title'] ?? '',
+                        'requirements' => $row['requirements'],
+                        'status' => $row['status'],
+                        'created_at' => $row['created_at'],
+                    ];
+                }
+            
+                $rows[] = array_map(function ($value) {
+                    // Handle array values by converting to JSON string
+                    return is_array($value) ? json_encode($value) : $value;
+                }, $row);
+            }
+
+            // The CSV is returned in the response body, nothing is written to disk
             return [
                 'success' => true,
-                'url' => url($path),
-                'message'=>'Data exported as a CSV file successfully, the download will start automatically.'
+                'csv' => CSV::write($rows),
+                'filename' => $table . '_' . now()->format('Y-m-d') . '.csv',
             ];
         } catch (\Exception $e) {
             return [

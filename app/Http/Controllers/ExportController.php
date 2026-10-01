@@ -16,6 +16,9 @@ class ExportController extends Controller
         $response = $this->service->toCSV($request);
         if (!$response['success'])
             return $this->sendError($response);
-        return $this->sendResponse($response);
+
+        return response($response['csv'])
+            ->header('Content-Type', 'text/csv')
+            ->header('Content-Disposition', 'attachment; filename="' . $response['filename'] . '"');
     }
 }
