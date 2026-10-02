@@ -3,17 +3,17 @@ import EditableText from '@/Components/Admin/EditableText.vue';
 </script>
 
 <template>
-  <section class="res-hero">
-    <div class="res-hero__inner">
-      <EditableText tag="h1" class="res-hero__title" content-key="resources.hero.title" page="resources" default="Resources For Modern Healthcare Teams." />
-      <EditableText tag="p" class="res-hero__subtitle" content-key="resources.hero.subtitle" page="resources"
+  <section class="art-hero">
+    <div class="art-hero__inner">
+      <EditableText tag="h1" class="art-hero__title" content-key="articles.hero.title" page="articles" default="Articles For Modern Healthcare Teams." />
+      <EditableText tag="p" class="art-hero__subtitle" content-key="articles.hero.subtitle" page="articles"
         default="Explore educational articles, staffing insights, rehabilitation trends, and real-world case studies designed for healthcare employers and therapy professionals." />
     </div>
   </section>
 </template>
 
 <style scoped lang="scss">
-.res-hero {
+.art-hero {
   position: relative;
   background: linear-gradient(
     -36.6deg,

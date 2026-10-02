@@ -76,7 +76,7 @@ import EditableImage from '@/Components/Admin/EditableImage.vue';
         <EditableText tag="p" class="footer2__col-heading" content-key="global.footer.company.heading" page="global" default="Company" />
         <ul class="footer2__links">
           <li><a href="/about"><EditableText tag="span" content-key="global.footer.company.link.0" page="global" default="About Us" /></a></li>
-          <li><a href="/news"><EditableText tag="span" content-key="global.footer.company.link.1" page="global" default="Resources" /></a></li>
+          <li><a href="/articles"><EditableText tag="span" content-key="global.footer.company.link.1" page="global" default="Articles" /></a></li>
           <li><a href="/contact"><EditableText tag="span" content-key="global.footer.company.link.2" page="global" default="Contact" /></a></li>
         </ul>
       </div>

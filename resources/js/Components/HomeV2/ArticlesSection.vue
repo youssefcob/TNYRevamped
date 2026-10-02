@@ -1,29 +1,28 @@
 <template>
-  <section v-if="latestArticles.length > 0" class="resources">
-    <div class="resources__header">
-      <div class="resources__header-left">
-        <EditableText tag="p" class="section-label" content-key="home.resources.label" page="home" default="Resources" />
-        <EditableText tag="h2" class="resources__title" content-key="home.resources.title" page="home" default="Insights for Healthcare Leaders" />
+  <section v-if="latestArticles.length > 0" class="articles">
+    <div class="articles__header">
+      <div class="articles__header-left">
+        <EditableText tag="p" class="section-label" content-key="home.articles.label" page="home" default="Articles" />
+        <EditableText tag="h2" class="articles__title" content-key="home.articles.title" page="home" default="Insights for Healthcare Leaders" />
       </div>
-      <a href="/news" class="resources__view-all">
-        <EditableText tag="span" content-key="home.resources.cta" page="home" default="View All Resources" />
+      <a href="/articles" class="articles__view-all">
+        <EditableText tag="span" content-key="home.articles.cta" page="home" default="View All Articles" />
       </a>
     </div>
 
-    <div class="resources__cards">
-      <article v-for="(article, idx) in latestArticles" :key="article.id" class="res-card">
-        <div class="res-card__banner">
-          <img :src="article.image" :alt="article.title" class="res-card__image" />
+    <div class="articles__cards">
+      <article v-for="(article, idx) in latestArticles" :key="article.id" class="art-card">
+        <div class="art-card__banner">
+          <img :src="article.image" :alt="article.title" class="art-card__image" />
         </div>
-        <div class="res-card__body">
-          <!-- <span class="res-card__tag" :style="{ background: cardSchemes[idx % 3].tagBg, color: cardSchemes[idx % 3].tagColor }">
+        <div class="art-card__body">
+          <!-- <span class="art-card__tag" :style="{ background: cardSchemes[idx % 3].tagBg, color: cardSchemes[idx % 3].tagColor }">
             {{ cardSchemes[idx % 3].category }}
           </span> -->
-          <h4 class="res-card__title">{{ article.title }}</h4>
-          <p class="res-card__excerpt">{{ excerpt(article.content) }}</p>
-          <div class="res-card__footer">
-            <span class="res-card__read-time">{{ readTime(article.content) }}</span>
-            <a :href="`/news/${article.url}`" class="res-card__read-more">Read more →</a>
+          <h4 class="art-card__title">{{ article.title }}</h4>
+          <p class="art-card__excerpt">{{ excerpt(article.description || article.content) }}</p>
+          <div class="art-card__footer">
+            <a :href="`/articles/${article.url}`" class="art-card__read-more">Read more →</a>
           </div>
         </div>
       </article>
@@ -40,6 +39,7 @@ interface NewsItem {
   url: string;
   title: string;
   image: string;
+  description: string | null;
   content: string | null;
   created_at: string;
 }
@@ -58,12 +58,6 @@ const cardSchemes = [
   { tagBg: '#fef5d8', tagColor: '#96600e', category: 'Hiring Insights' },
 ];
 
-function readTime(text: string | null): string {
-  if (!text) return '3 min read';
-  const words = text.replace(/<[^>]+>/g, ' ').trim().split(/\s+/).length;
-  return `${Math.max(1, Math.round(words / 200))} min read`;
-}
-
 function excerpt(text: string | null): string {
   if (!text) return '';
   const stripped = text.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim();
@@ -72,7 +66,7 @@ function excerpt(text: string | null): string {
 </script>
 
 <style scoped lang="scss">
-.resources {
+.articles {
   padding: 5rem 7.5rem;
   background: $color-white;
   display: flex;
@@ -133,7 +127,7 @@ function excerpt(text: string | null): string {
   }
 }
 
-.res-card {
+.art-card {
   background: $color-white;
   border-radius: 1.25rem;
   box-shadow: 0 2px 12px rgba(0,0,0,0.07);

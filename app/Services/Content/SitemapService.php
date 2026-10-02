@@ -28,15 +28,14 @@ class SitemapService
             ['url' => '/apply', 'priority' => 0.8, 'changefreq' => 'weekly'],
             ['url' => '/requestService', 'priority' => 0.7, 'changefreq' => 'monthly'],
             ['url' => '/contact', 'priority' => 0.6, 'changefreq' => 'yearly'],
-            ['url' => '/resources', 'priority' => 0.6, 'changefreq' => 'monthly'],
-            ['url' => '/news', 'priority' => 0.7, 'changefreq' => 'weekly'],
+            ['url' => '/articles', 'priority' => 0.6, 'changefreq' => 'monthly'],
         ];
     }
 
     protected static function newsPages(): array
     {
         return News::query()->whereNotNull('url')->get()->map(fn (News $news) => [
-            'url' => '/news/'.$news->url,
+            'url' => '/articles/'.$news->url,
             'priority' => 0.6,
             'changefreq' => 'monthly',
             'lastmod' => $news->updated_at,

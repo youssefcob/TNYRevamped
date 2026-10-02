@@ -7,6 +7,7 @@ interface NewsItem {
   url: string;
   title: string;
   image: string;
+  description: string | null;
   content: string | null;
   created_at: string;
 }
@@ -20,12 +21,6 @@ const cardSchemes = [
   { tagBg: '#ede9fb', tagText: '#4a2fa0', category: 'Career Tips' },
   { tagBg: '#fef5d8', tagText: '#96600e', category: 'Hiring Insights' },
 ];
-
-function readTime(text: string | null): string {
-  if (!text) return '3 min read';
-  const words = text.replace(/<[^>]+>/g, ' ').trim().split(/\s+/).length;
-  return `${Math.max(1, Math.round(words / 200))} min read`;
-}
 
 function excerpt(text: string | null): string {
   if (!text) return '';
@@ -45,7 +40,7 @@ function excerpt(text: string | null): string {
           :class="{ 'art-section__tab--active': activeTab === 'articles' }"
           @click="activeTab = 'articles'"
         >
-          <EditableText tag="span" content-key="resources.tabs.articles" page="resources" default="Articles" />
+          <EditableText tag="span" content-key="articles.tabs.articles" page="articles" default="Articles" />
         </button>
         <!-- <button
           class="art-section__tab"
@@ -76,10 +71,9 @@ function excerpt(text: string | null): string {
                 :style="{ background: cardSchemes[idx % 3].tagBg, color: cardSchemes[idx % 3].tagText }"
               >{{ cardSchemes[idx % 3].category }}</span> -->
               <h3 class="art-card__title">{{ article.title }}</h3>
-              <p class="art-card__excerpt">{{ excerpt(article.content) }}</p>
+              <p class="art-card__excerpt">{{ excerpt(article.description || article.content) }}</p>
               <div class="art-card__footer">
-                <span class="art-card__read-time">{{ readTime(article.content) }}</span>
-                <a :href="`/news/${article.url}`" class="art-card__link">Read more &rarr;</a>
+                <a :href="`/articles/${article.url}`" class="art-card__link">Read more &rarr;</a>
               </div>
             </div>
           </div>

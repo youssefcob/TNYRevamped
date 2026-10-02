@@ -11,13 +11,15 @@ import WhyTNYSection from '@/Components/HomeV2/WhyTNYSection.vue';
 import IndustriesSection from '@/Components/HomeV2/IndustriesSection.vue';
 import TestimonialsSection from '@/Components/HomeV2/TestimonialsSection.vue';
 import TrustedBy from '@/Components/HomeV2/TrustedBy.vue';
-import ResourcesSection from '@/Components/HomeV2/ResourcesSection.vue';
+import ArticlesSection from '@/Components/HomeV2/ArticlesSection.vue';
 import CtaBanner from '@/Components/HomeV2/CtaBanner.vue';
 
 interface NewsItem {
   id: number;
+  url: string;
   title: string;
   image: string;
+  description: string | null;
   content: string | null;
   created_at: string;
 }
@@ -41,7 +43,7 @@ provide('pageContent', props.pageContent ?? {});
     <IndustriesSection />
     <TestimonialsSection />
     <!-- <TrustedBy /> -->
-    <ResourcesSection :articles="news ?? []" />
+    <ArticlesSection :articles="news ?? []" />
     <CtaBanner />
   </LayoutV2>
 </template>
