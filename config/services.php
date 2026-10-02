@@ -28,6 +28,24 @@ return [
         'key' => env('RESEND_KEY'),
     ],
 
+    /*
+    | Google Sheets — every position application, service request and vacancy
+    | application is appended as a row to one spreadsheet, one tab per type.
+    | Leave `spreadsheet_id` empty to turn the sync off. The spreadsheet must
+    | be shared (Editor) with the service account's client_email, and each
+    | tab must exist; a range is "<tab name>!A:A".
+    */
+    'google' => [
+        'sheets' => [
+            'spreadsheet_id' => env('GOOGLE_SUBMISSIONS_SHEET_ID'),
+            'ranges' => [
+                'applications' => env('GOOGLE_SHEET_APPLICATIONS_RANGE', 'Applications!A:A'),
+                'service_requests' => env('GOOGLE_SHEET_SERVICE_REQUESTS_RANGE', 'ServiceRequests!A:A'),
+                'vacancy_applications' => env('GOOGLE_SHEET_VACANCY_APPLICATIONS_RANGE', 'VacancyApplications!A:A'),
+            ],
+        ],
+    ],
+
     'slack' => [
         'notifications' => [
             'bot_user_oauth_token' => env('SLACK_BOT_USER_OAUTH_TOKEN'),
