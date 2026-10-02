@@ -199,8 +199,15 @@ class ApplicationsService
                 'email' => 'required|email|max:255',
                 'phone' => 'required|string|max:255',
                 'resume' => 'required|file|mimes:pdf,doc,docx|max:2048',
-                'message' => 'required|string',
-                'zip' => 'required|string|max:255',
+                'message' => 'nullable|string',
+                'zip' => 'nullable|string|max:255',
+                'city' => 'nullable|string|max:255',
+                'state' => 'nullable|string|max:255',
+                'license_status' => 'nullable|string|max:255',
+                'years_experience' => 'nullable|string|max:255',
+                'preferred_setting' => 'nullable|string|max:255',
+                'employment_type' => 'nullable|string|max:255',
+                'start_date' => 'nullable|date',
             ]);
 
             $position = Position::where('title', $request->position)->first();
@@ -223,6 +230,13 @@ class ApplicationsService
                 // 'resume' => 'nth',
                 'message' => $request->message,
                 'zip' => $request->zip,
+                'city' => $request->city,
+                'state' => $request->state,
+                'license_status' => $request->license_status,
+                'years_experience' => $request->years_experience,
+                'preferred_setting' => $request->preferred_setting,
+                'employment_type' => $request->employment_type,
+                'start_date' => $request->start_date,
             ]);
             $application->position = $position->title;
             $application->address = $position->address;
@@ -238,7 +252,14 @@ class ApplicationsService
                 $application->name,
                 $application->email,
                 $application->phone,
+                $application->city,
+                $application->state,
                 $application->zip,
+                $application->license_status,
+                $application->years_experience,
+                $application->preferred_setting,
+                $application->employment_type,
+                $application->start_date,
                 $application->message,
                 $application->resume,
             ]);

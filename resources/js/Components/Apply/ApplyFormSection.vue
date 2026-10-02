@@ -123,23 +123,20 @@ async function submit() {
 
   isLoading.value = true;
   try {
-    const extras = [
-      form.license_status && `License Status: ${form.license_status}`,
-      form.years_experience && `Years of Experience: ${form.years_experience}`,
-      form.preferred_setting && `Preferred Setting: ${form.preferred_setting}`,
-      form.employment_type && `Employment Type: ${form.employment_type}`,
-      form.start_date && `Desired Start Date: ${form.start_date}`,
-      form.message && `Notes: ${form.message}`,
-    ].filter(Boolean).join('\n');
-
     const fd = new FormData();
     fd.append('name', `${form.first_name} ${form.last_name}`);
     fd.append('email', form.email);
     fd.append('phone', form.phone.replace(/\D/g, ''));
-    fd.append('zip', `${form.city}${form.state ? ', ' + form.state : ''}`);
     fd.append('position', form.profession);
-    fd.append('message', extras || 'Application submitted via website.');
     fd.append('resume', form.resume);
+
+    const optionalFields = [
+      'city', 'state', 'license_status', 'years_experience',
+      'preferred_setting', 'employment_type', 'start_date', 'message',
+    ] as const;
+    optionalFields.forEach((key) => {
+      if (form[key]) fd.append(key, form[key]);
+    });
 
     await Http.post('application', fd);
     router.visit('/thank-you/apply');

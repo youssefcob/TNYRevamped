@@ -18,6 +18,13 @@ class PositionApplication extends Model
         'resume',
         'message',
         'zip',
+        'city',
+        'state',
+        'license_status',
+        'years_experience',
+        'preferred_setting',
+        'employment_type',
+        'start_date',
         'status',
     ];
 
