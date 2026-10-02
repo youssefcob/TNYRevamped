@@ -6,12 +6,13 @@ use App\Models\Service;
 use App\Models\ServiceRequest;
 use App\TableFiltersHelperFunctions;
 use App\Traits\SendsEmail;
+use App\Traits\SyncsToGoogleSheet;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 
 class ServiceRequestService
 {
-    use TableFiltersHelperFunctions, SendsEmail;
+    use TableFiltersHelperFunctions, SendsEmail, SyncsToGoogleSheet;
     // Your service logic goes here
     public function getServiceRequests($request): array
     {
@@ -144,6 +145,20 @@ class ServiceRequestService
             $serviceRequest->facility_name = $serviceRequest->company_name;
             // Log::info($serviceRequest);
             $this->sendServiceRequestSubmittedEmail($serviceRequest->email,$serviceRequest);
+
+            // Column order of the "service_requests" tab; keep the sheet's header row in sync.
+            $this->syncToGoogleSheet('service_requests', [
+                $serviceRequest->id,
+                $serviceRequest->created_at?->toDateTimeString(),
+                $service->title,
+                $serviceRequest->name,
+                $serviceRequest->email,
+                $serviceRequest->phone,
+                $serviceRequest->company_name,
+                $serviceRequest->address,
+                $serviceRequest->requirements,
+                $serviceRequest->status,
+            ]);
 
             return [
                 'success' => true,

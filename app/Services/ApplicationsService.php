@@ -6,13 +6,14 @@ use App\Models\Position;
 use App\Models\PositionApplication;
 use App\TableFiltersHelperFunctions;
 use App\Traits\SendsEmail;
+use App\Traits\SyncsToGoogleSheet;
 use Exception;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 
 class ApplicationsService
 {
-    use TableFiltersHelperFunctions, SendsEmail;
+    use TableFiltersHelperFunctions, SendsEmail, SyncsToGoogleSheet;
     // Your service logic goes here
 
     /**
@@ -228,6 +229,19 @@ class ApplicationsService
             // dd($application);
 
             $this->sendApplicationSubmittedEmail($request->email, $application);
+
+            // Column order of the "applications" tab; keep the sheet's header row in sync.
+            $this->syncToGoogleSheet('applications', [
+                $application->id,
+                $application->created_at?->toDateTimeString(),
+                $position->title,
+                $application->name,
+                $application->email,
+                $application->phone,
+                $application->zip,
+                $application->message,
+                $application->resume,
+            ]);
 
             return [
                 'success' => true,
