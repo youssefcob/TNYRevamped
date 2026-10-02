@@ -119,6 +119,11 @@ class ServiceRequestService
                 'phone' => 'required|string|max:255',
                 'company_name' => 'required|string|max:255',
                 'requirements' => 'required|string|max:255',
+                'requested_positions' => 'nullable|array',
+                'requested_positions.*' => 'string|max:255',
+                'open_roles' => 'nullable|integer|min:1',
+                'start_date' => 'nullable|date',
+                'urgency' => 'nullable|string|max:255',
                 'service' => 'required|string',
             ]);
 
@@ -137,6 +142,10 @@ class ServiceRequestService
                 'phone' => $request->phone,
                 'company_name' => $request->company_name,
                 'requirements' => $request->requirements,
+                'requested_positions' => $request->requested_positions ?: null,
+                'open_roles' => $request->open_roles,
+                'start_date' => $request->start_date,
+                'urgency' => $request->urgency,
                 'service_id' => $service->id,
                 'status' => 'pending',
 
@@ -156,6 +165,10 @@ class ServiceRequestService
                 $serviceRequest->phone,
                 $serviceRequest->company_name,
                 $serviceRequest->address,
+                implode(', ', $serviceRequest->requested_positions ?? []),
+                $serviceRequest->open_roles,
+                $serviceRequest->start_date,
+                $serviceRequest->urgency,
                 $serviceRequest->requirements,
                 $serviceRequest->status,
             ]);

@@ -10,7 +10,10 @@ class ServiceRequest extends Model
 {
     //
     use HasFactory, GenericObserverTrait;
-    protected $fillable = ['name', 'email', 'address', 'phone', 'company_name', 'requirements','status','service_id'];
+    protected $fillable = ['name', 'email', 'address', 'phone', 'company_name', 'requirements', 'requested_positions', 'open_roles', 'start_date', 'urgency', 'status', 'service_id'];
+    protected $casts = [
+        'requested_positions' => 'array',
+    ];
     public function service()
     {
         return $this->belongsTo(Service::class);

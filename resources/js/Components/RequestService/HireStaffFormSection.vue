@@ -140,13 +140,6 @@ async function submit() {
 
   loading.value = true;
   try {
-    const extras = [
-      form.requested_positions.length ? `Requested Positions: ${form.requested_positions.join(', ')}` : null,
-      form.open_roles   ? `Open Roles: ${form.open_roles}`   : null,
-      form.start_date   ? `Start Date: ${form.start_date}`    : null,
-      form.urgency      ? `Urgency: ${form.urgency}`          : null,
-    ].filter(Boolean).join('\n');
-
     await Http.post('request', {
       company_name: form.company_name,
       name:         form.contact_name,
@@ -154,7 +147,11 @@ async function submit() {
       phone:        form.phone.replace(/\D/g, ''),
       service:      form.discipline,
       address:      form.location,
-      requirements: extras ? `${form.description}\n\n${extras}` : form.description,
+      requirements: form.description,
+      requested_positions: form.requested_positions,
+      open_roles:   form.open_roles || null,
+      start_date:   form.start_date || null,
+      urgency:      form.urgency || null,
     });
 
     router.visit('/thank-you/request-service');
