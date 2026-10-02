@@ -55,7 +55,7 @@ class MailListService
                 'id' => 'required|integer|exists:mail_lists,id',
                 'name' => 'sometimes|string|max:255',
                 'email' => 'sometimes|email',
-                'form' => 'sometimes|in:applications,positions,messages,vacancies,content',
+                'form' => 'sometimes|in:position_applications,positions,messages,vacancies,content,service_requests',
                 'role' => 'sometimes|string|max:255',
             ]);
             $mailList = MailList::find($request->id);
@@ -137,7 +137,7 @@ class MailListService
             $validatedData = $request->validate([
                 'name' => 'required|string|max:255',
                 'email' => 'required|email',
-                'form' => 'required|in:applications,positions,messages,vacancies,content',
+                'form' => 'required|in:position_applications,positions,messages,vacancies,content,service_requests',
                 'role' => 'required|string|max:255',
             ]);
 
