@@ -29,8 +29,8 @@ return [
     ],
 
     /*
-    | Google Sheets — every position application, service request and vacancy
-    | application is appended as a row to one spreadsheet, one tab per type.
+    | Google Sheets — every position application and service request is
+    | appended as a row to one spreadsheet, one tab per type.
     | Leave `spreadsheet_id` empty to turn the sync off. The spreadsheet must
     | be shared (Editor) with the service account's client_email, and each
     | tab must exist; a range is "<tab name>!A:A".
@@ -41,7 +41,6 @@ return [
             'ranges' => [
                 'applications' => env('GOOGLE_SHEET_APPLICATIONS_RANGE', 'Applications!A:A'),
                 'service_requests' => env('GOOGLE_SHEET_SERVICE_REQUESTS_RANGE', 'ServiceRequests!A:A'),
-                'vacancy_applications' => env('GOOGLE_SHEET_VACANCY_APPLICATIONS_RANGE', 'VacancyApplications!A:A'),
             ],
         ],
     ],

@@ -6,7 +6,6 @@ use App\Models\Application;
 use App\Models\User;
 use App\Models\Vacancy;
 use App\TableFiltersHelperFunctions;
-use App\Traits\SyncsToGoogleSheet;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -16,7 +15,7 @@ use Illuminate\Support\Facades\Log;
 
 class ApplicationsService
 {
-    use TableFiltersHelperFunctions, SyncsToGoogleSheet;
+    use TableFiltersHelperFunctions;
     
     private $statuses = [
         'hired',
@@ -79,21 +78,6 @@ class ApplicationsService
             'vacancy_id' => $vacancy_id,
             'resume' => $resumePath,
             'status' => 'pending',
-        ]);
-
-        // Column order of the "vacancy_applications" tab; keep the sheet's header row in sync.
-        $this->syncToGoogleSheet('vacancy_applications', [
-            $application->id,
-            $application->created_at?->toDateTimeString(),
-            $vacancy->id,
-            $vacancy->position?->title,
-            $vacancy->employer?->facility_name,
-            $vacancy->borough,
-            $user->name,
-            $user->email,
-            $jobSeeker->phone_number,
-            $application->resume,
-            $application->status,
         ]);
         // dd('s');
         // Send email notification to employer
