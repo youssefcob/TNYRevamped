@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminManagementController;
 use App\Http\Controllers\ApplicationsController;
 use App\Http\Controllers\Content\HeroController;
+use App\Http\Controllers\Content\StudioWebhookController;
 use App\Http\Controllers\DataMigrationController;
 use App\Http\Controllers\Employer\EmployerController;
 use App\Http\Controllers\ExportController;
@@ -128,3 +129,8 @@ Route::group(['prefix' => 'application'], function () {
 Route::group(['prefix' => 'request'], function () {
     Route::post('/', [ServiceRequestController::class, 'submit']);
 });
+
+// Studio (headless CMS) calls this on publish/unpublish to drop cached articles.
+Route::post('/studio/webhook', [StudioWebhookController::class, 'handle'])
+    ->middleware('throttle:60,1')
+    ->name('studio.webhook');

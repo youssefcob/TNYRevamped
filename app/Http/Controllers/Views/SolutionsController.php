@@ -51,7 +51,7 @@ class SolutionsController extends Controller
         $solutions = config('solutions');
 
         // Canonicalize any non-slug variant (mixed case, spaces, %20) to the
-        // dash-slug form, matching the apply()/news() behaviour elsewhere.
+        // dash-slug form, matching the apply() behaviour elsewhere.
         if (($canonical = Str::slug($slug)) !== $slug) {
             return redirect('/solutions/'.$canonical, 301);
         }

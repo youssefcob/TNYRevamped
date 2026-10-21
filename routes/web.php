@@ -3,6 +3,7 @@
 use App\Http\Controllers\Content\SitemapController;
 use App\Http\Controllers\UserAuthController;
 use App\Http\Controllers\Views\Auth\LoginController;
+use App\Http\Controllers\Views\ArticlesController;
 use App\Http\Controllers\Views\Auth\RegisterController;
 use App\Http\Controllers\Views\DashboardController;
 use App\Http\Controllers\Views\HomeController;
@@ -59,11 +60,18 @@ Route::get('/thank-you/{type}', [HomeController::class, 'thankYou'])
     ->where('type', 'contact|apply|request-service')
     ->name('thank-you');
 
-Route::get('/resources', [HomeController::class, 'resources'])
-    ->name('resources');
+// Articles: listed from the news table, body fetched from Studio (headless CMS).
+Route::get('/articles', [HomeController::class, 'articles'])
+    ->name('articles');
 
-Route::get('/news/{url?}', [HomeController::class, 'news'])
-    ->name('news');
+// The index used to be /resources and articles lived at /news/<slug>;
+// keep old links working.
+Route::permanentRedirect('/resources', '/articles');
+Route::permanentRedirect('/news/{url}', '/articles/{url}');
+Route::permanentRedirect('/news', '/articles');
+
+Route::get('/articles/{slug}', [ArticlesController::class, 'show'])
+    ->name('article');
 
 Route::post('/register', [RegisterController::class, 'submit'])
     ->name('register.submit');

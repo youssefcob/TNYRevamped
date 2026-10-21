@@ -6,6 +6,9 @@ import EditableImage from '@/Components/Admin/EditableImage.vue';
 
 const page = usePage();
 const isAboutPage = computed(() => page.url.startsWith('/about'));
+// Studio articles open on a white hero, where the transparent bar's white
+// logo and links would be invisible.
+const isArticlePage = computed(() => page.url.startsWith('/articles/'));
 
 const isScrolled = ref(false);
 const menuOpen = ref(false);
@@ -14,7 +17,7 @@ const onScroll = () => { isScrolled.value = window.scrollY > window.innerHeight 
 onMounted(() => window.addEventListener('scroll', onScroll));
 onUnmounted(() => window.removeEventListener('scroll', onScroll));
 
-const scrolled = computed(() => isScrolled.value || isAboutPage.value);
+const scrolled = computed(() => isScrolled.value || isAboutPage.value || isArticlePage.value);
 </script>
 
 <template>
@@ -29,7 +32,7 @@ const scrolled = computed(() => isScrolled.value || isAboutPage.value);
         <a href="/solutions"><EditableText tag="span" content-key="global.navbar.link_services" page="global" default="Services" /></a>
         <a href="/employers"><EditableText tag="span" content-key="global.navbar.link_employers" page="global" default="For Employers" /></a>
         <a href="/candidates"><EditableText tag="span" content-key="global.navbar.link_candidates" page="global" default="For Candidates" /></a>
-        <a href="/resources"><EditableText tag="span" content-key="global.navbar.link_resources" page="global" default="Resources" /></a>
+        <a href="/articles"><EditableText tag="span" content-key="global.navbar.link_articles" page="global" default="Articles" /></a>
         <a href="/about"><EditableText tag="span" content-key="global.navbar.link_about" page="global" default="About" /></a>
         <a href="/contact"><EditableText tag="span" content-key="global.navbar.link_contact" page="global" default="Contact" /></a>
       </div>
@@ -52,7 +55,7 @@ const scrolled = computed(() => isScrolled.value || isAboutPage.value);
       <a href="/solutions" @click="menuOpen = false"><EditableText tag="span" content-key="global.navbar.link_services" page="global" default="Services" /></a>
       <a href="/employers" @click="menuOpen = false"><EditableText tag="span" content-key="global.navbar.link_employers" page="global" default="For Employers" /></a>
       <a href="/candidates" @click="menuOpen = false"><EditableText tag="span" content-key="global.navbar.link_candidates" page="global" default="For Candidates" /></a>
-      <a href="/resources" @click="menuOpen = false"><EditableText tag="span" content-key="global.navbar.link_resources" page="global" default="Resources" /></a>
+      <a href="/articles" @click="menuOpen = false"><EditableText tag="span" content-key="global.navbar.link_articles" page="global" default="Articles" /></a>
       <a href="/about" @click="menuOpen = false"><EditableText tag="span" content-key="global.navbar.link_about" page="global" default="About" /></a>
       <a href="/contact" @click="menuOpen = false"><EditableText tag="span" content-key="global.navbar.link_contact" page="global" default="Contact" /></a>
       <div class="nav2__mobile-ctas">

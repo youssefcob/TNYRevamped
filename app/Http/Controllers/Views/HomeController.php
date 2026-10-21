@@ -4,23 +4,19 @@ namespace App\Http\Controllers\Views;
 
 use App\Http\Controllers\Controller;
 use App\Models\News;
-use App\Services\Content\ClientsService;
-use App\Services\Content\EmployersService;
 use App\Models\Position;
-use App\Services\Content\NewsService;
+use App\Models\User;
+use App\Services\Content\EmployersService;
 use App\Services\Content\ServicesService;
 use App\Services\Content\TeamService;
-use App\Services\Content\TestimonialsService;
 use App\Services\Employer\VacanciesService;
-use App\Services\HeroService;
 use App\Services\JobSeekerService;
 use App\Services\ViewServices\HomeService;
-use Inertia\Inertia;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
-
+use Inertia\Inertia;
 
 class HomeController extends Controller
 {
@@ -30,20 +26,22 @@ class HomeController extends Controller
 
         $token = $request->cookie('token');
         if ($token) {
-            $request->headers->set('Authorization', 'Bearer ' . $token);
-            /** @var \App\Models\User $user */
+            $request->headers->set('Authorization', 'Bearer '.$token);
+            /** @var User $user */
             $user = Auth::guard('user')->user();
             if ($user) {
                 $data['user'] = $user;
-                $data['token'] = ['access_token'=>$token, 'token_type' => 'Bearer'];
+                $data['token'] = ['access_token' => $token, 'token_type' => 'Bearer'];
 
                 if ($user->hasRole('employer')) {
                     $data['employer'] = $user->employer;
                     $data['talent'] = JobSeekerService::getTalent();
+
                     return Inertia::render('Employers/EmployersHome', $data);
                 } elseif ($user->hasRole('job_seeker')) {
                     $data['job_seeker'] = $user->jobSeeker;
                     $data['vacancies'] = VacanciesService::featured();
+
                     return Inertia::render('JobSeekers/JobSeekersHome', $data);
                 }
             }
@@ -53,13 +51,12 @@ class HomeController extends Controller
         return Inertia::render('HomeV2', $data);
     }
 
-  
-
     public function services()
     {
         $data = [];
 
         $data['services'] = ServicesService::get();
+
         return Inertia::render('Services', $data);
     }
 
@@ -76,6 +73,7 @@ class HomeController extends Controller
         $data = [];
 
         $data['employers'] = EmployersService::get();
+
         return Inertia::render('Employers', $data);
     }
 
@@ -84,6 +82,7 @@ class HomeController extends Controller
         $data = [];
 
         $data['positions'] = Position::where('available', true)->orderBy('created_at', 'desc')->get();
+
         return Inertia::render('Candidates', $data);
     }
 
@@ -113,13 +112,13 @@ class HomeController extends Controller
         return Inertia::render('JobSeekers/Apply', $data);
     }
 
-
     public function requestService($service = null)
     {
         $data = [];
 
         $data['services'] = ServicesService::get();
         $data['service'] = $service;
+
         return Inertia::render('RequestService', $data);
     }
 
@@ -138,31 +137,14 @@ class HomeController extends Controller
         return Inertia::render('ThankYou', ['type' => $type]);
     }
 
-    public function resources()
+    public function articles()
     {
         $data = [];
 
         $data['articles'] = News::latest()->get();
-        return Inertia::render('Resources', $data);
+
+        return Inertia::render('Articles', $data);
     }
-
-    public function news(Request $request, $url = null)
-    {
-        // Same canonicalization as apply(): permanently redirect any
-        // non-slug URL (raw title, spaces, %20, mixed case) to its dash-slug
-        // form so search engines consolidate on one URL.
-        if ($url !== null && ($slug = Str::slug($url)) !== $url) {
-            $query = $request->getQueryString();
-
-            return redirect('/news/'.$slug.($query ? '?'.$query : ''), 301);
-        }
-
-        $data = [];
-
-        $data['news'] = News::where('url', $url)->firstOrFail();
-        return Inertia::render('News', $data);
-    }
-
 
     public function talents(Request $request)
     {
@@ -172,13 +154,12 @@ class HomeController extends Controller
         if ($jobSeekers['success']) {
             $data['job_seekers'] = $jobSeekers['data'];
         } else {
-            Log::error('Failed to fetch job seekers: ' . $jobSeekers['message']);
+            Log::error('Failed to fetch job seekers: '.$jobSeekers['message']);
             $data['job_seekers'] = [];
         }
+
         return Inertia::render('Talents', $data);
     }
-
-
 
     public function jobSeekers()
     {
