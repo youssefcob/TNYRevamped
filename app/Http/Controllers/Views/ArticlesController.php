@@ -18,6 +18,7 @@ class ArticlesController extends Controller
      * The news table decides which articles exist and holds each one's
      * title, excerpt and cover image; its `url` is the slug of the article
      * in Studio (the headless CMS), which is where the body comes from.
+     * Articles with no page in Studio fall back to the body stored in the row.
      */
     public function show(string $slug)
     {
@@ -36,7 +37,11 @@ class ArticlesController extends Controller
             abort(503);
         }
 
-        abort_unless($article, 404);
+        if (! $article) {
+            abort_unless(filled($entry->content), 404);
+
+            return Inertia::render('Articles/LegacyArticle', ['news' => $entry]);
+        }
 
         return Inertia::render('Articles/StudioArticle', [
             'article' => $article,
