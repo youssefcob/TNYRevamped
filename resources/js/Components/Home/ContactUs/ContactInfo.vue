@@ -40,7 +40,7 @@
                 <path d="M34.6673 5L18.0007 16.6667L1.33398 5" stroke="#21A8E0" stroke-width="2" stroke-linecap="round"
                     stroke-linejoin="round" />
             </svg>
-            <span class="text">staffing@therapyofnewyork.com</span>
+            <span class="text">staffing@tnystaffing.com<br />hr@tnystaffing.com</span>
         </div>
     </div>
 
