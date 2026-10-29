@@ -21,9 +21,53 @@ class StudioService
      */
     const STALE_DAYS = 7;
 
-    protected static function cacheKey(string $slug): string
+    /**
+     * Each kind of document fetched from Studio => the config block holding
+     * its envelope_url / fallback_url templates.
+     */
+    const KINDS = [
+        'article' => 'services.studio',
+        'service' => 'services.studio.services',
+    ];
+
+    /**
+     * Studio's collection for each kind. Articles and services can share a
+     * slug, so webhooks are matched on collection (or address) to know which
+     * cached envelope a slug refers to.
+     */
+    const COLLECTIONS = [
+        'article' => 'textEditor',
+        'service' => 'pages',
+    ];
+
+    /**
+     * The tny tenant folder each kind is published in, as the first segments
+     * of a Studio address ("tny/services/<slug>").
+     */
+    const FOLDERS = [
+        'article' => 'tny/articles',
+        'service' => 'tny/services',
+    ];
+
+    /**
+     * Which kind a webhook is about, from its address (preferred, since a
+     * hard delete sends only that) or else its collection. Null when
+     * neither says, e.g. a rerender of every collection.
+     */
+    public static function kindOf(?string $collection, ?string $address): ?string
     {
-        return 'studio.article.'.Cache::get(static::GENERATION_KEY, 0).'.'.$slug;
+        if (is_string($address) && ($kind = array_search(dirname($address), static::FOLDERS, true)) !== false) {
+            return $kind;
+        }
+
+        $kind = array_search($collection, static::COLLECTIONS, true);
+
+        return $kind === false ? null : $kind;
+    }
+
+    protected static function cacheKey(string $kind, string $slug): string
+    {
+        return "studio.$kind.".Cache::get(static::GENERATION_KEY, 0).'.'.$slug;
     }
 
     /**
@@ -32,11 +76,12 @@ class StudioService
      *
      * @return array<string, string> source name => url
      */
-    protected static function sources(string $slug): array
+    protected static function sources(string $kind, string $slug): array
     {
+        $config = static::KINDS[$kind];
         $templates = [
-            'stored-file' => config('services.studio.envelope_url'),
-            'render-api' => config('services.studio.fallback_url'),
+            'stored-file' => config("$config.envelope_url"),
+            'render-api' => config("$config.fallback_url"),
         ];
 
         return array_map(
@@ -59,7 +104,24 @@ class StudioService
      */
     public static function article(string $slug): ?array
     {
-        $key = static::cacheKey($slug);
+        return static::document('article', $slug);
+    }
+
+    /**
+     * The published service page for a slug, shaped like article(). When
+     * Studio has none configured or published, this is null and the page
+     * falls back to its config/solutions.php copy.
+     *
+     * @throws RuntimeException when a source fails and nothing is cached
+     */
+    public static function service(string $slug): ?array
+    {
+        return static::document('service', $slug);
+    }
+
+    protected static function document(string $kind, string $slug): ?array
+    {
+        $key = static::cacheKey($kind, $slug);
         $cached = Cache::get($key);
 
         if ($cached && now()->timestamp < $cached['fetched_at'] + ($cached['ttl'] ?? 0)) {
@@ -68,7 +130,7 @@ class StudioService
 
         $errors = [];
 
-        foreach (static::sources($slug) as $source => $url) {
+        foreach (static::sources($kind, $slug) as $source => $url) {
             try {
                 $envelope = static::fetch($url);
             } catch (\Exception $e) {
@@ -83,7 +145,7 @@ class StudioService
 
             $fallback = $source !== 'stored-file';
             if ($fallback) {
-                Log::warning("Studio article \"$slug\" was served by the render API, not the stored file.", [
+                Log::warning("Studio $kind \"$slug\" was served by the render API, not the stored file.", [
                     'problems' => $errors ?: ['stored-file: not found'],
                 ]);
             }
@@ -107,12 +169,12 @@ class StudioService
         }
 
         if ($cached) {
-            Log::warning('Studio unreachable, serving stale article: '.implode('; ', $errors));
+            Log::warning("Studio unreachable, serving stale $kind: ".implode('; ', $errors));
 
             return $cached['article'];
         }
 
-        throw new RuntimeException('Failed to fetch Studio article: '.implode('; ', $errors));
+        throw new RuntimeException("Failed to fetch Studio $kind: ".implode('; ', $errors));
     }
 
     /**
@@ -162,9 +224,14 @@ class StudioService
         ];
     }
 
-    public static function forget(string $slug): void
+    /**
+     * Drop a slug's cached envelope, for every kind when the kind isn't known.
+     */
+    public static function forget(string $slug, ?string $kind = null): void
     {
-        Cache::forget(static::cacheKey($slug));
+        foreach ($kind ? [$kind] : array_keys(static::KINDS) as $each) {
+            Cache::forget(static::cacheKey($each, $slug));
+        }
     }
 
     public static function forgetAll(): void

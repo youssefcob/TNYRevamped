@@ -6,9 +6,9 @@ import EditableImage from '@/Components/Admin/EditableImage.vue';
 
 const page = usePage();
 const isAboutPage = computed(() => page.url.startsWith('/about'));
-// Studio articles open on a white hero, where the transparent bar's white
+// Studio pages open on a white hero, where the transparent bar's white
 // logo and links would be invisible.
-const isArticlePage = computed(() => page.url.startsWith('/articles/'));
+const isStudioPage = computed(() => ['Articles/StudioArticle', 'Solutions/StudioSolution'].includes(page.component));
 
 const isScrolled = ref(false);
 const menuOpen = ref(false);
@@ -17,7 +17,7 @@ const onScroll = () => { isScrolled.value = window.scrollY > window.innerHeight 
 onMounted(() => window.addEventListener('scroll', onScroll));
 onUnmounted(() => window.removeEventListener('scroll', onScroll));
 
-const scrolled = computed(() => isScrolled.value || isAboutPage.value || isArticlePage.value);
+const scrolled = computed(() => isScrolled.value || isAboutPage.value || isStudioPage.value);
 </script>
 
 <template>

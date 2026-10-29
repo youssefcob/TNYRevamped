@@ -55,10 +55,20 @@ return [
     | `fallback_url` is Studio's render API, which renders on every request and
     | is only tried when the stored file gives nothing. Leave empty for none:
     |   local: http://localhost:3000/api/render/textEditor/tny/articles/{slug}
+    |
+    | `services` is the same pair for the /solutions/{slug} pages, which live
+    | in Studio's `pages` collection, in the tny/services folder:
+    |   CDN:   https://<cdn>/render/pages/tny/services/{slug}.json
+    |   API:   https://<studio>/api/render/pages/tny/services/{slug}
+    | Leave both empty to always use the config/solutions.php copy.
     */
     'studio' => [
         'envelope_url' => env('STUDIO_ENVELOPE_URL'),
         'fallback_url' => env('STUDIO_FALLBACK_URL'),
+        'services' => [
+            'envelope_url' => env('STUDIO_SERVICES_ENVELOPE_URL'),
+            'fallback_url' => env('STUDIO_SERVICES_FALLBACK_URL'),
+        ],
         'webhook_secret' => env('STUDIO_WEBHOOK_SECRET'),
         // Seconds an envelope is served from cache before it is refetched.
         'cache_ttl' => (int) env('STUDIO_CACHE_TTL', 300),
