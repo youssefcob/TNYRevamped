@@ -5,8 +5,11 @@ namespace App\Http\Controllers\Views;
 use App\Http\Controllers\Controller;
 use App\Services\Content\PageContentService;
 use App\Services\Content\PageMetaService;
+use App\Services\Content\StudioService;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Inertia\Inertia;
+use RuntimeException;
 
 class SolutionsController extends Controller
 {
@@ -45,6 +48,11 @@ class SolutionsController extends Controller
      * Each solution gets its own editable-content and meta bucket keyed
      * "solutions.<slug_with_underscores>", so admins can tailor every page
      * independently.
+     *
+     * A service published in Studio (the headless CMS) under the same slug
+     * replaces that page entirely; the config copy is the fallback for when
+     * Studio has none, or is down with nothing cached. A slug that is only
+     * in Studio gets a page too.
      */
     public function show(string $slug)
     {
@@ -56,12 +64,30 @@ class SolutionsController extends Controller
             return redirect('/solutions/'.$canonical, 301);
         }
 
-        abort_unless(isset($solutions[$slug]), 404);
+        $solution = $solutions[$slug] ?? null;
+
+        try {
+            $service = StudioService::service($slug);
+        } catch (RuntimeException $e) {
+            Log::error($e->getMessage());
+            abort_unless($solution, 503);
+            $service = null;
+        }
+
+        if ($service) {
+            return Inertia::render('Solutions/StudioSolution', [
+                'service' => $service,
+                'solution' => $solution ? array_merge($solution, ['slug' => $slug]) : null,
+                'path' => "/solutions/$slug",
+            ]);
+        }
+
+        abort_unless($solution, 404);
 
         $pageKey = static::pageKey($slug);
 
         return Inertia::render('Solutions/SolutionDetail', [
-            'solution' => array_merge($solutions[$slug], ['slug' => $slug]),
+            'solution' => array_merge($solution, ['slug' => $slug]),
             'pageKey' => $pageKey,
             'path' => "/solutions/$slug",
             'pageContent' => array_merge(

@@ -284,3 +284,18 @@ export interface SolutionDetail {
     why: SolutionWhy[];
 }
 
+
+// A published Studio (headless CMS) document — an article or a service page —
+// as App\Services\Content\StudioService shapes it.
+export interface StudioDocument {
+    html: string;
+    css: string | null;
+    js: string | null;
+    fontStylesheets: string[];
+    title: string | null;
+    description: string | null;
+    meta: { name: string; value: string }[];
+    jsonLd: Record<string, unknown>[];
+    // 'render-api' means the stored file had nothing and Studio rendered it live.
+    source: 'stored-file' | 'render-api';
+}

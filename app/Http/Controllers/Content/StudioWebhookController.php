@@ -22,13 +22,15 @@ class StudioWebhookController extends Controller
             return response()->json(['message' => 'Invalid signature'], 401);
         }
 
-        // A hard delete sends only `address` ("tny/articles/<slug>"), no slug.
+        // A hard delete sends only `address` ("tny/services/<slug>"), no slug.
         $address = $request->input('address');
         $slug = $request->input('slug') ?? (is_string($address) ? basename($address) : null);
 
         // rerender.completed carries neither: every envelope changed.
         if (is_string($slug) && $slug !== '') {
-            StudioService::forget($slug);
+            // An article and a service can share a slug, so only the one the
+            // collection / address names is dropped.
+            StudioService::forget($slug, StudioService::kindOf($request->input('collection'), $address));
         } else {
             StudioService::forgetAll();
         }
