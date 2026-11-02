@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use App\Models\Application;
+use App\Models\CampaignApplication;
 use App\Models\Employer;
 use App\Models\JobSeeker;
 use App\Models\PositionApplication;
@@ -20,7 +21,7 @@ class ExportService
     {
         try {
             $request->validate([
-                'table' => 'required|in:job_seekers,employers,bids,position_applications,service_requests',
+                'table' => 'required|in:job_seekers,employers,bids,position_applications,service_requests,campaign_applications',
             ]);
 
             $startDate = $request->input('start_date');
@@ -69,6 +70,9 @@ class ExportService
                 $query = ServiceRequest::with(['service' => function ($q) {
                     $q->select('id', 'title');
                 }])->latest();
+            }
+            else if($table === 'campaign_applications'){
+                $query = CampaignApplication::latest();
             }
 
             // dd($query);
@@ -166,6 +170,23 @@ class ExportService
                         'start_date' => $row['start_date'],
                         'urgency' => $row['urgency'],
                         'requirements' => $row['requirements'],
+                        'status' => $row['status'],
+                        'created_at' => $row['created_at'],
+                    ];
+                }
+
+                if ($table === 'campaign_applications') {
+                    $row = [
+                        'id' => $row['id'],
+                        'role' => $row['role'],
+                        'first_name' => $row['first_name'],
+                        'last_name' => $row['last_name'],
+                        'email' => $row['email'],
+                        'phone' => $row['phone'],
+                        'workplaces' => implode(', ', $row['workplaces'] ?? []),
+                        'schedule' => $row['schedule'],
+                        'experience' => $row['experience'],
+                        'campaign_source' => $row['campaign_source'] ?? '',
                         'status' => $row['status'],
                         'created_at' => $row['created_at'],
                     ];

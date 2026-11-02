@@ -86,6 +86,11 @@ class HomeController extends Controller
         return Inertia::render('Candidates', $data);
     }
 
+    public function campaigns()
+    {
+        return Inertia::render('Campaigns');
+    }
+
     public function apply(Request $request, $position = null)
     {
         // Canonicalize any non-slug URL (raw title, spaces, %20, mixed case)

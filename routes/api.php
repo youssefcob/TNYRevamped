@@ -4,6 +4,7 @@
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\AdminManagementController;
 use App\Http\Controllers\ApplicationsController;
+use App\Http\Controllers\CampaignApplicationController;
 use App\Http\Controllers\Content\HeroController;
 use App\Http\Controllers\Content\StudioWebhookController;
 use App\Http\Controllers\DataMigrationController;
@@ -77,6 +78,11 @@ Route::middleware('auth:api', 'scope:admin')->group(function () {
     Route::post('/update-system-services', [ServiceController::class, 'updateSystemService'])->name('update.systemServices');
     Route::delete('/system-services', [ServiceController::class, 'deleteSystemService'])->name('delete.systemServices');
 
+    // Campaign applications routes
+    Route::get('/campaign-applications', [CampaignApplicationController::class, 'index'])->name('get.campaignApplications');
+    Route::put('/campaign-applications-status', [CampaignApplicationController::class, 'updateStatus'])->name('update.campaignApplications.status');
+    Route::delete('/campaign-applications', [CampaignApplicationController::class, 'destroy'])->name('delete.campaignApplications');
+
     // Service requests routes
     Route::get('/service-requests', [ServiceRequestController::class, 'getServiceRequests'])->name('get.serviceRequests');
     Route::put('/service-requests-status', [ServiceRequestController::class, 'updateServiceRequestStatus'])->name('update.serviceRequests.status');
@@ -128,6 +134,10 @@ Route::group(['prefix' => 'application'], function () {
 
 Route::group(['prefix' => 'request'], function () {
     Route::post('/', [ServiceRequestController::class, 'submit']);
+});
+
+Route::group(['prefix' => 'campaign-application'], function () {
+    Route::post('/', [CampaignApplicationController::class, 'submit']);
 });
 
 // Studio (headless CMS) calls this on publish/unpublish to drop cached articles.

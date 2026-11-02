@@ -40,6 +40,9 @@ Route::get('/employers', [HomeController::class, 'employers'])
 Route::get('/candidates', [HomeController::class, 'candidates'])
     ->name('candidates');
 
+Route::get('/campaigns', [HomeController::class, 'campaigns'])
+    ->name('campaigns');
+
 Route::get('/apply/{position?}', [HomeController::class, 'apply'])
     ->name('apply');
 
