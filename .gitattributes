@@ -9,3 +9,12 @@
 /.github export-ignore
 CHANGELOG.md export-ignore
 .styleci.yml export-ignore
+
+# Never ship these in the Beanstalk source bundle (deploy/eb-deploy.sh uses git archive).
+/tests export-ignore
+/deploy export-ignore
+/README.md export-ignore
+/Procfile export-ignore
+/phpunit.xml export-ignore
+/CLAUDE.md export-ignore
+/.editorconfig export-ignore

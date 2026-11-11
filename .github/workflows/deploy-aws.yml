@@ -1,0 +1,46 @@
+# Deploy to AWS Elastic Beanstalk (production account) — no AWS keys.
+# GitHub mints an OIDC token; AWS trusts it ONLY for pushes/dispatches on the
+# aws-beanstalk branch (the role's trust policy is managed in Terraform:
+# AWS-Terraform-Structure/environments/production/tny.tf). A dispatch from
+# any other branch fails at the credentials step by design.
+#
+# Runs automatically on every push to aws-beanstalk, or by hand from the Actions tab
+# (this file also lives on the default branch so the Actions tab lists it).
+name: Deploy to AWS (Beanstalk)
+
+on:
+  push:
+    branches: [aws-beanstalk]
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: deploy-aws-production
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      # Node 22 = the runtime the instances use for Inertia SSR (AL2023 nodejs22); the Vite
+      # build runs inside deploy/eb-deploy.sh and is shipped in the bundle (the committed
+      # public/build and bootstrap/ssr are replaced).
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_DEPLOY_ROLE_ARN || 'arn:aws:iam::122773994067:role/tny-github-actions' }}
+          aws-region: us-east-1
+
+      - name: Deploy
+        run: deploy/eb-deploy.sh

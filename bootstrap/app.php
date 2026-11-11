@@ -22,6 +22,10 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware) {
+        // Behind the AWS load balancer (TLS terminates there): trust X-Forwarded-* from it, as
+        // Heroku's router/buildpack did, so request()->isSecure() and generated URLs are https.
+        $middleware->trustProxies(at: '*');
+
         $middleware->append(ForceJsonResponse::class);
         $middleware->append(RequestLogger::class);
         $middleware->web(prepend: [
