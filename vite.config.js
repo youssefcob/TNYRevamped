@@ -32,6 +32,13 @@ export default defineConfig({
         }
     },
 
+     // Bundle the SSR entry's dependencies (@inertiajs/vue3, vue, @vue/server-renderer, ...) into
+     // bootstrap/ssr/ssr.js instead of importing them from node_modules at runtime: the AWS
+     // instances run the SSR process without node_modules (the build happens in CI).
+     ssr: {
+        noExternal: true,
+     },
+
      css: {
         preprocessorOptions: {
             scss: {
