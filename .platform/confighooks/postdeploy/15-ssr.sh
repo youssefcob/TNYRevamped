@@ -41,8 +41,9 @@ systemctl daemon-reload
 systemctl enable tny-ssr >/dev/null 2>&1 || true
 systemctl restart tny-ssr
 for _ in $(seq 1 15); do
-  if curl -s -o /dev/null -X POST -H 'Content-Type: application/json' -d '{}' http://127.0.0.1:13714/render; then
-    echo "ssr: tny-ssr.service answering on 127.0.0.1:13714"; exit 0
+  # The Inertia SSR server exposes GET /health ({"status":"OK"}); an empty POST /render would log a fake "Page not found" error.
+  if curl -sf -o /dev/null http://127.0.0.1:13714/health; then
+    echo "ssr: tny-ssr.service healthy on 127.0.0.1:13714"; exit 0
   fi
   sleep 1
 done
