@@ -7,7 +7,7 @@
 #     secret (which rotates weekly and would break a static .env — authorization-system lesson)
 #   - the Google service-account key file the code reads at base_path(GOOGLE_APPLICATION_CREDENTIALS)
 #     (app/Services/GoogleSheets.php, GoogleDrive.php): written from GOOGLE_CREDENTIALS_BASE64 in the
-#     secret, 0640 webapp, and kept OUT of .env (the code's fallback would otherwise rewrite it under storage/)
+#     secret, 0640 webapp; the variable itself also stays in .env for the code's own fallback
 #   - PASSPORT_PRIVATE_KEY / PASSPORT_PUBLIC_KEY: one pair for every instance. Composer runs with
 #     --no-scripts here, so post-install-cmd's `passport:keys` never mints a per-instance pair
 #   - the RDS CA bundle at MYSQL_ATTR_SSL_CA (config/database.php passes it as PDO::MYSQL_ATTR_SSL_CA;
@@ -51,8 +51,12 @@ for k in ("APP_SECRET_ARN", "DB_SECRET_ARN"):
     values.pop(k, None)
 
 # Google service-account key -> the file named by GOOGLE_APPLICATION_CREDENTIALS, at the app root
+# GOOGLE_CREDENTIALS_BASE64 STAYS in .env as well: the code's fallback re-creates the key file
+# under storage/app from it when the base_path() file is not found (a long-running worker
+# putenv()s an absolute path after the first job, which breaks base_path() on the next one —
+# exactly how Heroku ran, where the variable was always present).
 sa_name = values.get("GOOGLE_APPLICATION_CREDENTIALS", "tny-service-account.json")
-b64 = values.pop("GOOGLE_CREDENTIALS_BASE64", None)
+b64 = values.get("GOOGLE_CREDENTIALS_BASE64")
 if b64:
     path = os.path.join(app_dir, sa_name)
     with open(path, "wb") as f:
