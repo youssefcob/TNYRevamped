@@ -23,8 +23,8 @@ const customTags = computed(() => pageMeta.value?.customTags ?? []);
 
 const canonicalUrl = computed(() => {
     const override = pageMeta.value?.canonical;
-    if (!override) return `https://www.tnystaffingco.com${props.path}`;
-    return override.startsWith('http') ? override : `https://www.tnystaffingco.com${override}`;
+    if (!override) return `https://www.tnystaffing.com${props.path}`;
+    return override.startsWith('http') ? override : `https://www.tnystaffing.com${override}`;
 });
 </script>
 

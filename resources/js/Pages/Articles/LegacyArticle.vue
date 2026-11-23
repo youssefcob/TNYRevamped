@@ -26,7 +26,7 @@ function excerpt(text: string | null): string {
 }
 
 const metaDescription = computed(() => props.news.description || excerpt(props.news.content));
-const canonicalUrl = computed(() => `https://www.tnystaffingco.com/articles/${props.news.url}`);
+const canonicalUrl = computed(() => `https://www.tnystaffing.com/articles/${props.news.url}`);
 </script>
 
 <template>
