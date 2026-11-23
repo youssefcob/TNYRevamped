@@ -21,4 +21,4 @@ User-agent: Bard
 Allow: /
 
 # Canonical sitemap reference
-Sitemap: https://tnystaffingco.com/sitemap.xml
+Sitemap: https://tnystaffing.com/sitemap.xml

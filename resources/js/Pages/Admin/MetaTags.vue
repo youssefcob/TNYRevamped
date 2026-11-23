@@ -213,7 +213,7 @@ async function removeCustomTag(tag: PageMetaTag) {
                     <label>
                         Canonical URL override
                         <input v-model="form.canonical" type="text" maxlength="255"
-                            :placeholder="`https://www.tnystaffingco.com${selected.path}`" />
+                            :placeholder="`https://www.tnystaffing.com${selected.path}`" />
                         <span class="meta-tags__hint">Leave blank to use the page's own URL.</span>
                     </label>
 
@@ -233,7 +233,7 @@ async function removeCustomTag(tag: PageMetaTag) {
                         <span class="meta-tags__preview-label">Search preview</span>
                         <div class="meta-tags__preview-box">
                             <p class="meta-tags__preview-title">{{ effectiveTitle }}</p>
-                            <p class="meta-tags__preview-url">tnystaffingco.com{{ selected.path }}</p>
+                            <p class="meta-tags__preview-url">tnystaffing.com{{ selected.path }}</p>
                             <p class="meta-tags__preview-desc">{{ effectiveDescription }}</p>
                         </div>
                     </div>

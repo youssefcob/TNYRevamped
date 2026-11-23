@@ -32,7 +32,7 @@ provide('pageContent', props.pageContent ?? {});
   <PageMeta page="home" path="/"
     default-title="Therapy Staffing Agency in NYC | TNY Staffing Corporation"
     default-description="TNY Staffing connects NY healthcare facilities with credentialed therapy professionals (PT, OT, SLP). Fast 24h placements for hospitals, schools, and clinics."
-    default-og-image="https://www.tnystaffingco.com/images/tnylogo.png" />
+    default-og-image="https://www.tnystaffing.com/images/tnylogo.png" />
 
   <LayoutV2>
     <HeroSection />

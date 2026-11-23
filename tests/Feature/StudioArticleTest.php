@@ -112,6 +112,18 @@ class StudioArticleTest extends TestCase
         $this->get('/articles/sample')->assertNotFound();
     }
 
+    public function test_a_row_without_a_studio_article_falls_back_to_its_stored_content(): void
+    {
+        $this->entry('legacy', ['content' => '<p>Stored body</p>']);
+        Http::fake(['studio.test/*' => Http::response(['error' => 'Not found'], 404)]);
+
+        $this->get('/articles/legacy')
+            ->assertOk()
+            ->assertInertia(fn (Assert $page) => $page
+                ->component('Articles/LegacyArticle')
+                ->where('news.content', '<p>Stored body</p>'));
+    }
+
     public function test_old_news_urls_redirect_to_the_new_ones(): void
     {
         $this->get('/news/sample')->assertStatus(301)->assertRedirect('/articles/sample');

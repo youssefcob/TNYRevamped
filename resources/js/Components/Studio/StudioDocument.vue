@@ -30,7 +30,7 @@ function esc(value: string | null): string {
 const title = computed(() => esc(props.document.title) || esc(props.fallbackTitle));
 const description = computed(() => esc(props.document.description || props.fallbackDescription));
 const image = computed(() => esc(props.image));
-const canonicalUrl = computed(() => `https://www.tnystaffingco.com${props.path}`);
+const canonicalUrl = computed(() => `https://www.tnystaffing.com${props.path}`);
 const jsonLd = computed(() => props.document.jsonLd.map((entry) => JSON.stringify(entry).replace(/</g, '\\u003c')));
 
 // The block runtime is progressive enhancement only: load it once per
